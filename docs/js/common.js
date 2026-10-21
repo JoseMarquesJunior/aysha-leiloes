@@ -38,8 +38,9 @@
   const NOMES_FONTES = {
     caixa: "Caixa", banestes: "Banestes", bandes: "Bandes", spu: "SPU (União)", resale: "Resale", jfes: "Justiça Federal (JFES)",
     "leiloeiro-emleilao": "Em Leilão (Ayrton Porto Filho)", "leiloeiro-buaiz": "Buaiz Leilões", "leiloeiro-esleiloes": "ES Leilões (Sérgio de Paula)",
-    "leiloeiro-vix": "VIX Leilões (Gabriel Fardin)", "leiloeiro-colodete": "Colodete Leilões (Mauro Colodete)", "leiloeiro-hd": "HD Leilões",
-    suporteleiloes: "Leiloeiros (Em Leilão, Buaiz, ES Leilões)", vixleiloes: "VIX Leilões", colodete: "Colodete Leilões", hdleiloes: "HD Leilões",
+    "leiloeiro-vix": "VIX Leilões (Gabriel Fardin)", "leiloeiro-colodete": "Colodete Leilões (Mauro Colodete)", "leiloeiro-hd": "HD Leilões (Hidirlene Duszeiko)",
+    "leiloeiro-suedpeter": "Sued Peter Leilões",
+    suporteleiloes: "Leiloeiros (Em Leilão, Buaiz, ES Leilões, Sued Peter)", vixleiloes: "VIX Leilões", colodete: "Colodete Leilões", hdleiloes: "HD Leilões",
   };
   function nomeFonte(f) { return NOMES_FONTES[f] || (f ? f.replace(/^leiloeiro-/, "Leiloeiro: ") : TRACO); }
 

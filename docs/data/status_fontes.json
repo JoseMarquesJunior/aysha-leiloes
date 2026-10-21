@@ -5,7 +5,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://venda-imoveis.caixa.gov.br/",
-  "duracao_s": 4.8,
+  "duracao_s": 4.5,
   "info": {
    "data_geracao": "2026-10-20",
    "por_uf": {
@@ -22,7 +22,7 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-21T14:01:26",
+  "ultima_execucao": "2026-10-21T12:28:27",
   "data_coleta": "2026-10-21"
  },
  "banestes": {
@@ -31,7 +31,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.banestes.com.br/publicacoes_legais/leilao-bem-imovel.html",
-  "duracao_s": 2.5,
+  "duracao_s": 2.1,
   "info": {
    "total_editais_imoveis": 9
   }
@@ -42,7 +42,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.bandes.com.br/Site/Dinamico/Show/978/Leilao-de-Imoveis",
-  "duracao_s": 4.1,
+  "duracao_s": 4.0,
   "info": {
    "arquivos_com_texto": 6
   }
@@ -53,7 +53,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://imoveis.vendasgov.serpro.gov.br/",
-  "duracao_s": 2.8,
+  "duracao_s": 2.9,
   "info": {
    "venda": 1,
    "leilao": 3
@@ -62,25 +62,27 @@
  "jfes": {
   "ultima_coleta_ok": "2026-10-21",
   "registros": 40,
-  "ultimo_erro": null,
+  "ultimo_erro": "2026-10-21: HTTPError: HTTP 503",
   "ativa": true,
   "site": "https://www.trf2.jus.br/jfes/transparencia/listagem",
   "duracao_s": 10.5,
   "info": {
    "artigos": 10
-  }
+  },
+  "ultima_tentativa": "2026-10-21"
  },
  "suporteleiloes": {
   "ultima_coleta_ok": "2026-10-21",
-  "registros": 25,
+  "registros": 59,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.emleilao.com.br/",
-  "duracao_s": 71.0,
+  "duracao_s": 172.1,
   "info": {
    "emleilao": 25,
    "buaiz": 0,
-   "esleiloes": 0
+   "esleiloes": 0,
+   "suedpeter": 34
   }
  },
  "vixleiloes": {
@@ -89,7 +91,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.vixleiloes.com.br/",
-  "duracao_s": 82.4,
+  "duracao_s": 83.5,
   "info": {
    "leiloes_abertos": 34,
    "lotes_vistos": 1
@@ -98,10 +100,10 @@
  "colodete": {
   "ultima_coleta_ok": "2026-10-21",
   "registros": 5,
-  "ultimo_erro": "2026-10-21: HTTPError: 403 Client Error: Forbidden for url: https://www.colodeteleiloes.com.br/leiloes",
+  "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.colodeteleiloes.com.br/",
-  "duracao_s": 28.7,
+  "duracao_s": 28.6,
   "info": {
    "leiloes": 8,
    "lotes_vistos": 30
@@ -109,10 +111,16 @@
   "ultima_tentativa": "2026-10-21"
  },
  "hdleiloes": {
-  "ultima_coleta_ok": null,
-  "registros": 0,
-  "ultimo_erro": "fonte desativada no config",
-  "ativa": false,
-  "site": "https://www.hdleiloes.com.br/"
+  "ultima_coleta_ok": "2026-10-21",
+  "registros": 150,
+  "ultimo_erro": null,
+  "ativa": true,
+  "site": "https://www.hdleiloes.com.br/",
+  "duracao_s": 10.3,
+  "info": {
+   "leiloes": 29,
+   "ES": 150,
+   "MG": 0
+  }
  }
 }

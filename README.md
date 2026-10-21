@@ -57,6 +57,15 @@ python -m http.server 8765 --directory docs   # abrir http://localhost:8765/
 A primeira execução geocodifica tudo (cerca de 1 s por consulta; até 3 consultas por imóvel). As seguintes
 só consultam imóveis novos, porque `collector/cache/geo.json` é commitado.
 
+### Coleta local das fontes bloqueadas no CI
+
+Sites que devolvem 403 ao IP do GitHub Actions (hoje só o Colodete) ficam com `bloqueado_no_ci: true` no
+config e o Action os pula. `scripts/coleta-local.ps1` faz `git pull`, roda `python -m collector.main
+--fontes <essas fontes>` e commita/envia os dados; na máquina do mantenedor ele está registrado no
+Agendador de Tarefas do Windows como "aysha-leiloes coleta local", diário às 07:30 (depois da coleta do
+Action, às 06:00), com log em `coleta-local.log`. O coletor mantém os registros das fontes que não rodam
+numa execução parcial e deduplica os novos contra eles.
+
 ## Fontes
 
 Inspeção feita em 2026-10-21 (robots.txt, termos de uso e estrutura real de cada site). Nenhuma URL foi inventada:
@@ -72,10 +81,12 @@ as que não foram encontradas estão marcadas.
 | Em Leilão, Buaiz, ES Leilões (`sources/suporteleiloes.py`) | **ativa** | Leiloeiros do ES na plataforma Suporte Leilões: Ayrton de Souza Porto Filho (emleilao.com.br, JUCEES 058/2014; conduz Caixa e Banestes em 2026), Alexandre Buaiz Neto (buaizleiloes.com.br; hoje só veículos) e Sérgio de Paula Pereira (esleiloes.com.br, JUCEES 008/1984). `GET /buscador?uf=<UF>&page=N` lista os lotes; a página do lote embute `var lote = {...}` com avaliação, lance, datas e documentos. Robots: sem restrição a HTML. |
 | VIX Leilões (`sources/vixleiloes.py`) | **ativa** | Gabriel Fardin Pereira (vixleiloes.com.br, JUCEES 055/2013), citado no site do Banestes; leilões judiciais do TJES. Páginas `/leiloes?status=...` → leilão → lote com JSON-LD (schema.org/Product). Robots proíbe só `/api/` e `/login`. |
 | Colodete Leilões (`sources/colodete.py`) | **ativa, só local** | Mauro Colodete (colodeteleiloes.com.br, JUCEES 051/2006). Plataforma própria: `/leiloes` → `/leilao/<id>/lotes` → `/item/<id>/detalhes` (comissão, avaliação, datas, PDF da matrícula). Robots: `Allow: /` com `Content-Signal: search=yes, ai-train=no`. O site devolve **403 a IPs de datacenter** (GitHub Actions), então está marcada `bloqueado_no_ci` e é coletada da máquina do mantenedor com `python -m collector.main --fontes colodete` (os registros antigos são mantidos enquanto a fonte não roda). |
-| HD Leilões (`sources/hdleiloes.py`) | esqueleto desativado | Hidirlene Duszeiko (hdleiloes.com.br), leiloeira dos leilões da JFES. 166 imóveis no ES segundo a API de filtros, mas a busca só responde a POST montado por JS e os Termos de Uso (Zendesk) devolvem 403 ao robô: sem ler os termos, não coletamos. Os lotes judiciais federais entram pelo módulo `jfes`. |
+| HD Leilões (`sources/hdleiloes.py`) | **ativa** | Hidirlene Duszeiko (hdleiloes.com.br), leiloeira dos leilões unificados da JFES e de varas estaduais. A SPA consome uma API JSON própria sem autenticação: `POST /core/api/get-lotes` (tipo=3 Imóveis, estado=UF, 40 por página) e `GET /core/api/get-leiloes` (datas do 2º leilão). Os Termos de Uso ficam num Zendesk que devolve 403 ao robô; o mantenedor leu e autorizou o uso por POST em 2026-10-21. Cada lote traz laudo de avaliação, matrícula e edital em PDF (só os links). Os mesmos imóveis aparecem nos PDFs da JFES e a deduplicação os junta. |
 | Resale (`sources/resale.py`) | esqueleto desativado | Os Termos de Uso de resale.com.br (12/09/2025) vedam expressamente "engenharia reversa, scraping ou mineração de dados" e a reprodução do conteúdo. Não há API pública nem feed (sitemap só com páginas institucionais). Não será implementada. |
 | TRT-17 (Justiça do Trabalho no ES) | não viável | `trt17.jus.br` devolve 403 (CloudFront) ao User-Agent do projeto, inclusive na página de serviços. Não encontramos página central de leilões nem lista de leiloeiros. |
-| TJES (Justiça Estadual) | sem página central | Os editais de leilão judicial saem só no Ediário (diário oficial, que não raspamos) e cada um indica o leiloeiro. Leiloeiros vistos em editais do TJES: Colodete, Buaiz, VIX, Sued Peter (suedpeterleiloes.com.br, ainda não inspecionado), Luiz Lessa (luizlessa.lel.br, ainda não inspecionado). |
+| Sued Peter Leilões | **ativa** (via `suporteleiloes`) | suedpeterleiloes.com.br está na plataforma Suporte Leilões, então entrou na lista de sites do adaptador (`slug: suedpeter`). Conduz leilões de varas cíveis, juizados e Justiça do Trabalho no ES; a maior parte dos lotes é de bens móveis, filtrados pela categoria. |
+| Luiz Lessa | não encontrado | O domínio luizlessa.lel.br, citado na página do Banestes, não resolve no DNS (2026-10-21). |
+| TJES (Justiça Estadual) | sem página central | Os editais de leilão judicial saem só no Ediário (diário oficial, que não raspamos) e cada um indica o leiloeiro. Leiloeiros vistos em editais do TJES: Colodete, Buaiz, VIX, Sued Peter e HD, todos cobertos. |
 | JUCEES (lista de leiloeiros) | não encontrada | `leiloeiros.jucees.es.gov.br/leiloeiros` devolve 404; a lista oficial de 2024 tinha 42 leiloeiros. |
 | Leiloeiros nacionais (Zuk, Mega, Sodré Santoro, Superbid, Leilão Vip, Frazão) | não iniciadas | Só depois de tudo acima estável, no máximo dois. |
 

@@ -231,7 +231,7 @@ def _bairro(descricao: str, item: dict) -> str | None:
     return titulo(cauda[0])
 
 
-_PALAVRAS_IMOVEL = re.compile(r"\b(apartamento|casa|terreno|lote(?!s?\s*\d)|gleba|im[óo]vel|sala|loja|galp[ãa]o|pr[ée]dio|rural|ch[áa]cara|s[íi]tio|fazenda|comercial|kitnet|cobertura|sobrado|box|garagem|edif[íi]c)\b", re.I)
+_PALAVRAS_IMOVEL = re.compile(r"\b(apartamentos?|casas?|terrenos?|lotes?(?!\s*\d)|glebas?|im[óo]ve(?:l|is)|salas?|lojas?|galp[ãa]o|galp[õo]es|pr[ée]dios?|rural|rurais|ch[áa]caras?|s[íi]tios?|fazendas?|comercia(?:l|is)|kitnet|cobertura|sobrados?|box|garagem|edif[íi]c|vaga de garagem)\b", re.I)
 _PALAVRAS_NAO_IMOVEL = re.compile(r"\b(ve[íi]culo|autom[óo]vel|caminh[ãa]o|motocicleta|moto\b|placa|chassi|renavam|sucata|trator|m[áa]quina|equipamento|mobili[áa]rio|computador|impressora|semovente|bovino|cadeira|mesa)\b", re.I)
 
 

@@ -62,6 +62,13 @@ def test_normalizar_tipo():
     assert normalizar_tipo("Sala") == "comercial"
     assert normalizar_tipo("Prédio") == "comercial"
     assert normalizar_tipo("Imóvel") == "outro"
+    # subcategorias no plural (HD Leilões, Sued Peter)
+    assert normalizar_tipo("Comerciais") == "comercial"
+    assert normalizar_tipo("Industriais") == "comercial"
+    assert normalizar_tipo("Terrenos e lotes") == "terreno"
+    assert normalizar_tipo("Fazendas, sítios e chácaras") == "rural"
+    assert normalizar_tipo("Apartamentos") == "apartamento"
+    assert normalizar_tipo("Casas") == "casa"
     assert normalizar_tipo(None) is None
 
 

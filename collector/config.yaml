@@ -58,6 +58,9 @@ fontes:
       - slug: esleiloes
         url: "https://www.esleiloes.com.br"
         leiloeiro: "Sérgio de Paula Pereira (ES Leilões, JUCEES 008/1984)"
+      - slug: suedpeter
+        url: "https://www.suedpeterleiloes.com.br"
+        leiloeiro: "Sued Peter (Sued Peter Leilões)"
   vixleiloes:
     ativa: true
   colodete:
@@ -66,8 +69,8 @@ fontes:
     #   python -m collector.main --fontes colodete
     bloqueado_no_ci: true
   hdleiloes:
-    # Desativada: termos de uso inacessíveis ao robô e busca só por POST (ver docstring do módulo).
-    ativa: false
+    # API JSON própria (POST /core/api/get-lotes); uso por POST confirmado pelo mantenedor em 2026-10-21.
+    ativa: true
   resale:
     # Desativada: os Termos de Uso (12/09/2025) proíbem scraping e mineração de dados (ver README).
     ativa: false

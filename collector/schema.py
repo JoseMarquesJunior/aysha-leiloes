@@ -47,15 +47,15 @@ def normalizar_tipo(texto: str | None) -> str | None:
     if not texto:
         return None
     t = sem_acentos(texto).lower().strip()
-    if re.search(r"\b(apartamento|apto|ap\b|cobertura|kitnet|flat|studio|loft)", t):
+    if re.search(r"\b(apartamentos?|apto|ap\b|coberturas?|kitnet|flat|studio|loft)", t):
         return "apartamento"
-    if re.search(r"\b(casa|sobrado|residencia|residencial)", t):
-        return "casa"
-    if re.search(r"\b(terreno|lote|gleba|area\b)", t):
-        return "terreno" if not re.search(r"\b(rural|chacara|sitio|fazenda)", t) else "rural"
-    if re.search(r"\b(chacara|sitio|fazenda|rural|haras)", t):
+    if re.search(r"\b(chacaras?|sitios?|fazendas?|rural|rurais|haras)\b", t) and not re.search(r"\b(casa|sobrado)\b", t):
         return "rural"
-    if re.search(r"\b(loja|sala|galpao|comercial|predio|escritorio|box|garagem|vaga|hotel|pousada|imovel comercial|barracao|deposito)", t):
+    if re.search(r"\b(casas?|sobrados?|residencia|residencial)\b", t):
+        return "casa"
+    if re.search(r"\b(terrenos?|lotes?|glebas?|area\b)", t):
+        return "terreno" if not re.search(r"\b(rural|chacara|sitio|fazenda)", t) else "rural"
+    if re.search(r"\b(lojas?|salas?|galpao|galpoes|comercia(?:l|is)|industria(?:l|is)|predios?|escritorios?|box|garagem|vagas?|hotel|pousada|barracao|deposito)", t):
         return "comercial"
     return "outro"
 

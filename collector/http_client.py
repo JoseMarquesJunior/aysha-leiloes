@@ -110,6 +110,32 @@ class ClienteHTTP:
         raise erro
 
 
+    def post(self, url: str, *, data: dict | None = None, json: dict | None = None,
+             intervalo: float | None = None) -> requests.Response:
+        """POST de formulário/JSON para APIs de sites (mesmo ritmo, timeout e tentativas do GET). Só para
+        endpoints cujo uso foi verificado (ver docstring de cada fonte); nunca envia dados pessoais."""
+        dominio = urlparse(url).netloc
+        erro: Exception | None = None
+        for tentativa in range(1, self.tentativas + 1):
+            self._esperar(dominio, intervalo)
+            try:
+                r = self.sessao.post(url, data=data, json=json, timeout=self.timeout)
+                if any(m in r.content[:4000] for m in MARCAS_CAPTCHA):
+                    raise BloqueadoPorCaptcha(f"CAPTCHA anti-robô em {url}")
+                if r.status_code in (429, 500, 502, 503, 504):
+                    raise requests.HTTPError(f"HTTP {r.status_code}", response=r)
+                r.raise_for_status()
+                return r
+            except (requests.RequestException, BloqueadoPorCaptcha) as e:
+                erro = e
+                espera = 5 * (3 ** (tentativa - 1))
+                log.warning("tentativa %d/%d falhou para POST %s: %s (aguardando %ds)", tentativa, self.tentativas, url, e, espera)
+                if tentativa < self.tentativas:
+                    time.sleep(espera)
+        assert erro is not None
+        raise erro
+
+
 def cliente_do_config(config: dict) -> ClienteHTTP:
     h = config.get("http", {})
     return ClienteHTTP(

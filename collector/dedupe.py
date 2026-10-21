@@ -106,11 +106,14 @@ def deduplicar(registros: list[dict], prioridades: dict | None = None) -> list[d
                     usados[j] = True
             bloco.sort(key=lambda r: (_prioridade(r, prioridades), r.get("fonte") or "", r.get("id") or ""))
             principal = bloco[0]
-            outras = list(principal.get("outras_fontes") or [])
+            outras = [o for o in (principal.get("outras_fontes") or []) if o.get("id") not in {x.get("id") for x in bloco[1:]}]
             for o in bloco[1:]:
                 outras.append({"fonte": o.get("fonte"), "id": o.get("id"), "url_anuncio": o.get("url_anuncio"),
                                "valor_minimo": o.get("valor_minimo"), "modalidade": o.get("modalidade"),
                                "leiloeiro": o.get("leiloeiro")})
+                for x in o.get("outras_fontes") or []:  # duplicata que já agregava outras ocorrências
+                    if x.get("id") not in {y.get("id") for y in outras} and x.get("id") != principal.get("id"):
+                        outras.append(x)
                 # campos que a fonte principal não tem, mas a secundária tem, completam o principal
                 for k, v in o.items():
                     if k in principal and principal[k] is None and v is not None and k not in ("id", "fonte", "url_anuncio"):

@@ -163,3 +163,33 @@ def test_dedupe_aceita_sufixo_de_bairro_no_endereco():
     assert sao_duplicatas(a, b)
     c = dict(b, endereco="RUA MONTE CASTELO, N. 14")  # prefixo curto demais
     assert not sao_duplicatas(a, c)
+
+
+def test_hdleiloes_lote():
+    import json
+    from collector.sources import hdleiloes
+    lotes = json.loads(_ler("hd_lotes.json"))["items"]
+    leiloes = hdleiloes.indexar_leiloes(json.loads(_ler("hd_leiloes.json"))["items"])
+    com_anexo = next(it for it in lotes if it.get("anexos"))
+    r = hdleiloes.registro_de_lote(com_anexo, leiloes.get(com_anexo["leilao_id"]))
+    assert r["id"] == f"hd-{com_anexo['lote_id']}"
+    assert r["fonte"] == "leiloeiro-hd"
+    assert r["uf"] == "ES" and r["cidade"]
+    assert r["url_anuncio"] == f"https://www.hdleiloes.com.br/leilao/index/leilao_id/{com_anexo['leilao_id']}/lote/{com_anexo['lote_id']}"
+    assert r["url_matricula"] and r["url_matricula"].endswith(".pdf")
+    assert r["valor_minimo"] and r["valor_minimo"] > 0
+    assert r["data_leilao"] and len(r["data_leilao"]) == 10
+    assert "<" not in (r["descricao_original"] or "")  # HTML removido
+    assert r["leiloeiro"].startswith("Hidirlene")
+    assert r["natureza"] in ("leilão judicial", "leilão extrajudicial", "venda direta")
+    judicial = next(it for it in lotes if "JUSTIÇA" in (it.get("nm_titulo_leilao") or ""))
+    rj = hdleiloes.registro_de_lote(judicial, leiloes.get(judicial["leilao_id"]))
+    assert rj["natureza"] == "leilão judicial"
+    # 1º leilão judicial = 100 % da avaliação; o lance mínimo atual pode já ser o do 2º leilão
+    assert rj["valor_avaliacao"] == hdleiloes._valor(judicial["vl_lanceinicial"])
+    assert rj["valor_minimo"] == hdleiloes._valor(judicial["vl_lanceminimo"])
+    if rj["valor_minimo"] < rj["valor_avaliacao"]:
+        assert rj["modalidade"].startswith("2º leilão") and rj["desconto_pct"] > 0
+    assert rj["numero_processo"] and "." in rj["numero_processo"]
+    if judicial.get("vl_lanceinicialsegundoleilao"):
+        assert rj["data_segunda_praca"] and "Lance inicial 2º leilão" in rj["descricao_original"]

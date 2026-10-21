@@ -10,3 +10,6 @@ venv/
 .env
 .DS_Store
 Thumbs.db
+
+# log da coleta local agendada
+coleta-local.log

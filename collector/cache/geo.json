@@ -11,6 +11,12 @@
 "nome": "Aeroporto, Varginha, Minas Gerais, Região Sudeste, Brasil",
 "tipo": "neighbourhood"
 },
+"agua doce do norte, es, brasil": {
+"lat": -18.5189426,
+"lng": -40.9718881,
+"nome": "Água Doce do Norte, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "alameda colonial, 95, recanto das torres, uberaba, mg, brasil": null,
 "alameda de rondon, 166, vargem do lobo, lagoa santa, mg, brasil": null,
 "alameda diamante azul, 0, sitios recreio res, uberlandia, mg, brasil": null,
@@ -43,6 +49,12 @@
 "lat": -20.7280805,
 "lng": -41.4966705,
 "nome": "Alegre, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"alfredo chaves, es, brasil": {
+"lat": -20.5675096,
+"lng": -40.8256038,
+"nome": "Alfredo Chaves, Espírito Santo, Região Sudeste, 29240-000, Brasil",
 "tipo": "municipality"
 },
 "alfredo freire iv, uberaba, mg, brasil": {
@@ -559,6 +571,12 @@
 "nome": "Bandeirinhas, Regional Sede, Betim, Minas Gerais, Região Sudeste, Brasil",
 "tipo": "suburb"
 },
+"barra de sao francisco, es, brasil": {
+"lat": -18.7570902,
+"lng": -40.8916119,
+"nome": "Barra de São Francisco, Espírito Santo, Região Sudeste, 29800-000, Brasil",
+"tipo": "town"
+},
 "barra, muriae, mg, brasil": {
 "lat": -21.129679,
 "lng": -42.3728608,
@@ -731,6 +749,12 @@
 "lng": -42.140533,
 "nome": "Caratinga, Minas Gerais, Região Sudeste, Brasil",
 "tipo": "town"
+},
+"cariacica, es, brasil": {
+"lat": -20.3073355,
+"lng": -40.4415367,
+"nome": "Cariacica, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
 },
 "carmo da mata, mg, brasil": {
 "lat": -20.558334,
@@ -1126,6 +1150,12 @@
 "nome": "Granjas Primavera, Vila Bispo de Maura, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33937-050, Brasil",
 "tipo": "neighbourhood"
 },
+"guacui, es, brasil": {
+"lat": -20.7718645,
+"lng": -41.6754813,
+"nome": "Guaçuí, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "town"
+},
 "guarapari, es, brasil": {
 "lat": -20.6116873,
 "lng": -40.5304338,
@@ -1430,6 +1460,12 @@
 "nome": "Rua da Liberdade, Santa Luzia, Barbacena, Minas Gerais, Região Sudeste, 36204-116, Brasil",
 "tipo": "residential"
 },
+"linhares, es, brasil": {
+"lat": -19.341076,
+"lng": -39.9483354,
+"nome": "Linhares, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "lot cidade verde ii, uberlandia, mg, brasil": null,
 "lot morada da garca, matias barbosa, mg, brasil": null,
 "lot recanto verde, areado, mg, brasil": null,
@@ -1650,6 +1686,12 @@
 "tipo": "residential"
 },
 "palmeiras imperiais, planura, mg, brasil": null,
+"pancas, es, brasil": {
+"lat": -19.1485464,
+"lng": -40.818215,
+"nome": "Pancas, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "paraguacu, mg, brasil": {
 "lat": -21.547222,
 "lng": -45.7375,
@@ -1765,6 +1807,12 @@
 "nome": "Pratápolis, Minas Gerais, Região Sudeste, 37970-000, Brasil",
 "tipo": "village"
 },
+"presidente kennedy, es, brasil": {
+"lat": -21.0998837,
+"lng": -41.045038,
+"nome": "Presidente Kennedy, Espírito Santo, Região Sudeste, 29350-000, Brasil",
+"tipo": "municipality"
+},
 "presidente, matozinhos, mg, brasil": {
 "lat": -19.5753119,
 "lng": -44.0660988,
@@ -1861,6 +1909,12 @@
 "lng": -44.0875436,
 "nome": "Ribeirão das Neves, Minas Gerais, Região Sudeste, Brasil",
 "tipo": "city"
+},
+"rio bananal, es, brasil": {
+"lat": -19.221566,
+"lng": -40.3061751,
+"nome": "Rio Bananal, Espírito Santo, Região Sudeste, 29920-000, Brasil",
+"tipo": "municipality"
 },
 "rodeiro, mg, brasil": {
 "lat": -21.200278,
@@ -3647,6 +3701,12 @@
 "lng": -47.9084631,
 "nome": "Rua Valter de Assis Vallim, Valim de Mello, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
 "tipo": "residential"
+},
+"vargem alta, es, brasil": {
+"lat": -20.6479372,
+"lng": -40.9969459,
+"nome": "Vargem Alta, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
 },
 "vargem do lobo, lagoa santa, mg, brasil": null,
 "varginha, mg, brasil": {

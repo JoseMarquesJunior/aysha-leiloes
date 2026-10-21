@@ -177,17 +177,25 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
     # 2. regex + derivados
     aplicar_regex(registros)
 
-    # 3. deduplicação
-    antes = len(registros)
-    registros = deduplicar(registros, config.get("prioridade_fontes", {}))
-    log.info("deduplicação: %d -> %d", antes, len(registros))
-
-    # 4. histórico (compara com a base anterior; fontes que falharam ou não rodaram mantêm seus registros)
+    # 3. deduplicação — o conjunto inclui os registros ativos das fontes que não rodaram nesta execução
+    #    (falha ou --fontes), para que um lote novo de leiloeiro ainda case com um imóvel antigo da Caixa
     anteriores = carregar_base_anterior(pasta)
-    atuais = {r["id"]: r for r in registros}
+    novos_ids = {r["id"] for r in registros}
+    mantidos = []
     for id_, velho in anteriores.items():
-        if id_ not in atuais and velho.get("fonte") not in fontes_ok and velho.get("ativo", True):
-            atuais[id_] = velho  # fonte não coletada hoje: não marcar como removido
+        if id_ not in novos_ids and velho.get("fonte") not in fontes_ok and velho.get("ativo", True):
+            velho = dict(velho)
+            velho["outras_fontes"] = [o for o in velho.get("outras_fontes") or [] if o.get("fonte") not in fontes_ok]
+            mantidos.append(velho)
+    antes = len(registros) + len(mantidos)
+    registros = deduplicar(registros + mantidos, config.get("prioridade_fontes", {}))
+    log.info("deduplicação: %d -> %d (%d mantidos de fontes não coletadas)", antes, len(registros), len(mantidos))
+
+    # 4. histórico (compara com a base anterior); um registro absorvido como duplicata de outro
+    #    (está em `outras_fontes` de um principal) não é "removido" nem fica como inativo
+    atuais = {r["id"]: r for r in registros}
+    absorvidos = {o.get("id") for r in registros for o in r.get("outras_fontes") or []}
+    anteriores = {k: v for k, v in anteriores.items() if k not in absorvidos}
     eventos = hist.comparar(anteriores, atuais, hoje)
     base = hist.fundir_com_anteriores(anteriores, atuais, hoje, config["saida"].get("dias_retencao_removidos", 90))
     registros = list(base.values())
