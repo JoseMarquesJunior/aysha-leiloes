@@ -1,0 +1,34 @@
+{
+ "hash": "c4f266197002003db66b41b7",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-21T17:07:02",
+ "lote": "msgbatch_01Fbq4YaCveRd9eTWacHDD6T",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora"
+  ],
+  "alertas": [
+   "Imóvel penhorado em execução judicial; verificar matrícula 7610 antes de arrematar.",
+   "Sinal de 20% do valor do lance exigido para garantir o lanço.",
+   "Coproprietários e usufrutuários foram intimados; verificar eventuais direitos de terceiros.",
+   "Ocupação do imóvel não informada no trecho; risco de posse irregular."
+  ],
+  "trechos_fonte": {
+   "aceita_financiamento": "Caso queira adquirir o(s) bem(ns) penhorado(s) em prestações poderá apresentar a proposta de aquisição por escrito, na forma do art. 895",
+   "comissao_leiloeiro_pct": "Nas hipóteses abaixo descritas, arbitra-se a comissão do leiloeiro a ser depositada em guia judicial na Caixa Econômica Federal ou Banco do Brasil",
+   "onus_na_matricula": "Bem(ns) penhorado(s): imóvel matrícula 7610, situado na Rua Linhares, lote 09, quadra A, [nome], Vila de Nova Almeida, Serra, ES, registrado no Cartório 1° OFÍCIO"
+  }
+ },
+ "uso": {
+  "entrada": 1014,
+  "saida": 561,
+  "cache_lido": 0,
+  "cache_criado": 1425
+ }
+}

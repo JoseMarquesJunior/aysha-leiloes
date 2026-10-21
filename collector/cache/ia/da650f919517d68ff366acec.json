@@ -1,0 +1,34 @@
+{
+ "hash": "da650f919517d68ff366acec",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-21T17:07:02",
+ "lote": "msgbatch_01Fbq4YaCveRd9eTWacHDD6T",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": "comprador",
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora"
+  ],
+  "alertas": [
+   "Bem penhorado em execução judicial trabalhista",
+   "Lance com sinal de 20% do valor do lance",
+   "Débitos de IPTU e condomínio anteriores à arrematação sub-rogam-se no preço, mas conforme texto o adquirente fica isento de débitos tributários propter rem",
+   "Executada não pode obstruir vistoria ou remoção do bem"
+  ],
+  "trechos_fonte": {
+   "debitos_iptu_por_conta_de": "Considerando que os débitos de natureza tributária (IPTU) e as obrigações (contribuições condominiais) incidentes sobre imóveis objetopropter rem de arrematação e constituídos até a data da arremataçã",
+   "debitos_condominio_por_conta_de": "Considerando que os débitos de natureza tributária (IPTU) e as obrigações (contribuições condominiais) incidentes sobre imóveis objetopropter rem de arrematação e constituídos até a data da arremataçã",
+   "onus_na_matricula": "Bem(ns) penhorado(s): 1 (uma) [nome] “[nome]”"
+  }
+ },
+ "uso": {
+  "entrada": 1252,
+  "saida": 574,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

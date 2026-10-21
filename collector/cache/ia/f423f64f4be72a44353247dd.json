@@ -1,0 +1,33 @@
+{
+ "hash": "f423f64f4be72a44353247dd",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-21T17:07:02",
+ "lote": "msgbatch_01Fbq4YaCveRd9eTWacHDD6T",
+ "resultado": {
+  "ocupado": false,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Imóvel desocupado com necessidade de reparos (fiação aparente, quadro de disjuntores sem tampa, resíduos de cupins).",
+   "Matrícula e ônus não detalhados; ônus 'Outros eventuais' e matrícula disponível apenas se constar no processo.",
+   "Pagamento do lance à vista ou parcelado com 25% de entrada e caução/hipoteca do próprio bem.",
+   "Comissão do leiloeiro de 5% paga pelo arrematante em até 24 horas.",
+   "Débitos de IPTU e condomínio não informados no trecho analisado; verificar antes do lance."
+  ],
+  "trechos_fonte": {
+   "ocupado": "DESOCUPADO. PERMANECE EM PADRÃO ORIGINAL DE ACABAMENTO, COM PISO DE TACOS NA ÁREA SECA E REVESTIMENTO CERÂMICO NA ÁREA",
+   "comissao_leiloeiro_pct": "PAGAMENTO DO LEILOEIRO: O arrematante pagará à vista, em até 24 horas a partir da data do encerramento do leilão por meio de depósito bancário, a comissão de 5% sobre o valor da arrematação",
+   "onus_na_matricula": "ÔNUS: Outros eventuais. Matrícula do imóvel será disponibilizada no site do leilão, caso o imóvel possua ou esteja disponível no processo."
+  }
+ },
+ "uso": {
+  "entrada": 3221,
+  "saida": 645,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

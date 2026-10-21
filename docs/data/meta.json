@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-10-21T16:49:00",
+ "gerado_em": "2026-10-21T17:07:02",
  "data_coleta": "2026-10-21",
  "arquivos": [
   "imoveis.json"
@@ -49,13 +49,13 @@
   "modalidade": 0.0,
   "data_leilao": 76.3,
   "data_segunda_praca": 82.9,
-  "ocupado": 99.1,
+  "ocupado": 99.0,
   "aceita_financiamento": 22.7,
-  "aceita_fgts": 100.0,
+  "aceita_fgts": 99.8,
   "aceita_parcelamento": 79.9,
-  "debitos_iptu_por_conta_de": 100.0,
-  "debitos_condominio_por_conta_de": 100.0,
-  "comissao_leiloeiro_pct": 95.7,
+  "debitos_iptu_por_conta_de": 99.9,
+  "debitos_condominio_por_conta_de": 99.8,
+  "comissao_leiloeiro_pct": 95.1,
   "matricula": 95.8,
   "numero_processo": 82.2,
   "comitente": 75.2,
@@ -64,6 +64,6 @@
   "primeira_vez_visto": 0.0,
   "ultima_vez_visto": 0.0,
   "ativo": 0.0,
-  "extracao_ia": 100.0
+  "extracao_ia": 99.2
  }
 }

@@ -35,10 +35,35 @@
    "custo_previsto": true,
    "lote_id": "msgbatch_01XS6treEJWjJZTdp17CQ2vF",
    "lotes_pendentes": []
+  },
+  {
+   "tipo": "lote_concluido",
+   "data": "2026-10-21",
+   "lote_id": "msgbatch_01Fbq4YaCveRd9eTWacHDD6T",
+   "chamadas": 8,
+   "erros": 0,
+   "tokens_entrada": 26920,
+   "tokens_saida": 4334,
+   "cache_hits": 0,
+   "custo_usd": 0.002429
+  },
+  {
+   "tipo": "execucao",
+   "data": "2026-10-21",
+   "chamadas": 8,
+   "cache_hits": 0,
+   "tokens_entrada": 0,
+   "tokens_saida": 0,
+   "custo_usd": 0.00244,
+   "pendentes": 0,
+   "sem_documento": 20,
+   "custo_previsto": true,
+   "lote_id": "msgbatch_01Fbq4YaCveRd9eTWacHDD6T",
+   "lotes_pendentes": []
   }
  ],
  "estimativa_atual": {
-  "gerado_em": "2026-10-21T16:47:34",
+  "gerado_em": "2026-10-21T16:58:56",
   "modelo": "claude-haiku-5-5",
   "candidatos_hoje": 28,
   "chamadas_por_execucao_max": 28,
