@@ -67,6 +67,7 @@
     comissao_leiloeiro_pct: "Comissão do leiloeiro", matricula: "Nº da matrícula", numero_processo: "Nº do processo", comitente: "Comitente (quem vende)",
     descricao_original: "Descrição original", url_foto: "Foto", primeira_vez_visto: "Visto pela 1ª vez",
     ultima_vez_visto: "Visto pela última vez", ativo: "Ativo", outras_fontes: "Outras fontes", extracao_ia: "Extração por IA",
+    onus_na_matricula: "Ônus na matrícula", alertas: "Alertas",
   };
 
   function formatarCampo(campo, v) {

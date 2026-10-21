@@ -134,15 +134,41 @@ Fontes que falharam no dia não geram eventos de remoção. Snapshots diários g
 modalidade e data do leilão; com mais de 90 dias viram resumo mensal. O gráfico da página de detalhe é
 montado a partir dos eventos de preço, sem baixar snapshots.
 
-## Etapa de IA (desligada)
+## Etapa de IA (`collector/ia.py`)
 
-Nada chama a API hoje. `collector/ia.py` só calcula quem seria candidato (UF/cidades/desconto mínimo do
-`config.yaml`, com algum campo de alto valor ainda `null`), recorta o texto relevante do edital (linhas
-com palavras-chave + 2 de contexto, até 6.000 caracteres) e grava uma estimativa de tokens/custo em
-`docs/data/custo_ia.json`, exibida na página Sobre. A implementação da chamada (Batch API, Haiku, prompt
-de sistema fixo cacheável, uma chamada por imóvel, `max_tokens` ≈ 400, cache permanente por hash do
-documento, tetos de chamadas e de custo por execução, descarte de nomes de pessoas físicas) só entra
-depois da aprovação dessa estimativa. Para a Caixa a IA não tem o que ler: não há edital acessível.
+Estimativa aprovada em 2026-10-21. Só roda quando existem **as duas** condições: `ANTHROPIC_API_KEY` no
+ambiente (segredo do repositório, repassado pelo workflow) e `ia_habilitada: true` no `config.yaml`. Sem a
+chave, a etapa só aplica resultados já em cache e grava a estimativa; o site funciona completo sem ela.
+
+Como funciona, a cada coleta:
+
+1. **Candidatos**: imóveis ativos dentro do filtro (`ia.filtro`: UFs, cidades, desconto mínimo) que ainda
+   têm algum campo de alto valor em branco (`ocupado`, débitos de IPTU/condomínio, ônus na matrícula) e
+   que têm edital ou matrícula em PDF legível (texto extraído com pypdf e guardado em
+   `collector/cache/pdf/`). Imóveis sem PDF, como os da Caixa, não são enviados.
+2. **Entrada mínima**: cabeçalho de uma linha com o que já se sabe, o anúncio (800 caracteres) e só as
+   linhas do documento com palavras-chave (ocupa, IPTU, condomínio, débito, ônus, penhora, hipoteca,
+   usufruto, indisponibilidade, comissão, FGTS, financiamento) com 2 linhas de contexto, sem cabeçalhos,
+   rodapés e numeração repetidos, até `max_caracteres_entrada` (6.000).
+3. **Cache permanente**: o hash dessa entrada identifica o documento. Se `collector/cache/ia/<hash>.json`
+   existe, o resultado é aplicado sem chamada. O cache é commitado pelo Action.
+4. **Uma chamada por imóvel**, pelo **Batch API** (50 % de desconto): modelo `claude-haiku-5-5`, pensamento
+   desligado, `effort: low`, prompt de sistema fixo no bloco cacheável, saída JSON com esquema
+   (`output_config.format`), `max_tokens` 900 (cabe o JSON com sete trechos-fonte de até 200 caracteres).
+   Campos devolvidos: ocupado, débitos de IPTU e de condomínio (vendedor/comprador/null), aceita
+   financiamento, aceita FGTS, comissão %, ônus na matrícula (lista), alertas (lista) e um
+   `trecho_fonte` por campo. O lote é consultado por até `esperar_lote_minutos`; se não terminar, o
+   resultado entra na execução seguinte (`collector/cache/ia/_lotes.json` guarda os lotes pendentes).
+5. **Tetos por execução**: `limite_chamadas_por_execucao` (50) e `limite_custo_usd_por_execucao`
+   (US$ 0,50, calculado antes de enviar). O que sobra fica para o dia seguinte, por maior desconto.
+6. **Nunca sobrescreve**: a IA só preenche campo `null`; tudo o que ela devolveu fica em `extracao_ia`
+   (com os trechos-fonte, mostrados na ficha do imóvel). Nomes de pessoas físicas e CPFs são removidos
+   antes de salvar (`remover_nomes`), além da instrução ao modelo de não os incluir.
+7. **Custo**: `docs/data/custo_ia.json` registra cada execução (chamadas, cache hits, pendentes) e cada
+   lote concluído (tokens reais de entrada/saída e custo); a página Sobre soma o mês.
+
+Com os preços do Haiku 5.5 (US$ 0,10/0,50 por milhão de tokens, metade no Batch), 50 imóveis por dia
+custam cerca de US$ 0,02 e um mês no teto fica abaixo de US$ 1.
 
 ## Adicionar uma fonte
 
@@ -188,6 +214,7 @@ Acessos em `localhost` não são contados. O painel pode ser tornado público em
   (`gh workflow run coletar.yml -f fontes=caixa`). Instala dependências com cache do pip, roda os testes,
   executa o coletor e commita `docs/data` e `collector/cache` apenas quando a lista de imóveis, o
   histórico, o status ou os caches mudaram.
-- Hoje nenhum secret é necessário. Quando a IA for aprovada: `Settings → Secrets and variables → Actions →
-  ANTHROPIC_API_KEY`; o workflow já repassa a variável, e `ia_habilitada: true` no config liga a etapa.
+- Único secret: `ANTHROPIC_API_KEY` (`Settings → Secrets and variables → Actions` ou
+  `gh secret set ANTHROPIC_API_KEY`). O workflow já repassa a variável; com `ia_habilitada: true` no
+  config a etapa de IA roda. Sem o secret, a coleta continua normal e a IA fica inerte.
 - GitHub Pages: `Settings → Pages → Deploy from a branch → main / docs`.

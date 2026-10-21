@@ -22,7 +22,7 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-21T15:35:20",
+  "ultima_execucao": "2026-10-21T13:38:21",
   "data_coleta": "2026-10-21"
  },
  "banestes": {
@@ -31,7 +31,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.banestes.com.br/publicacoes_legais/leilao-bem-imovel.html",
-  "duracao_s": 3.1,
+  "duracao_s": 2.6,
   "info": {
    "total_editais_imoveis": 9
   }

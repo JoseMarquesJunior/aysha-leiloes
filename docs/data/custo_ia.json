@@ -1,20 +1,32 @@
 {
- "execucoes": [],
+ "execucoes": [
+  {
+   "tipo": "execucao",
+   "data": "2026-10-21",
+   "chamadas": 0,
+   "cache_hits": 0,
+   "tokens_entrada": 0,
+   "tokens_saida": 0,
+   "custo_usd": 0.0,
+   "pendentes": 0,
+   "sem_documento": 0
+  }
+ ],
  "estimativa_atual": {
-  "gerado_em": "2026-10-21T15:35:20",
+  "gerado_em": "2026-10-21T13:38:21",
   "modelo": "claude-haiku-5-5",
   "candidatos_hoje": 28,
   "chamadas_por_execucao_max": 28,
-  "tokens_sistema_cacheados": 350,
-  "tokens_entrada_por_imovel": 1775,
-  "tokens_saida_por_imovel_max": 400,
-  "custo_usd_por_imovel_tempo_real": 0.00378,
-  "custo_usd_por_imovel_batch": 0.00189,
-  "custo_usd_por_execucao_tempo_real": 0.1057,
-  "custo_usd_por_execucao_batch": 0.0529,
-  "custo_usd_mes_batch_30_execucoes": 1.59,
-  "observacao": "Primeira execução processa a fila inteira (limitada ao teto diário); depois só imóveis novos ou com edital alterado."
+  "tokens_sistema_cacheados": 420,
+  "tokens_entrada_por_imovel": 2385,
+  "tokens_saida_por_imovel_max": 900,
+  "custo_usd_por_imovel_tempo_real": 0.00069,
+  "custo_usd_por_imovel_batch": 0.00034,
+  "custo_usd_por_execucao_tempo_real": 0.0193,
+  "custo_usd_por_execucao_batch": 0.0096,
+  "custo_usd_mes_batch_30_execucoes": 0.29,
+  "observacao": "Teto, com entrada no máximo permitido; na prática só imóveis novos ou com edital alterado entram, e imóveis sem PDF legível não são enviados."
  },
  "habilitada": false,
- "aviso": "Chamada à API ainda não implementada: aguarda aprovação da estimativa."
+ "aviso": "ia_habilitada=true mas ANTHROPIC_API_KEY ausente: etapa pulada"
 }

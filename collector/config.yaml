@@ -93,15 +93,18 @@ geocodificacao:
   # Limite de novas consultas por execução (protege o Nominatim e o tempo do Action).
   maximo_por_execucao: 1000
 
-# Etapa de IA: DESLIGADA por padrão. Só roda com ANTHROPIC_API_KEY no ambiente e ia_habilitada: true.
-# A chamada à API ainda não está implementada: aguarda aprovação da estimativa de custo (ver README).
+# Etapa de IA (estimativa aprovada em 2026-10-21). Só roda com ANTHROPIC_API_KEY no ambiente E
+# ia_habilitada: true; sem a chave, só aplica o que já está no cache e grava a estimativa.
 ia:
-  ia_habilitada: false
-  modelo: "claude-haiku-5-5"
-  max_tokens_saida: 400
+  ia_habilitada: true
+  modelo: "claude-haiku-5-5"   # o mais barato; nunca Sonnet/Opus neste projeto
+  # Saída é JSON com até 7 trechos-fonte de 200 caracteres: 900 tokens cobrem com folga (pensamento desligado).
+  max_tokens_saida: 900
   max_caracteres_entrada: 6000
   limite_chamadas_por_execucao: 50
   limite_custo_usd_por_execucao: 0.50
+  # Lotes pequenos costumam ficar prontos em minutos; se não, o resultado entra na execução seguinte.
+  esperar_lote_minutos: 10
   cache: collector/cache/ia
   # Filtro: só imóveis que atendam a tudo abaixo vão para a IA.
   filtro:

@@ -221,8 +221,11 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
     hist.gravar_snapshot(snap_dir, hoje, registros)
     hist.compactar_snapshots(snap_dir, hoje, config["saida"].get("dias_snapshots_diarios", 90))
 
-    # 7. IA (só estimativa; a chamada à API aguarda aprovação)
-    ia.executar(registros, config.get("ia", {}), pasta)
+    # 7. IA (Batch API, cache permanente, tetos diários; só roda com chave + ia_habilitada)
+    try:
+        ia.executar(registros, config.get("ia", {}), pasta, cliente, config)
+    except Exception:  # a IA nunca derruba a coleta
+        log.exception("etapa de IA falhou")
 
     # 8. saída
     gravar_saida(pasta, registros, config, status, hoje)
