@@ -59,8 +59,9 @@ ESQUEMA = {
     "type": "object",
     "properties": {
         "ocupado": {"type": ["boolean", "null"]},
-        "debitos_iptu_por_conta_de": {"type": ["string", "null"], "enum": ["vendedor", "comprador", None]},
-        "debitos_condominio_por_conta_de": {"type": ["string", "null"], "enum": ["vendedor", "comprador", None]},
+        # enum + tipo nulo exige anyOf (a API rejeita enum junto com type ['string','null'])
+        "debitos_iptu_por_conta_de": {"anyOf": [{"type": "string", "enum": ["vendedor", "comprador"]}, {"type": "null"}]},
+        "debitos_condominio_por_conta_de": {"anyOf": [{"type": "string", "enum": ["vendedor", "comprador"]}, {"type": "null"}]},
         "aceita_financiamento": {"type": ["boolean", "null"]},
         "aceita_fgts": {"type": ["boolean", "null"]},
         "comissao_leiloeiro_pct": {"type": ["number", "null"]},
