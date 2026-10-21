@@ -9,5 +9,5 @@ window.LT_CONFIG = {
   // Crie a conta em https://www.goatcounter.com/signup e informe aqui só o código escolhido
   // (ex.: "leiloes-em-tabela" para o painel https://leiloes-em-tabela.goatcounter.com).
   // Vazio = nada é carregado nem enviado.
-  goatcounter: "",
+  goatcounter: "leiloes-em-tabela",
 };
