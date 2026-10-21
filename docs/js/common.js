@@ -111,6 +111,29 @@
     return o;
   }
 
+  /* Contagem de visitas (GoatCounter), só quando configurada. Envia o caminho sem a query string
+     (os filtros da busca não saem do navegador); a ficha do imóvel conta como /imovel/<id>, o que
+     mostra no painel quais imóveis são mais abertos. Sem cookies e sem identificador persistente. */
+  function iniciarContagem() {
+    const cfg = global.LT_CONFIG || {};
+    const codigo = (cfg.goatcounter || "").trim();
+    if (!codigo || /^[a-z0-9-]+$/i.test(codigo) === false) return;
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
+    let caminho = location.pathname.replace(/index\.html$/, "");
+    if (/imovel\.html$/.test(location.pathname)) {
+      const id = new URLSearchParams(location.search).get("id");
+      caminho = "/imovel/" + (id ? id.replace(/[^\w.-]/g, "_") : "sem-id");
+    }
+    global.goatcounter = { path: caminho, no_onload: false, allow_local: false };
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://gc.zgo.at/count.js";
+    s.setAttribute("data-goatcounter", `https://${codigo}.goatcounter.com/count`);
+    document.head.appendChild(s);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", iniciarContagem);
+  else iniciarContagem();
+
   global.LT = {
     TRACO, nulo, moeda, numero, pct, area, data, dataHora, simNao, ocupado, texto, cap, escapar, semAcentos,
     diasEntre, hojeIso, nomeFonte, SITES_FONTES, ROTULOS, formatarCampo, carregarJson, carregarImoveis, lerQuery,

@@ -166,6 +166,22 @@ brasileira. Alternativas sem taxa própria: um link Pix/QR ou o Ko-fi. O site j�
 preencha `urlApoio` em `docs/js/config.js` (ex.: `https://buymeacoffee.com/<usuario>`) e ele aparece no
 rodapé da tabela e na página Sobre; vazio, não aparece. Criar a conta é um passo manual do mantenedor.
 
+## Contagem de visitas (GoatCounter)
+
+O site conta visitas com o [GoatCounter](https://www.goatcounter.com/): gratuito para uso não comercial,
+sem cookies, sem banner de consentimento, com painel de visitas por dia, visitantes únicos, páginas mais
+vistas e origem do tráfego. Para ligar:
+
+1. Crie a conta em https://www.goatcounter.com/signup escolhendo um código (ex.: `leiloes-em-tabela`);
+   o painel fica em `https://<código>.goatcounter.com`.
+2. Em `docs/js/config.js`, preencha `goatcounter: "<código>"` e publique.
+3. Em "Settings → Sites", confira que o domínio `josemarquesjunior.github.io` está permitido (o
+   GoatCounter aceita qualquer origem por padrão).
+
+O que é enviado: o caminho da página (sem a query string, ou seja, sem os filtros da busca), a ficha do
+imóvel como `/imovel/<id>` (mostra os imóveis mais abertos), referência (de onde veio) e tamanho da tela.
+Acessos em `localhost` não são contados. O painel pode ser tornado público em "Settings → Public".
+
 ## Secrets e GitHub Actions
 
 - O workflow `coletar.yml` roda às 09:00 UTC (06:00 em Brasília) e por disparo manual
