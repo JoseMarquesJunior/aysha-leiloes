@@ -1,7 +1,7 @@
 {
  "execucoes": [],
  "estimativa_atual": {
-  "gerado_em": "2026-10-21T12:58:30",
+  "gerado_em": "2026-10-21T10:56:15",
   "modelo": "claude-haiku-5-5",
   "candidatos_hoje": 21,
   "chamadas_por_execucao_max": 21,

@@ -22,6 +22,7 @@ prioridade_fontes:
   banestes: 0
   bandes: 0
   spu: 0
+  jfes: 0
   resale: 1
   leiloeiro: 2
 
@@ -31,12 +32,41 @@ fontes:
     url_lista: "https://venda-imoveis.caixa.gov.br/listaweb/Lista_imoveis_{uf}.csv"
     codificacao: latin-1
     separador: ";"
-  resale:
-    # Esqueleto desativado: só será implementado depois da leitura dos termos de uso (ver README).
-    ativa: false
   banestes:
-    ativa: false
+    # Só o índice de editais (robots.txt do Banestes proíbe PDFs); lotes vêm pelos leiloeiros.
+    ativa: true
   bandes:
+    # Só o índice de arquivos de venda direta; o site derruba conexões com frequência.
+    ativa: true
+  spu:
+    # API pública do VendasGov (SPU); filtra por UF no cliente.
+    ativa: true
+  jfes:
+    # Editais em PDF dos leilões unificados da Justiça Federal no ES.
+    ativa: true
+    maximo_artigos: 4
+  suporteleiloes:
+    # Leiloeiros do ES na plataforma Suporte Leilões (buscador por UF).
+    ativa: true
+    sites:
+      - slug: emleilao
+        url: "https://www.emleilao.com.br"
+        leiloeiro: "Ayrton de Souza Porto Filho (Em Leilão, JUCEES 058/2014)"
+      - slug: buaiz
+        url: "https://www.buaizleiloes.com.br"
+        leiloeiro: "Alexandre Buaiz Neto (Buaiz Leilões)"
+      - slug: esleiloes
+        url: "https://www.esleiloes.com.br"
+        leiloeiro: "Sérgio de Paula Pereira (ES Leilões, JUCEES 008/1984)"
+  vixleiloes:
+    ativa: true
+  colodete:
+    ativa: true
+  hdleiloes:
+    # Desativada: termos de uso inacessíveis ao robô e busca só por POST (ver docstring do módulo).
+    ativa: false
+  resale:
+    # Desativada: os Termos de Uso (12/09/2025) proíbem scraping e mineração de dados (ver README).
     ativa: false
 
 saida:

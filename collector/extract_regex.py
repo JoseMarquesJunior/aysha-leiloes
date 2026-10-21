@@ -39,7 +39,8 @@ def _norm(texto: str) -> str:
 
 def extrair_quartos(texto: str) -> int | None:
     t = _norm(texto)
-    m = re.search(r"(\d+)\s*(?:qto|quarto|dormit|dorm\b|suite)", t, _FLAGS)
+    # "2 qto(s)", "3 qt(s)", "02 (dois) quartos", "3 dormitórios", "2 suítes"
+    m = re.search(r"(\d+)\s*(?:\([a-z]+\)\s*)?(?:qto|qts?\b|quarto|dormit|dorm\b|suite)", t, _FLAGS)
     if not m:
         m = re.search(r"(?:qto|quarto|dormit)[a-z()]*\s*[:=]?\s*(\d+)", t, _FLAGS)
     return int(m.group(1)) if m else None
@@ -47,7 +48,7 @@ def extrair_quartos(texto: str) -> int | None:
 
 def extrair_vagas(texto: str) -> int | None:
     t = _norm(texto)
-    m = re.search(r"(\d+)\s*vaga", t, _FLAGS)
+    m = re.search(r"(\d+)\s*(?:\([a-z]+\)\s*)?vaga", t, _FLAGS)
     if not m:
         m = re.search(r"vaga[s]?(?:\s*de\s*garagem)?\s*[:=]?\s*(\d+)", t, _FLAGS)
     return int(m.group(1)) if m else None

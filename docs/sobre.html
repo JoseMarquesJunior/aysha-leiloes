@@ -35,6 +35,13 @@
   </table>
   <p class="muted" id="coleta-geral"></p>
 
+  <h2>Editais e avisos recentes</h2>
+  <p>Avisos de leilão publicados pelas fontes que não trazem lotes estruturados (Banestes, Bandes, Justiça Federal). Os lotes do Banestes aparecem na tabela pelo site do leiloeiro que conduz cada leilão.</p>
+  <table id="tabela-editais">
+    <thead><tr><th>Fonte</th><th>Edital / aviso</th><th>Publicado</th><th>Leilão</th><th>2ª praça</th><th>Leiloeiro / site</th></tr></thead>
+    <tbody><tr><td colspan="6" class="muted">carregando…</td></tr></tbody>
+  </table>
+
   <h2>Campos: quanto cada um fica em branco</h2>
   <p>Percentual de imóveis ativos em que o campo está vazio ("—") depois da extração pela fonte e por regras determinísticas. Mostra o que a fonte não informa e o que uma etapa de IA poderia preencher.</p>
   <table id="tabela-nulos"><thead><tr><th>Campo</th><th>Em branco</th></tr></thead><tbody></tbody></table>
@@ -49,10 +56,12 @@
     <li>A cada coleta o histórico registra eventos por imóvel: novo, mudança de preço, de modalidade, de data do leilão e remoção. Imóveis removidos ficam 90 dias marcados como inativos.</li>
     <li>Código aberto: <a href="https://github.com/JoseMarquesJunior/aysha-leiloes" rel="noopener">github.com/JoseMarquesJunior/aysha-leiloes</a>.</li>
   </ul>
+  <p id="apoio" class="hidden">O site é gratuito e mantido por uma pessoa. Se ele te ajuda, <a id="apoio-link" href="#" rel="noopener" target="_blank"></a>.</p>
 </main>
 <footer>
   <p>Mapa © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a>. Geocodificação por Nominatim.</p>
 </footer>
+<script src="js/config.js"></script>
 <script src="js/common.js"></script>
 <script src="js/sobre.js"></script>
 </body>

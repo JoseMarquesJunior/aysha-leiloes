@@ -13,7 +13,7 @@ CAMPOS = [
     "natureza", "modalidade", "data_leilao", "data_segunda_praca",
     "ocupado", "aceita_financiamento", "aceita_fgts", "aceita_parcelamento",
     "debitos_iptu_por_conta_de", "debitos_condominio_por_conta_de",
-    "comissao_leiloeiro_pct", "matricula", "numero_processo",
+    "comissao_leiloeiro_pct", "matricula", "numero_processo", "comitente",
     "descricao_original", "url_foto",
     "primeira_vez_visto", "ultima_vez_visto", "ativo",
     "outras_fontes", "extracao_ia",

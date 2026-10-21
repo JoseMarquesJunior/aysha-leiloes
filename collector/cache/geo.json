@@ -39,6 +39,12 @@
 "alameda jose de oliveira guimaraes, 728, jardim holanda, uberlandia, mg, brasil": null,
 "alameda palacio royal, res paris park, arapora, mg, brasil": null,
 "alameda petunias, quinta das flores, muriae, mg, brasil": null,
+"alegre, es, brasil": {
+"lat": -20.7280805,
+"lng": -41.4966705,
+"nome": "Alegre, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "alfredo freire iv, uberaba, mg, brasil": {
 "lat": -19.7355256,
 "lng": -47.986739,
@@ -118,6 +124,12 @@
 "av joao ferreira da silva, 1232, bairro santa rosa, iturama, mg, brasil": null,
 "av jose higino bernardo, 0, nova pampulha, vespasiano, mg, brasil": null,
 "av sema, 525, icaivera, contagem, mg, brasil": null,
+"av. atlantica, 1925, guarapari, es, brasil": {
+"lat": -20.5328416,
+"lng": -40.3764615,
+"nome": "Avenida Atlântica, Recanto da Sereia, Região 05 - Grande Jucu, Guarapari, Espírito Santo, Região Sudeste, 29129-342, Brasil",
+"tipo": "residential"
+},
 "avelino cardoso, sao geraldo, mg, brasil": null,
 "avenida 01, 204, centro, iturama, mg, brasil": null,
 "avenida aguia-pescadora, 88, loteamento residencial pequis, uberlandia, mg, brasil": null,
@@ -125,6 +137,12 @@
 "lat": -19.894962,
 "lng": -43.8147599,
 "nome": "Avenida Albert Scharlé, Paciência, Sabará, Minas Gerais, Região Sudeste, 34525-410, Brasil",
+"tipo": "secondary"
+},
+"avenida albert scharle, 1773, sabara, mg, brasil": {
+"lat": -19.9059186,
+"lng": -43.8191013,
+"nome": "Avenida Albert Scharlé, Paciência, Sabará, Minas Gerais, Região Sudeste, 34525-485, Brasil",
 "tipo": "secondary"
 },
 "avenida alem paraiba, 835, parque diamante, mar de espanha, mg, brasil": null,
@@ -162,6 +180,12 @@
 "tipo": "tertiary"
 },
 "avenida aristoteles menicucci, 76 a 120, waldir furtado amorim, cachoeiro de itapemirim, es, brasil": null,
+"avenida atlantica, 1351, guarapari, es, brasil": {
+"lat": -20.5328416,
+"lng": -40.3764615,
+"nome": "Avenida Atlântica, Recanto da Sereia, Região 05 - Grande Jucu, Guarapari, Espírito Santo, Região Sudeste, 29129-342, Brasil",
+"tipo": "residential"
+},
 "avenida audifax barcelos neves, 321, residencial centro da serra, serra, es, brasil": null,
 "avenida augusto ruschi, 1795, balneario de carapebus, serra, es, brasil": {
 "lat": -20.215799,
@@ -220,7 +244,14 @@
 "avenida doutor paulo ribeiro nunes, 220, bairro empresarial do mandu, contagem, mg, brasil": null,
 "avenida edmeia mattos lazzarotti, 3895, inga, betim, mg, brasil": null,
 "avenida edson gallana, 590, jardim canaa, uberlandia, mg, brasil": null,
+"avenida estudante jose julio de souza, s/no, praia de itaparica, vila velha/es, vila velha, es, brasil": null,
 "avenida eva de macedo pereira avenida b, 440, res casa grande, sao joaquim de bicas, mg, brasil": null,
+"avenida expedito garcia, 99, cariacica, es, brasil": {
+"lat": -20.3383432,
+"lng": -40.380556,
+"nome": "Avenida Expedito Garcia, Dona Augusta, Campo Grande, Itaquari, Cariacica, Espírito Santo, Região Sudeste, 29146-512, Brasil",
+"tipo": "secondary"
+},
 "avenida felipe calixto milken, 535, morumbi, uberlandia, mg, brasil": {
 "lat": -18.914831,
 "lng": -48.1894429,
@@ -282,6 +313,12 @@
 "nome": "Avenida Juiz de Fora, Nova Gramado, Parque Guarani, Granjas Bethânia, Juiz de Fora, Minas Gerais, Região Sudeste, 36047-362, Brasil",
 "tipo": "primary"
 },
+"avenida juiz de fora, 1171, juiz de fora, mg, brasil": {
+"lat": -21.6940779,
+"lng": -43.3529409,
+"nome": "Avenida Juiz de Fora, Grama, Muçunge da Grama, Juiz de Fora, Minas Gerais, Região Sudeste, 36048-001, Brasil",
+"tipo": "primary"
+},
 "avenida juiz de fora, 1801, grama, juiz de fora, mg, brasil": {
 "lat": -21.6940779,
 "lng": -43.3529409,
@@ -294,6 +331,12 @@
 "lng": -48.2739571,
 "nome": "Avenida Landscape, Gávea, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38411-837, Brasil",
 "tipo": "residential"
+},
+"avenida lourival nunes 27, jardim limoeiro, serra, es, brasil": {
+"lat": -20.2198133,
+"lng": -40.2680345,
+"nome": "Avenida Lourival Nunes, Jardim Limoeiro, Região de Laranjeiras, Serra, Espírito Santo, Região Sudeste, 29164-200, Brasil",
+"tipo": "secondary"
 },
 "avenida luiza goncalves de oliveira, 732, dumaville, esmeraldas, mg, brasil": null,
 "avenida manuel lucio, 601, grand ville, uberlandia, mg, brasil": {
@@ -364,6 +407,7 @@
 "nome": "Avenida Niza Marquês Guaritá, Manoel Mendes, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
 "tipo": "primary"
 },
+"avenida nossa senhora dos navegantes, 755, salas 404 e 405, edificio palacio da praia, enseada do sua, vitoria/es, cep 29050-335. localiza - cao geografica aproximada 20°18’56.9”s 40°17’40.7”w, vitoria, es, brasil": null,
 "avenida odair rodrigues vilela, 102, paraiso, uberaba, mg, brasil": null,
 "avenida odair rodrigues vilela, 102, santa maria, uberaba, mg, brasil": null,
 "avenida odair rodrigues vilela, 295, desmembramento uniao da mocidade espirit, uberaba, mg, brasil": null,
@@ -413,6 +457,13 @@
 },
 "avenida rogassiano francisco coelho, 1485, residencial portinari, varginha, mg, brasil": null,
 "avenida ronaldo fernandes de souza1233, 479, centro, patos de minas, mg, brasil": null,
+"avenida rui barbosa, linhares, es, brasil": {
+"lat": -19.392988,
+"lng": -40.0679714,
+"nome": "Avenida Rui Barbosa, Colina, Linhares, Espírito Santo, Região Sudeste, 29900-060, Brasil",
+"tipo": "residential"
+},
+"avenida santa leopoldina, 2050, 2a etapa, edificio jatai, vila velha, es, brasil": null,
 "avenida sao tiago, 235, saltador, presidente olegario, mg, brasil": null,
 "avenida sebastiao ribeiro franco, bairro brasil, santa vitoria, mg, brasil": {
 "lat": -18.8517582,
@@ -434,6 +485,12 @@
 "nome": "Avenida Serra das Palmeiras, Serra Dourada I, Vespasiano, Minas Gerais, Região Sudeste, 33202-690, Brasil",
 "tipo": "residential"
 },
+"avenida serra das palmeiras, 430, vespasiano, mg, brasil": {
+"lat": -19.7480971,
+"lng": -43.9332002,
+"nome": "Avenida Serra das Palmeiras, Serra Dourada I, Vespasiano, Minas Gerais, Região Sudeste, 33202-690, Brasil",
+"tipo": "residential"
+},
 "avenida serra das palmeiras, 437, serra dourada, vespasiano, mg, brasil": {
 "lat": -19.7480971,
 "lng": -43.9332002,
@@ -443,6 +500,12 @@
 "avenida taylor silva, 751, tocantins, uberlandia, mg, brasil": {
 "lat": -18.8949614,
 "lng": -48.3331459,
+"nome": "Avenida Taylor Silva, Itaim, Tocantins, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38415-420, Brasil",
+"tipo": "tertiary"
+},
+"avenida taylor silva, 751, uberlandia, mg, brasil": {
+"lat": -18.8991347,
+"lng": -48.3268064,
 "nome": "Avenida Taylor Silva, Itaim, Tocantins, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38415-420, Brasil",
 "tipo": "tertiary"
 },
@@ -614,6 +677,12 @@
 "tipo": "town"
 },
 "cachimbo, uberaba, mg, brasil": null,
+"cachoeiro de itapemirim, es, brasil": {
+"lat": -20.7795793,
+"lng": -41.1984008,
+"nome": "Cachoeiro de Itapemirim, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "caixa d'agua, carangola, mg, brasil": null,
 "caldas, caldas, mg, brasil": {
 "lat": -21.8176466,
@@ -801,6 +870,7 @@
 "nome": "Chácaras Tubalina e Quartel, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38413-018, Brasil",
 "tipo": "suburb"
 },
+"cidade de conceicao da barra, es, brasil": null,
 "cidade delta, delta, mg, brasil": null,
 "cidade industrial, contagem, mg, brasil": {
 "lat": -19.9559842,
@@ -814,12 +884,24 @@
 "nome": "Cidade Nobre, Barra Alegre, Ipatinga, Minas Gerais, Região Sudeste, Brasil",
 "tipo": "suburb"
 },
+"colatina, es, brasil": {
+"lat": -19.4720179,
+"lng": -40.7192787,
+"nome": "Colatina, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "colonia do marcal, sao joao del rei, mg, brasil": {
 "lat": -21.099084,
 "lng": -44.2271707,
 "nome": "Colônia do Marçal, São João del-Rei, Minas Gerais, Região Sudeste, Brasil",
 "tipo": "suburb"
 },
+"comarca de barra de sao francisco, es, brasil": null,
+"conforme a descricao acima, itapemirim, es, brasil": null,
+"conforme descricao acima, cidade de conceicao da barra, es, brasil": null,
+"conforme descricao acima, municipio de vila velha, es, brasil": null,
+"conforme descricao acima, urbano de colatina, es, brasil": null,
+"conforme descricoes acima, municipio de serra, es, brasil": null,
 "congonhal, mg, brasil": {
 "lat": -22.1532505,
 "lng": -46.0404698,
@@ -902,7 +984,14 @@
 "nome": "Rio da Draga, Vista do Mar, São Conrado, Região 05 - Grande Jucu, Jucu, Vila Velha, Espírito Santo, Região Sudeste, 29124-065, Brasil",
 "tipo": "canal"
 },
+"domingos martins, es, brasil": {
+"lat": -20.3181885,
+"lng": -40.8419361,
+"nome": "Domingos Martins, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "donato, contagem, mg, brasil": null,
+"duas barras, br 482, cachoeiro de itapemi - rim/es, cachoeiro de itapemirim, es, brasil": null,
 "dumaville, esmeraldas, mg, brasil": null,
 "eldorado, carangola, mg, brasil": null,
 "eng jose mendes juni, capitolio, mg, brasil": null,
@@ -1037,6 +1126,12 @@
 "nome": "Granjas Primavera, Vila Bispo de Maura, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33937-050, Brasil",
 "tipo": "neighbourhood"
 },
+"guarapari, es, brasil": {
+"lat": -20.6116873,
+"lng": -40.5304338,
+"nome": "Guarapari, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "guimarania, mg, brasil": {
 "lat": -18.8442251,
 "lng": -46.7925141,
@@ -1055,6 +1150,12 @@
 "lng": -44.147269,
 "nome": "Rua Sema, Retiro, Regional Vargem das Flores, Contagem, Minas Gerais, Região Sudeste, 32055-120, Brasil",
 "tipo": "tertiary"
+},
+"iconha, es, brasil": {
+"lat": -20.7634324,
+"lng": -40.8609108,
+"nome": "Iconha, Espírito Santo, Região Sudeste, 29280-000, Brasil",
+"tipo": "municipality"
 },
 "industrial, igarape, mg, brasil": {
 "lat": -20.0645882,
@@ -1097,6 +1198,12 @@
 "lng": -44.8695785,
 "nome": "Itamonte, Minas Gerais, Região Sudeste, 37466-000, Brasil",
 "tipo": "town"
+},
+"itapemirim, es, brasil": {
+"lat": -20.9879766,
+"lng": -40.9598975,
+"nome": "Itapemirim, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
 },
 "itapoa ii, sete lagoas, mg, brasil": {
 "lat": -19.4288402,
@@ -1263,6 +1370,12 @@
 },
 "jd de dona lucinha 2, coromandel, mg, brasil": null,
 "jd do lago, uberaba, mg, brasil": null,
+"joao neiva, es, brasil": {
+"lat": -19.7271682,
+"lng": -40.4338328,
+"nome": "João Neiva, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "jose de anchieta, serra, es, brasil": {
 "lat": -20.1941934,
 "lng": -40.2740586,
@@ -1353,6 +1466,12 @@
 "nome": "Mantiqueira, Venda Nova, Belo Horizonte, Minas Gerais, Região Sudeste, Brasil",
 "tipo": "suburb"
 },
+"marataizes, es, brasil": {
+"lat": -21.042874,
+"lng": -40.8255933,
+"nome": "Marataízes, Espírito Santo, Região Sudeste, 29345-000, Brasil",
+"tipo": "municipality"
+},
 "maria teresa, belo horizonte, mg, brasil": {
 "lat": -19.8186677,
 "lng": -43.8840624,
@@ -1442,6 +1561,30 @@
 "tipo": "residential"
 },
 "morro vermelho, sete lagoas, mg, brasil": null,
+"municipio de cariacica, es, brasil": {
+"lat": -20.333859,
+"lng": -40.3777843,
+"nome": "Prefeitura Municipal de Cariacica, 2502, Avenida Mário Gurgel, Alto Lage, Itaquari, Cariacica, Espírito Santo, Região Sudeste, 29146-794, Brasil",
+"tipo": "amenity"
+},
+"municipio de serra, es, brasil": {
+"lat": -20.1687747,
+"lng": -40.1994702,
+"nome": "Centro Industrial do Município, Serra, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"municipio de vila velha, es, brasil": {
+"lat": -20.3597284,
+"lng": -40.2989737,
+"nome": "Prefeitura Municipal de Vila Velha, 840, Avenida Santa Leopoldina, Coqueiral de Itaparica, Região 01 - Centro, Vila Velha, Espírito Santo, Região Sudeste, 29102-915, Brasil",
+"tipo": "amenity"
+},
+"muniz freire, es, brasil": {
+"lat": -20.4025422,
+"lng": -41.3971577,
+"nome": "Muniz Freire, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "muriae, mg, brasil": {
 "lat": -21.1313485,
 "lng": -42.3628918,
@@ -1725,6 +1868,7 @@
 "nome": "Rodeiro, Minas Gerais, Região Sudeste, 36510-000, Brasil",
 "tipo": "village"
 },
+"rodovia br-101 norte, km 199, jua / cristal de pira - queacu, joao neiva/es, cep 29680-000, joao neiva, es, brasil": null,
 "rodovia br-354, 2962, estiva, itamonte, mg, brasil": null,
 "rosario, areado, mg, brasil": {
 "lat": -21.3630403,
@@ -1811,12 +1955,20 @@
 "rua afonso santana, tres praias, sao joao del rei, mg, brasil": null,
 "rua alaor carlos garcia, 455, jardim brasilia, uberlandia, mg, brasil": null,
 "rua albatroz, 336, grand ville uberland, uberlandia, mg, brasil": null,
+"rua alberto sartorio, 10, bairro portal de jacaraipe, serra/es, serra, es, brasil": null,
+"rua alberto sartorio, 10, portal de jacaraipe, ser - ra/es, serra, es, brasil": null,
 "rua alda salomao resende, 72, henriques, ribeirao das neves, mg, brasil": null,
 "rua alipio caetano de amorim, universitario, sete lagoas, mg, brasil": null,
 "rua almiro lopes de faria, 173, shopping park, uberlandia, mg, brasil": {
 "lat": -18.9750317,
 "lng": -48.2681749,
 "nome": "Rua Almiro Lopes de Faria, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38425-605, Brasil",
+"tipo": "residential"
+},
+"rua aloisio aragao villar, 641, belo horizonte, mg, brasil": {
+"lat": -19.8352182,
+"lng": -44.0059742,
+"nome": "Rua Aloisio Aragão Vilar, Trevo, Dandara, Pampulha, Belo Horizonte, Minas Gerais, Região Sudeste, 31370-470, Brasil",
 "tipo": "residential"
 },
 "rua aloisio aragao villar, 641, trevo, belo horizonte, mg, brasil": {
@@ -1930,9 +2082,16 @@
 "nome": "Rua Austin, Reserva dos Ipes, Novo Mundo, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-724, Brasil",
 "tipo": "residential"
 },
+"rua austin, 227, uberlandia, mg, brasil": {
+"lat": -18.9220087,
+"lng": -48.2143402,
+"nome": "Rua Austin, Reserva dos Ipes, Novo Mundo, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-724, Brasil",
+"tipo": "residential"
+},
 "rua b (atual rua marcio borges), 341, bela vista, uberaba, mg, brasil": null,
 "rua b, loteamento liberdade, januaria, mg, brasil": null,
 "rua bahia, 429, rosario, areado, mg, brasil": null,
+"rua barao de itapemirim, s/no., nova valverde, cari - acica/es, municipio de cariacica, es, brasil": null,
 "rua basilio da gama, 430, jardim limoeiro, serra, es, brasil": null,
 "rua beethoven, 450, chacaras california, contagem, mg, brasil": null,
 "rua belo horizonte, 255, vale do sol, sao goncalo do rio abaixo, mg, brasil": {
@@ -1966,6 +2125,7 @@
 "rua c, 171, novo horizonte, bocaiuva, mg, brasil": null,
 "rua c, 285, residencial golden village, montes claros, mg, brasil": null,
 "rua cabo benedito alves, 1470, bairro cotia, jardim paraiso, tres coracoes, mg, brasil": null,
+"rua cachoeiro de itapemirim, 170 (esquina com rua alegre), bairro riviera da barra, barra do jucu, vila velha/es, vila velha, es, brasil": null,
 "rua cacildo queiroz de freitas, 81, qd03 lt08, res alvorada, iturama, mg, brasil": null,
 "rua caimbe, 402, marques industrial, sao joaquim de bicas, mg, brasil": null,
 "rua camilo alves de lima, 347, bom sossego, ribeirao das neves, mg, brasil": {
@@ -1996,6 +2156,18 @@
 },
 "rua canastra, 2543, quintas do morro, nova lima, mg, brasil": null,
 "rua candido bernardes, 662, l 13 q 22, sao geraldo, itauna, mg, brasil": null,
+"rua cannes, 37, guarapari, es, brasil": {
+"lat": -20.6535481,
+"lng": -40.4877263,
+"nome": "Rua Cannes, Praia do Morro, Guarapari, Espírito Santo, Região Sudeste, 29216-090, Brasil",
+"tipo": "residential"
+},
+"rua cannes, 91, guarapari, es, brasil": {
+"lat": -20.6535481,
+"lng": -40.4877263,
+"nome": "Rua Cannes, Praia do Morro, Guarapari, Espírito Santo, Região Sudeste, 29216-090, Brasil",
+"tipo": "residential"
+},
 "rua capitao musa, 166, residencial dharma, tres coracoes, mg, brasil": {
 "lat": -21.7129173,
 "lng": -45.2564653,
@@ -2037,6 +2209,7 @@
 "nome": "Rua Carnaúba, Ocupação Maná, Morumbi, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-300, Brasil",
 "tipo": "residential"
 },
+"rua castro alves, 201, jardim carapina, serra/es, serra, es, brasil": null,
 "rua cecilia hager gintner, 55, parque independencia, juiz de fora, mg, brasil": {
 "lat": -21.68484,
 "lng": -43.3555903,
@@ -2057,14 +2230,28 @@
 "tipo": "residential"
 },
 "rua cianorte (rua q), 921, jose vallim de mello, uberaba, mg, brasil": null,
+"rua cinco, s/no, baunilha – colatina/es 19°33'13.3\"s 40°29'05.3\"w, colatina, es, brasil": null,
 "rua cinelandia, 21, vg 01 vg 02, leblon, belo horizonte, mg, brasil": null,
+"rua claudio clover, 481, betim, mg, brasil": {
+"lat": -19.956726,
+"lng": -44.1842409,
+"nome": "481, Rua Cláudio Clover, Regional Alterosas, Betim, Minas Gerais, Região Sudeste, 32671-502, Brasil",
+"tipo": "place"
+},
 "rua claudio clover, 481, jardim brasilia, betim, mg, brasil": {
 "lat": -19.956726,
 "lng": -44.1842409,
 "nome": "481, Rua Cláudio Clover, Regional Alterosas, Senhora de Fátima, Betim, Minas Gerais, Região Sudeste, 32671-502, Brasil",
 "tipo": "place"
 },
+"rua coletora um, 348, esmeraldas, mg, brasil": null,
 "rua coletora um, 348, vale do palmital 2 (melo viana), esmeraldas, mg, brasil": null,
+"rua comendador teixeira da costa, 342, belo horizonte, mg, brasil": {
+"lat": -19.8344486,
+"lng": -43.9787505,
+"nome": "Rua Comendador Teixeira da Costa, Santa Amélia, Pampulha, Belo Horizonte, Minas Gerais, Região Sudeste, 31560-140, Brasil",
+"tipo": "residential"
+},
 "rua comendador teixeira da costa, 342, santa amelia, belo horizonte, mg, brasil": {
 "lat": -19.8344486,
 "lng": -43.9787505,
@@ -2094,6 +2281,12 @@
 "rua dama da noite, 51, jardim das alterosas - 2a secao, betim, mg, brasil": null,
 "rua darci vieira dos santos, do congo, vila velha, es, brasil": null,
 "rua darcy durante, 88, jardim country club, pocos de caldas, mg, brasil": null,
+"rua das canarias, 729, belo horizonte, mg, brasil": {
+"lat": -19.8435679,
+"lng": -43.9724749,
+"nome": "Rua das Canárias, Santa Amélia, Pampulha, Belo Horizonte, Minas Gerais, Região Sudeste, 31560-000, Brasil",
+"tipo": "tertiary"
+},
 "rua das canarias, 729, santa amelia, belo horizonte, mg, brasil": {
 "lat": -19.8448585,
 "lng": -43.9768387,
@@ -2114,6 +2307,12 @@
 },
 "rua das orquideas, 360, planalto, buritis, mg, brasil": null,
 "rua das paineiras, 65, morada dos angicos, pedro leopoldo, mg, brasil": {
+"lat": -19.5658,
+"lng": -44.0349993,
+"nome": "Rua das Paineiras, Morada dos Angicos, Lagoa de Santo Antônio, Pedro Leopoldo, Minas Gerais, Região Sudeste, 33600-000, Brasil",
+"tipo": "residential"
+},
+"rua das paineiras, 65, pedro leopoldo, mg, brasil": {
 "lat": -19.5658,
 "lng": -44.0349993,
 "nome": "Rua das Paineiras, Morada dos Angicos, Lagoa de Santo Antônio, Pedro Leopoldo, Minas Gerais, Região Sudeste, 33600-000, Brasil",
@@ -2144,6 +2343,7 @@
 "tipo": "residential"
 },
 "rua dezenove, parque das aroeiras, uberaba, mg, brasil": null,
+"rua dezoito, 55, bairro santa monica, vila velha - es, cep: 29.105-380, vila velha, es, brasil": null,
 "rua diamantina, boa vista, nova lima, mg, brasil": null,
 "rua diolinda de matos, 25, virgilio vieira, corinto, mg, brasil": null,
 "rua dirceu da fonseca, 00, mangabeiras, joao monlevade, mg, brasil": {
@@ -2211,6 +2411,12 @@
 "nome": "221, Rua dos Antúrios, Regional Petrolândia, Contagem, Minas Gerais, Região Sudeste, 32071-135, Brasil",
 "tipo": "place"
 },
+"rua dos artistas, 358, juiz de fora, mg, brasil": {
+"lat": -21.7495044,
+"lng": -43.3543885,
+"nome": "Rua dos Artistas, Morro da Glória, Juiz de Fora, Minas Gerais, Região Sudeste, 36035-000, Brasil",
+"tipo": "residential"
+},
 "rua dos artistas, 358, morro da gloria, juiz de fora, mg, brasil": {
 "lat": -21.7495044,
 "lng": -43.3543885,
@@ -2258,14 +2464,24 @@
 },
 "rua doze, 88, jardim dos bandeirantes (melo viana), esmeraldas, mg, brasil": null,
 "rua dr jurandir costa campos, 1199, estacao, matozinhos, mg, brasil": null,
+"rua dr. deolindo, bairro baiminas, cachoeiro de itapemirim/es (entre a, cachoeiro de itapemirim, es, brasil": null,
+"rua dr. joao santos neves, 220, edificio ba - rao de maua, vitoria, es, brasil": null,
+"rua dr. oscar de almeida gama, unidade denominada imovel “b” (2o pavimento-comercial), loteamento da rffsa, 10, alegre, es, brasil": null,
 "rua durcelina de morais, 20, sublote 000, residencial sao frei galvao, divinopolis, mg, brasil": null,
 "rua e, 81, centro, campos gerais, mg, brasil": null,
 "rua e, morada da garca, matias barbosa, mg, brasil": null,
 "rua edson barbosa da silva, 624b, bela vista iii, sete lagoas, mg, brasil": null,
 "rua eduardo clementino silva (antiga rua c), 160, bela vista, leopoldina, mg, brasil": null,
 "rua elzio bergamo, 87, residencial nascente do paraiso, sao sebastiao do paraiso, mg, brasil": null,
+"rua emidio ferreira sacramento, 117, vila velha, es, brasil": {
+"lat": -20.3438323,
+"lng": -40.3180991,
+"nome": "Rua Emídio Ferreira Sacramento, Residencial Santa Clara, Ataíde, Ibes, Vila Velha, Espírito Santo, Região Sudeste, 29120-350, Brasil",
+"tipo": "tertiary"
+},
 "rua emidio magalhaes freire, 1396, parte, industrial, pirapora, mg, brasil": null,
 "rua epitacio de carvalho, centro, machado, mg, brasil": null,
+"rua ernandes duarte da fonseca, 252- loteamento denominado “theodorico zanivan”, no lugar monte cristo, cachoeiro de itapemirim, es, brasil": null,
 "rua eucherio rodrigues, 700, industrial, juiz de fora, mg, brasil": {
 "lat": -21.7321551,
 "lng": -43.3949415,
@@ -2289,6 +2505,12 @@
 },
 "rua flamboyant, 123, vale dos ipe, rodeiro, mg, brasil": null,
 "rua flor do cerrado, 700, maria teresa, belo horizonte, mg, brasil": null,
+"rua florencio batista, 355, vitoria, es, brasil": {
+"lat": -20.263508,
+"lng": -40.2616104,
+"nome": "Rua Florêncio Baptista, Jardim Camburi, Distrito Goiabeiras, Vitória, Espírito Santo, Região Sudeste, 29090-350, Brasil",
+"tipo": "residential"
+},
 "rua floripes de almeida mendoca, 219, jardim das laranjeiras, frutal, mg, brasil": null,
 "rua franca, 376, sao francisco de assis, esmeraldas, mg, brasil": null,
 "rua francisca de assis valerio, 146, loteamento luizote de freitas iv, uberlandia, mg, brasil": null,
@@ -2350,8 +2572,15 @@
 "rua honorio pires franca, 601, jardim do lago, uberaba, mg, brasil": null,
 "rua honorio pires franca, 601, santa maria, uberaba, mg, brasil": null,
 "rua hum, 129, jardim primavera, areado, mg, brasil": null,
+"rua humberto serrano, 248, vila velha, es, brasil": {
+"lat": -20.3424251,
+"lng": -40.2872079,
+"nome": "248, Rua Humberto Serrano, Costa Azul, Praia da Costa, Região 01 - Centro, Vila Velha, Espírito Santo, Região Sudeste, 29101-463, Brasil",
+"tipo": "building"
+},
 "rua hungria, 565, granjas primavera, ribeirao das neves, mg, brasil": null,
 "rua i, 85, nova esmeraldas, esmeraldas, mg, brasil": null,
+"rua idalino carvalho, 02, bairro areinha, viana/es (, viana, es, brasil": null,
 "rua imperatriz dona amelia, 181, chacaras granja pousada del rey, santa luzia, mg, brasil": null,
 "rua inacio higino, 673, praia da costa, vila velha, es, brasil": {
 "lat": -20.3336235,
@@ -2398,6 +2627,12 @@
 "tipo": "residential"
 },
 "rua joao de souza nascentes, 168, eldorado, patos de minas, mg, brasil": {
+"lat": -18.6004317,
+"lng": -46.5092013,
+"nome": "Rua João de Souza Nascentes, Eldorado, Patos de Minas, Minas Gerais, Região Sudeste, 38700-164, Brasil",
+"tipo": "residential"
+},
+"rua joao de souza nascentes, 168, patos de minas, mg, brasil": {
 "lat": -18.6004317,
 "lng": -46.5092013,
 "nome": "Rua João de Souza Nascentes, Eldorado, Patos de Minas, Minas Gerais, Região Sudeste, 38700-164, Brasil",
@@ -2460,9 +2695,12 @@
 "rua jockey clube, 482d, un 05 pav 2, centro, pedro leopoldo, mg, brasil": null,
 "rua jorge vieira, 368, planalto, patos de minas, mg, brasil": null,
 "rua jornalista paulo heneine, 20, mantiqueira, belo horizonte, mg, brasil": null,
+"rua jornalista paulo heneine, 95, belo horizonte, mg, brasil": null,
 "rua jornalista paulo heneine, 95, mantiqueira, belo horizonte, mg, brasil": null,
+"rua jose baldo, 40, frutal, mg, brasil": null,
 "rua jose baldo, 40, princesa isabel, frutal, mg, brasil": null,
 "rua jose bonifacio, 870, rosario, areado, mg, brasil": null,
+"rua jose capristano nobre, s/n (ao lado do edificio residencial renoir), nos limites do centro com o bairro ipiranga, guarapari/es (coordenadas geograficas aproximadas 20°40'36.9\"s 40°30'12.5\"w), guarapari, es, brasil": null,
 "rua jose cleto, 425, santa cruz, belo horizonte, mg, brasil": {
 "lat": -19.8765417,
 "lng": -43.931516,
@@ -2540,6 +2778,7 @@
 "rua laura emilia costa dona, 195, eldorado, carangola, mg, brasil": null,
 "rua leonides goncalves da costa, 37, residencial morada du park, uberaba, mg, brasil": null,
 "rua lindaura guimaraes, 00, parque sao joao, almenara, mg, brasil": null,
+"rua linhares, 798, guriri, sao mateus/es, localiza- cao geografica aproximada 18°44’46.8”s 39°44’56.4”w. depositaria: hidirlene duszeiko, leiloeira publica oficial, sao mateus, es, brasil": null,
 "rua luzia neves fleck, 150, b. gavea sul, uberlandia, mg, brasil": null,
 "rua luzia neves fleck, 150, shopping park, uberlandia, mg, brasil": {
 "lat": -18.9721167,
@@ -2639,6 +2878,7 @@
 "nome": "Rua Menino Jesus de Praga, Santa Cecília, Esmeraldas, Minas Gerais, Região Sudeste, 33821-200, Brasil",
 "tipo": "residential"
 },
+"rua miguel fernandes, 87, bairro village da luz, cachoeiro de itapemirim/es, cachoeiro de itapemirim, es, brasil": null,
 "rua minas gerais, 100, fazenda bom jesus, contagem, mg, brasil": null,
 "rua minas gerais, 286, caiapos, contagem, mg, brasil": {
 "lat": -19.8387813,
@@ -2652,6 +2892,18 @@
 "nome": "Rua Ministro Oliveira Salazar, Santa Mônica, Venda Nova, Belo Horizonte, Minas Gerais, Região Sudeste, 31520-400, Brasil",
 "tipo": "tertiary"
 },
+"rua monsenhor pedrinha, 1.513, linhares, es, brasil": {
+"lat": -19.3979809,
+"lng": -40.0589664,
+"nome": "Rua Monsenhor Pedrinha, Araçá, Linhares, Espírito Santo, Região Sudeste, 29900-440, Brasil",
+"tipo": "secondary"
+},
+"rua monte castelo, 140, cariacica, es, brasil": {
+"lat": -20.3383888,
+"lng": -40.3730488,
+"nome": "Rua Monte Castelo, Vera Cruz, Itaquari, Cariacica, Espírito Santo, Região Sudeste, 29146-759, Brasil",
+"tipo": "residential"
+},
 "rua monte castelo, 140, vera cruz, cariacica, es, brasil": {
 "lat": -20.3383888,
 "lng": -40.3730488,
@@ -2663,6 +2915,7 @@
 "rua nossa senhora aparecida, 79, centro, mutum, mg, brasil": null,
 "rua nossa senhora da conceicao, 1670, praia, contagem, mg, brasil": null,
 "rua nove, jardim panorama, araguari, mg, brasil": null,
+"rua nove, s/no, baunilha – colatina/es, colatina, es, brasil": null,
 "rua novo mundo, 131, jardim sao jorge, pocos de caldas, mg, brasil": null,
 "rua octavio malvaccini, 580, marilandia, juiz de fora, mg, brasil": null,
 "rua octavio malvaccini, 585, sao pedro, juiz de fora, mg, brasil": {
@@ -2674,6 +2927,12 @@
 "rua oito, 595, fazenda do mandu, contagem, mg, brasil": null,
 "rua olivio da silva couto, 61, casa01, resplendor 2a secao, igarape, mg, brasil": null,
 "rua omicron, 36, geraldo cesario, bom despacho, mg, brasil": null,
+"rua onze, 40, montes claros, mg, brasil": {
+"lat": -16.7608063,
+"lng": -43.8386694,
+"nome": "Rua José Maria Silva, Sion II, Sion, Montes Claros, Minas Gerais, Região Sudeste, 39406-513, Brasil",
+"tipo": "residential"
+},
 "rua onze, 40, residencial sul ipes, montes claros, mg, brasil": null,
 "rua orimar santiago, 11, santiago, araguari, mg, brasil": {
 "lat": -18.6215773,
@@ -2685,6 +2944,12 @@
 "lat": -18.9189907,
 "lng": -48.3385902,
 "nome": "Rua Oscar Bernardes da Costa, Luizote de Freitas, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38414-466, Brasil",
+"tipo": "residential"
+},
+"rua oscar rodrigues de oliveira, 657, vitoria, es, brasil": {
+"lat": -20.2805397,
+"lng": -40.2987605,
+"nome": "Rua Oscar Rodrigues de Oliveira, Jardim da Penha, Distrito Goiabeiras, Vitória, Espírito Santo, Região Sudeste, 29060-350, Brasil",
 "tipo": "residential"
 },
 "rua osvaldo machado, 1201, alto sao francisco, buritizeiro, mg, brasil": {
@@ -2805,6 +3070,7 @@
 "nome": "Rua Professora Maria Célia Cence, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38411-837, Brasil",
 "tipo": "residential"
 },
+"rua projetada, estrada colatina - joao neiva, s/n, bairro santa margarida, colatina/es, cep 29700-778, colatina, es, brasil": null,
 "rua protasio jose ferreira, armando santos, araxa, mg, brasil": null,
 "rua prudente de moraes, residencial jacaraipe, serra, es, brasil": {
 "lat": -20.1350251,
@@ -2839,6 +3105,12 @@
 "tipo": "residential"
 },
 "rua recife, 276, jardim limoeiro, serra, es, brasil": null,
+"rua recife, 276, serra, es, brasil": {
+"lat": -20.1939424,
+"lng": -40.2768687,
+"nome": "Rua Recife, José de Anchieta III, Região de Anchieta, Serra, Espírito Santo, Região Sudeste, 29162-500, Brasil",
+"tipo": "residential"
+},
 "rua rei dario l, vale dos reis, cariacica, es, brasil": {
 "lat": -20.3233007,
 "lng": -40.4283455,
@@ -2890,12 +3162,19 @@
 },
 "rua rondon pacheco, morada bethania, viana, es, brasil": null,
 "rua rua laura emilia costa dona, eldorado, carangola, mg, brasil": null,
+"rua rui barbosa, 322, serra/es, serra, es, brasil": {
+"lat": -20.2378212,
+"lng": -40.2891351,
+"nome": "Rua Rui Barbosa, Jardim Carapina, Região de Carapina, Serra, Espírito Santo, Região Sudeste, 29161-758, Brasil",
+"tipo": "residential"
+},
 "rua ruth rocha, 143, minas gerais, uberlandia, mg, brasil": {
 "lat": -18.8599372,
 "lng": -48.2723296,
 "nome": "Rua Ruth Rocha, Flamboyant, Minas Gerais, Setor Norte, Uberlândia, Minas Gerais, Região Sudeste, 38402-012, Brasil",
 "tipo": "residential"
 },
+"rua santa apolonia, 91, bairro ibes, vila velha/es (, vila velha, es, brasil": null,
 "rua santa cruz, 122, palmital, lagoa santa, mg, brasil": {
 "lat": -19.5935924,
 "lng": -43.9009605,
@@ -2959,6 +3238,12 @@
 "rua seis, 00, bela vista, guanhaes, mg, brasil": null,
 "rua sem nome, reserva real un golf, jaboticatubas, mg, brasil": null,
 "rua sema, 675, icaivera, contagem, mg, brasil": null,
+"rua senhora do porto, 1330, belo horizonte, mg, brasil": {
+"lat": -19.9784669,
+"lng": -43.982991,
+"nome": "Rua Senhora do Porto, Palmeiras, Regional Oeste, Belo Horizonte, Minas Gerais, Região Sudeste, 30575-841, Brasil",
+"tipo": "residential"
+},
 "rua senhora do porto, 1330, palmeiras, belo horizonte, mg, brasil": {
 "lat": -19.9722575,
 "lng": -43.983449,
@@ -2985,6 +3270,7 @@
 },
 "rua tangara, 0, itapoa ii, sete lagoas, mg, brasil": null,
 "rua terezinha de jesus ribeiro, 145, morada do trevo, betim, mg, brasil": null,
+"rua theodoro schwambach, s/no, (portaria ad- ministrativa) bairro centro, domingos martins/es, (, domingos martins, es, brasil": null,
 "rua tres, 05, distrito industrial jardim piemont norte, betim, mg, brasil": null,
 "rua tres, 121, cidade jardim, governador valadares, mg, brasil": {
 "lat": -18.9094182,
@@ -2999,6 +3285,7 @@
 "nome": "Rua 3, Vale das Esmeraldas I, Melo Viana, Esmeraldas, Minas Gerais, Região Sudeste, 35740-000, Brasil",
 "tipo": "residential"
 },
+"rua treze, s/no, baunilha - colatina/es, colatina, es, brasil": null,
 "rua trinta e sete, 81, sao luiz, ribeirao das neves, mg, brasil": {
 "lat": -19.7967008,
 "lng": -44.0745008,
@@ -3016,6 +3303,7 @@
 "rua um, loteamento vila reis, campanha, mg, brasil": null,
 "rua um, vila montanhesa, juiz de fora, mg, brasil": null,
 "rua valmir leite, 1020, santa luzia, jequitinhonha, mg, brasil": null,
+"rua vanderley barbosa, 71, distrito de var - gem grande de soturno, cachoeiro de itapemirim/es (, cachoeiro de itapemirim, es, brasil": null,
 "rua vargem da serra, 267, engenho nogueira, belo horizonte, mg, brasil": {
 "lat": -19.889494,
 "lng": -43.9795911,
@@ -3211,6 +3499,12 @@
 "nome": "São Joaquim de Bicas, Minas Gerais, Região Sudeste, 32920-000, Brasil",
 "tipo": "town"
 },
+"sao mateus, es, brasil": {
+"lat": -18.7965039,
+"lng": -39.9212375,
+"nome": "São Mateus, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "sao mateus, juiz de fora, mg, brasil": {
 "lat": -21.7735943,
 "lng": -43.3546617,
@@ -3331,6 +3625,7 @@
 "tipo": "suburb"
 },
 "upg marajo, uberaba, mg, brasil": null,
+"urbano de colatina, es, brasil": null,
 "vale das esmeraldas 2 (melo viana), esmeraldas, mg, brasil": {
 "lat": -19.7298595,
 "lng": -44.1486456,
@@ -3374,6 +3669,12 @@
 },
 "via de acesso, 375, donato, contagem, mg, brasil": null,
 "via de acesso, 675, donato, contagem, mg, brasil": null,
+"viana, es, brasil": {
+"lat": -20.3921182,
+"lng": -40.4671731,
+"nome": "Viana, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "vila amado sales, 85, sao bernardo, juiz de fora, mg, brasil": null,
 "vila campanha, guaxupe, mg, brasil": {
 "lat": -21.3135119,
@@ -3396,6 +3697,12 @@
 "tipo": "neighbourhood"
 },
 "vila satelite, sarzedo, mg, brasil": null,
+"vila velha, es, brasil": {
+"lat": -20.4277515,
+"lng": -40.3773071,
+"nome": "Vila Velha, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "vila verde, betim, mg, brasil": {
 "lat": -19.9909251,
 "lng": -44.1552037,
@@ -3408,6 +3715,12 @@
 "lng": -42.840833,
 "nome": "Visconde do Rio Branco, Minas Gerais, Região Sudeste, 36520-000, Brasil",
 "tipo": "town"
+},
+"vitoria, es, brasil": {
+"lat": -20.3200917,
+"lng": -40.3376682,
+"nome": "Vitória, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
 },
 "waldir furtado amorim, cachoeiro de itapemirim, es, brasil": {
 "lat": -20.8404383,

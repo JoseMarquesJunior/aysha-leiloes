@@ -59,13 +59,28 @@ só consultam imóveis novos, porque `collector/cache/geo.json` é commitado.
 
 ## Fontes
 
-| Fonte | Estado | Observações |
+Inspeção feita em 2026-10-21 (robots.txt, termos de uso e estrutura real de cada site). Nenhuma URL foi inventada:
+as que não foram encontradas estão marcadas.
+
+| Fonte | Estado | Como funciona / por quê |
 |---|---|---|
-| Caixa (`sources/caixa.py`) | **ativa** (ES, MG) | CSV oficial por UF em `venda-imoveis.caixa.gov.br/listaweb/Lista_imoveis_<UF>.csv` (latin-1, `;`). É a única fonte estruturada. A página de detalhe de cada imóvel está atrás de CAPTCHA (Radware Bot Manager), então **não** é consultada: data do leilão, edital, matrícula, ocupação e FGTS ficam em branco para a Caixa. O próprio CSV às vezes devolve a página de CAPTCHA; o cliente detecta e tenta de novo com espera crescente. `robots.txt` do site devolve 404 (tratado como permitido). |
-| Resale (`sources/resale.py`) | esqueleto desativado | Pendente: ler os termos de uso e procurar API/feed/sitemap/JSON antes de qualquer parser. Se os termos proibirem coleta automatizada, continua desativada e o motivo fica registrado aqui. |
-| Banestes, Bandes | não iniciadas | Próxima etapa: inspecionar as páginas reais (publicações legais / editais), checar robots e termos, mostrar a estrutura antes de escrever o parser. |
-| Leiloeiros oficiais do ES, tribunais (JFES, TRT-17, TJES), SPU-ES | não iniciadas | Mesmo procedimento; só URLs verificadas (sem inventar). Diário oficial não será raspado. |
+| Caixa (`sources/caixa.py`) | **ativa** (ES, MG) | CSV oficial por UF em `venda-imoveis.caixa.gov.br/listaweb/Lista_imoveis_<UF>.csv` (latin-1, `;`). Única fonte estruturada. A página de detalhe está atrás de CAPTCHA (Radware), então data do leilão, edital, matrícula, ocupação e FGTS ficam em branco; o CSV às vezes devolve a página de CAPTCHA e o cliente tenta de novo. `robots.txt` dá 404. Os lotes da Caixa também aparecem no site do leiloeiro (Em Leilão) e a deduplicação junta as duas ocorrências, trazendo data do leilão, edital e matrícula. |
+| Banestes (`sources/banestes.py`) | **ativa** (só editais) | Página HTML "Publicações legais → Leilão de Bens Imóveis" lista os editais com datas e PDF. O `robots.txt` do Banestes proíbe todos os PDFs (`Disallow: /*.pdf$`), então o edital não é baixado. Os lotes entram pelo leiloeiro que conduz cada leilão (2026: Em Leilão, Buaiz, VIX), com `comitente` = Banestes. Os editais ficam em `docs/data/editais.json` (página Sobre). |
+| Bandes (`sources/bandes.py`) | **ativa** (venda direta) | `bandes.com.br/Site/Dinamico/Show/978/Leilao-de-Imoveis` lista um PDF por cidade com os imóveis em venda direta (blocos "Lote / Lance mínimo / BNU / Localização / Situação / Descrição / Registro / Endereço / Coordenadas"). O parser lê esses blocos; "Confrontações" (nomes de vizinhos) não é guardada. O servidor derruba conexões com frequência, por isso o texto de cada PDF fica em `collector/cache/pdf/` e é reaproveitado quando o site não responde. A página 979 ("Leilão de Imóveis") nunca respondeu. Sem robots.txt. |
+| SPU / VendasGov (`sources/spu.py`) | **ativa** | API pública da SPA `imoveis.vendasgov.serpro.gov.br` (`/api/public/imoveis?sala=venda|leilao`, `/api/public/imoveis/<id>`), sem autenticação. A base nacional tem poucas unidades; filtro por UF no cliente (o parâmetro `uf` da API responde 204). |
+| JFES — Justiça Federal no ES (`sources/jfes.py`) | **ativa** | `trf2.jus.br/jfes/transparencia/listagem` lista os leilões unificados com um PDF por vara (robots do TRF2 permite). O texto é extraído com pypdf e cada bloco "NN - PROCESSO ... BEM ... AVALIAÇÃO ... LOCALIZAÇÃO ... ÔNUS" vira um registro (veículos descartados). Nomes de partes não são guardados. Texto dos PDFs em cache (`collector/cache/pdf/`). |
+| Em Leilão, Buaiz, ES Leilões (`sources/suporteleiloes.py`) | **ativa** | Leiloeiros do ES na plataforma Suporte Leilões: Ayrton de Souza Porto Filho (emleilao.com.br, JUCEES 058/2014; conduz Caixa e Banestes em 2026), Alexandre Buaiz Neto (buaizleiloes.com.br; hoje só veículos) e Sérgio de Paula Pereira (esleiloes.com.br, JUCEES 008/1984). `GET /buscador?uf=<UF>&page=N` lista os lotes; a página do lote embute `var lote = {...}` com avaliação, lance, datas e documentos. Robots: sem restrição a HTML. |
+| VIX Leilões (`sources/vixleiloes.py`) | **ativa** | Gabriel Fardin Pereira (vixleiloes.com.br, JUCEES 055/2013), citado no site do Banestes; leilões judiciais do TJES. Páginas `/leiloes?status=...` → leilão → lote com JSON-LD (schema.org/Product). Robots proíbe só `/api/` e `/login`. |
+| Colodete Leilões (`sources/colodete.py`) | **ativa** | Mauro Colodete (colodeteleiloes.com.br, JUCEES 051/2006). Plataforma própria: `/leiloes` → `/leilao/<id>/lotes` → `/item/<id>/detalhes` (comissão, avaliação, datas, PDF da matrícula). Robots: `Allow: /` com `Content-Signal: search=yes, ai-train=no` (bloqueia só robôs de IA nomeados). |
+| HD Leilões (`sources/hdleiloes.py`) | esqueleto desativado | Hidirlene Duszeiko (hdleiloes.com.br), leiloeira dos leilões da JFES. 166 imóveis no ES segundo a API de filtros, mas a busca só responde a POST montado por JS e os Termos de Uso (Zendesk) devolvem 403 ao robô: sem ler os termos, não coletamos. Os lotes judiciais federais entram pelo módulo `jfes`. |
+| Resale (`sources/resale.py`) | esqueleto desativado | Os Termos de Uso de resale.com.br (12/09/2025) vedam expressamente "engenharia reversa, scraping ou mineração de dados" e a reprodução do conteúdo. Não há API pública nem feed (sitemap só com páginas institucionais). Não será implementada. |
+| TRT-17 (Justiça do Trabalho no ES) | não viável | `trt17.jus.br` devolve 403 (CloudFront) ao User-Agent do projeto, inclusive na página de serviços. Não encontramos página central de leilões nem lista de leiloeiros. |
+| TJES (Justiça Estadual) | sem página central | Os editais de leilão judicial saem só no Ediário (diário oficial, que não raspamos) e cada um indica o leiloeiro. Leiloeiros vistos em editais do TJES: Colodete, Buaiz, VIX, Sued Peter (suedpeterleiloes.com.br, ainda não inspecionado), Luiz Lessa (luizlessa.lel.br, ainda não inspecionado). |
+| JUCEES (lista de leiloeiros) | não encontrada | `leiloeiros.jucees.es.gov.br/leiloeiros` devolve 404; a lista oficial de 2024 tinha 42 leiloeiros. |
 | Leiloeiros nacionais (Zuk, Mega, Sodré Santoro, Superbid, Leilão Vip, Frazão) | não iniciadas | Só depois de tudo acima estável, no máximo dois. |
+
+Nome de pessoa física nunca entra na base: os módulos guardam só o nome profissional do leiloeiro oficial
+(informação pública da JUCEES) e descartam exequentes, executados e depositários.
 
 ### Mapeamento do CSV da Caixa para o esquema
 
@@ -130,6 +145,14 @@ depois da aprovação dessa estimativa. Para a Caixa a IA não tem o que ler: n�
 5. Escrever um teste em `collector/tests/` com um trecho real da fonte.
 
 Uma fonte que falha não derruba as outras: o erro vai para `status_fontes.json` e para a página Sobre.
+
+## Link de apoio (Buy Me a Coffee)
+
+Viável. A página oficial de países com repasse do Buy Me a Coffee lista o Brasil (Stripe Standard
+Connect); a plataforma cobra 5 % por transação mais a taxa do Stripe, e o repasse cai numa conta Stripe
+brasileira. Alternativas sem taxa própria: um link Pix/QR ou o Ko-fi. O site já tem o botão pronto:
+preencha `urlApoio` em `docs/js/config.js` (ex.: `https://buymeacoffee.com/<usuario>`) e ele aparece no
+rodapé da tabela e na página Sobre; vazio, não aparece. Criar a conta é um passo manual do mantenedor.
 
 ## Secrets e GitHub Actions
 

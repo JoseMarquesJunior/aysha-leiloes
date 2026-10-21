@@ -400,6 +400,11 @@
     }
     $("fontes-status").innerHTML = partes.join(" ");
     $("rodape-fontes").innerHTML = rodape.join(", ") || "Caixa";
+    const cfg = window.LT_CONFIG || {};
+    if (cfg.urlApoio) {
+      const a = $("apoio-link");
+      a.href = cfg.urlApoio; a.textContent = cfg.textoApoio || "Apoie o projeto"; a.classList.remove("hidden");
+    }
   }
 
   // ---------- histórico ----------

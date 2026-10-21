@@ -36,14 +36,19 @@
   function hojeIso() { return new Date().toISOString().slice(0, 10); }
 
   const NOMES_FONTES = {
-    caixa: "Caixa", banestes: "Banestes", bandes: "Bandes", spu: "SPU", resale: "Resale",
+    caixa: "Caixa", banestes: "Banestes", bandes: "Bandes", spu: "SPU (União)", resale: "Resale", jfes: "Justiça Federal (JFES)",
+    "leiloeiro-emleilao": "Em Leilão (Ayrton Porto Filho)", "leiloeiro-buaiz": "Buaiz Leilões", "leiloeiro-esleiloes": "ES Leilões (Sérgio de Paula)",
+    "leiloeiro-vix": "VIX Leilões (Gabriel Fardin)", "leiloeiro-colodete": "Colodete Leilões (Mauro Colodete)", "leiloeiro-hd": "HD Leilões",
+    suporteleiloes: "Leiloeiros (Em Leilão, Buaiz, ES Leilões)", vixleiloes: "VIX Leilões", colodete: "Colodete Leilões", hdleiloes: "HD Leilões",
   };
   function nomeFonte(f) { return NOMES_FONTES[f] || (f ? f.replace(/^leiloeiro-/, "Leiloeiro: ") : TRACO); }
 
   const SITES_FONTES = {
     caixa: "https://venda-imoveis.caixa.gov.br/",
-    banestes: "https://www.banestes.com.br/",
+    banestes: "https://www.banestes.com.br/publicacoes_legais/leilao-bem-imovel.html",
     bandes: "https://www.bandes.com.br/",
+    spu: "https://imoveis.vendasgov.serpro.gov.br/",
+    jfes: "https://www.trf2.jus.br/jfes/transparencia/listagem",
     resale: "https://www.resale.com.br/",
   };
 

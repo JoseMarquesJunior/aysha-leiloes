@@ -125,12 +125,13 @@ def coletar(config: dict, cliente) -> list[dict]:
     registros: list[dict] = []
     info = {"data_geracao": None, "por_uf": {}}
     ultima_info.clear()
-    ultima_info.update(info)
+    ultima_info.update(info)  # dicts partilhados: por_uf e data_geracao são atualizados abaixo
     for uf in config.get("ufs", []):
         url = cfg["url_lista"].format(uf=uf)
         r = cliente.get(url)
         linhas, data_geracao = parsear_csv(r.content, cfg.get("codificacao", "latin-1"), cfg.get("separador", ";"))
         info["data_geracao"] = data_geracao or info["data_geracao"]
+        ultima_info["data_geracao"] = info["data_geracao"]
         info["por_uf"][uf] = len(linhas)
         log.info("caixa %s: %d imóveis (arquivo gerado em %s)", uf, len(linhas), data_geracao)
         for d in linhas:

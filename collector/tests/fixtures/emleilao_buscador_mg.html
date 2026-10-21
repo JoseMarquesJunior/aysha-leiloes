@@ -1,0 +1,2592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+    <link rel="stylesheet" href="/libs/fontawesome/css/all.min.css">
+    <script type="text/javascript">
+        var isLogado = false;
+    </script>
+
+                    
+
+        <title>Buscador - Em leilão</title>
+
+                <link rel="stylesheet" href="/build/app.97754772.css">
+        <style>
+            :root {
+                --main-color-primary: #e56c32;
+                --main-color-secondary: #0d0d0d;
+            }
+            .logo {
+                background-image: url('https://static.suporteleiloes.com.br/emleilaocombr/logo.png');
+            }
+            @media screen and (max-width: 767px) {
+                                .logo {
+                    background-image: url('https://static.suporteleiloes.com.br/emleilaocombr/logo.png');
+                }
+                            }
+        </style>
+    
+    <link rel="stylesheet" href="/build/home.7f01fea9.css">
+
+        
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<header>
+    <div class="center">
+        <div class="cont-logo">
+            <a href="/" class="logo">Em leilão</a>
+        </div>
+
+        <div class="cont-middle">
+            <div class="cont-left">
+                <div class="menu-mobile show-mobile">
+        <a href="/login" class="btn-auth-mobile">Entrar</a>
+        <a href="/buscador" class="btn-mobile-search">
+        <i class="fa-light fa-magnifying-glass"></i>
+    </a>
+    <a href="/agenda" class="btn-mobile-calendar">
+        <i class="fa-light fa-calendar-check"></i>
+    </a>
+    <a class="btn-mobile-menu">
+        <i class="fa-regular fa-bars closed"></i>
+        <i class="fa-solid fa-times opened"></i>
+    </a>
+
+    <div id="menu-mobile" class="menu-mobile-global">
+        <div class="menu-mobile-content">
+            <div class="auth">
+                                    <a href="https://arrematante.emleilao.com.br/#/cadastro" class="btn-auth btn-conta">Criar conta</a>
+                    <a href="/login" class="btn-auth btn-login">Entrar</a>
+                            </div>
+            <h4>Site</h4>
+            <ul class="mobile-categorias">
+                <li>
+                    <a href="/agenda">Agenda</a>
+                </li>
+                <li>
+                    <a href="/quem-somos">Quem Somos</a>
+                </li>
+                <li>
+                    <a href="/fale-conosco">Contato</a>
+                </li>
+            </ul>
+            <h4>Busca por categoria</h4>
+            <ul class="mobile-categorias">
+                                    <li>
+                        <a href="/buscador?categoria=2">Imóveis</a>
+                                                    <ul class="m2">
+                                                                    <li>
+                                        <a href="/buscador?subcategoria=15">Apartamento</a>
+                                    </li>
+                                                                    <li>
+                                        <a href="/buscador?subcategoria=16">Casa</a>
+                                    </li>
+                                                                    <li>
+                                        <a href="/buscador?subcategoria=43">Comercial</a>
+                                    </li>
+                                                                    <li>
+                                        <a href="/buscador?subcategoria=44">Gleba</a>
+                                    </li>
+                                                                    <li>
+                                        <a href="/buscador?subcategoria=45">Imovel rural</a>
+                                    </li>
+                                                                    <li>
+                                        <a href="/buscador?subcategoria=41">Loja</a>
+                                    </li>
+                                                                    <li>
+                                        <a href="/buscador?subcategoria=42">Predio</a>
+                                    </li>
+                                                                    <li>
+                                        <a href="/buscador?subcategoria=40">Sala</a>
+                                    </li>
+                                                                    <li>
+                                        <a href="/buscador?subcategoria=18">Terreno</a>
+                                    </li>
+                                                            </ul>
+                                            </li>
+                            </ul>
+        </div>
+    </div>
+
+</div>
+                <div class="cont-search">
+                    <form method="get" action="/buscador" id="globalBusca">
+                        <input type="text" name="busca" id="globalBuscaInput" placeholder="O que está buscando?" autocomplete="off">
+                        <button type="submit">
+                            <i class="fa-light fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="cont-nav">
+                    
+                    <div class="cont-nav ps-r show-desktop">
+                        <div class="nav-item show-navCategorias">
+                            <a><!--<span>Explore por</span> -->Categorias</a>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+
+                        <div class="cont-navCategoria">
+                            <ul class="menu">
+                                                                    <li>
+                                        <a href="/buscador?categoria=2">Imóveis</a>
+                                                                                    <ul class="m2">
+                                                                                            <li>
+                                                    <a href="/buscador?subcategoria=15">Apartamento</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="/buscador?subcategoria=16">Casa</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="/buscador?subcategoria=43">Comercial</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="/buscador?subcategoria=44">Gleba</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="/buscador?subcategoria=45">Imovel rural</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="/buscador?subcategoria=41">Loja</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="/buscador?subcategoria=42">Predio</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="/buscador?subcategoria=40">Sala</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="/buscador?subcategoria=18">Terreno</a>
+                                                </li>
+                                                                                        </ul>
+                                                                            </li>
+                                                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cont-nav ps-r">
+                    <div class="nav-item itemLink">
+                        <a href="/quem-somos"><!--<span>Saiba</span> -->Quem Somos</a>
+                    </div>
+
+                    
+                    <div class="cont-navMore">
+                        <ul class="menu">
+                            <li class="nav-home">
+                                <a href="/">Home</a>
+                            </li>
+
+                            <li class="nav-quemSomos">
+                                <a href="#">Quem Somos</a>
+                            </li>
+
+                            <li class="nav-agenda">
+                                <a href="#eventos">Eventos</a>
+                            </li>
+
+                            
+                            <li class="nav-contato">
+                                <a href="/fale-conosco">Fale Conosco</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cont-right">
+                <div class="cont-actions">
+                                        <a href="/mapa">
+                        <div class="cont-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <span>Ver no<strong>mapa</strong></span>
+                    </a>
+                    
+                                        <a href="/agenda">
+                        <div class="cont-icon">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <span>Ver<strong>agenda</strong></span>
+                    </a>
+                                    </div>
+
+                <div class="cont-auth show-desktop">
+                                            <a href="/login" class="btn-auth btn-login">Entrar</a>
+                    <a href="https://arrematante.emleilao.com.br/#/cadastro" class="btn-auth btn-conta">Criar conta</a>
+                                    </div>
+            </div>
+        </div>
+    </div><!-- END Center -->
+</header>
+   <section class="header-blog">
+        <div class="center">
+            <h1>Buscador</h1>
+            <p>Encontre sua melhor compra com os melhores preços em leilões</p>
+        </div><!-- END Center -->
+    </section><!-- END Section HeadContato -->
+
+    <div class="cont-search-in-page">
+        <div class="center">
+            <div class="cont-middle">
+                <div class="cont-left">
+                    <div class="cont-nav">
+                        <div class="cont-navExplore">
+    <form id="buscadorHeaderForm" method="get" action="/buscador">
+        <div class="row-01">
+            <div class="c-input c-input-ad i-busca">
+                <label for="palavra-chave">Busca por palavra-chave</label>
+                <input id="palavra-chave" type="text" name="busca" value="" placeholder="Buscar por uma palavra específica">
+            </div><!---->
+<!--            <div class="c-input c-input-ad i-id">
+                <label for="palavra-chave">ID</label>
+                <input id="id" type="text" name="id" value="" placeholder="Buscar por uma palavra específica">
+            </div>-->
+
+            <div class="c-input c-input-ad i-categoria">
+                <label for="categoria">Categoria</label>
+                <select id="categoria" name="categoria">
+                    <option value="0" disabled selected>Todas as categorias</option>
+                </select>
+            </div><!---->
+
+            <div class="c-input c-input-ad i-subcategoria">
+                <label for="subcategoria">Subcategoria</label>
+                <select id="subcategoria" name="subcategoria">
+                    <option value="0" disabled selected>Todas as categorias</option>
+                </select>
+            </div><!---->
+
+            <div class="c-input c-input-ad i-estados">
+                <label for="uf">Estados</label>
+                <select id="uf" name="uf">
+                    <option value="0" disabled selected>Todos os estados</option>
+                </select>
+            </div><!---->
+
+            <div class="c-input c-input-ad i-cidades">
+                <label for="cidade">Cidade</label>
+                <select id="cidade" name="cidade">
+                    <option value="0" disabled selected>Todas as cidades</option>
+                </select>
+            </div><!---->
+        </div>
+
+        <div class="row-02">
+            <div class="c-input c-input-ad i-bairros">
+                <label for="bairro">Bairro</label>
+                <select id="bairro" name="bairro">
+                    <option value="0" disabled selected>Todos o bairros</option>
+                </select>
+            </div><!---->
+
+            <div class="c-input c-input-ad i-comitentes">
+                <label for="comitente">Comitente</label>
+                <select name="comitente" id="comitente">
+                    <option value="0" disabled selected>Todos os comitentes</option>
+                </select>
+            </div><!---->
+
+            <div class="c-input-ad c-checkbox">
+                <label>
+                    <input type="checkbox" name="judicial" value="1" >
+                    <span>Judiciais</span>
+                </label>
+
+                <label>
+                    <input type="checkbox" name="extrajudicial" value="1" >
+                    <span>Extrajudiciais</span>
+                </label>
+            </div><!---->
+
+            <div class="c-input c-input-ad i-valores">
+                <div class="v-1">
+                    <label for="valorInicial">Faixa de valor</label>
+                    <input id="valorInicial" type="text" name="valorInicial" placeholder="0,00"  value="">
+                    <small>R$</small>
+                </div>
+
+                <span>até</span>
+
+                <div class="v-2">
+                    <label for="valorFinal" class="label-reset">Faixa de valor</label>
+                    <input id="valorFinal" type="text" name="valorFinal" placeholder="0,00" value="">
+                    <small>R$</small>
+                </div>
+            </div><!---->
+        </div>
+
+        <div class="row-03 row-03-input">
+            <div class="c-input c-input-ad i-id">
+<!--                <label for="palavra-chave">BUSCAR POR ID:</label>-->
+                <input id="id" type="text" name="id" value="" placeholder="Buscar por ID de Lote ou Leilão">
+            </div>
+             <!-- @TODO -->
+            <button type="submit">Pesquisar</button>
+        </div>
+    </form>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- END Center -->
+    </div>
+
+        <main class="main-evento">
+    <div class="fundo-fill"></div>
+
+    <div class="center">
+        <aside class="full-filter ativo">
+            <h6>Filtros</h6>
+
+            <span class="close-fill">
+                <i class="fa-regular fa-xmark"></i>
+            </span>
+
+            <div class="body-fill">
+                <form name="filtrosForm" method="get">
+            <div class="c-block b-categorias">
+            <h5>Categorias</h5>
+
+                                        <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="subcategorias[]" data-target="subcategoria" value="15" class="auto-submit-arr"  data-nivel="1">
+                        <span>Apartamento</span>
+                    </div>
+
+                    <small>306</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="subcategorias[]" data-target="subcategoria" value="16" class="auto-submit-arr"  data-nivel="1">
+                        <span>Casa</span>
+                    </div>
+
+                    <small>171</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="subcategorias[]" data-target="subcategoria" value="43" class="auto-submit-arr"  data-nivel="1">
+                        <span>Comercial</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="subcategorias[]" data-target="subcategoria" value="44" class="auto-submit-arr"  data-nivel="1">
+                        <span>Gleba</span>
+                    </div>
+
+                    <small>2</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="subcategorias[]" data-target="subcategoria" value="45" class="auto-submit-arr"  data-nivel="1">
+                        <span>Imovel rural</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="subcategorias[]" data-target="subcategoria" value="41" class="auto-submit-arr"  data-nivel="1">
+                        <span>Loja</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="subcategorias[]" data-target="subcategoria" value="42" class="auto-submit-arr"  data-nivel="1">
+                        <span>Predio</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="subcategorias[]" data-target="subcategoria" value="40" class="auto-submit-arr"  data-nivel="1">
+                        <span>Sala</span>
+                    </div>
+
+                    <small>3</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="subcategorias[]" data-target="subcategoria" value="18" class="auto-submit-arr"  data-nivel="1">
+                        <span>Terreno</span>
+                    </div>
+
+                    <small>7</small>
+                </label>
+                    </div><!-- END Block -->
+    
+            <div class="c-block b-uf">
+            <h5>UF</h5>
+
+                                        <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="AL" class="auto-submit-arr"  data-nivel="2">
+                        <span>AL</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="AM" class="auto-submit-arr"  data-nivel="2">
+                        <span>AM</span>
+                    </div>
+
+                    <small>7</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="BA" class="auto-submit-arr"  data-nivel="2">
+                        <span>BA</span>
+                    </div>
+
+                    <small>21</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="CE" class="auto-submit-arr"  data-nivel="2">
+                        <span>CE</span>
+                    </div>
+
+                    <small>25</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="DF" class="auto-submit-arr"  data-nivel="2">
+                        <span>DF</span>
+                    </div>
+
+                    <small>3</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="ES" class="auto-submit-arr"  data-nivel="2">
+                        <span>ES</span>
+                    </div>
+
+                    <small>2</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="GO" class="auto-submit-arr"  data-nivel="2">
+                        <span>GO</span>
+                    </div>
+
+                    <small>67</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="MA" class="auto-submit-arr"  data-nivel="2">
+                        <span>MA</span>
+                    </div>
+
+                    <small>4</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="MG" class="auto-submit-arr" checked data-nivel="2">
+                        <span>MG</span>
+                    </div>
+
+                    <small>23</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="MS" class="auto-submit-arr"  data-nivel="2">
+                        <span>MS</span>
+                    </div>
+
+                    <small>2</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="MT" class="auto-submit-arr"  data-nivel="2">
+                        <span>MT</span>
+                    </div>
+
+                    <small>2</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="PA" class="auto-submit-arr"  data-nivel="2">
+                        <span>PA</span>
+                    </div>
+
+                    <small>5</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="PB" class="auto-submit-arr"  data-nivel="2">
+                        <span>PB</span>
+                    </div>
+
+                    <small>9</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="PE" class="auto-submit-arr"  data-nivel="2">
+                        <span>PE</span>
+                    </div>
+
+                    <small>21</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="PI" class="auto-submit-arr"  data-nivel="2">
+                        <span>PI</span>
+                    </div>
+
+                    <small>12</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="PR" class="auto-submit-arr"  data-nivel="2">
+                        <span>PR</span>
+                    </div>
+
+                    <small>33</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="RJ" class="auto-submit-arr"  data-nivel="2">
+                        <span>RJ</span>
+                    </div>
+
+                    <small>112</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="RN" class="auto-submit-arr"  data-nivel="2">
+                        <span>RN</span>
+                    </div>
+
+                    <small>20</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="RS" class="auto-submit-arr"  data-nivel="2">
+                        <span>RS</span>
+                    </div>
+
+                    <small>8</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="SC" class="auto-submit-arr"  data-nivel="2">
+                        <span>SC</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="SE" class="auto-submit-arr"  data-nivel="2">
+                        <span>SE</span>
+                    </div>
+
+                    <small>9</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="ufs[]" data-target="uf" value="SP" class="auto-submit-arr"  data-nivel="2">
+                        <span>SP</span>
+                    </div>
+
+                    <small>106</small>
+                </label>
+                    </div><!-- END Block -->
+    
+            <div class="c-block b-cidade">
+            <h5>Cidade</h5>
+
+                                        <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="BELO HORIZONTE" class="auto-submit-arr"  data-nivel="3">
+                        <span>BELO HORIZONTE</span>
+                    </div>
+
+                    <small>7</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="BETIM" class="auto-submit-arr"  data-nivel="3">
+                        <span>BETIM</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="ESMERALDAS" class="auto-submit-arr"  data-nivel="3">
+                        <span>ESMERALDAS</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="FRUTAL" class="auto-submit-arr"  data-nivel="3">
+                        <span>FRUTAL</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="JUIZ DE FORA" class="auto-submit-arr"  data-nivel="3">
+                        <span>JUIZ DE FORA</span>
+                    </div>
+
+                    <small>2</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="MONTES CLAROS" class="auto-submit-arr"  data-nivel="3">
+                        <span>MONTES CLAROS</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="PATOS DE MINAS" class="auto-submit-arr"  data-nivel="3">
+                        <span>PATOS DE MINAS</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="PEDRO LEOPOLDO" class="auto-submit-arr"  data-nivel="3">
+                        <span>PEDRO LEOPOLDO</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="RIBEIRAO DAS NEVES" class="auto-submit-arr"  data-nivel="3">
+                        <span>RIBEIRAO DAS NEVES</span>
+                    </div>
+
+                    <small>3</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="SABARA" class="auto-submit-arr"  data-nivel="3">
+                        <span>SABARA</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="UBERLANDIA" class="auto-submit-arr"  data-nivel="3">
+                        <span>UBERLANDIA</span>
+                    </div>
+
+                    <small>3</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="cidades[]" data-target="cidade" value="VESPASIANO" class="auto-submit-arr"  data-nivel="3">
+                        <span>VESPASIANO</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                    </div><!-- END Block -->
+    
+            <div class="c-block b-bairro">
+            <h5>Bairro</h5>
+
+                                        <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="ELDORADO" class="auto-submit-arr"  data-nivel="4">
+                        <span>ELDORADO</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="GRANJAS BETANIA" class="auto-submit-arr"  data-nivel="4">
+                        <span>GRANJAS BETANIA</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="JARDIM BRASILIA" class="auto-submit-arr"  data-nivel="4">
+                        <span>JARDIM BRASILIA</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="MANTIQUEIRA" class="auto-submit-arr"  data-nivel="4">
+                        <span>MANTIQUEIRA</span>
+                    </div>
+
+                    <small>3</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="MORADA DOS ANGICOS" class="auto-submit-arr"  data-nivel="4">
+                        <span>MORADA DOS ANGICOS</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="MORRO DA GLORIA" class="auto-submit-arr"  data-nivel="4">
+                        <span>MORRO DA GLORIA</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="NOVO MUNDO" class="auto-submit-arr"  data-nivel="4">
+                        <span>NOVO MUNDO</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="PACIENCIA" class="auto-submit-arr"  data-nivel="4">
+                        <span>PACIENCIA</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="PALMEIRAS" class="auto-submit-arr"  data-nivel="4">
+                        <span>PALMEIRAS</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="PRINCESA ISABEL" class="auto-submit-arr"  data-nivel="4">
+                        <span>PRINCESA ISABEL</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="RESIDENCIAL SUL IPES" class="auto-submit-arr"  data-nivel="4">
+                        <span>RESIDENCIAL SUL IPES</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="SANTA AMELIA" class="auto-submit-arr"  data-nivel="4">
+                        <span>SANTA AMELIA</span>
+                    </div>
+
+                    <small>2</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="SERRA DOURADA" class="auto-submit-arr"  data-nivel="4">
+                        <span>SERRA DOURADA</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="SHOPPING PARK" class="auto-submit-arr"  data-nivel="4">
+                        <span>SHOPPING PARK</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="TOCANTINS" class="auto-submit-arr"  data-nivel="4">
+                        <span>TOCANTINS</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="TREVO" class="auto-submit-arr"  data-nivel="4">
+                        <span>TREVO</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="URCA (JUSTINOPOLIS)" class="auto-submit-arr"  data-nivel="4">
+                        <span>URCA (JUSTINOPOLIS)</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="VALE DO PALMITAL 2 (MELO VIANA)" class="auto-submit-arr"  data-nivel="4">
+                        <span>VALE DO PALMITAL 2 (MELO VIANA)</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                            <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="bairros[]" data-target="bairro" value="VILA MARIANA" class="auto-submit-arr"  data-nivel="4">
+                        <span>VILA MARIANA</span>
+                    </div>
+
+                    <small>1</small>
+                </label>
+                    </div><!-- END Block -->
+    
+            <div class="c-block b-vendedor">
+            <h5>Vendedor</h5>
+
+                                        <label>
+                    <div class="c-left">
+                        <input type="checkbox" name="comitentes[]" data-target="comitente" value="1" class="auto-submit-arr"  data-nivel="5">
+                        <span>CAIXA ECONOMICA FEDERAL</span>
+                    </div>
+
+                    <small>23</small>
+                </label>
+                    </div><!-- END Block -->
+    
+    </form>            </div>
+        </aside>
+
+        <div class="full-itensCont ativo">
+                            <section class="section-destaques ajuste-destaque-pag">
+                </section>
+            
+            <section class="section-itensEvento">
+                <div class="r-center">
+                    <div class="row-actions">
+                        <div class="c-left">
+                                                                                                                <p>Exibindo <strong>1</strong> a <strong>12</strong> de <strong>23</strong> itens. Página <strong>1 de 2</strong>.</p>
+                        </div>
+
+                        <div class="c-right">
+                            
+                            <div class="action-order">
+                                <form class="action-order">
+                                    <span>Ordenar por:</span>
+
+                                    <select name="order" class="auto-submit">
+                                        
+                                        <option value="numero" >Número do Lote</option>
+                                        <option value="menorValor" >Menor Valor</option>
+                                        <option value="maiorValor" >Maior Valor</option>
+                                        <option value="maisVistos" >Mais Vistos</option>
+                                        <option value="ufCidade" >Cidade/UF</option>
+                                                                            </select>
+                                </form>
+                            </div>
+
+                            <div class="action-type">
+                                <span>Tipo da lista:</span>
+
+                                <a class="btn-type show-typeList ativo">
+                                    <i class="fa-solid fa-grid-2"></i>
+                                </a>
+
+                                <a class="btn-type show-typeGrid">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            </div>
+
+                            <span class="show-more">
+                                <i class="fa-regular fa-sliders"></i>
+                                Filtros
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="cont-listCards leilao-index- flex-itens ajusteIsFilter">
+                                                                                <article class="lote-main bem-index-11531 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>36%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 131</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11531/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7260/arquivos/6ac7b2428b5e0-6ac7b2428d833.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11531/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7260</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Apartamento</h3>
+
+                                                                                                    <p>Apartamento - Área privativa: 45,22 m², Com 2 qt(s), 1 Banheiro(s), 1 Vaga na Garagem - Localizado(a): RUA JORNALISTA PAULO HENEINE, N. 95, Apto. 207, BL 01 BOX 78 - BELO HORIZONTE/MG - CEP: 31660093 - N° IPTU: 9691710010150 - MATRÍCULA: 5419 - OFICIO: 9</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>BELO HORIZONTE - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 167.613,66</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid">Lance Atual</span>
+                                                                                                            <strong class="valor-grid">-</strong>
+                                                                                                    </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>0</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Apartamento - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11531/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11531/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Apartamento&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11531/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#ad92ded8cfc7c8ced990ecddccdfd9ccc0c8c3d9c28bcfc2c9d490c5d9d9ddde978282c8c0c1c8c4c1ccc283cec2c083cfdf82c8dbc8c3d9c2de82c1c8c4c1ccc282c1c8c4c1ccc280ceccc4d5cc80c388ee9f88efec809d9d9e98809d9e9f9b80c1c4cec4d9ccceccc280cccfc8dfd9cc82c1c2d9c8829c9c989e9c82c1c2d9c8">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11531">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11532 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>38%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 132</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11532/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7261/arquivos/6ac7b24ec4032-6ac7b24ec613d.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11532/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7261</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Apartamento</h3>
+
+                                                                                                    <p>Apartamento - Área privativa: 45,22 m², Com 2 qt(s), 1 Banheiro(s), 1 Vaga na Garagem - Localizado(a): RUA JORNALISTA PAULO HENEINE, N. 95, Apto. 206, BL 02 BOX 114 - BELO HORIZONTE/MG - CEP: 31660093 - N° IPTU: 9691710011253 - MATRÍCULA: 5529 - OFICIO: 9</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>BELO HORIZONTE - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 150.014,60</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid">Lance Atual</span>
+                                                                                                            <strong class="valor-grid">-</strong>
+                                                                                                    </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>0</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Apartamento - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11532/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11532/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Apartamento&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11532/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#67581412050d0204135a2617061513060a02091308410508031e5a0f131317145d4848020a0b020e0b06084904080a4905154802110209130814480b020e0b0608480b020e0b06084a04060e1f064a094224554225264a575754524a575455514a0b0e040e13060406084a060502151306480b081302485656525455480b081302">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11532">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11533 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>38%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 133</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11533/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7262/arquivos/6ac7b25c1f512-6ac7b25c21347.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11533/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7262</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Apartamento</h3>
+
+                                                                                                    <p>Apartamento - Área privativa: 43,26 m², Com 2 qt(s), 1 Banheiro(s), 1 Vaga na Garagem - Localizado(a): RUA JORNALISTA PAULO HENEINE, N. 95, Apto. 904, BL 02 BOX 116 - BELO HORIZONTE/MG - CEP: 31660093 - N° IPTU: 9691710011792 - MATRÍCULA: 5583 - OFICIO: 9</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>BELO HORIZONTE - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 189.981,30</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid">Lance Atual</span>
+                                                                                                            <strong class="valor-grid">-</strong>
+                                                                                                    </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>0</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Apartamento - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11533/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11533/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Apartamento&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11533/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#dae5a9afb8b0bfb9aee79baabba8aebbb7bfb4aeb5fcb8b5bea3e7b2aeaeaaa9e0f5f5bfb7b6bfb3b6bbb5f4b9b5b7f4b8a8f5bfacbfb4aeb5a9f5b6bfb3b6bbb5f5b6bfb3b6bbb5f7b9bbb3a2bbf7b4ff99e8ff989bf7eaeae9eff7eae9e8ecf7b6b3b9b3aebbb9bbb5f7bbb8bfa8aebbf5b6b5aebff5ebebefe9e9f5b6b5aebf">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11533">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11534 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>36%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 134</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11534/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7263/arquivos/6ac7b2687d2dd-6ac7b2687ee59.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11534/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7263</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Apartamento</h3>
+
+                                                                                                    <p>Apartamento - Área privativa: 47,7 m², Com 2 qt(s), 1 Banheiro(s), 1 Vaga na Garagem - Localizado(a): RUA SENHORA DO PORTO, N. 1330, Apto. 1201, BL 02 BOX 304 - BELO HORIZONTE/MG - CEP: 30575590 - N° IPTU: 498073 003 1948 - MATRÍCULA: 160899 - OFICIO: 1</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>BELO HORIZONTE - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 200.116,69</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid">Lance Atual</span>
+                                                                                                            <strong class="valor-grid">-</strong>
+                                                                                                    </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>0</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Apartamento - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11534/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11534/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Apartamento&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11534/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#38074b4d5a525d5b4c057948594a4c59555d564c571e5a575c4105504c4c484b0217175d55545d51545957165b5755165a4a175d4e5d564c574b17545d5154595717545d51545957155b5951405915561d7b0a1d7a791508080b0d15080b0a0e1554515b514c595b595715595a5d4a4c591754574c5d1709090d0b0c1754574c5d">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11534">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11535 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>38%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 135</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11535/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7264/arquivos/6ac7b276a8d52-6ac7b276aabd7.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11535/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7264</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Apartamento</h3>
+
+                                                                                                    <p>Apartamento - Área privativa: 42,98 m², Com 2 qt(s), 1 Banheiro(s) - Localizado(a): RUA COMENDADOR TEIXEIRA DA COSTA, N. 342, Apto. 501, BL 19, SANTA AMELIA - BELO HORIZONTE/MG - CEP: 31555440 - N° IPTU: 3050010023781 - MATRÍCULA: 21237 - OFICIO: 9</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>BELO HORIZONTE - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 146.953,08</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid">Lance Atual</span>
+                                                                                                            <strong class="valor-grid">-</strong>
+                                                                                                    </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>0</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Apartamento - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11535/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11535/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Apartamento&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11535/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#d8e7abadbab2bdbbace599a8b9aaacb9b5bdb6acb7febab7bca1e5b0acaca8abe2f7f7bdb5b4bdb1b4b9b7f6bbb7b5f6baaaf7bdaebdb6acb7abf7b4bdb1b4b9b7f7b4bdb1b4b9b7f5bbb9b1a0b9f5b6fd9beafd9a99f5e8e8ebedf5e8ebeaeef5b4b1bbb1acb9bbb9b7f5b9babdaaacb9f7b4b7acbdf7e9e9edebedf7b4b7acbd">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11535">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11536 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>36%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 136</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11536/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7265/arquivos/6ac7b28309194-6ac7b2830a29e.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11536/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7265</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Casa</h3>
+
+                                                                                                    <p>Casa - Área privativa: 120 m², Com 3 qt(s), 2 Banheiro(s), 2 Vagas na Garagem - Localizado(a): RUA DAS CANARIAS, N. 729, CS 01, SANTA AMELIA, RES FONTANA DI TREVI - BELO HORIZONTE/MG - CEP: 31560112 - N° IPTU: 3052000310021 - MATRÍCULA: 16212 - OFICIO: 9</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>BELO HORIZONTE - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 376.015,44</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid show-lance-card">Lance Atual</span>
+                                                                                                                                                                                                                                <strong class="valor-grid show-lance-card">R$ 402.016,00<small>NARIG</small></strong>
+                                                                                                                                                            </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>13</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Casa - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11536/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11536/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Casa&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11536/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#5f602c2a3d353a3c2b621c3e2c3e793d303b2662372b2b2f2c6570703a32333a36333e30713c3032713d2d703a293a312b302c70333a36333e3070333a36333e30723c3e36273e72317a1c6d7a1d1e726f6f6c6a726f6c6d697233363c362b3e3c3e30723e3d3a2d2b3e7033302b3a706e6e6a6c697033302b3a">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11536">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11537 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>39%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 137</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11537/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7266/arquivos/6ac7b28f981b5-6ac7b28f9a4af.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11537/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7266</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Apartamento</h3>
+
+                                                                                                    <p>Apartamento - Área privativa: 42,11 m², Com 2 qt(s), 1 Banheiro(s), 1 Vaga na Garagem - Localizado(a): RUA ALOISIO ARAGAO VILLAR, N. 641, Apto. 202, BL 12 BOX 03 - BELO HORIZONTE/MG - CEP: 31545160 - N° IPTU: 9830400011838 - MATRÍCULA: 7826 - OFICIO: 9</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>BELO HORIZONTE - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 117.860,63</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid show-lance-card">Lance Atual</span>
+                                                                                                                                                                                                                                <strong class="valor-grid show-lance-card">R$ 117.860,63<small>FLAVIEFLOR</small></strong>
+                                                                                                                                                            </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>1</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Apartamento - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11537/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11537/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Apartamento&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11537/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#67581412050d0204135a2617061513060a02091308410508031e5a0f131317145d4848020a0b020e0b06084904080a4905154802110209130814480b020e0b0608480b020e0b06084a04060e1f064a094224554225264a575754524a575455514a0b0e040e13060406084a060502151306480b081302485656525450480b081302">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11537">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11538 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>39%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 138</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11538/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7267/arquivos/6ac7b29bc16f7-6ac7b29bc26fc.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11538/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7267</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Apartamento</h3>
+
+                                                                                                    <p>Apartamento - Área privativa: 41,99 m², Com 2 qt(s), 1 Banheiro(s), 1 Vaga na Garagem - Localizado(a): RUA CLAUDIO CLOVER, N. 481, Apto. 303, BL 05 BOX 47, JARDIM BRASILIA - BETIM/MG - CEP: 32671502 - N° IPTU: 2070010071083 - MATRÍCULA: 175632 - OFICIO: 1</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>BETIM - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 119.069,46</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid">Lance Atual</span>
+                                                                                                            <strong class="valor-grid">-</strong>
+                                                                                                    </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>0</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Apartamento - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11538/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11538/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Apartamento&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11538/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#d8e7abadbab2bdbbace599a8b9aaacb9b5bdb6acb7febab7bca1e5b0acaca8abe2f7f7bdb5b4bdb1b4b9b7f6bbb7b5f6baaaf7bdaebdb6acb7abf7b4bdb1b4b9b7f7b4bdb1b4b9b7f5bbb9b1a0b9f5b6fd9beafd9a99f5e8e8ebedf5e8ebeaeef5b4b1bbb1acb9bbb9b7f5b9babdaaacb9f7b4b7acbdf7e9e9edebe0f7b4b7acbd">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11538">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11539 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>42%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 139</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11539/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7268/arquivos/6ac7b2addadfa-6ac7b2addcc74.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11539/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7268</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Apartamento</h3>
+
+                                                                                                    <p>Apartamento - Área privativa: 76,5 m², Com 2 qt(s), 1 Banheiro(s), 1 Vaga na Garagem - Localizado(a): RUA COLETORA UM, N. 348, Apto. 201 - ESMERALDAS/MG - CEP: 32819224 - N° IPTU: 203601303560001 - MATRÍCULA: 45933 - OFICIO: 1</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>ESMERALDAS - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 69.934,44</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid">Lance Atual</span>
+                                                                                                            <strong class="valor-grid">-</strong>
+                                                                                                    </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>0</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Apartamento - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11539/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11539/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Apartamento&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11539/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#5a65292f38303f392e671b2a3b282e3b373f342e357c38353e2367322e2e2a296075753f37363f33363b3574393537743828753f2c3f342e352975363f33363b3575363f33363b3577393b33223b77347f19687f181b776a6a696f776a69686c77363339332e3b393b35773b383f282e3b7536352e3f756b6b6f69637536352e3f">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11539">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11540 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>40%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 140</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11540/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7269/arquivos/6ac7b2b9bcf2d-6ac7b2b9bf12f.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11540/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7269</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Casa</h3>
+
+                                                                                                    <p>Casa - Área privativa: 54,45 m², Com 2 qt(s), 1 Banheiro(s),  - Localizado(a): RUA JOSE BALDO, N. 40, LT 03B QD 65B, PRINCESA ISABEL, 0 - FRUTAL/MG - CEP: 38200292 - N° IPTU: 010100065B03B000 - MATRÍCULA: 65125 - OFICIO: 1</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>FRUTAL - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 94.815,14</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid">Lance Atual</span>
+                                                                                                            <strong class="valor-grid">-</strong>
+                                                                                                    </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>0</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Casa - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11540/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11540/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Casa&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11540/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#78470b0d1a121d1b0c453b190b195e1a171c0145100c0c080b4257571d15141d11141917561b1715561a0a571d0e1d160c170b57141d1114191757141d11141917551b1911001955165d3b4a5d3a395548484b4d55484b4a4e5514111b110c191b191755191a1d0a0c195714170c1d5749494d4c485714170c1d">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11540">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11541 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>38%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 141</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11541/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7270/arquivos/6ac7b2c6b890c-6ac7b2c6b9a42.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11541/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7270</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Apartamento</h3>
+
+                                                                                                    <p>Apartamento - Área privativa: 50,5 m², Com 0 qt(s), 0 Banheiro(s), 1 Vaga na Garagem - Localizado(a): AVENIDA JUIZ DE FORA, N. 1171, Apto. 1414, BOX 1414, GRANJAS BETANIA - JUIZ DE FORA/MG - CEP: 36047362 - N° IPTU: 59663155 - MATRÍCULA: 72498 - OFICIO: 3</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>JUIZ DE FORA - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 106.227,96</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid">Lance Atual</span>
+                                                                                                            <strong class="valor-grid">-</strong>
+                                                                                                    </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>0</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Apartamento - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11541/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11541/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Apartamento&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11541/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#c8f7bbbdaaa2adabbcf589b8a9babca9a5ada6bca7eeaaa7acb1f5a0bcbcb8bbf2e7e7ada5a4ada1a4a9a7e6aba7a5e6aabae7adbeada6bca7bbe7a4ada1a4a9a7e7a4ada1a4a9a7e5aba9a1b0a9e5a6ed8bfaed8a89e5f8f8fbfde5f8fbfafee5a4a1aba1bca9aba9a7e5a9aaadbabca9e7a4a7bcade7f9f9fdfcf9e7a4a7bcad">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11541">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                                                                <article class="lote-main bem-index-11542 lote-main-status-1">
+                                                                                                                                                                                                                                        
+                                <div class="cont-picture">
+                                    <div class="h-card">
+                                                                                    <div class="item-desconto">
+                                                <strong>44%</strong>
+                                                <span>desconto</span>
+                                            </div>
+                                                                            </div>
+
+                                                                            <div class="item-numeroLote">
+                                            <strong>
+                                                <span>Lote 142</span>
+                                            </strong>
+                                        </div>
+                                    
+                                    <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11542/lote" class="link-img">
+                                                                                    <img src="https://static.suporteleiloes.com.br/emleilaocombr/bens/7271/arquivos/6ac7b2d3a4af4-6ac7b2d3a5efc.jpg" alt="" class="img-evento">
+                                                                            </a>
+                                </div>
+
+                                <div class="cont-infos">
+                                    <div class="flex-1">
+                                        <a href="/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11542/lote">
+                                            <div class="reset-grid">
+                                                <div class="r1">
+                                                    <strong class="strong-cod"><span>COD.</span>&nbsp;7271</strong>
+
+                                                                                                            <strong class="strong-status status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+
+                                                <h3>Apartamento</h3>
+
+                                                                                                    <p>Apartamento - Área privativa: 175,38 m², Com 2 qt(s), 2 Banheiro(s), 2 Vagas na Garagem - Localizado(a): RUA DOS ARTISTAS, N. 358, Apto. 1103, MORRO DA GLORIA - JUIZ DE FORA/MG - CEP: 36035130 - N° IPTU: 13628035 - MATRÍCULA: 51566 - OFICIO: 3</p>
+                                                
+                                                                                                    <div class="r2">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <span>JUIZ DE FORA - MG</span>
+                                                    </div>
+                                                                                            </div>
+
+                                            <div class="end-typeCol">
+                                                <div class="r4">
+                                                    
+                                                                                                            <span>Valor 1º praça</span>
+                                                        <strong style="margin-bottom: 10px;font-weight: 500; color: #000000;">R$ 308.041,98</strong>
+                                                    
+                                                    
+                                                    
+                                                    <div class="mb-grid"></div>
+
+                                                    <span class="txt-grid">Lance Atual</span>
+                                                                                                            <strong class="valor-grid">-</strong>
+                                                                                                    </div>
+
+                                                <div class="r5-grid">
+                                                    <span>Status atual</span>
+                                                                                                        <strong class="status-1">Aberto para Lances</strong>
+                                                                                                    </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="flex-campos">
+                                        <div class="r3">
+                                            
+                                                                                    </div>
+                                    </div>
+
+                                    <div class="f-card">
+                                        <ul class="list-itens">
+                                                                                        <li>
+                                                <i class="fa-light fa-eye"></i>
+                                                <span>0</span>
+                                            </li>
+                                            
+                                            
+                                                                                        <li>
+                                                <i class="fa-light fa-gavel"></i>
+                                                <span>0</span>
+                                            </li>
+                                                                                    </ul>
+
+                                        <div class="cont-actions">
+                                            <a class="show-share">
+                                                <i class="fa-regular fa-share-nodes"></i>
+                                            </a>
+
+                                                                                        <div class="cont-share">
+                                                <a href="https://api.whatsapp.com/send?text=Apartamento - https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11542/lote" target="_blank">
+                                                    <i class="fa-brands fa-whatsapp"></i>WhatsApp
+                                                </a>
+
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11542/lote" target="_blank">
+                                                    <i class="fa-brands fa-facebook-f" style="font-size: 12px;"></i>Facebook
+                                                </a>
+
+                                                <a href="https://twitter.com/intent/tweet?text=Apartamento&url=https://emleilao.com.br/eventos/leilao/leilao-caixa-n%C2%BA-0035-0326-licitacao-aberta/lote/11542/lote" target="_blank">
+                                                    <i class="fa-brands fa-x-twitter"></i>Twitter
+                                                </a>
+
+                                                <a href="/cdn-cgi/l/email-protection#82bdf1f7e0e8e7e1f6bfc3f2e3f0f6e3efe7ecf6eda4e0ede6fbbfeaf6f6f2f1b8adade7efeee7ebeee3edace1edeface0f0ade7f4e7ecf6edf1adeee7ebeee3edadeee7ebeee3edafe1e3ebfae3afeca7c1b0a7c0c3afb2b2b1b7afb2b1b0b4afeeebe1ebf6e3e1e3edafe3e0e7f0f6e3adeeedf6e7adb3b3b7b6b0adeeedf6e7">
+                                                    <i class="fa-regular fa-envelopes-bulk"></i>E-mail
+                                                </a>
+                                            </div>
+
+                                            <a class="favico bind-fav-lotes" data-id="11542">
+                                                <i class="fa-regular fa-star"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article><!-- END Unique -->
+                                            </div>
+
+                    <div class="row-actions row-end">
+                        <div class="c-left">
+                            <p>Exibindo <strong>1</strong> a <strong>12</strong> de <strong>23</strong> itens. Página <strong>1 de 2</strong>.</p>
+                        </div>
+
+                        <div class="c-right">
+                            <div class="action-order">
+                                <form name="pageForm" method="get">
+                                    <span>Pular para página:</span>
+
+                                    <select name="page" class="auto-submit">
+                                                                                                                            <option value="1" selected>
+                                                Página 1
+                                            </option>
+                                                                                    <option value="2" >
+                                                Página 2
+                                            </option>
+                                                                            </select>
+                                </form>
+                            </div>
+
+                            
+<ul class="default-pagination">
+
+        <li class="type-arrow arrow-left double-left">
+                    <a class="disabled">
+                <i class="fa-solid fa-chevrons-left"></i>
+            </a>
+            </li>
+
+        <li class="type-arrow arrow-left">
+                    <a class="disabled">
+                <i class="fa-solid fa-chevron-left"></i>
+            </a>
+            </li>
+
+            
+            <li class="type-number">
+                            <a class="isCurrent"><span>1</span></a>
+                    </li>
+            <li class="type-number">
+                            <a href="?uf=MG&amp;page=2"><span>2</span></a>
+                    </li>
+    
+        <li class="type-arrow arrow-right">
+                    <a href="?uf=MG&amp;page=2">
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+            </li>
+
+        <li class="type-arrow arrow-right double-right">
+                    <a href="?uf=MG&amp;page=2">
+                <i class="fa-solid fa-chevrons-right"></i>
+            </a>
+            </li>
+
+</ul>
+                        </div>
+                    </div>
+                </div>
+            </section><!-- END Section List -->
+        </div>
+    </div><!-- END Center -->
+</main>
+    <div class="c-left-whats">
+        <a href="https://wa.me/552741414321" target="_blank">
+            <img src="/build/images/whats.22d66ffd.png">
+        </a>
+    </div>
+
+    <div class="c-right-whats">
+        <a href="https://wa.me/552741414321" target="_blank">
+            <span>Precisa de ajuda?</span>
+            <small>Entre em contato conosco.</small>
+        </a>
+    </div>
+
+<footer>
+    <div class="center">
+        <div class="row-1">
+            <div class="c-left">
+                <div class="cont-logoFooter">
+                    <a href="/" class="logo-footer" style="background-image: url('https://static.suporteleiloes.com.br/emleilaocombr/logo.png');">Em leilão</a>
+                </div>
+            </div>
+
+            <div class="c-right">
+                <div class="col col-01">
+                    <h6>Institucional</h6>
+
+                    <ul class="ul-footer">
+                        <li class="lf-01">
+                            <a href="/quem-somos">Quem Somos</a>
+                        </li>
+
+                        <li class="lf-02">
+                            <a href="/duvidas-frequentes">Dúvidas Frequentes</a>
+                        </li>
+
+                        <li class="lf-03">
+                            <a href="/imprensa">Imprensa</a>
+                        </li>
+
+                        <li class="lf-04">
+                            <a href="/legislacao">Legislação</a>
+                        </li>
+                    </ul>
+                </div><!-- END Col 01 -->
+
+                <div class="col col-02">
+                    <h6>Leilões</h6>
+
+                    <ul class="ul-footer">
+                        <li class="lf-05">
+                            <a href="/leiloes-judiciais">Judiciais</a>
+                        </li>
+
+                        <li class="lf-06">
+                            <a href="/leiloes-extrajudiciais">Extrajudiciais</a>
+                        </li>
+
+                        <li class="lf-07">
+                            <a href="/agenda">Agenda</a>
+                        </li>
+
+                        <li class="lf-08">
+                            <a href="https://arrematante.emleilao.com.br/#/live">Auditório virtual</a>
+                        </li>
+                    </ul>
+                </div><!-- END Col 02 -->
+
+                <div class="col col-03">
+                    <h6>Contato</h6>
+
+                    <ul class="ul-footer">
+                        <li class="lf-09">
+                            <a href="/fale-conosco">Fale Conosco</a>
+                        </li>
+
+                        <li class="lf-10">
+                            <a href="/trabalhe-conosco">Trabalhe Conosco</a>
+                        </li>
+                    </ul>
+                </div><!-- END Col 03 -->
+
+                <div class="col col-04">
+                                            <a href="https://wa.me/552741414321" target="_blank" class="a1">
+                            2741414321
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    
+                                                                                                <a href="tel:2741414321" class="a1" style="margin-top: 8px;">
+                                (27) 4141-4321
+                                                                    <i class="fa-solid fa-phone" style="font-size: 14px;"></i>
+                                                            </a>
+                                            
+                    <br>
+
+                                                                                                <a href="/cdn-cgi/l/email-protection#10737f7e6471647f50757d7c75797c717f3e737f7d3e7262" class="a2"><span class="__cf_email__" data-cfemail="1d7e7273697c69725d7870717874717c72337e7270337f6f">[email&#160;protected]</span></a>
+                                            
+                    <br>
+
+                    <p class="p1">Av. Nossa Sra. da penha, 356 2° Piso, Sala 9, Shopping Boulevard da Praia, Praia do Canto, Vitória - ES&nbsp;<br>CEP 29055-131</p>
+
+                    <p class="p2">
+                        <strong>Leiloeiro Oficial</strong>
+                        Ayrton de S. Porto Filho
+                    </p>
+
+                    <div class="logo-desenvolvimento">
+                        <a href="https://www.suporteleiloes.com.br" class="logo-sl" target="_blank">Suporte Leilões</a>
+                    </div>
+                </div><!-- END Col 04 -->
+            </div>
+        </div><!---->
+
+        <div class="row-2">
+            <div class="f-left">
+                <p class="copy">&copy; 2026-present - Todos os direitos reservados</p>
+
+                <a href="/politica-de-privacidade">Política de Privacidade</a>
+                <a href="/aviso-de-cookies">Aviso de Cookies</a>
+                <a href="/termos-uso">Termos de Uso</a>
+            </div>
+
+            <div class="f-right">
+                <ul class="lista-social">
+                                        <li>
+                        <a href="" target="_blank">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </li>
+                    
+                    
+                                            <li>
+                            <a href="" target="_blank">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                        </li>
+                    
+                                    </ul>
+            </div>
+        </div><!---->
+    </div><!-- END Center -->
+</footer>
+<section class="cont-cookies cookie ativo" id="cookie-banner">
+    <div class="c-left">
+        <h5>Aviso de cookies</h5>
+
+        <p>Utilizamos cookies para que o site possa funcionar, para melhorar a sua navegação, personalizar conteúdo
+            apresentado a você, bem como para obter informações estatísticas sobre o uso do site. Saiba mais no <a
+                    href="/aviso-de-cookies">Aviso de Cookies</a></p>
+    </div>
+
+    <div class="c-right">
+        <a class="a-aceite" id="aceitarTodosCookies">Aceitar todos os cookies</a>
+        <a id="btnCookieDef" href="#" class="a-preferencias">Preferências de cookies</a>
+    </div>
+</section>
+
+<section class="cont-cookies definicoes" id="cookie-config">
+    <div class="c-left">
+        <h5>Configurações de cookies</h5>
+
+        <form id="cookie-form">
+            <div class="cookie-form-item">
+                <label>
+                    <input type="checkbox" checked disabled>
+                    Cookies Essenciais (obrigatórios)
+                </label>
+            </div>
+            <div class="cookie-form-item">
+                <label>
+                    <input type="checkbox" checked id="analytics">
+                    Cookies de Análise (Google Analytics, etc)
+                </label>
+            </div>
+            <div class="cookie-form-item">
+                <label>
+                    <input type="checkbox" checked id="marketing">
+                    Cookies de Marketing (Remarketing, Facebook Ads, etc)
+                </label>
+            </div>
+            <div class="cookie-buttons">
+                <button type="button" id="preferenciaCookiesBtn">Salvar Preferências</button>
+                <a href="#" class="fechar-janela-cookies">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</section>
+<section class="modal-redirectLeilao">
+	<div class="fundo"></div>
+
+	<div class="cont-redirectLeilao">
+		<div class="bg-panel">
+			<h6>Redirecionamento de site</h6>
+
+			<h5>Atenção:</h5>
+			<p>Você será redirecionado para o site responsável pelo leilão solicitado.</p>
+			<p>Sendo assim, para participar deste leilão, será necessário cadastrar-se e habilitar-se no site de destino.</p>
+
+			<div class="flex-actions">
+				<span class="cta cta-cancele">Cancelar</span>
+				<a class="cta btn-action">Continuar</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">
+                    var SL_USER = null;
+            </script>
+    <script src="/build/runtime.7576e7bf.js"></script><script src="/build/0.a11e63ec.js"></script><script src="/build/1.6edd98df.js"></script><script src="/build/app.c60458b6.js"></script>
+    <link rel="stylesheet" href="/css/extra.css?version=1782829023">
+        <script type="text/javascript">
+        (function (d,w,s,e) {var z = d.createElement(s);z.src = e;z.async = true;d.body.appendChild(z);})(document,window,'script', 'https://static.suporteleiloes.com.br/stats/client.js');
+                var stat = function (entity, entityId, event = null) {
+            try {
+                if (!event) {
+                    event = SL_EVENT_TYPES.LOAD_PAGE
+                }
+                /* eslint-disable */
+                SLEventClient && SLEventClient(event, entity, entityId, window && window.location.href || document && document.URL, SL_USER ? SL_USER.id : null)
+            } catch (e) {
+                console.error(e)
+            }
+        }
+    </script>
+
+    <script src="/build/home.9dc395e4.js"></script>
+    <script src="/build/evento.ca530d1a.js"></script>
+    <script src="/build/2.8968f2a0.js"></script><script src="/build/evento-filter.086e80b5.js"></script>
+    <script src="/build/busca.3dd2fb53.js"></script>
+</body>
+</html>

@@ -6,11 +6,25 @@
   function mesAtual() { return new Date().toISOString().slice(0, 7); }
 
   async function iniciar() {
-    const [status, meta, custo] = await Promise.all([
+    const cfg = window.LT_CONFIG || {};
+    if (cfg.urlApoio) {
+      const a = document.getElementById("apoio-link");
+      a.href = cfg.urlApoio; a.textContent = cfg.textoApoio || "apoie o projeto";
+      document.getElementById("apoio").classList.remove("hidden");
+    }
+    const [status, meta, custo, editais] = await Promise.all([
       carregarJson("status_fontes.json").catch(() => ({})),
       carregarJson("meta.json").catch(() => null),
       carregarJson("custo_ia.json").catch(() => null),
+      carregarJson("editais.json").catch(() => ({ editais: [] })),
     ]);
+    const ed = document.querySelector("#tabela-editais tbody");
+    const lista = (editais.editais || []).slice(0, 40);
+    ed.innerHTML = lista.length ? lista.map(e => `<tr><td>${escapar(nomeFonte(e.fonte))}</td>
+      <td>${e.url ? `<a href="${escapar(e.url)}" rel="noopener" target="_blank">${escapar(e.titulo || e.url)}</a>` : escapar(e.titulo || TRACO)}${e.objeto ? `<div class="muted">${escapar(e.objeto)}</div>` : ""}</td>
+      <td>${data(e.publicado_em)}</td><td>${data(e.data_leilao)}</td><td>${data(e.data_segunda_praca)}</td>
+      <td>${escapar(e.leiloeiro || "")} ${(e.sites_leiloeiro || (e.site_leiloeiro ? [e.site_leiloeiro] : [])).map(s => `<a href="${escapar(s)}" rel="noopener" target="_blank">${escapar(s.replace(/^https?:\/\/(www\.)?/, ""))}</a>`).join(", ")}</td></tr>`).join("")
+      : '<tr><td colspan="6" class="muted">nenhum edital registrado</td></tr>';
 
     const corpo = document.querySelector("#tabela-fontes tbody");
     const linhas = [];

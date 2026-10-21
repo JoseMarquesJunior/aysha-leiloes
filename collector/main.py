@@ -57,7 +57,17 @@ def carregar_base_anterior(pasta: Path) -> dict[str, dict]:
     return base
 
 
-def coletar_fontes(config: dict, cliente, apenas: set[str] | None, status: dict) -> list[dict]:
+def fontes_produzidas(modulo, config: dict) -> set[str]:
+    """Valores de `fonte` que um módulo gera (um módulo pode cobrir vários sites)."""
+    f = getattr(modulo, "fontes_produzidas", None)
+    if callable(f):
+        return set(f(config))
+    return {getattr(modulo, "NOME", None)}
+
+
+def coletar_fontes(config: dict, cliente, apenas: set[str] | None, status: dict,
+                   editais: dict[str, list] | None = None, coletadas: set[str] | None = None) -> list[dict]:
+    """Executa as fontes ativas; `coletadas` recebe os valores de `fonte` coletados com sucesso nesta execução."""
     hoje = date.today().isoformat()
     registros: list[dict] = []
     for nome, modulo in REGISTRO.items():
@@ -74,9 +84,15 @@ def coletar_fontes(config: dict, cliente, apenas: set[str] | None, status: dict)
         try:
             novos = modulo.coletar(config, cliente)
             registros.extend(novos)
+            info = dict(getattr(modulo, "ultima_info", None) or {})
+            if editais is not None and info.get("editais"):
+                editais[nome] = info.pop("editais")
+            elif "editais" in info:
+                info["editais"] = len(info["editais"])
             st.update({"ultima_coleta_ok": hoje, "registros": len(novos), "ultimo_erro": None,
-                       "duracao_s": round(time.monotonic() - inicio, 1),
-                       "info": getattr(modulo, "ultima_info", None) or None})
+                       "duracao_s": round(time.monotonic() - inicio, 1), "info": info or None})
+            if coletadas is not None:
+                coletadas |= fontes_produzidas(modulo, config)
             log.info("fonte %s: %d registros", nome, len(novos))
         except Exception as e:  # uma fonte que falha não derruba as outras
             st["ultimo_erro"] = f"{hoje}: {type(e).__name__}: {e}"[:500]
@@ -142,9 +158,16 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
     cliente = cliente_do_config(config)
     status = _ler_json(pasta / "status_fontes.json", {})
 
-    # 1. fontes
-    registros = coletar_fontes(config, cliente, apenas, status)
-    fontes_ok = {n for n, s in status.items() if not n.startswith("_") and s.get("ultima_coleta_ok") == hoje}
+    # 1. fontes (editais/avisos sem lotes estruturados vão para editais.json)
+    editais_por_fonte = {e["fonte"]: [] for e in _ler_json(pasta / "editais.json", {"editais": []})["editais"]}
+    for e in _ler_json(pasta / "editais.json", {"editais": []})["editais"]:
+        editais_por_fonte[e["fonte"]].append(e)
+    fontes_ok: set[str] = set()  # valores de `fonte` coletados com sucesso NESTA execução
+    registros = coletar_fontes(config, cliente, apenas, status, editais_por_fonte, fontes_ok)
+    lista_editais = [e for f in sorted(editais_por_fonte) for e in editais_por_fonte[f]]
+    lista_editais.sort(key=lambda e: (e.get("data_leilao") or e.get("publicado_em") or ""), reverse=True)
+    _gravar_json(pasta / "editais.json", {"gerado_em": datetime.now().isoformat(timespec="seconds"), "editais": lista_editais},
+                 compacto=False)
 
     # 2. regex + derivados
     aplicar_regex(registros)
@@ -154,7 +177,7 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
     registros = deduplicar(registros, config.get("prioridade_fontes", {}))
     log.info("deduplicação: %d -> %d", antes, len(registros))
 
-    # 4. histórico (compara com a base anterior; fontes que falharam hoje mantêm seus registros antigos)
+    # 4. histórico (compara com a base anterior; fontes que falharam ou não rodaram mantêm seus registros)
     anteriores = carregar_base_anterior(pasta)
     atuais = {r["id"]: r for r in registros}
     for id_, velho in anteriores.items():

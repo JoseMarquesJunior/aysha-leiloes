@@ -51,15 +51,22 @@ def _areas_compativeis(a: float | None, b: float | None, tolerancia: float = 0.0
 
 
 def sao_duplicatas(a: dict, b: dict) -> bool:
-    if a.get("fonte") == b.get("fonte") and a.get("id") == b.get("id"):
+    # só entre fontes diferentes: dentro da mesma fonte, dois anúncios com o mesmo endereço e área
+    # costumam ser unidades distintas (apartamentos iguais no mesmo prédio), não duplicatas
+    if a.get("fonte") == b.get("fonte"):
         return False
     ma, mb = a.get("matricula"), b.get("matricula")
     if ma and mb:
         if ma == mb and (a.get("cidade") or "").lower() == (b.get("cidade") or "").lower():
             return True
     ea, eb = normalizar_endereco(a.get("endereco")), normalizar_endereco(b.get("endereco"))
-    if not ea or not eb or ea != eb:
+    if not ea or not eb:
         return False
+    if ea != eb:
+        # uma fonte pode acrescentar bairro/loteamento ao fim: aceita prefixo quando o trecho comum é longo
+        menor, maior = sorted((ea, eb), key=len)
+        if len(menor) < 15 or not maior.startswith(menor + " "):
+            return False
     if sem_acentos(a.get("cidade") or "").lower() != sem_acentos(b.get("cidade") or "").lower():
         return False
     if (a.get("uf") or "") != (b.get("uf") or ""):
