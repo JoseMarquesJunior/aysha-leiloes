@@ -359,7 +359,9 @@ def _colher_lote(client, lote: dict, pasta: Path, modelo: str) -> dict | None:
             ok += 1
         else:
             erro += 1
-            log.warning("ia: resultado %s do lote %s: %s", h, lote["id"], res.result.type)
+            detalhe = getattr(res.result, "error", None)
+            log.warning("ia: resultado %s do lote %s: %s %s", h, lote["id"], res.result.type,
+                        detalhe.to_dict() if hasattr(detalhe, "to_dict") else detalhe)
     return {"tipo": "lote_concluido", "data": date.today().isoformat(), "lote_id": lote["id"], "chamadas": ok,
             "erros": erro, "tokens_entrada": tok_in, "tokens_saida": tok_out, "cache_hits": 0,
             "custo_usd": custo_usd(modelo, tok_in, tok_out, batch=True)}

@@ -9,6 +9,10 @@ on:
         description: "Fontes a coletar, separadas por vírgula (vazio = todas as ativas)"
         required: false
         default: ""
+      diagnostico_ia:
+        description: "Em vez de coletar, roda o diagnóstico da IA: 'teste' (uma chamada) ou 'lote <id>'"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -37,7 +41,15 @@ jobs:
       - name: Testes
         run: python -m pytest -q collector/tests
 
+      - name: Diagnóstico da IA (só quando pedido)
+        if: inputs.diagnostico_ia != ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DIAG: ${{ inputs.diagnostico_ia }}
+        run: python -m collector.ia_diag $DIAG
+
       - name: Coletar
+        if: inputs.diagnostico_ia == ''
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           FONTES: ${{ inputs.fontes }}
@@ -49,6 +61,7 @@ jobs:
           fi
 
       - name: Commitar dados se houve mudança
+        if: inputs.diagnostico_ia == ''
         run: |
           # Só o JSON de dados e os caches contam; meta.json muda a cada execução (gerado_em), então
           # comparamos a lista de imóveis, o histórico e os caches para decidir se vale um commit.
