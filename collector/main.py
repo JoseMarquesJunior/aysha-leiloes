@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import sys
 import time
 from datetime import date, datetime
@@ -79,6 +80,10 @@ def coletar_fontes(config: dict, cliente, apenas: set[str] | None, status: dict,
             st["ultimo_erro"] = st.get("ultimo_erro") or "fonte desativada no config"
             continue
         if apenas and nome not in apenas:
+            continue
+        if cfg.get("bloqueado_no_ci") and os.environ.get("GITHUB_ACTIONS") and not (apenas and nome in apenas):
+            st["ultimo_erro"] = st.get("ultimo_erro") or "bloqueia IPs de datacenter: coletada só localmente"
+            st["bloqueado_no_ci"] = True
             continue
         inicio = time.monotonic()
         try:

@@ -62,6 +62,9 @@ fontes:
     ativa: true
   colodete:
     ativa: true
+    # colodeteleiloes.com.br devolve 403 a IPs de datacenter (GitHub Actions); coletar localmente:
+    #   python -m collector.main --fontes colodete
+    bloqueado_no_ci: true
   hdleiloes:
     # Desativada: termos de uso inacessíveis ao robô e busca só por POST (ver docstring do módulo).
     ativa: false
