@@ -5,7 +5,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://venda-imoveis.caixa.gov.br/",
-  "duracao_s": 4.5,
+  "duracao_s": 6.1,
   "info": {
    "data_geracao": null,
    "por_uf": {
@@ -22,7 +22,7 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-21T09:57:41",
+  "ultima_execucao": "2026-10-21T12:58:30",
   "data_coleta": "2026-10-21"
  }
 }
