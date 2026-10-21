@@ -7,7 +7,7 @@
 #   $acao = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\caminho\aysha-leiloes\scripts\coleta-local.ps1"
 #   $gatilho = New-ScheduledTaskTrigger -Daily -At 07:30
 #   $opcoes = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 1)
-#   Register-ScheduledTask -TaskName "aysha-leiloes coleta local" -Action $acao -Trigger $gatilho -Settings $opcoes -Description "Coleta das fontes bloqueadas no CI (Leilões em Tabela)"
+#   Register-ScheduledTask -TaskName "aysha-leiloes coleta local" -Action $acao -Trigger $gatilho -Settings $opcoes -Description "Coleta das fontes bloqueadas no CI (Aysha Leilões)"
 # 07:30 de Brasília fica depois da coleta do Action (06:00), então o pull já traz a base do dia.
 #
 # PowerShell 5.1: não usar "2>&1" em comandos nativos com $ErrorActionPreference = 'Stop' (o git escreve

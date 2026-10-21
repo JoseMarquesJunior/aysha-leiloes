@@ -522,7 +522,7 @@
     const blob = new Blob(["﻿" + linhas.join("\r\n")], { type: "text/csv;charset=utf-8" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = `leiloes-em-tabela-${hojeIso()}.csv`;
+    a.download = `aysha-leiloes-${hojeIso()}.csv`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   }

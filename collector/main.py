@@ -233,7 +233,7 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
 
 
 def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description="Coletor do Leilões em Tabela")
+    ap = argparse.ArgumentParser(description="Coletor do Aysha Leilões")
     ap.add_argument("--config", default=str(RAIZ / "collector" / "config.yaml"))
     ap.add_argument("--fontes", help="lista separada por vírgula (padrão: todas as ativas)")
     ap.add_argument("--sem-geo", action="store_true", help="pula a geocodificação")

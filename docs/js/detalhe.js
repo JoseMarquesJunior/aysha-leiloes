@@ -119,7 +119,7 @@
     }
     if (!r) { el.innerHTML = `<p>Imóvel <b>${escapar(id)}</b> não encontrado na base atual. Ele pode ter sido removido há mais de 90 dias.</p><p><a href="./">← voltar à tabela</a></p>`; return; }
     const tipo = cap(r.tipo) === TRACO ? "Imóvel" : cap(r.tipo);
-    document.title = `${tipo} em ${r.bairro ? r.bairro + ", " : ""}${r.cidade || ""} · ${moeda(r.valor_minimo)} — Leilões em Tabela`;
+    document.title = `${tipo} em ${r.bairro ? r.bairro + ", " : ""}${r.cidade || ""} · ${moeda(r.valor_minimo)} — Aysha Leilões`;
     const eventos = (historico.eventos || []).filter(e => e.id === id).sort((a, b) => b.data.localeCompare(a.data));
     const dias = diasAte(r.data_leilao);
     const area = areaRef(r);

@@ -1,1 +1,1 @@
-"""Coletor do projeto Leilões em Tabela."""
+"""Coletor do projeto Aysha Leilões."""

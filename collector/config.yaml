@@ -1,10 +1,10 @@
-# Configuração do coletor "Leilões em Tabela".
+# Configuração do coletor "Aysha Leilões".
 # Tudo que é específico de uma fonte fica dentro de `fontes.<nome>`.
 
 projeto:
-  nome: "Leilões em Tabela"
+  nome: "Aysha Leilões"
   repositorio: "https://github.com/JoseMarquesJunior/aysha-leiloes"
-  user_agent: "leiloes-em-tabela/0.1 (+https://github.com/JoseMarquesJunior/aysha-leiloes)"
+  user_agent: "aysha-leiloes/0.1 (+https://github.com/JoseMarquesJunior/aysha-leiloes)"
 
 http:
   timeout_segundos: 60
