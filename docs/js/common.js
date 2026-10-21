@@ -64,7 +64,7 @@
     data_leilao: "Data do leilão", data_segunda_praca: "2ª praça", ocupado: "Ocupação",
     aceita_financiamento: "Aceita financiamento", aceita_fgts: "Aceita FGTS", aceita_parcelamento: "Aceita parcelamento",
     debitos_iptu_por_conta_de: "Débitos de IPTU por conta de", debitos_condominio_por_conta_de: "Débitos de condomínio por conta de",
-    comissao_leiloeiro_pct: "Comissão do leiloeiro", matricula: "Nº da matrícula", numero_processo: "Nº do processo",
+    comissao_leiloeiro_pct: "Comissão do leiloeiro", matricula: "Nº da matrícula", numero_processo: "Nº do processo", comitente: "Comitente (quem vende)",
     descricao_original: "Descrição original", url_foto: "Foto", primeira_vez_visto: "Visto pela 1ª vez",
     ultima_vez_visto: "Visto pela última vez", ativo: "Ativo", outras_fontes: "Outras fontes", extracao_ia: "Extração por IA",
   };
@@ -79,7 +79,8 @@
       case "ocupado": return ocupado(v);
       case "aceita_financiamento": case "aceita_fgts": case "aceita_parcelamento": case "ativo": return simNao(v);
       case "fonte": return nomeFonte(v);
-      case "tipo": case "natureza": case "geo_precisao": case "debitos_iptu_por_conta_de": case "debitos_condominio_por_conta_de": return cap(v);
+      case "geo_precisao": return v === "endereco" ? "Endereço" : cap(v);
+      case "tipo": case "natureza": case "debitos_iptu_por_conta_de": case "debitos_condominio_por_conta_de": return cap(v);
       case "lat": case "lng": return nulo(v) ? TRACO : v.toFixed(5);
       default: return texto(v);
     }

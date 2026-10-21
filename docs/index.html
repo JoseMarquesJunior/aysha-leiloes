@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Leilões em Tabela — imóveis em leilão e venda direta (ES e MG)</title>
 <meta name="description" content="Agregador independente de imóveis em leilão, licitação e venda direta no Espírito Santo e em Minas Gerais, em formato de tabela filtrável.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b5fff'/%3E%3Cpath d='M8 9h16v3H8zm0 5.5h16v3H8zM8 20h10v3H8z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="">
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="">
@@ -14,63 +16,77 @@
 <header class="topo">
   <div class="linha1">
     <h1><a href="./">Leilões em Tabela</a></h1>
+    <p class="tagline">Imóveis em leilão, licitação e venda direta no ES e em MG, como planilha.</p>
     <div class="resumo">
       <span id="contador">carregando…</span>
-      <span id="ultima-coleta"></span>
-      <span id="fontes-status" class="fontes-status"></span>
+      <a href="sobre.html" id="fontes-status" class="fontes-status" title="Estado das fontes na última coleta"></a>
     </div>
-    <nav>
-      <a href="sobre.html">Sobre, fontes e avisos</a>
-    </nav>
+    <nav><a href="sobre.html">Sobre, fontes e avisos</a></nav>
   </div>
-  <form class="filtros" id="filtros" onsubmit="return false">
-    <label>UF <select id="f-uf" multiple></select></label>
-    <label>Cidade <select id="f-cidade" multiple></select></label>
-    <label>Bairro <select id="f-bairro" multiple></select></label>
-    <label>Tipo <select id="f-tipo" multiple></select></label>
-    <label>Natureza <select id="f-natureza" multiple></select></label>
-    <label>Modalidade <select id="f-modalidade" multiple></select></label>
-    <label>Fonte <select id="f-fonte" multiple></select></label>
-    <label class="faixa">
-      <span>Mínimo R$</span><input type="number" id="f-vmin" placeholder="de" min="0" step="1000"><span>a</span><input type="number" id="f-vmax" placeholder="até" min="0" step="1000">
-    </label>
-    <label class="faixa">
-      <span>Desconto %</span><input type="number" id="f-dmin" placeholder="de" step="1"><span>a</span><input type="number" id="f-dmax" placeholder="até" step="1">
-    </label>
-    <label class="faixa">
-      <span>R$/m²</span><input type="number" id="f-m2min" placeholder="de" min="0" step="100"><span>a</span><input type="number" id="f-m2max" placeholder="até" min="0" step="100">
-    </label>
-    <label class="faixa"><span>Área mín. m²</span><input type="number" id="f-amin" placeholder="m²" min="0" step="1"></label>
-    <div class="grupo">
-      <label class="cb"><input type="checkbox" id="f-desocupados"> só desocupados</label>
-      <label class="cb"><input type="checkbox" id="f-fgts"> aceita FGTS</label>
-      <label class="cb"><input type="checkbox" id="f-financiamento"> aceita financiamento</label>
-      <label class="cb"><input type="checkbox" id="f-debvendedor"> débitos por conta do vendedor</label>
-      <label class="cb"><input type="checkbox" id="f-leilao-prox"> leilão nos próximos <input type="number" id="f-leilao-dias" value="30" min="1" style="width:52px"> dias</label>
-      <label class="cb"><input type="checkbox" id="f-novos"> novos (7 dias)</label>
-      <label class="cb"><input type="checkbox" id="f-mudou-preco"> mudança de preço (30 dias)</label>
-      <label class="cb"><input type="checkbox" id="f-inativos"> incluir removidos</label>
+
+  <form class="filtros" id="filtros" onsubmit="return false" aria-label="Filtros">
+    <div class="filtros-linha principal">
+      <label class="busca-wrap"><span class="sr-only">Busca livre</span>
+        <input type="search" id="f-busca" placeholder="Buscar endereço, bairro, descrição ou id…" autocomplete="off">
+      </label>
+      <div class="ms-grupo" id="ms-principal">
+        <!-- os <select multiple> guardam o estado; a interface é o menu acima deles -->
+        <div class="ms" data-sel="f-uf" data-rotulo="UF"><select id="f-uf" multiple hidden></select></div>
+        <div class="ms" data-sel="f-cidade" data-rotulo="Cidade" data-busca="1"><select id="f-cidade" multiple hidden></select></div>
+        <div class="ms" data-sel="f-tipo" data-rotulo="Tipo"><select id="f-tipo" multiple hidden></select></div>
+        <div class="ms" data-sel="f-natureza" data-rotulo="Natureza"><select id="f-natureza" multiple hidden></select></div>
+        <div class="ms" data-sel="f-fonte" data-rotulo="Fonte"><select id="f-fonte" multiple hidden></select></div>
+      </div>
+      <button type="button" class="btn" id="btn-mais-filtros" aria-expanded="false" aria-controls="filtros-mais">Mais filtros <span class="badge hidden" id="mais-filtros-n"></span> ▾</button>
     </div>
-    <label>Busca livre <input type="search" id="f-busca" placeholder="endereço, descrição, id…"></label>
-    <div class="acoes">
-      <button type="button" class="btn" id="btn-limpar">Limpar filtros</button>
-      <button type="button" class="btn" id="btn-copiar-link" title="Copia a URL com os filtros atuais">Copiar link</button>
+
+    <div class="filtros-linha secundaria hidden" id="filtros-mais">
+      <div class="ms-grupo">
+        <div class="ms" data-sel="f-bairro" data-rotulo="Bairro" data-busca="1"><select id="f-bairro" multiple hidden></select></div>
+        <div class="ms" data-sel="f-modalidade" data-rotulo="Modalidade"><select id="f-modalidade" multiple hidden></select></div>
+      </div>
+      <div class="faixas">
+        <label class="faixa"><span>Lance mín. R$</span><input type="number" id="f-vmin" placeholder="de" min="0" step="1000"><input type="number" id="f-vmax" placeholder="até" min="0" step="1000"></label>
+        <label class="faixa"><span>Desconto %</span><input type="number" id="f-dmin" placeholder="de" step="1"><input type="number" id="f-dmax" placeholder="até" step="1"></label>
+        <label class="faixa"><span>R$/m²</span><input type="number" id="f-m2min" placeholder="de" min="0" step="100"><input type="number" id="f-m2max" placeholder="até" min="0" step="100"></label>
+        <label class="faixa"><span>Área mín.</span><input type="number" id="f-amin" placeholder="m²" min="0" step="1"></label>
+      </div>
+      <div class="checks">
+        <label class="cb"><input type="checkbox" id="f-desocupados"> só desocupados</label>
+        <label class="cb"><input type="checkbox" id="f-fgts"> aceita FGTS</label>
+        <label class="cb"><input type="checkbox" id="f-financiamento"> aceita financiamento</label>
+        <label class="cb"><input type="checkbox" id="f-debvendedor"> débitos por conta do vendedor</label>
+        <label class="cb"><input type="checkbox" id="f-leilao-prox"> leilão nos próximos <input type="number" id="f-leilao-dias" value="30" min="1" class="dias"> dias</label>
+        <label class="cb"><input type="checkbox" id="f-novos"> novos (7 dias)</label>
+        <label class="cb"><input type="checkbox" id="f-mudou-preco"> mudança de preço (30 dias)</label>
+        <label class="cb"><input type="checkbox" id="f-inativos"> incluir removidos</label>
+      </div>
+    </div>
+
+    <div class="filtros-linha ativos hidden" id="filtros-ativos" aria-live="polite">
+      <div class="chips" id="chips"></div>
+      <div class="acoes">
+        <button type="button" class="btn pequeno" id="btn-limpar">Limpar tudo</button>
+        <button type="button" class="btn pequeno" id="btn-copiar-link" title="Copia a URL com os filtros atuais">Copiar link da busca</button>
+      </div>
     </div>
   </form>
 </header>
 
 <main>
   <div class="barra-modos">
-    <span class="contador" id="contador-filtrado"></span>
+    <span class="contador" id="contador-filtrado" aria-live="polite"></span>
     <div class="direita">
-      <button type="button" class="btn modo" data-modo="tabela">Tabela</button>
-      <button type="button" class="btn modo" data-modo="cards">Cards</button>
-      <button type="button" class="btn modo" data-modo="mapa">Mapa</button>
+      <div class="segmentado" role="group" aria-label="Modo de visualização">
+        <button type="button" class="modo" data-modo="tabela">Tabela</button>
+        <button type="button" class="modo" data-modo="cards">Cards</button>
+        <button type="button" class="modo" data-modo="mapa">Mapa</button>
+      </div>
       <div class="colunas-menu" id="colunas-menu">
         <button type="button" class="btn" id="btn-colunas">Colunas ▾</button>
         <div class="lista" id="colunas-lista"></div>
       </div>
-      <button type="button" class="btn" id="btn-csv">Exportar CSV</button>
+      <button type="button" class="btn" id="btn-csv" title="Exporta o resultado filtrado com todos os campos (Excel, ; e UTF-8)">Exportar CSV</button>
     </div>
   </div>
 
@@ -79,16 +95,18 @@
       <thead><tr id="cabecalho"></tr></thead>
       <tbody id="corpo"></tbody>
     </table>
+    <div class="mais-linhas hidden" id="mais-linhas"><button type="button" class="btn" id="btn-mais">Mostrar mais</button> <span class="muted" id="mais-info"></span></div>
   </div>
   <div id="vista-cards" class="cards hidden"></div>
-  <div id="vista-mapa" class="hidden"><div id="mapa"></div></div>
+  <div class="mais-linhas hidden" id="mais-cards"><button type="button" class="btn" id="btn-mais-cards">Mostrar mais</button></div>
+  <div id="vista-mapa" class="hidden"><div id="mapa"></div><p class="muted dica-mapa">Marcadores cinza indicam localização aproximada (bairro ou cidade). O mapa mostra só os imóveis filtrados.</p></div>
 
   <div class="barra-selecao hidden" id="barra-selecao">
     <span id="selecao-texto"></span>
     <button type="button" class="btn pequeno" id="btn-comparar">Comparar</button>
     <button type="button" class="btn pequeno" id="btn-limpar-selecao">Limpar</button>
   </div>
-  <div class="painel-comparar hidden" id="painel-comparar"></div>
+  <div class="painel-comparar hidden" id="painel-comparar" role="dialog" aria-label="Comparação"></div>
 </main>
 
 <footer>

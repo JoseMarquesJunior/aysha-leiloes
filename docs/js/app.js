@@ -1,29 +1,30 @@
 /* Página principal: filtros, tabela, cards, mapa, comparação, CSV e URL. */
 (function () {
   "use strict";
-  const { TRACO, nulo, moeda, numero, pct, area, data, simNao, ocupado, cap, escapar, semAcentos, diasEntre, hojeIso,
-    nomeFonte, SITES_FONTES, ROTULOS, formatarCampo, carregarJson, carregarImoveis, lerQuery } = LT;
+  const { TRACO, nulo, moeda, numero, pct, data, simNao, ocupado, cap, escapar, semAcentos, diasEntre, hojeIso,
+    nomeFonte, ROTULOS, formatarCampo, carregarJson, carregarImoveis, lerQuery } = LT;
 
+  const LOTE_LINHAS = 300;   // renderização incremental da tabela/cards
   const COLUNAS = [
     { id: "sel", rotulo: "", fixa: true },
-    { id: "fonte", rotulo: "Fonte", valor: r => nomeFonte(r.fonte), chave: r => r.fonte },
-    { id: "cidade", rotulo: "Cidade", valor: r => r.cidade, chave: r => r.cidade },
+    { id: "cidade", rotulo: "Cidade", valor: r => r.cidade, chave: r => r.cidade, classe: "cel-cidade", html: true },
     { id: "bairro", rotulo: "Bairro", valor: r => r.bairro, chave: r => r.bairro },
-    { id: "endereco", rotulo: "Endereço", valor: r => r.endereco, chave: r => r.endereco, classe: "cel-end", padraoOculta: true },
     { id: "tipo", rotulo: "Tipo", valor: r => cap(r.tipo), chave: r => r.tipo },
     { id: "area", rotulo: "Área m²", num: true, valor: r => numero(areaRef(r)), chave: areaRef, titulo: "Área privativa; do terreno quando é terreno" },
     { id: "quartos", rotulo: "Qtos", num: true, valor: r => numero(r.quartos, 0), chave: r => r.quartos, padraoOculta: true },
     { id: "valor_avaliacao", rotulo: "Avaliação", num: true, valor: r => moeda(r.valor_avaliacao), chave: r => r.valor_avaliacao },
     { id: "valor_minimo", rotulo: "Lance mín.", num: true, valor: r => moeda(r.valor_minimo), chave: r => r.valor_minimo },
-    { id: "desconto_pct", rotulo: "Desc. %", num: true, valor: r => descontoHtml(r.desconto_pct), chave: r => r.desconto_pct, html: true },
+    { id: "desconto_pct", rotulo: "Desc.", num: true, valor: r => descontoHtml(r.desconto_pct), chave: r => r.desconto_pct, html: true, titulo: "Desconto do lance mínimo sobre a avaliação" },
     { id: "valor_m2", rotulo: "R$/m²", num: true, valor: r => numero(r.valor_m2, 0), chave: r => r.valor_m2 },
     { id: "natureza", rotulo: "Natureza", valor: r => cap(r.natureza), chave: r => r.natureza },
-    { id: "modalidade", rotulo: "Modalidade", valor: r => r.modalidade, chave: r => r.modalidade },
+    { id: "modalidade", rotulo: "Modalidade", valor: r => r.modalidade, chave: r => r.modalidade, classe: "cel-mod" },
     { id: "data_leilao", rotulo: "Leilão", valor: r => data(r.data_leilao), chave: r => r.data_leilao },
     { id: "ocupado", rotulo: "Ocupação", valor: r => ocupado(r.ocupado), chave: r => r.ocupado },
-    { id: "debitos", rotulo: "Débitos", valor: r => debitos(r), chave: r => debitos(r), titulo: "IPTU / condomínio por conta de" },
+    { id: "debitos", rotulo: "Débitos", valor: r => debitos(r), chave: r => debitos(r), titulo: "IPTU / condomínio por conta de", padraoOculta: true },
     { id: "aceita_fgts", rotulo: "FGTS", valor: r => simNaoHtml(r.aceita_fgts), chave: r => r.aceita_fgts, html: true },
     { id: "aceita_financiamento", rotulo: "Financ.", valor: r => simNaoHtml(r.aceita_financiamento), chave: r => r.aceita_financiamento, html: true, padraoOculta: true },
+    { id: "fonte", rotulo: "Fonte", valor: r => nomeFonte(r.fonte), chave: r => r.fonte, classe: "cel-mod" },
+    { id: "endereco", rotulo: "Endereço", valor: r => r.endereco, chave: r => r.endereco, classe: "cel-end", padraoOculta: true },
     { id: "primeira_vez_visto", rotulo: "Desde", valor: r => data(r.primeira_vez_visto), chave: r => r.primeira_vez_visto, padraoOculta: true },
     { id: "link", rotulo: "", fixa: true },
   ];
@@ -31,12 +32,13 @@
   const estado = {
     todos: [], filtrados: [], historico: null, meta: null, status: null,
     ordem: { coluna: "desconto_pct", desc: true },
-    modo: localStorage.getItem("lt.modo") || "tabela",
+    modo: localStorage.getItem("lt.modo") || (window.matchMedia("(max-width: 760px)").matches ? "cards" : "tabela"),
     ocultas: new Set(JSON.parse(localStorage.getItem("lt.colunasOcultas") || "null") || COLUNAS.filter(c => c.padraoOculta).map(c => c.id)),
     selecionados: new Set(),
     mapa: null, cluster: null,
     precoMudou30: new Set(), quedas: new Set(), altas: new Set(),
     ufsCarregadas: new Set(), dividido: false,
+    mostrarNovo: true, limiteLinhas: LOTE_LINHAS, limiteCards: LOTE_LINHAS,
   };
 
   // ---------- auxiliares ----------
@@ -54,7 +56,7 @@
   function ehNovo(r) { return r.primeira_vez_visto && diasEntre(r.primeira_vez_visto, hojeIso()) <= 7; }
   function marcadores(r) {
     let s = "";
-    if (ehNovo(r)) s += '<span class="tag novo" title="Visto pela primeira vez nos últimos 7 dias">novo</span>';
+    if (estado.mostrarNovo && ehNovo(r)) s += '<span class="tag novo" title="Visto pela primeira vez nos últimos 7 dias">novo</span>';
     if (estado.quedas.has(r.id)) s += '<span class="tag queda" title="Preço caiu nos últimos 30 dias">↓ preço</span>';
     else if (estado.altas.has(r.id)) s += '<span class="tag alta" title="Preço subiu nos últimos 30 dias">↑ preço</span>';
     return s;
@@ -62,37 +64,102 @@
   function $(id) { return document.getElementById(id); }
   function valoresSel(id) { return Array.from($(id).selectedOptions).map(o => o.value); }
   function numOuNull(id) { const v = $(id).value; return v === "" ? null : Number(v); }
+  function urlDetalhe(r) { return `imovel.html?id=${encodeURIComponent(r.id)}`; }
 
-  // ---------- filtros ----------
-  function preencherSelect(id, valores, rotulo) {
+  // ---------- menus de seleção múltipla (sobre os <select multiple> escondidos) ----------
+  const ROTULO_OPCAO = { "f-tipo": cap, "f-natureza": cap, "f-fonte": nomeFonte };
+  function montarMs(el) {
+    const selId = el.dataset.sel, sel = $(selId);
+    el.innerHTML = "";
+    el.appendChild(sel);
+    const botao = document.createElement("button");
+    botao.type = "button"; botao.className = "ms-botao"; botao.setAttribute("aria-haspopup", "listbox");
+    const menu = document.createElement("div"); menu.className = "ms-menu";
+    el.append(botao, menu);
+    botao.addEventListener("click", e => {
+      e.stopPropagation();
+      const abrir = !el.classList.contains("aberto");
+      fecharMenus();
+      if (abrir) { el.classList.add("aberto"); renderMsMenu(el); const b = menu.querySelector("input[type=search]"); if (b) b.focus(); }
+    });
+    menu.addEventListener("click", e => e.stopPropagation());
+    renderMsBotao(el);
+  }
+  function renderMsBotao(el) {
+    const sel = $(el.dataset.sel), botao = el.querySelector(".ms-botao");
+    const vals = Array.from(sel.selectedOptions);
+    const rot = el.dataset.rotulo;
+    const fmt = ROTULO_OPCAO[el.dataset.sel] || (v => v);
+    let texto = rot;
+    if (vals.length === 1) texto = `${rot}: ${fmt(vals[0].value)}`;
+    else if (vals.length > 1) texto = `${rot}: ${vals.length}`;
+    botao.innerHTML = `${escapar(texto)} <span class="seta">▾</span>`;
+    botao.classList.toggle("ativo", vals.length > 0);
+    botao.disabled = sel.options.length === 0;
+  }
+  function renderMsMenu(el) {
+    const sel = $(el.dataset.sel), menu = el.querySelector(".ms-menu");
+    const fmt = ROTULO_OPCAO[el.dataset.sel] || (v => v);
+    const termo = (menu.querySelector("input[type=search]") || {}).value || "";
+    const t = semAcentos(termo).toLowerCase();
+    const opts = Array.from(sel.options).filter(o => !t || semAcentos(fmt(o.value)).toLowerCase().includes(t));
+    const busca = el.dataset.busca ? `<input type="search" placeholder="Filtrar ${escapar(el.dataset.rotulo.toLowerCase())}…" value="${escapar(termo)}" aria-label="Filtrar opções">` : "";
+    const lista = opts.length ? opts.map(o => `<label><input type="checkbox" value="${escapar(o.value)}" ${o.selected ? "checked" : ""}> <span>${escapar(fmt(o.value))}</span><span class="n">${o.dataset.n || ""}</span></label>`).join("")
+      : '<div class="vazio">nenhuma opção</div>';
+    menu.innerHTML = `${busca}<div class="opcoes">${lista}</div><div class="rodape"><button type="button" class="btn pequeno limpar">Limpar</button><button type="button" class="btn pequeno primario fechar">OK</button></div>`;
+    const inp = menu.querySelector("input[type=search]");
+    if (inp) {
+      inp.addEventListener("input", () => { const pos = inp.selectionStart; renderMsMenu(el); const n = menu.querySelector("input[type=search]"); n.focus(); n.setSelectionRange(pos, pos); });
+      inp.addEventListener("keydown", e => { if (e.key === "Enter") { const first = menu.querySelector(".opcoes input"); if (first && opts.length === 1) { first.checked = !first.checked; first.dispatchEvent(new Event("change", { bubbles: true })); } } });
+    }
+    menu.querySelector(".opcoes").addEventListener("change", e => {
+      const o = Array.from(sel.options).find(x => x.value === e.target.value);
+      if (o) o.selected = e.target.checked;
+      renderMsBotao(el);
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    menu.querySelector(".limpar").addEventListener("click", () => { for (const o of sel.options) o.selected = false; renderMsBotao(el); renderMsMenu(el); sel.dispatchEvent(new Event("change", { bubbles: true })); });
+    menu.querySelector(".fechar").addEventListener("click", fecharMenus);
+  }
+  function fecharMenus() { document.querySelectorAll(".ms.aberto").forEach(m => m.classList.remove("aberto")); $("colunas-menu").classList.remove("aberto"); }
+  function atualizarTodosMs() { document.querySelectorAll(".ms").forEach(renderMsBotao); }
+
+  // ---------- opções dos filtros ----------
+  function preencherSelect(id, valores) {
     const sel = $(id);
     const atuais = new Set(valoresSel(id));
     sel.innerHTML = "";
-    for (const v of valores) {
+    for (const [v, n] of valores) {
       const o = document.createElement("option");
-      o.value = v; o.textContent = rotulo ? rotulo(v) : v;
+      o.value = v; o.textContent = v; o.dataset.n = n;
       if (atuais.has(v)) o.selected = true;
       sel.appendChild(o);
     }
   }
-  function distintos(campo, base) {
-    return Array.from(new Set((base || estado.todos).map(r => r[campo]).filter(v => !nulo(v)))).sort((a, b) => String(a).localeCompare(String(b), "pt-BR"));
+  function contagem(campo, base) {
+    const m = new Map();
+    for (const r of base) { const v = r[campo]; if (!nulo(v)) m.set(v, (m.get(v) || 0) + 1); }
+    return Array.from(m.entries()).sort((a, b) => String(a[0]).localeCompare(String(b[0]), "pt-BR"));
   }
   function montarOpcoes() {
-    preencherSelect("f-uf", distintos("uf"));
-    preencherSelect("f-tipo", distintos("tipo"), cap);
-    preencherSelect("f-natureza", distintos("natureza"), cap);
-    preencherSelect("f-modalidade", distintos("modalidade"));
-    preencherSelect("f-fonte", distintos("fonte"), nomeFonte);
+    const ativos = estado.todos.filter(r => r.ativo !== false);
+    preencherSelect("f-uf", estado.todasUfs ? estado.todasUfs.map(u => [u, ""]) : contagem("uf", ativos));
+    preencherSelect("f-tipo", contagem("tipo", ativos));
+    preencherSelect("f-natureza", contagem("natureza", ativos));
+    preencherSelect("f-modalidade", contagem("modalidade", ativos));
+    preencherSelect("f-fonte", contagem("fonte", ativos));
     atualizarCidadesBairros();
+    atualizarTodosMs();
   }
   function atualizarCidadesBairros() {
     const ufs = valoresSel("f-uf");
-    const base = ufs.length ? estado.todos.filter(r => ufs.includes(r.uf)) : estado.todos;
-    preencherSelect("f-cidade", distintos("cidade", base));
+    const ativos = estado.todos.filter(r => r.ativo !== false);
+    const base = ufs.length ? ativos.filter(r => ufs.includes(r.uf)) : ativos;
+    preencherSelect("f-cidade", contagem("cidade", base));
     const cidades = valoresSel("f-cidade");
     const base2 = cidades.length ? base.filter(r => cidades.includes(r.cidade)) : base;
-    preencherSelect("f-bairro", distintos("bairro", base2));
+    preencherSelect("f-bairro", contagem("bairro", base2));
+    atualizarTodosMs();
   }
 
   function lerFiltros() {
@@ -138,14 +205,43 @@
       if (f.novos && !ehNovo(r)) return false;
       if (f.mudouPreco && !estado.precoMudou30.has(r.id)) return false;
       if (busca) {
-        const alvo = semAcentos([r.id, r.endereco, r.bairro, r.cidade, r.descricao_original, r.modalidade, r.leiloeiro].join(" ")).toLowerCase();
+        const alvo = semAcentos([r.id, r.endereco, r.bairro, r.cidade, r.descricao_original, r.modalidade, r.leiloeiro, r.comitente].join(" ")).toLowerCase();
         if (!alvo.includes(busca)) return false;
       }
       return true;
     });
+    estado.limiteLinhas = LOTE_LINHAS; estado.limiteCards = LOTE_LINHAS;
     ordenar();
     render();
+    renderChips(f);
     escreverUrl(f);
+  }
+
+  // ---------- chips dos filtros ativos ----------
+  function renderChips(f) {
+    const chips = [];
+    const lista = (chave, rot, fmt) => { for (const v of f[chave]) chips.push({ rot: `${rot}: ${fmt ? fmt(v) : v}`, desfazer: () => { const o = Array.from($("f-" + chave).options).find(x => x.value === v); if (o) o.selected = false; } }); };
+    lista("uf", "UF"); lista("cidade", "Cidade"); lista("bairro", "Bairro"); lista("tipo", "Tipo", cap); lista("natureza", "Natureza", cap); lista("modalidade", "Modalidade"); lista("fonte", "Fonte", nomeFonte);
+    const faixa = (min, max, rot, fmt) => {
+      if (f[min] === null && f[max] === null) return;
+      const a = f[min] === null ? "" : fmt(f[min]), b = f[max] === null ? "" : fmt(f[max]);
+      chips.push({ rot: `${rot}: ${a && b ? a + " a " + b : a ? "≥ " + a : "≤ " + b}`, desfazer: () => { $("f-" + min).value = ""; $("f-" + max).value = ""; } });
+    };
+    faixa("vmin", "vmax", "Lance", v => moeda(v)); faixa("dmin", "dmax", "Desconto", v => v + "%"); faixa("m2min", "m2max", "R$/m²", v => numero(v, 0));
+    if (f.amin !== null) chips.push({ rot: `Área ≥ ${numero(f.amin)} m²`, desfazer: () => { $("f-amin").value = ""; } });
+    const cbs = [["desocupados", "só desocupados"], ["fgts", "aceita FGTS"], ["financiamento", "aceita financiamento"], ["debvendedor", "débitos do vendedor"], ["novos", "novos (7 dias)"], ["mudouPreco", "mudou de preço"], ["inativos", "inclui removidos"]];
+    const ids = { desocupados: "f-desocupados", fgts: "f-fgts", financiamento: "f-financiamento", debvendedor: "f-debvendedor", novos: "f-novos", mudouPreco: "f-mudou-preco", inativos: "f-inativos" };
+    for (const [k, rot] of cbs) if (f[k]) chips.push({ rot, desfazer: () => { $(ids[k]).checked = false; } });
+    if (f.leilaoProx) chips.push({ rot: `leilão em até ${f.leilaoDias} dias`, desfazer: () => { $("f-leilao-prox").checked = false; } });
+    if (f.busca) chips.push({ rot: `“${f.busca}”`, desfazer: () => { $("f-busca").value = ""; } });
+    const el = $("chips");
+    el.innerHTML = chips.map((c, i) => `<span class="chip">${escapar(c.rot)}<button type="button" data-i="${i}" aria-label="Remover filtro ${escapar(c.rot)}">×</button></span>`).join("");
+    el.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { chips[Number(b.dataset.i)].desfazer(); atualizarCidadesBairros(); aplicarFiltros(); }));
+    $("filtros-ativos").classList.toggle("hidden", chips.length === 0);
+    // contador no botão "Mais filtros": só os filtros que ficam na área recolhível
+    const nMais = chips.length - (f.uf.length + f.cidade.length + f.tipo.length + f.natureza.length + f.fonte.length + (f.busca ? 1 : 0));
+    const badge = $("mais-filtros-n");
+    badge.textContent = nMais; badge.classList.toggle("hidden", nMais <= 0);
   }
 
   // ---------- URL ----------
@@ -176,6 +272,17 @@
     if (q.q) $("f-busca").value = q.q;
     if (q.ord) { estado.ordem = { coluna: q.ord.replace(/^-/, ""), desc: q.ord.startsWith("-") }; }
     if (q.modo && ["tabela", "cards", "mapa"].includes(q.modo)) estado.modo = q.modo;
+    // se a URL traz filtros da área recolhível, abre a área
+    const temMais = q.bairro || q.modalidade || ["vmin", "vmax", "dmin", "dmax", "m2min", "m2max", "amin", "leilao"].some(k => q[k] !== undefined) || Object.keys(cbs).some(k => q[k] === "1");
+    if (temMais) alternarMaisFiltros(true);
+    atualizarTodosMs();
+  }
+  function alternarMaisFiltros(abrir) {
+    const area = $("filtros-mais"), btn = $("btn-mais-filtros");
+    const aberto = abrir === undefined ? area.classList.contains("hidden") : abrir;
+    area.classList.toggle("hidden", !aberto);
+    btn.setAttribute("aria-expanded", String(aberto));
+    btn.childNodes[btn.childNodes.length - 1].textContent = aberto ? " ▴" : " ▾";
   }
 
   // ---------- ordenação ----------
@@ -196,10 +303,12 @@
 
   // ---------- render ----------
   function render() {
-    $("contador-filtrado").textContent = `${estado.filtrados.length.toLocaleString("pt-BR")} ${estado.filtrados.length === 1 ? "imóvel encontrado" : "imóveis encontrados"}`;
+    const n = estado.filtrados.length;
+    $("contador-filtrado").textContent = `${n.toLocaleString("pt-BR")} ${n === 1 ? "imóvel" : "imóveis"}`;
     document.querySelectorAll(".modo").forEach(b => b.classList.toggle("ativo", b.dataset.modo === estado.modo));
     $("vista-tabela").classList.toggle("hidden", estado.modo !== "tabela");
     $("vista-cards").classList.toggle("hidden", estado.modo !== "cards");
+    $("mais-cards").classList.toggle("hidden", estado.modo !== "cards" || estado.filtrados.length <= estado.limiteCards);
     $("vista-mapa").classList.toggle("hidden", estado.modo !== "mapa");
     $("colunas-menu").classList.toggle("hidden", estado.modo !== "tabela");
     if (estado.modo === "tabela") renderTabela();
@@ -218,50 +327,88 @@
       if (c.num) th.className = "num";
       if (c.titulo) th.title = c.titulo;
       th.innerHTML = escapar(c.rotulo) + (estado.ordem.coluna === c.id ? `<span class="seta">${estado.ordem.desc ? "▼" : "▲"}</span>` : "");
-      if (c.chave) th.addEventListener("click", () => {
-        if (estado.ordem.coluna === c.id) estado.ordem.desc = !estado.ordem.desc;
-        else estado.ordem = { coluna: c.id, desc: c.num || c.id === "data_leilao" ? true : false };
-        if (c.id === "data_leilao") estado.ordem.desc = estado.ordem.coluna === c.id ? estado.ordem.desc : false;
-        ordenar(); render(); escreverUrl(lerFiltros());
-      });
+      if (c.chave) {
+        th.setAttribute("aria-sort", estado.ordem.coluna === c.id ? (estado.ordem.desc ? "descending" : "ascending") : "none");
+        th.addEventListener("click", () => {
+          if (estado.ordem.coluna === c.id) estado.ordem.desc = !estado.ordem.desc;
+          else estado.ordem = { coluna: c.id, desc: !!c.num };
+          ordenar(); render(); escreverUrl(lerFiltros());
+        });
+      }
       cab.appendChild(th);
     }
     const corpo = $("corpo");
     const partes = [];
     const cols = colunasVisiveis();
-    for (const r of estado.filtrados) {
+    const limite = Math.min(estado.filtrados.length, estado.limiteLinhas);
+    for (let i = 0; i < limite; i++) {
+      const r = estado.filtrados[i];
       const sel = estado.selecionados.has(r.id);
-      let tr = `<tr data-id="${escapar(r.id)}" id="linha-${escapar(r.id)}" class="${sel ? "selecionado" : ""}${r.ativo === false ? " muted" : ""}">`;
+      let tr = `<tr data-id="${escapar(r.id)}" id="linha-${escapar(r.id)}" class="${sel ? "selecionado" : ""}${r.ativo === false ? " inativo" : ""}" title="Abrir a ficha do imóvel">`;
       for (const c of cols) {
-        if (c.id === "sel") { tr += `<td><input type="checkbox" class="sel" data-id="${escapar(r.id)}" ${sel ? "checked" : ""} title="Selecionar para comparar (até 3)"></td>`; continue; }
-        if (c.id === "link") { tr += `<td><a href="imovel.html?id=${encodeURIComponent(r.id)}">detalhe</a> · <a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener">fonte ↗</a></td>`; continue; }
+        if (c.id === "sel") { tr += `<td><input type="checkbox" class="sel" data-id="${escapar(r.id)}" ${sel ? "checked" : ""} title="Selecionar para comparar (até 3)" aria-label="Selecionar para comparar"></td>`; continue; }
+        if (c.id === "link") { tr += `<td class="cel-links"><a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener" title="Abrir o anúncio no site da fonte">fonte ↗</a></td>`; continue; }
+        if (c.id === "cidade") { tr += `<td class="cel-cidade"><a href="${urlDetalhe(r)}">${escapar(r.cidade || TRACO)}</a>${r.uf ? `<span class="muted">/${escapar(r.uf)}</span>` : ""}${marcadores(r)}</td>`; continue; }
         const v = c.valor(r);
         const conteudo = c.html ? v : escapar(nulo(v) ? TRACO : v);
-        const extra = c.id === "cidade" ? marcadores(r) : "";
-        tr += `<td class="${c.num ? "num" : ""} ${c.classe || ""}" ${c.id === "endereco" ? `title="${escapar(r.endereco || "")}"` : ""}>${conteudo}${extra}</td>`;
+        const title = (c.id === "endereco" || c.id === "modalidade" || c.id === "fonte") && v ? ` title="${escapar(v)}"` : "";
+        tr += `<td class="${c.num ? "num" : ""} ${c.classe || ""}"${title}>${conteudo}</td>`;
       }
       partes.push(tr + "</tr>");
     }
-    corpo.innerHTML = partes.join("") || `<tr><td colspan="${cols.length}" class="muted">Nenhum imóvel com esses filtros.</td></tr>`;
+    corpo.innerHTML = partes.join("") || `<tr><td colspan="${cols.length}" class="muted" style="padding:16px">Nenhum imóvel com esses filtros. <a href="#" id="limpar-inline">Limpar filtros</a></td></tr>`;
+    const li = $("limpar-inline"); if (li) li.addEventListener("click", e => { e.preventDefault(); limparFiltros(); });
+    const resta = estado.filtrados.length - limite;
+    $("mais-linhas").classList.toggle("hidden", resta <= 0);
+    $("mais-info").textContent = resta > 0 ? `mostrando ${limite.toLocaleString("pt-BR")} de ${estado.filtrados.length.toLocaleString("pt-BR")}` : "";
+    $("btn-mais").textContent = `Mostrar mais ${Math.min(resta, LOTE_LINHAS).toLocaleString("pt-BR")}`;
   }
 
+  function iconeTipo(t) { return ({ apartamento: "AP", casa: "CA", terreno: "TE", comercial: "CO", rural: "RU" })[t] || "IM"; }
+  function tituloCurto(r) {
+    const tipo = cap(r.tipo) === TRACO ? "Imóvel" : cap(r.tipo);
+    const onde = [r.bairro, r.cidade].filter(Boolean).join(", ");
+    return `${tipo} em ${onde || TRACO}${r.uf ? "/" + r.uf : ""}`;
+  }
   function renderCards() {
     const el = $("vista-cards");
-    el.innerHTML = estado.filtrados.map(r => `
-      <div class="card">
-        <div class="foto" ${r.url_foto ? `style="background-image:url('${escapar(r.url_foto)}')"` : ""}>${r.url_foto ? "" : "sem foto (veja no anúncio original)"}</div>
-        <div class="corpo">
-          <div class="titulo">${escapar(cap(r.tipo))} em ${escapar(r.bairro || TRACO)}, ${escapar(r.cidade || TRACO)}/${escapar(r.uf || "")} ${marcadores(r)}</div>
-          <div class="meta">${escapar(r.endereco || TRACO)}</div>
-          <div class="preco">${moeda(r.valor_minimo)} <span class="muted" style="font-size:.8rem">${descontoHtml(r.desconto_pct)} · aval. ${moeda(r.valor_avaliacao)}</span></div>
-          <div class="meta">${escapar(r.modalidade || TRACO)} · ${nulo(areaRef(r)) ? TRACO : numero(areaRef(r)) + " m²"} · ${nulo(r.valor_m2) ? TRACO : "R$ " + numero(r.valor_m2, 0) + "/m²"}${r.quartos ? ` · ${r.quartos} qto` : ""}${r.vagas ? ` · ${r.vagas} vaga` : ""}</div>
-          <div class="meta">Leilão: ${data(r.data_leilao)} · ${ocupado(r.ocupado)} · FGTS: ${simNao(r.aceita_fgts)} · Financ.: ${simNao(r.aceita_financiamento)}</div>
-          <div class="rodape">
-            <label class="muted"><input type="checkbox" class="sel" data-id="${escapar(r.id)}" ${estado.selecionados.has(r.id) ? "checked" : ""}> comparar</label>
-            <span>${escapar(nomeFonte(r.fonte))} · <a href="imovel.html?id=${encodeURIComponent(r.id)}">detalhe</a> · <a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener">fonte ↗</a></span>
+    const limite = Math.min(estado.filtrados.length, estado.limiteCards);
+    const html = [];
+    for (let i = 0; i < limite; i++) {
+      const r = estado.filtrados[i];
+      const area = areaRef(r);
+      html.push(`
+      <article class="card">
+        ${r.url_foto ? `<div class="foto" style="background-image:url('${escapar(r.url_foto)}')"></div>` : ""}
+        <div class="topo-card">
+          <div class="icone" aria-hidden="true">${iconeTipo(r.tipo)}</div>
+          <div>
+            <div class="titulo"><a href="${urlDetalhe(r)}">${escapar(tituloCurto(r))}</a>${marcadores(r)}</div>
+            <div class="local">${escapar(r.endereco || "endereço não informado")}</div>
           </div>
         </div>
-      </div>`).join("") || '<p class="muted">Nenhum imóvel com esses filtros.</p>';
+        <div class="corpo">
+          <div class="preco-linha"><span class="preco">${moeda(r.valor_minimo)}</span>${nulo(r.desconto_pct) ? "" : `<span class="desc-badge ${r.desconto_pct < 0 ? "neg" : ""}">${pct(r.desconto_pct)}</span>`}<span class="meta">aval. ${moeda(r.valor_avaliacao)}</span></div>
+          <div class="meta">${escapar(cap(r.natureza))} · ${escapar(r.modalidade || TRACO)} · ${escapar(nomeFonte(r.fonte))}</div>
+          <div class="fatos">
+            <div class="fato">Área<b>${nulo(area) ? TRACO : numero(area) + " m²"}</b></div>
+            <div class="fato">R$/m²<b>${nulo(r.valor_m2) ? TRACO : numero(r.valor_m2, 0)}</b></div>
+            <div class="fato">Leilão<b>${data(r.data_leilao)}</b></div>
+            <div class="fato">Quartos<b>${numero(r.quartos, 0)}</b></div>
+            <div class="fato">Ocupação<b>${ocupado(r.ocupado)}</b></div>
+            <div class="fato">FGTS / financ.<b>${simNao(r.aceita_fgts)} / ${simNao(r.aceita_financiamento)}</b></div>
+          </div>
+          <div class="rodape">
+            <label><input type="checkbox" class="sel" data-id="${escapar(r.id)}" ${estado.selecionados.has(r.id) ? "checked" : ""}> comparar</label>
+            <a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener">anúncio na fonte ↗</a>
+          </div>
+        </div>
+      </article>`);
+    }
+    el.innerHTML = html.join("") || '<p class="muted">Nenhum imóvel com esses filtros.</p>';
+    const resta = estado.filtrados.length - limite;
+    $("mais-cards").classList.toggle("hidden", resta <= 0);
+    $("btn-mais-cards").textContent = `Mostrar mais ${Math.min(resta, LOTE_LINHAS).toLocaleString("pt-BR")} (de ${resta.toLocaleString("pt-BR")} restantes)`;
   }
 
   function renderMapa() {
@@ -280,11 +427,11 @@
         radius: aprox ? 6 : 7, color: aprox ? "#777" : "#0b5fff", fillColor: aprox ? "#bbb" : "#0b5fff",
         fillOpacity: aprox ? .5 : .85, weight: aprox ? 1 : 2, dashArray: aprox ? "2,2" : null,
       });
-      m.bindPopup(`<b>${escapar(cap(r.tipo))} · ${moeda(r.valor_minimo)}</b> ${descontoHtml(r.desconto_pct)}<br>
-        ${escapar(r.endereco || TRACO)}<br>${escapar(r.bairro || TRACO)}, ${escapar(r.cidade || "")}/${escapar(r.uf || "")}<br>
+      m.bindPopup(`<b>${escapar(tituloCurto(r))}</b><br><b>${moeda(r.valor_minimo)}</b> ${descontoHtml(r.desconto_pct)} · aval. ${moeda(r.valor_avaliacao)}<br>
+        ${escapar(r.endereco || TRACO)}<br>
         ${escapar(r.modalidade || TRACO)} · ${nulo(areaRef(r)) ? TRACO : numero(areaRef(r)) + " m²"} · leilão ${data(r.data_leilao)}<br>
-        <span class="muted">precisão: ${escapar(r.geo_precisao || TRACO)}</span><br>
-        <a href="imovel.html?id=${encodeURIComponent(r.id)}">detalhe</a> · <a href="?${urlLinhaTabela(r)}">ver na tabela</a> · <a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener">fonte ↗</a>`);
+        <span class="muted">localização: ${escapar(r.geo_precisao === "endereco" ? "endereço" : r.geo_precisao || TRACO)}</span><br>
+        <a href="${urlDetalhe(r)}">ficha completa</a> · <a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener">fonte ↗</a>`);
       pontos.push(m);
     }
     estado.cluster.addLayers(pontos);
@@ -292,11 +439,6 @@
       estado.mapa.invalidateSize();
       if (pontos.length) estado.mapa.fitBounds(estado.cluster.getBounds().pad(0.1));
     }, 50);
-  }
-  function urlLinhaTabela(r) {
-    const p = new URLSearchParams(location.search);
-    p.set("modo", "tabela"); p.set("q", r.id);
-    return p.toString();
   }
 
   // ---------- colunas ----------
@@ -311,15 +453,15 @@
       localStorage.setItem("lt.colunasOcultas", JSON.stringify(Array.from(estado.ocultas)));
       renderTabela();
     });
-    $("btn-colunas").addEventListener("click", e => { e.stopPropagation(); $("colunas-menu").classList.toggle("aberto"); });
-    document.addEventListener("click", e => { if (!$("colunas-menu").contains(e.target)) $("colunas-menu").classList.remove("aberto"); });
+    lista.addEventListener("click", e => e.stopPropagation());
+    $("btn-colunas").addEventListener("click", e => { e.stopPropagation(); const aberto = $("colunas-menu").classList.contains("aberto"); fecharMenus(); if (!aberto) $("colunas-menu").classList.add("aberto"); });
   }
 
   // ---------- seleção / comparação ----------
   function renderSelecao() {
     const n = estado.selecionados.size;
     $("barra-selecao").classList.toggle("hidden", n === 0);
-    $("selecao-texto").textContent = `${n} selecionado${n > 1 ? "s" : ""} (máx. 3)`;
+    $("selecao-texto").textContent = n < 2 ? `${n} selecionado · marque até 3 para comparar` : `${n} selecionados (máx. 3)`;
     $("btn-comparar").disabled = n < 2;
   }
   function aoSelecionar(e) {
@@ -341,8 +483,8 @@
   function abrirComparacao() {
     const itens = Array.from(estado.selecionados).map(id => estado.todos.find(r => r.id === id)).filter(Boolean);
     if (itens.length < 2) return;
-    let html = `<h2>Comparação lado a lado <button type="button" class="btn pequeno" id="fechar-comparar">fechar ✕</button></h2><table class="comparacao"><tr><th></th>`;
-    for (const r of itens) html += `<th><a href="imovel.html?id=${encodeURIComponent(r.id)}">${escapar(r.id)}</a></th>`;
+    let html = `<h2>Comparação lado a lado <button type="button" class="btn pequeno" id="fechar-comparar">fechar ✕</button></h2><p class="muted" style="margin:0 0 8px;font-size:.8rem">Células verdes marcam o melhor valor entre os selecionados (menor preço e R$/m², maior desconto e área).</p><table class="comparacao"><tr><th></th>`;
+    for (const r of itens) html += `<th><a href="${urlDetalhe(r)}">${escapar(tituloCurto(r))}</a></th>`;
     html += "</tr>";
     for (const c of CAMPOS_COMPARACAO) {
       const vals = itens.map(r => r[c]);
@@ -364,7 +506,7 @@
   const CAMPOS_CSV = ["id", "fonte", "url_anuncio", "url_edital", "url_matricula", "leiloeiro", "tipo", "uf", "cidade", "bairro", "endereco", "lat", "lng", "geo_precisao",
     "area_privativa_m2", "area_terreno_m2", "area_total_m2", "quartos", "vagas", "valor_avaliacao", "valor_minimo", "desconto_pct", "valor_m2",
     "natureza", "modalidade", "data_leilao", "data_segunda_praca", "ocupado", "aceita_financiamento", "aceita_fgts", "aceita_parcelamento",
-    "debitos_iptu_por_conta_de", "debitos_condominio_por_conta_de", "comissao_leiloeiro_pct", "matricula", "numero_processo", "descricao_original",
+    "debitos_iptu_por_conta_de", "debitos_condominio_por_conta_de", "comissao_leiloeiro_pct", "matricula", "numero_processo", "comitente", "descricao_original",
     "url_foto", "primeira_vez_visto", "ultima_vez_visto", "ativo", "outras_fontes", "extracao_ia"];
   function csvValor(v) {
     if (v === null || v === undefined) return "";
@@ -388,18 +530,14 @@
   // ---------- cabeçalho (status) ----------
   function renderStatus() {
     const m = estado.meta, st = estado.status || {};
-    $("contador").textContent = m ? `${m.ativos.toLocaleString("pt-BR")} imóveis ativos` : "";
-    $("ultima-coleta").textContent = m ? `coleta: ${data(m.data_coleta)}` : "";
-    const partes = [], rodape = [];
-    for (const [nome, s] of Object.entries(st)) {
-      if (nome.startsWith("_")) continue;
-      const cls = !s.ativa ? "off" : (s.ultima_coleta_ok === (m && m.data_coleta) ? "ok" : "falha");
-      const titulo = !s.ativa ? "fonte desativada" : (cls === "ok" ? `coleta ok em ${data(s.ultima_coleta_ok)}, ${s.registros} registros` : `última falha: ${s.ultimo_erro || "?"}`);
-      partes.push(`<span class="${cls}" title="${escapar(titulo)}"></span>${escapar(nomeFonte(nome))}`);
-      if (s.ativa && s.site) rodape.push(`<a href="${escapar(s.site)}" rel="noopener" target="_blank">${escapar(nomeFonte(nome))}</a>`);
-    }
-    $("fontes-status").innerHTML = partes.join(" ");
-    $("rodape-fontes").innerHTML = rodape.join(", ") || "Caixa";
+    $("contador").textContent = m ? `${m.ativos.toLocaleString("pt-BR")} imóveis · coleta de ${data(m.data_coleta)}` : "";
+    const ativas = Object.entries(st).filter(([n, s]) => !n.startsWith("_") && s.ativa);
+    const ok = ativas.filter(([, s]) => s.ultima_coleta_ok === (m && m.data_coleta));
+    const falhas = ativas.filter(([n]) => !ok.some(([k]) => k === n));
+    const el = $("fontes-status");
+    el.innerHTML = `<span class="dot ${falhas.length ? "falha" : "ok"}"></span>${ativas.length} fontes${falhas.length ? `, ${falhas.length} com falha` : " ok"}`;
+    el.title = ativas.map(([n, s]) => `${nomeFonte(n)}: ${ok.some(([k]) => k === n) ? "ok" : "falhou (" + (s.ultimo_erro || "?") + ")"}`).join("\n");
+    $("rodape-fontes").innerHTML = ativas.filter(([, s]) => s.site).map(([n, s]) => `<a href="${escapar(s.site)}" rel="noopener" target="_blank">${escapar(nomeFonte(n))}</a>`).join(", ") || "Caixa";
     const cfg = window.LT_CONFIG || {};
     if (cfg.urlApoio) {
       const a = $("apoio-link");
@@ -420,6 +558,10 @@
     for (const [id, e] of Object.entries(ultimo)) {
       if (e.de !== null && e.para !== null) (e.para < e.de ? estado.quedas : estado.altas).add(id);
     }
+    // a etiqueta "novo" só informa quando é minoria: numa base recém-criada tudo seria "novo"
+    const ativos = estado.todos.filter(r => r.ativo !== false);
+    const novos = ativos.filter(ehNovo).length;
+    estado.mostrarNovo = ativos.length > 0 && novos / ativos.length <= 0.3;
   }
 
   // ---------- carga sob demanda por UF ----------
@@ -431,6 +573,12 @@
     const novos = await Promise.all(faltam.map(u => carregarJson(`imoveis_${u}.json`)));
     estado.todos = estado.todos.concat(novos.flat());
     faltam.forEach(u => estado.ufsCarregadas.add(u));
+  }
+
+  function limparFiltros() {
+    $("filtros").reset();
+    for (const s of $("filtros").querySelectorAll("select")) for (const o of s.options) o.selected = false;
+    atualizarCidadesBairros(); aplicarFiltros();
   }
 
   // ---------- início ----------
@@ -445,31 +593,39 @@
     estado.meta = base.meta; estado.todos = base.imoveis; estado.historico = historico; estado.status = status;
     estado.dividido = !!base.meta.dividido_por_uf;
     for (const a of base.carregados) { const m = a.match(/^imoveis_(\w+)\.json$/); if (m) estado.ufsCarregadas.add(m[1]); }
-    if (estado.dividido && ufsUrl) {
-      // o seletor de UF precisa listar todas as UFs disponíveis, não só as carregadas
-      estado.todasUfs = base.arquivos.map(a => (a.match(/^imoveis_(\w+)\.json$/) || [])[1]).filter(Boolean);
-    }
+    if (estado.dividido && ufsUrl) estado.todasUfs = base.arquivos.map(a => (a.match(/^imoveis_(\w+)\.json$/) || [])[1]).filter(Boolean);
     indexarHistorico();
     renderStatus();
+    document.querySelectorAll(".ms").forEach(montarMs);
     montarOpcoes();
-    if (estado.todasUfs) preencherSelect("f-uf", estado.todasUfs);
     lerUrlParaFiltros();
     montarMenuColunas();
 
     $("filtros").addEventListener("change", async e => {
-      if (e.target.id === "f-uf") { await garantirUfs(); montarOpcoes(); atualizarCidadesBairros(); }
+      if (e.target.id === "f-uf") { await garantirUfs(); montarOpcoes(); }
       if (e.target.id === "f-cidade") atualizarCidadesBairros();
-      aplicarFiltros();
+      if (e.target.tagName === "SELECT" || e.target.type === "checkbox" || e.target.type === "number") aplicarFiltros();
     });
     let timer;
     $("filtros").addEventListener("input", e => {
-      if (e.target.type === "search" || e.target.type === "number") { clearTimeout(timer); timer = setTimeout(aplicarFiltros, 250); }
+      if (e.target.type === "search" && e.target.id === "f-busca" || e.target.type === "number") { clearTimeout(timer); timer = setTimeout(aplicarFiltros, 250); }
     });
-    $("btn-limpar").addEventListener("click", () => { $("filtros").reset(); for (const s of $("filtros").querySelectorAll("select")) for (const o of s.options) o.selected = false; atualizarCidadesBairros(); aplicarFiltros(); });
-    $("btn-copiar-link").addEventListener("click", () => navigator.clipboard.writeText(location.href).then(() => { $("btn-copiar-link").textContent = "Copiado!"; setTimeout(() => $("btn-copiar-link").textContent = "Copiar link", 1500); }));
+    $("btn-mais-filtros").addEventListener("click", () => alternarMaisFiltros());
+    $("btn-limpar").addEventListener("click", limparFiltros);
+    $("btn-copiar-link").addEventListener("click", () => navigator.clipboard.writeText(location.href).then(() => { $("btn-copiar-link").textContent = "Link copiado!"; setTimeout(() => $("btn-copiar-link").textContent = "Copiar link da busca", 1500); }));
     document.querySelectorAll(".modo").forEach(b => b.addEventListener("click", () => { estado.modo = b.dataset.modo; localStorage.setItem("lt.modo", estado.modo); render(); escreverUrl(lerFiltros()); }));
     $("btn-csv").addEventListener("click", exportarCsv);
+    $("btn-mais").addEventListener("click", () => { estado.limiteLinhas += LOTE_LINHAS; renderTabela(); });
+    $("btn-mais-cards").addEventListener("click", () => { estado.limiteCards += LOTE_LINHAS; renderCards(); });
     document.addEventListener("change", aoSelecionar);
+    document.addEventListener("click", fecharMenus);
+    document.addEventListener("keydown", e => { if (e.key === "Escape") { fecharMenus(); $("painel-comparar").classList.add("hidden"); } });
+    // linha inteira abre a ficha (exceto cliques em links, checkbox e seleção de texto)
+    $("corpo").addEventListener("click", e => {
+      if (e.target.closest("a, input, button") || window.getSelection().toString()) return;
+      const tr = e.target.closest("tr[data-id]");
+      if (tr) location.href = `imovel.html?id=${encodeURIComponent(tr.dataset.id)}`;
+    });
     $("btn-comparar").addEventListener("click", abrirComparacao);
     $("btn-limpar-selecao").addEventListener("click", () => { estado.selecionados.clear(); render(); });
     aplicarFiltros();

@@ -29,7 +29,8 @@ collector/                 coletor em Python (roda no GitHub Actions todo dia à
   cache/geo.json           cache de geocodificação (commitado)
   cache/ia/<hash>.json     cache permanente da IA (commitado; vazio enquanto a IA estiver desligada)
 docs/                      site estático servido pelo GitHub Pages (HTML, CSS e JS puro; Leaflet + markercluster no mapa)
-  index.html, js/app.js    tabela / cards / mapa, filtros, comparação, CSV, filtros na URL
+  index.html, js/app.js    tabela / cards / mapa; filtros em menus compactos com busca, chips dos filtros ativos,
+                           "Mais filtros" recolhível, linha clicável, renderização incremental, comparação, CSV, URL
   imovel.html, js/detalhe.js  ficha completa, outras fontes, extração IA, histórico e gráfico (SVG)
   sobre.html, js/sobre.js  avisos, estado das fontes, campos em branco, custo da IA
   data/imoveis.json        base (ou imoveis_<UF>.json quando passa de 3 MB; meta.json lista os arquivos)
