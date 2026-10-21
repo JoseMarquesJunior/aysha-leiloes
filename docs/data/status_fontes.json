@@ -5,7 +5,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://venda-imoveis.caixa.gov.br/",
-  "duracao_s": 5.0,
+  "duracao_s": 4.8,
   "info": {
    "data_geracao": "2026-10-20",
    "por_uf": {
@@ -22,7 +22,7 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-21T13:38:21",
+  "ultima_execucao": "2026-10-21T16:49:00",
   "data_coleta": "2026-10-21"
  },
  "banestes": {
@@ -31,7 +31,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.banestes.com.br/publicacoes_legais/leilao-bem-imovel.html",
-  "duracao_s": 2.6,
+  "duracao_s": 3.0,
   "info": {
    "total_editais_imoveis": 9
   }
@@ -42,7 +42,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.bandes.com.br/Site/Dinamico/Show/978/Leilao-de-Imoveis",
-  "duracao_s": 4.3,
+  "duracao_s": 4.0,
   "info": {
    "arquivos_com_texto": 6
   }
@@ -53,7 +53,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://imoveis.vendasgov.serpro.gov.br/",
-  "duracao_s": 3.0,
+  "duracao_s": 2.9,
   "info": {
    "venda": 1,
    "leilao": 3
@@ -77,7 +77,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.emleilao.com.br/",
-  "duracao_s": 151.6,
+  "duracao_s": 154.1,
   "info": {
    "emleilao": 25,
    "buaiz": 0,
@@ -91,7 +91,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.vixleiloes.com.br/",
-  "duracao_s": 87.4,
+  "duracao_s": 88.8,
   "info": {
    "leiloes_abertos": 34,
    "lotes_vistos": 1
