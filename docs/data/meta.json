@@ -1,0 +1,61 @@
+{
+ "gerado_em": "2026-10-21T09:57:41",
+ "data_coleta": "2026-10-21",
+ "arquivos": [
+  "imoveis.json"
+ ],
+ "dividido_por_uf": false,
+ "total": 805,
+ "ativos": 805,
+ "por_fonte": {
+  "caixa": 805
+ },
+ "por_uf": {
+  "ES": 42,
+  "MG": 763
+ },
+ "percentual_nulos": {
+  "id": 0.0,
+  "fonte": 0.0,
+  "url_anuncio": 0.0,
+  "url_edital": 100.0,
+  "url_matricula": 100.0,
+  "leiloeiro": 100.0,
+  "tipo": 0.0,
+  "uf": 0.0,
+  "cidade": 0.0,
+  "bairro": 0.0,
+  "endereco": 0.0,
+  "lat": 0.0,
+  "lng": 0.0,
+  "geo_precisao": 0.0,
+  "area_privativa_m2": 13.0,
+  "area_terreno_m2": 62.4,
+  "area_total_m2": 25.8,
+  "quartos": 23.9,
+  "vagas": 40.7,
+  "valor_avaliacao": 0.0,
+  "valor_minimo": 0.0,
+  "desconto_pct": 0.0,
+  "valor_m2": 0.2,
+  "natureza": 0.0,
+  "modalidade": 0.0,
+  "data_leilao": 100.0,
+  "data_segunda_praca": 100.0,
+  "ocupado": 100.0,
+  "aceita_financiamento": 0.0,
+  "aceita_fgts": 100.0,
+  "aceita_parcelamento": 100.0,
+  "debitos_iptu_por_conta_de": 100.0,
+  "debitos_condominio_por_conta_de": 100.0,
+  "comissao_leiloeiro_pct": 100.0,
+  "matricula": 100.0,
+  "numero_processo": 100.0,
+  "descricao_original": 0.0,
+  "url_foto": 100.0,
+  "primeira_vez_visto": 0.0,
+  "ultima_vez_visto": 0.0,
+  "ativo": 0.0,
+  "extracao_ia": 100.0
+ }
+}

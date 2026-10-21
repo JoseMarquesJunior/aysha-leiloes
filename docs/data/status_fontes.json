@@ -1,0 +1,28 @@
+{
+ "caixa": {
+  "ultima_coleta_ok": "2026-10-21",
+  "registros": 805,
+  "ultimo_erro": null,
+  "ativa": true,
+  "site": "https://venda-imoveis.caixa.gov.br/",
+  "duracao_s": 4.5,
+  "info": {
+   "data_geracao": null,
+   "por_uf": {
+    "ES": 42,
+    "MG": 763
+   }
+  }
+ },
+ "resale": {
+  "ultima_coleta_ok": null,
+  "registros": 0,
+  "ultimo_erro": "fonte desativada no config",
+  "ativa": false,
+  "site": "https://www.resale.com.br/"
+ },
+ "_geral": {
+  "ultima_execucao": "2026-10-21T09:57:41",
+  "data_coleta": "2026-10-21"
+ }
+}

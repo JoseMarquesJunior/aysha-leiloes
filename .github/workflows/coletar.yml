@@ -1,0 +1,69 @@
+name: Coletar leilões
+
+on:
+  schedule:
+    - cron: "0 9 * * *" # 09:00 UTC = 06:00 em Brasília
+  workflow_dispatch:
+    inputs:
+      fontes:
+        description: "Fontes a coletar, separadas por vírgula (vazio = todas as ativas)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coletar-dados
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Testes
+        run: python -m pytest -q collector/tests
+
+      - name: Coletar
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FONTES: ${{ inputs.fontes }}
+        run: |
+          if [ -n "$FONTES" ]; then
+            python -m collector.main --fontes "$FONTES"
+          else
+            python -m collector.main
+          fi
+
+      - name: Commitar dados se houve mudança
+        run: |
+          # Só o JSON de dados e os caches contam; meta.json muda a cada execução (gerado_em), então
+          # comparamos a lista de imóveis, o histórico e os caches para decidir se vale um commit.
+          if git diff --quiet -- docs/data/imoveis*.json docs/data/historico.json docs/data/status_fontes.json collector/cache \
+             && [ -z "$(git ls-files --others --exclude-standard docs/data collector/cache)" ]; then
+            echo "Nenhuma mudança nos dados; nada a commitar."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A docs/data collector/cache
+          git commit -m "dados: coleta de $(date -u +'%Y-%m-%d %H:%M UTC')"
+          for tentativa in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "push rejeitado (tentativa $tentativa); tentando rebase"
+            git pull --rebase origin main || exit 1
+          done
+          exit 1

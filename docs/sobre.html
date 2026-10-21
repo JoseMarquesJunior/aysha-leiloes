@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sobre — Leilões em Tabela</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topo">
+  <div class="linha1">
+    <h1><a href="./">Leilões em Tabela</a></h1>
+    <div class="resumo"><a href="./">← voltar à tabela</a></div>
+  </div>
+</header>
+<main class="sobre">
+  <h2>O que é</h2>
+  <p>Um agregador <strong>independente</strong> de imóveis em leilão, licitação e venda direta no Espírito Santo e em Minas Gerais. Cada imóvel vira uma linha estruturada, com filtros sobre campos extraídos (valor, desconto, R$/m², área, ocupação, débitos, FGTS) e não sobre texto solto. O site é estático: todos os filtros, ordenações, comparações e a exportação CSV acontecem no seu navegador.</p>
+
+  <div class="aviso">
+    <p><strong>Avisos importantes</strong></p>
+    <ul>
+      <li>Este site <strong>não tem vínculo</strong> com a Caixa Econômica Federal, o Banestes, o Bandes, a SPU, leiloeiros, tribunais ou qualquer outra fonte listada abaixo.</li>
+      <li>Os dados são <strong>extraídos automaticamente</strong> uma vez por dia e podem conter erros, omissões ou estar desatualizados. Confira sempre o anúncio e o edital no site original antes de qualquer decisão.</li>
+      <li>A extração por IA, quando existir, é um <strong>apoio à leitura</strong> e não substitui a leitura integral do edital e da matrícula.</li>
+      <li>Nada aqui é <strong>assessoria jurídica</strong> nem <strong>recomendação de investimento</strong>.</li>
+      <li>Não armazenamos nem exibimos nomes de pessoas físicas que apareçam em editais ou matrículas. Não copiamos fotos; apenas linkamos para o anúncio original.</li>
+    </ul>
+  </div>
+
+  <h2>Fontes e estado da última coleta</h2>
+  <table id="tabela-fontes">
+    <thead><tr><th>Fonte</th><th>Site original</th><th>Estado</th><th>Última coleta OK</th><th>Registros</th><th>Último erro</th></tr></thead>
+    <tbody><tr><td colspan="6" class="muted">carregando…</td></tr></tbody>
+  </table>
+  <p class="muted" id="coleta-geral"></p>
+
+  <h2>Campos: quanto cada um fica em branco</h2>
+  <p>Percentual de imóveis ativos em que o campo está vazio ("—") depois da extração pela fonte e por regras determinísticas. Mostra o que a fonte não informa e o que uma etapa de IA poderia preencher.</p>
+  <table id="tabela-nulos"><thead><tr><th>Campo</th><th>Em branco</th></tr></thead><tbody></tbody></table>
+
+  <h2>Extração por IA</h2>
+  <p id="ia-texto"></p>
+  <table id="tabela-ia"><tbody></tbody></table>
+
+  <h2>Como funciona</h2>
+  <ul>
+    <li>Um coletor em Python roda todo dia às 06:00 (Brasília) no GitHub Actions, baixa as listas das fontes, extrai campos com regras determinísticas, deduplica imóveis repetidos entre fontes, geocodifica endereços novos com o Nominatim (OpenStreetMap) e grava JSON neste site.</li>
+    <li>A cada coleta o histórico registra eventos por imóvel: novo, mudança de preço, de modalidade, de data do leilão e remoção. Imóveis removidos ficam 90 dias marcados como inativos.</li>
+    <li>Código aberto: <a href="https://github.com/JoseMarquesJunior/aysha-leiloes" rel="noopener">github.com/JoseMarquesJunior/aysha-leiloes</a>.</li>
+  </ul>
+</main>
+<footer>
+  <p>Mapa © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a>. Geocodificação por Nominatim.</p>
+</footer>
+<script src="js/common.js"></script>
+<script src="js/sobre.js"></script>
+</body>
+</html>

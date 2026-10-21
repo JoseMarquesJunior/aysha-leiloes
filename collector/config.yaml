@@ -1,0 +1,76 @@
+# Configuração do coletor "Leilões em Tabela".
+# Tudo que é específico de uma fonte fica dentro de `fontes.<nome>`.
+
+projeto:
+  nome: "Leilões em Tabela"
+  repositorio: "https://github.com/JoseMarquesJunior/aysha-leiloes"
+  user_agent: "leiloes-em-tabela/0.1 (+https://github.com/JoseMarquesJunior/aysha-leiloes)"
+
+http:
+  timeout_segundos: 60
+  intervalo_minimo_por_dominio_segundos: 2
+  tentativas: 4
+  respeitar_robots: true
+
+# UFs coletadas (vale para todas as fontes que filtram por UF).
+ufs: [ES, MG]
+
+# Prioridade de fontes na deduplicação: menor número = fonte principal preferida
+# (banco/órgão oficial antes de leiloeiro).
+prioridade_fontes:
+  caixa: 0
+  banestes: 0
+  bandes: 0
+  spu: 0
+  resale: 1
+  leiloeiro: 2
+
+fontes:
+  caixa:
+    ativa: true
+    url_lista: "https://venda-imoveis.caixa.gov.br/listaweb/Lista_imoveis_{uf}.csv"
+    codificacao: latin-1
+    separador: ";"
+  resale:
+    # Esqueleto desativado: só será implementado depois da leitura dos termos de uso (ver README).
+    ativa: false
+  banestes:
+    ativa: false
+  bandes:
+    ativa: false
+
+saida:
+  pasta: docs/data
+  # Acima deste tamanho, imoveis.json é dividido em imoveis_<UF>.json (carregados sob demanda pelo site).
+  dividir_por_uf_acima_de_mb: 3
+  # Registros que sumiram da fonte continuam no JSON (ativo=false) por este prazo.
+  dias_retencao_removidos: 90
+  # Snapshots diários com mais que isto são compactados num resumo mensal.
+  dias_snapshots_diarios: 90
+  dias_retencao_eventos: 365
+
+geocodificacao:
+  ativa: true
+  url: "https://nominatim.openstreetmap.org/search"
+  intervalo_segundos: 1.1
+  cache: collector/cache/geo.json
+  # Limite de novas consultas por execução (protege o Nominatim e o tempo do Action).
+  maximo_por_execucao: 1000
+
+# Etapa de IA: DESLIGADA por padrão. Só roda com ANTHROPIC_API_KEY no ambiente e ia_habilitada: true.
+# A chamada à API ainda não está implementada: aguarda aprovação da estimativa de custo (ver README).
+ia:
+  ia_habilitada: false
+  modelo: "claude-haiku-5-5"
+  max_tokens_saida: 400
+  max_caracteres_entrada: 6000
+  limite_chamadas_por_execucao: 50
+  limite_custo_usd_por_execucao: 0.50
+  cache: collector/cache/ia
+  # Filtro: só imóveis que atendam a tudo abaixo vão para a IA.
+  filtro:
+    ufs: [ES]
+    cidades: [Vitória, Vila Velha, Serra, Cariacica, Guarapari]
+    desconto_minimo_pct: 30
+  campos_alto_valor: [ocupado, debitos_iptu_por_conta_de, debitos_condominio_por_conta_de, onus_na_matricula]
+  palavras_chave: [ocupa, desocupa, IPTU, condomínio, condominio, débito, debito, ônus, onus, penhora, hipoteca, usufruto, indisponib, comissão, comissao, FGTS, financiamento]

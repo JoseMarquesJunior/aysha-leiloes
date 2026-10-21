@@ -1,0 +1,12 @@
+# especificações do usuário (não versionadas, como no artes-publicas)
+prompt*.md
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.log
+.env
+.DS_Store
+Thumbs.db

@@ -1,0 +1,20 @@
+{
+ "execucoes": [],
+ "estimativa_atual": {
+  "gerado_em": "2026-10-21T09:57:41",
+  "modelo": "claude-haiku-5-5",
+  "candidatos_hoje": 21,
+  "chamadas_por_execucao_max": 21,
+  "tokens_sistema_cacheados": 350,
+  "tokens_entrada_por_imovel": 1775,
+  "tokens_saida_por_imovel_max": 400,
+  "custo_usd_por_imovel_tempo_real": 0.00378,
+  "custo_usd_por_imovel_batch": 0.00189,
+  "custo_usd_por_execucao_tempo_real": 0.0793,
+  "custo_usd_por_execucao_batch": 0.0396,
+  "custo_usd_mes_batch_30_execucoes": 1.19,
+  "observacao": "Primeira execução processa a fila inteira (limitada ao teto diário); depois só imóveis novos ou com edital alterado."
+ },
+ "habilitada": false,
+ "aviso": "Chamada à API ainda não implementada: aguarda aprovação da estimativa."
+}

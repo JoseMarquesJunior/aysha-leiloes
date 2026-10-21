@@ -1,0 +1,3419 @@
+{
+"0, centro, jaboticatubas, mg, brasil": {
+"lat": -19.5189417,
+"lng": -43.7447263,
+"nome": "Centro, Jaboticatubas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"aeroporto, varginha, mg, brasil": {
+"lat": -21.5816269,
+"lng": -45.4675351,
+"nome": "Aeroporto, Varginha, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"alameda colonial, 95, recanto das torres, uberaba, mg, brasil": null,
+"alameda de rondon, 166, vargem do lobo, lagoa santa, mg, brasil": null,
+"alameda diamante azul, 0, sitios recreio res, uberlandia, mg, brasil": null,
+"alameda dos cedros, condominio nossa fazenda, esmeraldas, mg, brasil": {
+"lat": -19.797465,
+"lng": -44.1480764,
+"nome": "Alameda dos Cedros, Condomínio Nossa Fazenda, Esmeraldas, Minas Gerais, Região Sudeste, 32051-050, Brasil",
+"tipo": "residential"
+},
+"alameda dos flamboyants, 190, nova california, juiz de fora, mg, brasil": {
+"lat": -21.7971163,
+"lng": -43.4020403,
+"nome": "Rua Nestor Vasconcellos Neto, Nova Califórnia, Juiz de Fora, Minas Gerais, Região Sudeste, 36039-165, Brasil",
+"tipo": "tertiary"
+},
+"alameda dos mandarins, 200, grand ville uberland, uberlandia, mg, brasil": null,
+"alameda dos mandarins, 200, grand ville, uberlandia, mg, brasil": {
+"lat": -18.907069,
+"lng": -48.2154374,
+"nome": "Alameda dos Mandarins, Grand Ville, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-845, Brasil",
+"tipo": "secondary"
+},
+"alameda jose de oliveira guimaraes, 1233, jardim holanda, uberlandia, mg, brasil": null,
+"alameda jose de oliveira guimaraes, 50, jardim holanda, uberlandia, mg, brasil": null,
+"alameda jose de oliveira guimaraes, 700, chacaras jd holanda, uberlandia, mg, brasil": null,
+"alameda jose de oliveira guimaraes, 728, jardim holanda, uberlandia, mg, brasil": null,
+"alameda palacio royal, res paris park, arapora, mg, brasil": null,
+"alameda petunias, quinta das flores, muriae, mg, brasil": null,
+"alfredo freire iv, uberaba, mg, brasil": {
+"lat": -19.7355256,
+"lng": -47.986739,
+"nome": "Alfredo Freire, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "suburb"
+},
+"almenara, mg, brasil": {
+"lat": -16.1753775,
+"lng": -40.6916675,
+"nome": "Almenara, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"alpercata, mg, brasil": {
+"lat": -18.993343,
+"lng": -41.9894704,
+"nome": "Alpercata, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"alto bela vista, sao gotardo, mg, brasil": null,
+"alto da boa vista, iturama, mg, brasil": null,
+"alto da conquista, contagem, mg, brasil": null,
+"alto sao joao, montes claros, mg, brasil": {
+"lat": -16.7151826,
+"lng": -43.854449,
+"nome": "Alto São João, Montes Claros, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"antonio carlos, mg, brasil": {
+"lat": -21.318334,
+"lng": -43.746666,
+"nome": "Antônio Carlos, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"antonio prado de minas, mg, brasil": {
+"lat": -21.0171988,
+"lng": -42.1101106,
+"nome": "Antônio Prado de Minas, Minas Gerais, Região Sudeste, 36850-000, Brasil",
+"tipo": "village"
+},
+"arapora, mg, brasil": {
+"lat": -18.4318188,
+"lng": -49.188313,
+"nome": "Araporã, Minas Gerais, Região Sudeste, 38465-000, Brasil",
+"tipo": "village"
+},
+"araxa, mg, brasil": {
+"lat": -19.6009149,
+"lng": -46.940923,
+"nome": "Araxá, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"areado, mg, brasil": {
+"lat": -21.3582771,
+"lng": -46.1476688,
+"nome": "Areado, Minas Gerais, Região Sudeste, 37140-000, Brasil",
+"tipo": "town"
+},
+"aristides santos trindade, 114, savassi, ribeirao das neves, mg, brasil": {
+"lat": -19.7761975,
+"lng": -44.0872749,
+"nome": "Rua Aristides dos Santos Trindade, Savassi, Residência Porto Seguro, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33880-630, Brasil",
+"tipo": "residential"
+},
+"armando santos, araxa, mg, brasil": {
+"lat": -19.577484,
+"lng": -46.9511143,
+"nome": "Escola Estadual Armando Santos, 790, Praça Fausto Barbosa, Novo São Geraldo, Araxá, Minas Gerais, Região Sudeste, 38180-062, Brasil",
+"tipo": "amenity"
+},
+"aurelio caixeta, patos de minas, mg, brasil": {
+"lat": -18.5779333,
+"lng": -46.5126759,
+"nome": "Aurélio Caixeta, Patos de Minas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"av imbauba, 2200, chacaras tubalina e quartel, uberlandia, mg, brasil": null,
+"av joao ferreira da silva, 1232, bairro santa rosa, iturama, mg, brasil": null,
+"av jose higino bernardo, 0, nova pampulha, vespasiano, mg, brasil": null,
+"av sema, 525, icaivera, contagem, mg, brasil": null,
+"avelino cardoso, sao geraldo, mg, brasil": null,
+"avenida 01, 204, centro, iturama, mg, brasil": null,
+"avenida aguia-pescadora, 88, loteamento residencial pequis, uberlandia, mg, brasil": null,
+"avenida albert scharle, 1773, paciencia, sabara, mg, brasil": {
+"lat": -19.894962,
+"lng": -43.8147599,
+"nome": "Avenida Albert Scharlé, Paciência, Sabará, Minas Gerais, Região Sudeste, 34525-410, Brasil",
+"tipo": "secondary"
+},
+"avenida alem paraiba, 835, parque diamante, mar de espanha, mg, brasil": null,
+"avenida alice de oliveira e silva, 345, jardim holanda, uberlandia, mg, brasil": null,
+"avenida americo attie, 121, mansour, uberlandia, mg, brasil": {
+"lat": -18.9310192,
+"lng": -48.332319,
+"nome": "Avenida Américo Attiê, Residencial Gravatá, Veredas, Mansour, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38414-466, Brasil",
+"tipo": "residential"
+},
+"avenida americo fernandes, 82, jardim americo, monte carmelo, mg, brasil": null,
+"avenida andre favalelli, 500, estacao, matozinhos, mg, brasil": {
+"lat": -19.5547245,
+"lng": -44.0969092,
+"nome": "Avenida André Favalelli, Residencial Paris, Matozinhos, Minas Gerais, Região Sudeste, 79009-480, Brasil",
+"tipo": "secondary"
+},
+"avenida antonio adao da silva, 719, cohab, passos, mg, brasil": {
+"lat": -20.7182356,
+"lng": -46.6346594,
+"nome": "Avenida Antônio Adão da Silva, Vila Betinho, Vila Astúrias, COHAB, Passos, Minas Gerais, Região Sudeste, 37903-070, Brasil",
+"tipo": "tertiary"
+},
+"avenida antonio batista da silva, 135, vale dos coqueiros, varginha, mg, brasil": {
+"lat": -21.6012678,
+"lng": -45.4438953,
+"nome": "Avenida Antonio Batista da Silva, Vale dos Coqueiros, Parque de Exposições, Varginha, Minas Gerais, Região Sudeste, 37062-180, Brasil",
+"tipo": "residential"
+},
+"avenida antonio de pinho tavares, 189, conj hab cristina, santa luzia, mg, brasil": null,
+"avenida antonio miranda, vila ideal, juiz de fora, mg, brasil": {
+"lat": -21.778676,
+"lng": -43.3319952,
+"nome": "Avenida Antônio Miranda, Vila Ideal, Juiz de Fora, Minas Gerais, Região Sudeste, 36020-510, Brasil",
+"tipo": "tertiary"
+},
+"avenida aristoteles menicucci, 76 a 120, waldir furtado amorim, cachoeiro de itapemirim, es, brasil": null,
+"avenida audifax barcelos neves, 321, residencial centro da serra, serra, es, brasil": null,
+"avenida augusto ruschi, 1795, balneario de carapebus, serra, es, brasil": {
+"lat": -20.215799,
+"lng": -40.2194004,
+"nome": "Avenida Augusto Ruschi, Bicanga, Balneário de Carapebus, Serra, Espírito Santo, Região Sudeste, 29163-453, Brasil",
+"tipo": "tertiary"
+},
+"avenida augusto ruschi, 1900, balneario de carapebus, serra, es, brasil": {
+"lat": -20.215799,
+"lng": -40.2194004,
+"nome": "Avenida Augusto Ruschi, Bicanga, Balneário de Carapebus, Serra, Espírito Santo, Região Sudeste, 29163-453, Brasil",
+"tipo": "tertiary"
+},
+"avenida barao de macaubas, 1020, corrego tenente, santa luzia, mg, brasil": null,
+"avenida belvedere, 120, belvedere ii, montes claros, mg, brasil": null,
+"avenida brasil, 120, jardim america, campo belo, mg, brasil": null,
+"avenida canuta lucas de freitas, 449, parque dos girassois iii, uberaba, mg, brasil": null,
+"avenida civilizacao, 2555, justinopolis, ribeirao das neves, mg, brasil": {
+"lat": -19.8028145,
+"lng": -44.0013979,
+"nome": "Avenida Denise Cristina da Rocha, Jardim Florença, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33900-000, Brasil",
+"tipo": "trunk"
+},
+"avenida cristal, 420, jardim riacho das pedras, contagem, mg, brasil": null,
+"avenida cristal, 516, jardim riacho das pedras, contagem, mg, brasil": null,
+"avenida denise cristina da rocha, 612, justinopolis, ribeirao das neves, mg, brasil": {
+"lat": -19.8028145,
+"lng": -44.0013979,
+"nome": "Avenida Denise Cristina da Rocha, Jardim Florença, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33900-000, Brasil",
+"tipo": "trunk"
+},
+"avenida denise cristina da rocha, 612, ter urb justinopolis, ribeirao das neves, mg, brasil": null,
+"avenida des antonio jose miguel feu rosa, 395, praia da baleia, serra, es, brasil": null,
+"avenida des jose miguel feu rosa, 395, praia da baleia, serra, es, brasil": null,
+"avenida desembargador antonio jose migue, 395, praia da baleia, serra, es, brasil": null,
+"avenida desembargador antonio jose miguel feu rosa, 395, praia da baleia, serra, es, brasil": null,
+"avenida do contorno, 9215, prado, belo horizonte, mg, brasil": {
+"lat": -19.9206196,
+"lng": -43.9570577,
+"nome": "Avenida do Contorno, Prado, Regional Oeste, Belo Horizonte, Minas Gerais, Região Sudeste, 30411-073, Brasil",
+"tipo": "primary"
+},
+"avenida domingos pinto camarano, 360, colonia do marcal, sao joao del rei, mg, brasil": {
+"lat": -21.1139078,
+"lng": -44.2377368,
+"nome": "Avenida Domingos Pinto Camarano, Recreio das Alterosas, Colônia do Marçal, São João del-Rei, Minas Gerais, Região Sudeste, 36302-016, Brasil",
+"tipo": "secondary"
+},
+"avenida dos curios, 501, conjunto pontal, uberaba, mg, brasil": null,
+"avenida doutor joao crescencio ribeiro, 700, santo expedito iii, pouso alegre, mg, brasil": {
+"lat": -22.2735465,
+"lng": -45.9134453,
+"nome": "Avenida Doutor João Crescêncio Ribeiro, Santo Expedito III, Quadrante Sudeste, Pouso Alegre, Minas Gerais, Região Sudeste, 37560-260, Brasil",
+"tipo": "residential"
+},
+"avenida doutor paulo ribeiro nunes, 220, bairro empresarial do mandu, contagem, mg, brasil": null,
+"avenida edmeia mattos lazzarotti, 3895, inga, betim, mg, brasil": null,
+"avenida edson gallana, 590, jardim canaa, uberlandia, mg, brasil": null,
+"avenida eva de macedo pereira avenida b, 440, res casa grande, sao joaquim de bicas, mg, brasil": null,
+"avenida felipe calixto milken, 535, morumbi, uberlandia, mg, brasil": {
+"lat": -18.914831,
+"lng": -48.1894429,
+"nome": "Avenida Felipe Calixto Milken, Morumbi, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-287, Brasil",
+"tipo": "tertiary"
+},
+"avenida francisco gilberto blasi, 50, loteamento residencial tiradentes, pocos de caldas, mg, brasil": null,
+"avenida francisco gilberto blasi, 55, loteamento residencial tiradentes, pocos de caldas, mg, brasil": null,
+"avenida frimisa, 1401, frimisa, santa luzia, mg, brasil": {
+"lat": -19.763272,
+"lng": -43.8809754,
+"nome": "Avenida Frimisa, Frimisa, Santa Luzia, Minas Gerais, Região Sudeste, 33045-040, Brasil",
+"tipo": "secondary"
+},
+"avenida geraldo formiga do nascimento, 841, recreio dos bandeirantes, uberaba, mg, brasil": null,
+"avenida jaime rodrigues branco, 451, boqueirao, sete lagoas, mg, brasil": null,
+"avenida jaime rodrigues branco, 451, eldorado, sete lagoas, mg, brasil": {
+"lat": -19.4757815,
+"lng": -44.2770919,
+"nome": "Avenida Jaime Rodrigues Branco, Eldorado, Sete Lagoas, Minas Gerais, Região Sudeste, 35701-242, Brasil",
+"tipo": "tertiary"
+},
+"avenida jequitiba, 255, recanto da mata, esmeraldas, mg, brasil": null,
+"avenida jeronimo monteiro, 126, centro, vitoria, es, brasil": {
+"lat": -20.3215727,
+"lng": -40.3382325,
+"nome": "Avenida Jerônimo Monteiro, Centro, Região Administrativa I - Centro, Vitória, Espírito Santo, Região Sudeste, 29010-425, Brasil",
+"tipo": "primary"
+},
+"avenida jk, 819, vila rica, passos, mg, brasil": {
+"lat": -20.7372587,
+"lng": -46.5970613,
+"nome": "Avenida JK, Serra das Brisas, Belo Horizonte, Passos, Minas Gerais, Região Sudeste, 37901-238, Brasil",
+"tipo": "residential"
+},
+"avenida jose miguel arabe, 373, paraiso, uberaba, mg, brasil": null,
+"avenida jose miguel arabe, 823, loteamento reserva ushuaia, uberaba, mg, brasil": null,
+"avenida jose miguel arabe, 823, parque dos buritis, uberaba, mg, brasil": {
+"lat": -19.7564461,
+"lng": -47.8808585,
+"nome": "Avenida José Miguel Árabe, Parque dos Buritis, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"avenida jose olavo de paiva, 361, vargem, varginha, mg, brasil": {
+"lat": -21.5416981,
+"lng": -45.4280053,
+"nome": "Avenida José Olavo de Paiva, São Lucas, Barcelona, Varginha, Minas Gerais, Região Sudeste, 37002-200, Brasil",
+"tipo": "residential"
+},
+"avenida josias ferreira sobrinho, 345, jardim maracana, uberaba, mg, brasil": {
+"lat": -19.7846501,
+"lng": -47.9240795,
+"nome": "Avenida Josias Ferreira Sobrinho, Jardim Maracanã, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "tertiary"
+},
+"avenida juiz de fora, 1171, granjas betania, juiz de fora, mg, brasil": {
+"lat": -21.7089756,
+"lng": -43.3590717,
+"nome": "Avenida Juiz de Fora, Nova Gramado, Parque Guarani, Granjas Bethânia, Juiz de Fora, Minas Gerais, Região Sudeste, 36047-362, Brasil",
+"tipo": "primary"
+},
+"avenida juiz de fora, 1801, grama, juiz de fora, mg, brasil": {
+"lat": -21.6940779,
+"lng": -43.3529409,
+"nome": "Avenida Juiz de Fora, Grama, Muçunge da Grama, Juiz de Fora, Minas Gerais, Região Sudeste, 36048-001, Brasil",
+"tipo": "primary"
+},
+"avenida laerte de oliveira, 405, loteamento reserva ushuaia, uberaba, mg, brasil": null,
+"avenida landscape, 3125, gavea, uberlandia, mg, brasil": {
+"lat": -18.9631189,
+"lng": -48.2739571,
+"nome": "Avenida Landscape, Gávea, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38411-837, Brasil",
+"tipo": "residential"
+},
+"avenida luiza goncalves de oliveira, 732, dumaville, esmeraldas, mg, brasil": null,
+"avenida manuel lucio, 601, grand ville, uberlandia, mg, brasil": {
+"lat": -18.9089818,
+"lng": -48.2182098,
+"nome": "Avenida Manuel Lúcio, Grand Ville, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-845, Brasil",
+"tipo": "secondary"
+},
+"avenida maranhao, sevilha 2a secao, ribeirao das neves, mg, brasil": {
+"lat": -19.7546195,
+"lng": -44.0799418,
+"nome": "Avenida Maranhão, Sevilha 2ª Seção, Santa Martinha, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33880-220, Brasil",
+"tipo": "residential"
+},
+"avenida marechal castelo branco, 185, cidade industrial, contagem, mg, brasil": null,
+"avenida maria aparecida branquinho silva, 00, residencial vitoria, unai, mg, brasil": null,
+"avenida mario fonseca viana, 2330, angicos, vespasiano, mg, brasil": {
+"lat": -19.7261783,
+"lng": -43.9276385,
+"nome": "Avenida Mário Fonseca Viana, Angicos, Vespasiano, Minas Gerais, Região Sudeste, 33206-350, Brasil",
+"tipo": "tertiary"
+},
+"avenida miguel paes, 853, resplendor 2a secao, igarape, mg, brasil": {
+"lat": -20.0759041,
+"lng": -44.2829975,
+"nome": "Avenida Miguel Paes, Resplendor 2ª Seção, Vilares, Igarapé, Minas Gerais, Região Sudeste, 32510-185, Brasil",
+"tipo": "residential"
+},
+"avenida ministro homero santos, 280, shopping park, uberlandia, mg, brasil": {
+"lat": -18.9894099,
+"lng": -48.267076,
+"nome": "Avenida Ministro Homero Santos, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38425-605, Brasil",
+"tipo": "tertiary"
+},
+"avenida ministro homero santos, 955, shopping park, uberlandia, mg, brasil": {
+"lat": -18.9894099,
+"lng": -48.267076,
+"nome": "Avenida Ministro Homero Santos, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38425-605, Brasil",
+"tipo": "tertiary"
+},
+"avenida monte castelo, 555, olhos d agua, ribeirao das neves, mg, brasil": null,
+"avenida monte castelo, 555, vila real (justinopolis), ribeirao das neves, mg, brasil": null,
+"avenida mucio jose reis, 1889, morro vermelho, sete lagoas, mg, brasil": null,
+"avenida nicomedes alves dos santos, 6611, shopping park, uberlandia, mg, brasil": {
+"lat": -18.9663833,
+"lng": -48.2739211,
+"nome": "Avenida Nicomedes Alves dos Santos, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38411-837, Brasil",
+"tipo": "secondary"
+},
+"avenida nicomedes alves dos santos, 6711, b. gavea sul, uberlandia, mg, brasil": null,
+"avenida nicomedes alves dos santos, 6711, gavea, uberlandia, mg, brasil": {
+"lat": -18.9630938,
+"lng": -48.2737814,
+"nome": "Avenida Nicomedes Alves dos Santos, Gávea, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38411-837, Brasil",
+"tipo": "primary"
+},
+"avenida nicomedes alves dos santos, 6711, shoping park, uberlandia, mg, brasil": null,
+"avenida nicomedes alves dos santos, 6711, shopping park, uberlandia, mg, brasil": {
+"lat": -18.9855756,
+"lng": -48.2739833,
+"nome": "Avenida Nicomedes Alves dos Santos, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38425-605, Brasil",
+"tipo": "tertiary"
+},
+"avenida niza marquez guarita, 1315, conjunto manoel mendes, uberaba, mg, brasil": null,
+"avenida niza marquez guarita, 780, lourdes, uberaba, mg, brasil": {
+"lat": -19.7586334,
+"lng": -47.9021056,
+"nome": "Avenida Niza Marquês Guaritá, Manoel Mendes, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "primary"
+},
+"avenida odair rodrigues vilela, 102, paraiso, uberaba, mg, brasil": null,
+"avenida odair rodrigues vilela, 102, santa maria, uberaba, mg, brasil": null,
+"avenida odair rodrigues vilela, 295, desmembramento uniao da mocidade espirit, uberaba, mg, brasil": null,
+"avenida oeste de minas, vale do ipe, antonio carlos, mg, brasil": null,
+"avenida orion, 219f, mangabeiras, divinopolis, mg, brasil": {
+"lat": -20.1531721,
+"lng": -44.8702723,
+"nome": "Avenida Orion, Mangabeiras, Morro da Pitimba, Divinópolis, Minas Gerais, Região Sudeste, 35500-491, Brasil",
+"tipo": "tertiary"
+},
+"avenida ortocrim, 500, belo vale, santa luzia, mg, brasil": null,
+"avenida oscarina cunha chaves, 510, patrimonio, uberlandia, mg, brasil": {
+"lat": -18.9407246,
+"lng": -48.2870357,
+"nome": "Avenida Oscarina Cunha Chaves, Patrimônio, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38411-046, Brasil",
+"tipo": "tertiary"
+},
+"avenida palestina, 35, jardim canaa, uberlandia, mg, brasil": {
+"lat": -18.9615474,
+"lng": -48.3239722,
+"nome": "Avenida Palestina, Jardim Canaã, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38412-324, Brasil",
+"tipo": "tertiary"
+},
+"avenida pedro lucas, 601, cachimbo, uberaba, mg, brasil": null,
+"avenida pedro lucas, 601, fabricio, uberaba, mg, brasil": null,
+"avenida pingo de ouro, 801, monte verde, betim, mg, brasil": {
+"lat": -19.9843671,
+"lng": -44.1708744,
+"nome": "801, Avenida Pingo de Ouro, Regional Sede, Betim, Minas Gerais, Região Sudeste, 32653-564, Brasil",
+"tipo": "building"
+},
+"avenida porto seco, 150, aeroporto, varginha, mg, brasil": null,
+"avenida professor clovis salgado, 747, itatiaia, belo horizonte, mg, brasil": {
+"lat": -19.865071,
+"lng": -44.0060381,
+"nome": "Avenida Professor Clóvis Salgado, Bandeirantes, Bandeirantes II, Pampulha, Belo Horizonte, Minas Gerais, Região Sudeste, 31365-300, Brasil",
+"tipo": "primary"
+},
+"avenida professor djalma guimaraes, 143, chac santa ines, santa luzia, mg, brasil": null,
+"avenida professor djalma guimaraes, 1862, chacaras santa ines (sao benedito), santa luzia, mg, brasil": null,
+"avenida raquel teixeira viana, 502/a, canaa, sete lagoas, mg, brasil": null,
+"avenida rogassiano francisco coelho, 1485, nova varginha, varginha, mg, brasil": {
+"lat": -21.5862881,
+"lng": -45.4590192,
+"nome": "Avenida Rogassiano Francisco Coelho, Nova Varginha, Varginha, Minas Gerais, Região Sudeste, 37062-180, Brasil",
+"tipo": "tertiary"
+},
+"avenida rogassiano francisco coelho, 1485, residencial portinari, varginha, mg, brasil": null,
+"avenida ronaldo fernandes de souza1233, 479, centro, patos de minas, mg, brasil": null,
+"avenida sao tiago, 235, saltador, presidente olegario, mg, brasil": null,
+"avenida sebastiao ribeiro franco, bairro brasil, santa vitoria, mg, brasil": {
+"lat": -18.8517582,
+"lng": -50.1362171,
+"nome": "Avenida Sebastião Ribeiro Franco, Brasil, Santa Vitória, Minas Gerais, Região Sudeste, 38320-000, Brasil",
+"tipo": "residential"
+},
+"avenida senador eliseu rezende, 1574, nova ituiutaba i, ituiutaba, mg, brasil": null,
+"avenida sergio de biagi bueno, 579, jardim bouganville, varginha, mg, brasil": null,
+"avenida seringal, 515, ulisses guimaraes, vila velha, es, brasil": {
+"lat": -20.4487831,
+"lng": -40.3524065,
+"nome": "Avenida Seringal, Normília da Cunha, Região 05 - Grande Jucu, Jucu, Vila Velha, Espírito Santo, Região Sudeste, 29127-380, Brasil",
+"tipo": "residential"
+},
+"avenida serra das palmeiras, 430, serra dourada, vespasiano, mg, brasil": {
+"lat": -19.7480971,
+"lng": -43.9332002,
+"nome": "Avenida Serra das Palmeiras, Serra Dourada I, Vespasiano, Minas Gerais, Região Sudeste, 33202-690, Brasil",
+"tipo": "residential"
+},
+"avenida serra das palmeiras, 437, serra dourada, vespasiano, mg, brasil": {
+"lat": -19.7480971,
+"lng": -43.9332002,
+"nome": "Avenida Serra das Palmeiras, Serra Dourada I, Vespasiano, Minas Gerais, Região Sudeste, 33202-690, Brasil",
+"tipo": "residential"
+},
+"avenida taylor silva, 751, tocantins, uberlandia, mg, brasil": {
+"lat": -18.8949614,
+"lng": -48.3331459,
+"nome": "Avenida Taylor Silva, Itaim, Tocantins, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38415-420, Brasil",
+"tipo": "tertiary"
+},
+"avenida taylor silva, 811, tocantins, uberlandia, mg, brasil": {
+"lat": -18.8991347,
+"lng": -48.3268064,
+"nome": "Avenida Taylor Silva, Itaim, Tocantins, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38415-420, Brasil",
+"tipo": "tertiary"
+},
+"avenida terezina, 1150, brasil, uberlandia, mg, brasil": {
+"lat": -18.8805933,
+"lng": -48.2619878,
+"nome": "Avenida Terezina, Umuarama, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38405-320, Brasil",
+"tipo": "residential"
+},
+"avenida terezinha sillos ferreira, 805, jardim diamantina, sao sebastiao do paraiso, mg, brasil": null,
+"avenida um, 1700, dumaville, esmeraldas, mg, brasil": null,
+"avenida wilson gomes coelho, 230, alto da serra, patos de minas, mg, brasil": {
+"lat": -18.577858,
+"lng": -46.4678697,
+"nome": "Avenida Wilson Gomes Coelho, Alto da Serra, Patos de Minas, Minas Gerais, Região Sudeste, 38702-201, Brasil",
+"tipo": "tertiary"
+},
+"avenida wilson gomes coelho, aurelio caixeta, patos de minas, mg, brasil": null,
+"avenida wilson rodrigues da silva, 2532, loteamento residencial pequis, uberlandia, mg, brasil": null,
+"b alto da conquista, contagem, mg, brasil": null,
+"b. gavea sul, uberlandia, mg, brasil": {
+"lat": -18.9581066,
+"lng": -48.2842141,
+"nome": "Gávea, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38411-145, Brasil",
+"tipo": "suburb"
+},
+"b. moinho de vento, uberlandia, mg, brasil": {
+"lat": -18.9456996,
+"lng": -48.1682312,
+"nome": "Fazenda Moinho de Vento, Uberlândia, Minas Gerais, Região Sudeste, 38407-287, Brasil",
+"tipo": "farm"
+},
+"bairro cidade nova, santana do paraiso, mg, brasil": null,
+"bairro diamante, belo horizonte, mg, brasil": null,
+"bairro eldorado, ibirite, mg, brasil": null,
+"bairro empresarial do mandu, contagem, mg, brasil": null,
+"bairro pedras grande, varzea da palma, mg, brasil": null,
+"bairro presidente, matozinhos, mg, brasil": null,
+"bairro santa rosa, iturama, mg, brasil": null,
+"bairro sao miguel, matozinhos, mg, brasil": null,
+"bairro vallim, uberaba, mg, brasil": null,
+"bandeirinhas, betim, mg, brasil": {
+"lat": -20.007911,
+"lng": -44.1800284,
+"nome": "Bandeirinhas, Regional Sede, Betim, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"barra, muriae, mg, brasil": {
+"lat": -21.129679,
+"lng": -42.3728608,
+"nome": "Barra, Muriaé, Minas Gerais, Região Sudeste, 36880-005, Brasil",
+"tipo": "suburb"
+},
+"bela vista iii, sete lagoas, mg, brasil": null,
+"bela vista l, sete lagoas, mg, brasil": {
+"lat": -19.4371795,
+"lng": -44.2125436,
+"nome": "Rua D - Bairro Bela Vista Um, Interlagos, Sete Lagoas, Minas Gerais, Região Sudeste, 35703-040, Brasil",
+"tipo": "residential"
+},
+"bela vista, brasilandia de minas, mg, brasil": null,
+"bela vista, guanhaes, mg, brasil": {
+"lat": -19.1272568,
+"lng": -42.8035507,
+"nome": "Igreja Presbiteriana do Brasil, MG-232, Sucavão, Dores de Guanhães, Minas Gerais, Região Sudeste, 35894-000, Brasil",
+"tipo": "amenity"
+},
+"bela vista, leopoldina, mg, brasil": {
+"lat": -21.6113459,
+"lng": -42.7607693,
+"nome": "Fazenda Bela Vista, Tebas, Leopoldina, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "farm"
+},
+"bela vista, uberaba, mg, brasil": {
+"lat": -19.752781,
+"lng": -47.944,
+"nome": "Rua Bela Vista, Vila Cruzeiro do Sul, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"belo horizonte, mg, brasil": {
+"lat": -19.9227318,
+"lng": -43.9450948,
+"nome": "Belo Horizonte, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"belo vale, santa luzia, mg, brasil": {
+"lat": -19.7767373,
+"lng": -43.9109605,
+"nome": "Cemitério e Crematório Belo Vale, Duquesa I, São Benedito, Santa Luzia, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "cemetery"
+},
+"belvedere ii, montes claros, mg, brasil": {
+"lat": -16.7347812,
+"lng": -43.8303344,
+"nome": "Lago Belvedere II, Veneza Park, Montes Claros, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "lake"
+},
+"belvedere, serra, es, brasil": {
+"lat": -20.101538,
+"lng": -40.3411704,
+"nome": "Belvedere, Serra, Espírito Santo, Região Sudeste, 29180-040, Brasil",
+"tipo": "suburb"
+},
+"benfica, juiz de fora, mg, brasil": {
+"lat": -21.6902673,
+"lng": -43.4361424,
+"nome": "Benfica, Juiz de Fora, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"betim, mg, brasil": {
+"lat": -19.9703184,
+"lng": -44.206495,
+"nome": "Betim, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"boa vista, nova lima, mg, brasil": {
+"lat": -19.9721695,
+"lng": -43.8553945,
+"nome": "Cruzeiro da Boa Vista, Rua Diamantina, Mina d'Água, Nova Lima, Minas Gerais, Região Sudeste, 34000-105, Brasil",
+"tipo": "tourism"
+},
+"boa vista, uberaba, mg, brasil": {
+"lat": -19.7271914,
+"lng": -47.9186873,
+"nome": "Boa Vista, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "suburb"
+},
+"bocaiuva, mg, brasil": {
+"lat": -17.1160208,
+"lng": -43.8122678,
+"nome": "Bocaiuva, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"bom despacho, mg, brasil": {
+"lat": -19.7375242,
+"lng": -45.2517288,
+"nome": "Bom Despacho, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"bom sossego, ribeirao das neves, mg, brasil": {
+"lat": -19.7650135,
+"lng": -44.0748553,
+"nome": "Bom Sossego, Santa Martinha, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33860-420, Brasil",
+"tipo": "neighbourhood"
+},
+"bonsucesso, vespasiano, mg, brasil": null,
+"boqueirao, sete lagoas, mg, brasil": {
+"lat": -19.4694182,
+"lng": -44.2474514,
+"nome": "Avenida Secretário Divino Padrão, Vale das Palmeiras, Sete Lagoas, Minas Gerais, Região Sudeste, 35700-037, Brasil",
+"tipo": "primary"
+},
+"brasilandia de minas, mg, brasil": {
+"lat": -17.0096409,
+"lng": -46.0087622,
+"nome": "Brasilândia de Minas, Minas Gerais, Região Sudeste, 38779-000, Brasil",
+"tipo": "town"
+},
+"buritis, mg, brasil": {
+"lat": -15.621389,
+"lng": -46.423889,
+"nome": "Buritis, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"cachimbo, uberaba, mg, brasil": null,
+"caixa d'agua, carangola, mg, brasil": null,
+"caldas, caldas, mg, brasil": {
+"lat": -21.8176466,
+"lng": -46.402721,
+"nome": "Santana de Caldas, Caldas, Minas Gerais, Região Sudeste, 37785-000, Brasil",
+"tipo": "city_district"
+},
+"cambuquira, mg, brasil": {
+"lat": -21.853056,
+"lng": -45.2953619,
+"nome": "Cambuquira, Minas Gerais, Região Sudeste, 37420-000, Brasil",
+"tipo": "town"
+},
+"campanha, mg, brasil": {
+"lat": -21.8361108,
+"lng": -45.401986,
+"nome": "Campanha, Minas Gerais, Região Sudeste, 37400-000, Brasil",
+"tipo": "town"
+},
+"campo belo, mg, brasil": {
+"lat": -20.8975,
+"lng": -45.277223,
+"nome": "Campo Belo, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"canaa, sete lagoas, mg, brasil": {
+"lat": -19.4651466,
+"lng": -44.2527736,
+"nome": "Praça Martiniano de Carvalho, Santo Antônio, Sete Lagoas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "park"
+},
+"capitolio, mg, brasil": {
+"lat": -20.6144044,
+"lng": -46.0488403,
+"nome": "Capitólio, Minas Gerais, Região Sudeste, 37930-000, Brasil",
+"tipo": "town"
+},
+"carangola, mg, brasil": {
+"lat": -20.733638,
+"lng": -42.0299412,
+"nome": "Carangola, Minas Gerais, Região Sudeste, 36800-000, Brasil",
+"tipo": "town"
+},
+"caratinga, mg, brasil": {
+"lat": -19.7900887,
+"lng": -42.140533,
+"nome": "Caratinga, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"carmo da mata, mg, brasil": {
+"lat": -20.558334,
+"lng": -44.8703774,
+"nome": "Carmo da Mata, Minas Gerais, Região Sudeste, 35547-000, Brasil",
+"tipo": "town"
+},
+"carmo do paranaiba, mg, brasil": {
+"lat": -18.9992327,
+"lng": -46.306916,
+"nome": "Carmo do Paranaíba, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"catarina, sete lagoas, mg, brasil": {
+"lat": -19.4731764,
+"lng": -44.246689,
+"nome": "Lagoa da Catarina, Vale das Palmeiras, Sete Lagoas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "water"
+},
+"centro, alpercata, mg, brasil": null,
+"centro, antonio prado de minas, mg, brasil": null,
+"centro, barbacena, mg, brasil": {
+"lat": -21.2230796,
+"lng": -43.7722098,
+"nome": "Centro, Barbacena, Minas Gerais, Região Sudeste, 36200-072, Brasil",
+"tipo": "suburb"
+},
+"centro, campos gerais, mg, brasil": {
+"lat": -20.1059298,
+"lng": -44.9741266,
+"nome": "Centro, Santo Antônio dos Campos, Divinópolis, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "village"
+},
+"centro, divinopolis, mg, brasil": {
+"lat": -20.1059298,
+"lng": -44.9741266,
+"nome": "Centro, Santo Antônio dos Campos, Divinópolis, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "village"
+},
+"centro, guimarania, mg, brasil": null,
+"centro, iapu, mg, brasil": {
+"lat": -19.4262634,
+"lng": -42.2533843,
+"nome": "Banco do Brasil, 120, Rua Chico Chumbo, Bugre, Iapu, Minas Gerais, Região Sudeste, 35193-000, Brasil",
+"tipo": "amenity"
+},
+"centro, iturama, mg, brasil": {
+"lat": -19.6952043,
+"lng": -50.4539349,
+"nome": "Centro Pastoral Pio X, Avenida Cônego Ozório, Alexandrita, Iturama, Minas Gerais, Região Sudeste, 38280-000, Brasil",
+"tipo": "amenity"
+},
+"centro, jaboticatubas, mg, brasil": {
+"lat": -19.5189417,
+"lng": -43.7447263,
+"nome": "Centro, Jaboticatubas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"centro, jequitai, mg, brasil": {
+"lat": -17.2342424,
+"lng": -44.4382147,
+"nome": "Centro, Jequitaí, Minas Gerais, Região Sudeste, 39370-000, Brasil",
+"tipo": "neighbourhood"
+},
+"centro, machado, mg, brasil": {
+"lat": -21.5768762,
+"lng": -45.9846497,
+"nome": "Fazenda do Centro, Machado, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "farm"
+},
+"centro, matias barbosa, mg, brasil": {
+"lat": -21.8357486,
+"lng": -43.3796148,
+"nome": "Centro Empresarial Park Sul, U&M Mineração e Construção S.A., Matias Barbosa, Minas Gerais, Região Sudeste, 36120-000, Brasil",
+"tipo": "tertiary"
+},
+"centro, mucurici, es, brasil": {
+"lat": -18.0944114,
+"lng": -40.5176338,
+"nome": "Centro, Mucurici, Espírito Santo, Região Sudeste, 29880-000, Brasil",
+"tipo": "neighbourhood"
+},
+"centro, mutum, mg, brasil": null,
+"centro, palma, mg, brasil": {
+"lat": -17.1999845,
+"lng": -44.8203154,
+"nome": "Centro, Barra do Guaicuí, Várzea da Palma, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"centro, patos de minas, mg, brasil": {
+"lat": -18.588349,
+"lng": -46.5145692,
+"nome": "Centro, Patos de Minas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"centro, pedro leopoldo, mg, brasil": {
+"lat": -19.6217006,
+"lng": -44.0406278,
+"nome": "Centro, Pedro Leopoldo, Minas Gerais, Região Sudeste, 33250-060, Brasil",
+"tipo": "neighbourhood"
+},
+"centro, pocos de caldas, mg, brasil": {
+"lat": -21.7780146,
+"lng": -46.6044857,
+"nome": "Centro Administrativo de Poços de Caldas, 1677, Avenida Mansur Frayha, Região Urbana Homogênea II, Poços de Caldas, Minas Gerais, Região Sudeste, 37704-722, Brasil",
+"tipo": "amenity"
+},
+"centro, pratapolis, mg, brasil": null,
+"centro, sao joao do manteninha, mg, brasil": null,
+"ceu azul, belo horizonte, mg, brasil": {
+"lat": -19.8227499,
+"lng": -44.0039799,
+"nome": "Céu Azul, Venda Nova, Belo Horizonte, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"chac reun guaraciaba, betim, mg, brasil": null,
+"chac santa ines, santa luzia, mg, brasil": null,
+"chacara contagem, contagem, mg, brasil": {
+"lat": -19.9195984,
+"lng": -44.1033574,
+"nome": "Chácara Contagem, Regional Sede, Contagem, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"chacaras california, contagem, mg, brasil": {
+"lat": -19.897519,
+"lng": -44.0740563,
+"nome": "Chácaras Califórnia, Regional Sede, Contagem, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"chacaras gervasio monteiro lara (sao ben, santa luzia, mg, brasil": null,
+"chacaras granja pousada del rey, santa luzia, mg, brasil": null,
+"chacaras jd holanda, uberlandia, mg, brasil": null,
+"chacaras santa ines (sao benedito), santa luzia, mg, brasil": null,
+"chacaras tubalina e quartel, uberlandia, mg, brasil": {
+"lat": -18.9239753,
+"lng": -48.3171477,
+"nome": "Chácaras Tubalina e Quartel, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38413-018, Brasil",
+"tipo": "suburb"
+},
+"cidade delta, delta, mg, brasil": null,
+"cidade industrial, contagem, mg, brasil": {
+"lat": -19.9559842,
+"lng": -44.0260789,
+"nome": "Cidade Industrial, Regional Industrial, Eldorado, Contagem, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"cidade nobre, ipatinga, mg, brasil": {
+"lat": -19.46453,
+"lng": -42.5587046,
+"nome": "Cidade Nobre, Barra Alegre, Ipatinga, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"colonia do marcal, sao joao del rei, mg, brasil": {
+"lat": -21.099084,
+"lng": -44.2271707,
+"nome": "Colônia do Marçal, São João del-Rei, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"congonhal, mg, brasil": {
+"lat": -22.1532505,
+"lng": -46.0404698,
+"nome": "Congonhal, Minas Gerais, Região Sudeste, 37584-000, Brasil",
+"tipo": "town"
+},
+"conj hab cristina, santa luzia, mg, brasil": null,
+"conjunto alvorada, uberlandia, mg, brasil": null,
+"conjunto chica ferreira, uberaba, mg, brasil": null,
+"conjunto habitacional pedro afonso junqu, pocos de caldas, mg, brasil": null,
+"conjunto manoel mendes, uberaba, mg, brasil": null,
+"conjunto pontal, uberaba, mg, brasil": null,
+"contagem, mg, brasil": {
+"lat": -19.9132749,
+"lng": -44.0840953,
+"nome": "Contagem, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"coorego dos alves, muzambinho, mg, brasil": null,
+"copacabana, divinopolis, mg, brasil": {
+"lat": -20.2077715,
+"lng": -44.922669,
+"nome": "Jardim Copacabana, Divinópolis, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"coracao eucaristico, patos de minas, mg, brasil": {
+"lat": -18.5641488,
+"lng": -46.5426985,
+"nome": "Coração Eucarístico, Patos de Minas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"corinto, mg, brasil": {
+"lat": -18.315,
+"lng": -44.5802692,
+"nome": "Corinto, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"coromandel, mg, brasil": {
+"lat": -18.3433415,
+"lng": -47.1647814,
+"nome": "Coromandel, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"coronel fabriciano, mg, brasil": {
+"lat": -19.5200067,
+"lng": -42.6282686,
+"nome": "Coronel Fabriciano, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"corrego tenente, santa luzia, mg, brasil": null,
+"cristais (justinopolis), ribeirao das neves, mg, brasil": {
+"lat": -19.7819874,
+"lng": -44.023588,
+"nome": "Cristais, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33903-400, Brasil",
+"tipo": "neighbourhood"
+},
+"delta, mg, brasil": {
+"lat": -19.9769,
+"lng": -47.7711,
+"nome": "Delta, Minas Gerais, Região Sudeste, 38108-000, Brasil",
+"tipo": "town"
+},
+"desmembramento uniao da mocidade espirit, uberaba, mg, brasil": null,
+"distrito industrial jardim piemont norte, betim, mg, brasil": {
+"lat": -19.9538933,
+"lng": -44.0732175,
+"nome": "Distrito Industrial Jardim Piemont Norte, Regional Teresópolis, Betim, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"distrito zelandia, santa juliana, mg, brasil": null,
+"divinopolis, mg, brasil": {
+"lat": -20.1597921,
+"lng": -44.8739341,
+"nome": "Divinópolis, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"do congo, vila velha, es, brasil": {
+"lat": -20.4429099,
+"lng": -40.3337095,
+"nome": "Rio da Draga, Vista do Mar, São Conrado, Região 05 - Grande Jucu, Jucu, Vila Velha, Espírito Santo, Região Sudeste, 29124-065, Brasil",
+"tipo": "canal"
+},
+"donato, contagem, mg, brasil": null,
+"dumaville, esmeraldas, mg, brasil": null,
+"eldorado, carangola, mg, brasil": null,
+"eng jose mendes juni, capitolio, mg, brasil": null,
+"esmeraldas, mg, brasil": {
+"lat": -19.7613111,
+"lng": -44.3145945,
+"nome": "Esmeraldas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"espera feliz, espera feliz, mg, brasil": {
+"lat": -20.6519879,
+"lng": -41.9091171,
+"nome": "Igreja Presbiteriana do Brasil em Espera Feliz, 95, Rua João Sebastião de Amorim, Espera Feliz, Minas Gerais, Região Sudeste, 36830-000, Brasil",
+"tipo": "amenity"
+},
+"estacao, matozinhos, mg, brasil": {
+"lat": -19.5547904,
+"lng": -44.0902189,
+"nome": "Estação, Matozinhos, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"estiva, itamonte, mg, brasil": null,
+"estrela dalva, contagem, mg, brasil": {
+"lat": -19.9731005,
+"lng": -44.0616182,
+"nome": "Rua Estrela Dalva, Regional Riacho, Parque Duval de Barros, Barreiro, Contagem, Minas Gerais, Região Sudeste, 32241-260, Brasil",
+"tipo": "tertiary"
+},
+"eugenopolis, mg, brasil": {
+"lat": -21.097549,
+"lng": -42.1853298,
+"nome": "Eugenópolis, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"fabio notini, divinopolis, mg, brasil": {
+"lat": -20.147319,
+"lng": -44.9216175,
+"nome": "Fábio Notini, São José, Divinópolis, Minas Gerais, Região Sudeste, 35502-474, Brasil",
+"tipo": "neighbourhood"
+},
+"fabricio, uberaba, mg, brasil": {
+"lat": -19.7443438,
+"lng": -47.9355576,
+"nome": "Fabrício, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "suburb"
+},
+"faz velha secao 02, esmeraldas, mg, brasil": null,
+"fazenda bom jesus, contagem, mg, brasil": null,
+"fazenda do gafanhoto, divinopolis, mg, brasil": null,
+"fazenda do mandu, contagem, mg, brasil": null,
+"fazenda gafanhoto, divinopolis, mg, brasil": null,
+"felixlandia (justinopolis), ribeirao das neves, mg, brasil": {
+"lat": -19.8112253,
+"lng": -44.0226931,
+"nome": "Felixlândia, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33900-450, Brasil",
+"tipo": "neighbourhood"
+},
+"filipinho, visconde do rio branco, mg, brasil": null,
+"florenca, ribeirao das neves, mg, brasil": {
+"lat": -19.7618517,
+"lng": -44.1437218,
+"nome": "Florença, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33820-170, Brasil",
+"tipo": "neighbourhood"
+},
+"floresta encantada, esmeraldas, mg, brasil": {
+"lat": -19.7786685,
+"lng": -44.1792162,
+"nome": "Floresta Encantada, Esmeraldas, Minas Gerais, Região Sudeste, 35740-000, Brasil",
+"tipo": "neighbourhood"
+},
+"fogo apagou, sabara, mg, brasil": {
+"lat": -19.9023988,
+"lng": -43.8092744,
+"nome": "Morro do Fogo-apagou, Sabará, Minas Gerais, Região Sudeste, 34525-410, Brasil",
+"tipo": "peak"
+},
+"fontesville ii, juiz de fora, mg, brasil": {
+"lat": -21.7369233,
+"lng": -43.4102621,
+"nome": "Fontesville, Juiz de Fora, Minas Gerais, Região Sudeste, 36083-770, Brasil",
+"tipo": "suburb"
+},
+"frei dimas, teofilo otoni, mg, brasil": {
+"lat": -17.8630114,
+"lng": -41.5217064,
+"nome": "Frei Dimas, Teófilo Otoni, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"frutal, mg, brasil": {
+"lat": -20.0220064,
+"lng": -48.9280076,
+"nome": "Frutal, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"funcionarios, sao francisco, mg, brasil": null,
+"gafanhoto, divinopolis, mg, brasil": {
+"lat": -20.0996557,
+"lng": -44.848892,
+"nome": "Gafanhoto, Rua H, Fazenda da Usina, Divinópolis, Minas Gerais, Região Sudeste, 35503-286, Brasil",
+"tipo": "building"
+},
+"gameleira, aguas formosas, mg, brasil": {
+"lat": -17.0890071,
+"lng": -40.9410136,
+"nome": "Rua da Gameleira, Águas Formosas, Minas Gerais, Região Sudeste, 39880-000, Brasil",
+"tipo": "residential"
+},
+"general osorio, uberlandia, mg, brasil": {
+"lat": -18.9311955,
+"lng": -48.2827315,
+"nome": "Rua General Osório, Tabajaras, Setor Central, Uberlândia, Minas Gerais, Região Sudeste, 38400-235, Brasil",
+"tipo": "tertiary"
+},
+"geraldo cesario, bom despacho, mg, brasil": null,
+"goiania, belo horizonte, mg, brasil": {
+"lat": -19.8657011,
+"lng": -43.9000893,
+"nome": "Goiânia, Regional Nordeste, Belo Horizonte, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"grand ville uberland, uberlandia, mg, brasil": null,
+"grande horizonte, uberaba, mg, brasil": {
+"lat": -19.7383537,
+"lng": -47.9681998,
+"nome": "Grande Horizonte, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "suburb"
+},
+"granja de freitas, sabara, mg, brasil": null,
+"granjas primavera, ribeirao das neves, mg, brasil": {
+"lat": -19.8222248,
+"lng": -44.0197685,
+"nome": "Granjas Primavera, Vila Bispo de Maura, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33937-050, Brasil",
+"tipo": "neighbourhood"
+},
+"guimarania, mg, brasil": {
+"lat": -18.8442251,
+"lng": -46.7925141,
+"nome": "Guimarânia, Minas Gerais, Região Sudeste, 38730-000, Brasil",
+"tipo": "village"
+},
+"henriques, ribeirao das neves, mg, brasil": null,
+"ibirite, mg, brasil": {
+"lat": -20.0214251,
+"lng": -44.0621506,
+"nome": "Ibirité, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"icaivera, contagem, mg, brasil": {
+"lat": -19.8509981,
+"lng": -44.147269,
+"nome": "Rua Sema, Retiro, Regional Vargem das Flores, Contagem, Minas Gerais, Região Sudeste, 32055-120, Brasil",
+"tipo": "tertiary"
+},
+"industrial, igarape, mg, brasil": {
+"lat": -20.0645882,
+"lng": -44.2911297,
+"nome": "Industrial, Vilares, Igarapé, Minas Gerais, Região Sudeste, 32510-174, Brasil",
+"tipo": "neighbourhood"
+},
+"industrial, pirapora, mg, brasil": {
+"lat": -17.3279961,
+"lng": -44.9363389,
+"nome": "Industrial, Pirapora, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"inga, betim, mg, brasil": {
+"lat": -19.9490112,
+"lng": -44.1960283,
+"nome": "Ingá, Regional Norte, Betim, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"ipanema, divinopolis, mg, brasil": {
+"lat": -20.137473,
+"lng": -44.8382652,
+"nome": "Ipanema, Divinópolis, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"ipatinga, mg, brasil": {
+"lat": -19.4777807,
+"lng": -42.5270802,
+"nome": "Ipatinga, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"itabirito, mg, brasil": {
+"lat": -20.2519724,
+"lng": -43.8029171,
+"nome": "Itabirito, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"itamonte, mg, brasil": {
+"lat": -22.2830726,
+"lng": -44.8695785,
+"nome": "Itamonte, Minas Gerais, Região Sudeste, 37466-000, Brasil",
+"tipo": "town"
+},
+"itapoa ii, sete lagoas, mg, brasil": {
+"lat": -19.4288402,
+"lng": -44.2450468,
+"nome": "Rua Itapoa, São Francisco, Sete Lagoas, Minas Gerais, Região Sudeste, 35700-528, Brasil",
+"tipo": "residential"
+},
+"itapoa, sete lagoas, mg, brasil": {
+"lat": -19.4288402,
+"lng": -44.2450468,
+"nome": "Rua Itapoa, São Francisco, Sete Lagoas, Minas Gerais, Região Sudeste, 35700-528, Brasil",
+"tipo": "residential"
+},
+"ituiutaba, mg, brasil": {
+"lat": -18.9691887,
+"lng": -49.4639335,
+"nome": "Ituiutaba, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"iturama, mg, brasil": {
+"lat": -19.7272733,
+"lng": -50.193488,
+"nome": "Iturama, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"jaboticatubas, jaboticatubas, mg, brasil": {
+"lat": -19.4588507,
+"lng": -43.9140916,
+"nome": "Rio Jaboticatubas, Almeida, Jaboticatubas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "river"
+},
+"jaboticatubas, mg, brasil": {
+"lat": -19.521667,
+"lng": -43.745277,
+"nome": "Jaboticatubas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"jaiba, mg, brasil": {
+"lat": -15.3373744,
+"lng": -43.6734439,
+"nome": "Jaíba, Minas Gerais, Região Sudeste, 39508-000, Brasil",
+"tipo": "town"
+},
+"januaria, mg, brasil": {
+"lat": -15.317185,
+"lng": -45.2045505,
+"nome": "Januária, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"jardim america, campo belo, mg, brasil": null,
+"jardim americo, monte carmelo, mg, brasil": null,
+"jardim bela vista, serra, es, brasil": {
+"lat": -20.1144595,
+"lng": -40.3118868,
+"nome": "Jardim Bela Vista, Região de Serra Sede, Serra, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jardim bouganville, varginha, mg, brasil": null,
+"jardim brasilia, uberlandia, mg, brasil": {
+"lat": -18.8981145,
+"lng": -48.3022523,
+"nome": "Jardim Brasília, Setor Norte, Uberlândia, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jardim buritis, capelinha, mg, brasil": {
+"lat": -17.6941951,
+"lng": -42.498647,
+"nome": "Jardim Buritis, Capelinha, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jardim canaa, uberlandia, mg, brasil": {
+"lat": -18.9643407,
+"lng": -48.3283217,
+"nome": "Jardim Canaã, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38412-402, Brasil",
+"tipo": "suburb"
+},
+"jardim candides, divinopolis, mg, brasil": {
+"lat": -20.131832,
+"lng": -44.839617,
+"nome": "Jardim dos Candidés, Divinópolis, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"jardim country club, pocos de caldas, mg, brasil": null,
+"jardim das alterosas - 2a secao, betim, mg, brasil": {
+"lat": -19.9409728,
+"lng": -44.1656657,
+"nome": "Jardim das Alterosas 2ª Seção, Regional Alterosas, Betim, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jardim das laranjeiras, frutal, mg, brasil": null,
+"jardim de ala (justinopolis), ribeirao das neves, mg, brasil": {
+"lat": -19.8069824,
+"lng": -44.01979,
+"nome": "Jardim de Alá, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33900-450, Brasil",
+"tipo": "neighbourhood"
+},
+"jardim diamantina, sao sebastiao do paraiso, mg, brasil": null,
+"jardim do lago, uberaba, mg, brasil": null,
+"jardim dos bandeirantes (melo viana), esmeraldas, mg, brasil": null,
+"jardim europa iv, araxa, mg, brasil": null,
+"jardim holanda, uberlandia, mg, brasil": {
+"lat": -18.9584852,
+"lng": -48.3161486,
+"nome": "Jardim Holanda, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jardim itamaraty iii, pocos de caldas, mg, brasil": null,
+"jardim limoeiro, serra, es, brasil": {
+"lat": -20.2180358,
+"lng": -40.2663839,
+"nome": "Jardim Limoeiro, Região de Laranjeiras, Serra, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jardim panorama, araguari, mg, brasil": {
+"lat": -18.6214526,
+"lng": -48.1923281,
+"nome": "Jardim Panorama, Santiago, Araguari, Minas Gerais, Região Sudeste, 38444-259, Brasil",
+"tipo": "neighbourhood"
+},
+"jardim panoramico, patos de minas, mg, brasil": {
+"lat": -18.5910807,
+"lng": -46.4864947,
+"nome": "Jardim Panorâmico, Patos de Minas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jardim paraiso, tres coracoes, mg, brasil": {
+"lat": -21.7229319,
+"lng": -45.2609298,
+"nome": "Jardim Paraíso, Três Corações, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"jardim patricia, uberlandia, mg, brasil": {
+"lat": -18.9122294,
+"lng": -48.3217148,
+"nome": "Jardim Patrícia, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jardim primavera, areado, mg, brasil": null,
+"jardim primavera, eugenopolis, mg, brasil": null,
+"jardim quebec, patos de minas, mg, brasil": {
+"lat": -18.5687499,
+"lng": -46.5452873,
+"nome": "Jardim Quebec, Patos de Minas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jardim riacho das pedras, contagem, mg, brasil": {
+"lat": -19.9668901,
+"lng": -44.0613009,
+"nome": "Jardim Riacho das Pedras, Regional Riacho, Contagem, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jardim sao jorge, pocos de caldas, mg, brasil": null,
+"jardim vitoria, belo horizonte, mg, brasil": {
+"lat": -19.8532103,
+"lng": -43.8721687,
+"nome": "Jardim Vitória, Regional Nordeste, Belo Horizonte, Minas Gerais, Região Sudeste, 31970-360, Brasil",
+"tipo": "suburb"
+},
+"jardinopolis, divinopolis, mg, brasil": {
+"lat": -20.1939871,
+"lng": -44.9410266,
+"nome": "Jardinópolis, Divinópolis, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"jd de dona lucinha 2, coromandel, mg, brasil": null,
+"jd do lago, uberaba, mg, brasil": null,
+"jose de anchieta, serra, es, brasil": {
+"lat": -20.1941934,
+"lng": -40.2740586,
+"nome": "José de Anchieta, Região de Anchieta, Serra, Espírito Santo, Região Sudeste, 29162-500, Brasil",
+"tipo": "suburb"
+},
+"jose vallim de mello, uberaba, mg, brasil": {
+"lat": -19.7930828,
+"lng": -47.9081959,
+"nome": "Avenida José Vallim de Mello, Chácaras Jardim Santa Clara, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"juiz de fora, mg, brasil": {
+"lat": -21.7609533,
+"lng": -43.3501129,
+"nome": "Juiz de Fora, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"justinopolis, ribeirao das neves, mg, brasil": {
+"lat": -19.7913995,
+"lng": -44.0231038,
+"nome": "Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city_district"
+},
+"lagoa santa, mg, brasil": {
+"lat": -19.6357376,
+"lng": -43.8966132,
+"nome": "Lagoa Santa, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"laranjeiras, uberlandia, mg, brasil": {
+"lat": -18.9627885,
+"lng": -48.2400935,
+"nome": "Laranjeiras, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"leblon, belo horizonte, mg, brasil": {
+"lat": -19.9223911,
+"lng": -43.9586539,
+"nome": "Leblon, Rua Erê, Prado, Regional Oeste, Belo Horizonte, Minas Gerais, Região Sudeste, 30411-073, Brasil",
+"tipo": "amenity"
+},
+"leopoldina, mg, brasil": {
+"lat": -21.5314282,
+"lng": -42.6403534,
+"nome": "Leopoldina, Minas Gerais, Região Sudeste, 36700-192, Brasil",
+"tipo": "town"
+},
+"liberdade, santa luzia, mg, brasil": {
+"lat": -21.2077644,
+"lng": -43.7722102,
+"nome": "Rua da Liberdade, Santa Luzia, Barbacena, Minas Gerais, Região Sudeste, 36204-116, Brasil",
+"tipo": "residential"
+},
+"lot cidade verde ii, uberlandia, mg, brasil": null,
+"lot morada da garca, matias barbosa, mg, brasil": null,
+"lot recanto verde, areado, mg, brasil": null,
+"lot sao francisco, cambuquira, mg, brasil": null,
+"lot sao marcos, paraguacu, mg, brasil": null,
+"lot shopping park 2, uberlandia, mg, brasil": null,
+"lot venina antonica, carmo da mata, mg, brasil": null,
+"loteamento antonio caiado, uberaba, mg, brasil": null,
+"loteamento izaltino silveira da mata, caratinga, mg, brasil": null,
+"loteamento liberdade, januaria, mg, brasil": null,
+"loteamento luizote de freitas iv, uberlandia, mg, brasil": null,
+"loteamento novo jaragua, montes claros, mg, brasil": null,
+"loteamento reserva ushuaia, uberaba, mg, brasil": null,
+"loteamento residencial parque das acacia, frutal, mg, brasil": null,
+"loteamento residencial pequis, uberlandia, mg, brasil": null,
+"loteamento residencial tiradentes, pocos de caldas, mg, brasil": null,
+"loteamento vila reis, campanha, mg, brasil": null,
+"lugar denominado fazenda bom jesus, contagem, mg, brasil": null,
+"luz, mg, brasil": {
+"lat": -19.7903123,
+"lng": -45.6818948,
+"nome": "Luz, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"mansour, uberlandia, mg, brasil": {
+"lat": -18.9295786,
+"lng": -48.3353131,
+"nome": "Mansour, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38414-466, Brasil",
+"tipo": "suburb"
+},
+"mantiqueira, belo horizonte, mg, brasil": {
+"lat": -19.7928705,
+"lng": -43.9833316,
+"nome": "Mantiqueira, Venda Nova, Belo Horizonte, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"maria teresa, belo horizonte, mg, brasil": {
+"lat": -19.8186677,
+"lng": -43.8840624,
+"nome": "Maria Teresa, Regional Norte, Belo Horizonte, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"mariano procopio, juiz de fora, mg, brasil": {
+"lat": -21.7461726,
+"lng": -43.3556644,
+"nome": "Mariano Procópio, Juiz de Fora, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"marilandia, juiz de fora, mg, brasil": {
+"lat": -21.7871711,
+"lng": -43.3907351,
+"nome": "Marilândia, Novo Horizonte, Juiz de Fora, Minas Gerais, Região Sudeste, 36038-432, Brasil",
+"tipo": "neighbourhood"
+},
+"marques industrial, sao joaquim de bicas, mg, brasil": {
+"lat": -20.0651246,
+"lng": -44.277989,
+"nome": "Marques Industrial, São Joaquim de Bicas, Minas Gerais, Região Sudeste, 32510-185, Brasil",
+"tipo": "neighbourhood"
+},
+"matias barbosa, mg, brasil": {
+"lat": -21.8691643,
+"lng": -43.3180624,
+"nome": "Matias Barbosa, Minas Gerais, Região Sudeste, 36120-000, Brasil",
+"tipo": "town"
+},
+"matozinhos, mg, brasil": {
+"lat": -19.5576547,
+"lng": -44.0816035,
+"nome": "Matozinhos, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"migueis, congonhal, mg, brasil": null,
+"moinho de vento, uberlandia, mg, brasil": {
+"lat": -18.9456996,
+"lng": -48.1682312,
+"nome": "Fazenda Moinho de Vento, Uberlândia, Minas Gerais, Região Sudeste, 38407-287, Brasil",
+"tipo": "farm"
+},
+"monte alegre, matias barbosa, mg, brasil": {
+"lat": -21.8778787,
+"lng": -43.3113651,
+"nome": "park monte alegre, Matias Barbosa, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "park"
+},
+"monte carmelo, mg, brasil": {
+"lat": -18.7260939,
+"lng": -47.4958859,
+"nome": "Monte Carmelo, Minas Gerais, Região Sudeste, 38500-000, Brasil",
+"tipo": "town"
+},
+"montes claros, mg, brasil": {
+"lat": -16.7495727,
+"lng": -43.8687268,
+"nome": "Montes Claros, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"morada alegre, juiz de fora, mg, brasil": null,
+"morada bethania, viana, es, brasil": {
+"lat": -20.3960023,
+"lng": -40.4033185,
+"nome": "Morada Bethania, Viana, Espírito Santo, Região Sudeste, 29300-590, Brasil",
+"tipo": "suburb"
+},
+"morada da garca, matias barbosa, mg, brasil": null,
+"morada do lago, tres coracoes, mg, brasil": null,
+"morada do trevo, betim, mg, brasil": {
+"lat": -19.9797642,
+"lng": -44.2028192,
+"nome": "Morada do Trevo, Regional Sede, Betim, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"morada nova, itauna, mg, brasil": {
+"lat": -20.0934792,
+"lng": -44.5889406,
+"nome": "Morada Nova, Itaúna, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"morada nova, jequitinhonha, mg, brasil": {
+"lat": -16.4529011,
+"lng": -41.0138209,
+"nome": "Alameda Morada Nova, Jequitinhonha, Minas Gerais, Região Sudeste, 39960-000, Brasil",
+"tipo": "residential"
+},
+"morro vermelho, sete lagoas, mg, brasil": null,
+"muriae, mg, brasil": {
+"lat": -21.1313485,
+"lng": -42.3628918,
+"nome": "Muriaé, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"mutum, mg, brasil": {
+"lat": -19.817223,
+"lng": -41.438333,
+"nome": "Mutum, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"muzambinho, mg, brasil": {
+"lat": -21.3684325,
+"lng": -46.522317,
+"nome": "Muzambinho, Minas Gerais, Região Sudeste, 37890-000, Brasil",
+"tipo": "town"
+},
+"n.s. aparecida, iturama, mg, brasil": null,
+"nossa senhora aparecida, frutal, mg, brasil": {
+"lat": -20.0292629,
+"lng": -48.925502,
+"nome": "Paróquia Nossa Senhora Aparecida, 811, Avenida Rio de Janeiro, Frutal, Minas Gerais, Região Sudeste, 38200-000, Brasil",
+"tipo": "amenity"
+},
+"nova california, juiz de fora, mg, brasil": {
+"lat": -21.7973058,
+"lng": -43.4008574,
+"nome": "Nova Califórnia, Juiz de Fora, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"nova esmeraldas, esmeraldas, mg, brasil": {
+"lat": -19.7909201,
+"lng": -44.3148347,
+"nome": "Nova Esmeraldas, Esmeraldas, Minas Gerais, Região Sudeste, 32800-017, Brasil",
+"tipo": "neighbourhood"
+},
+"nova esperanca, piumhi, mg, brasil": null,
+"nova ituiutaba i, ituiutaba, mg, brasil": {
+"lat": -19.0135038,
+"lng": -49.4523585,
+"nome": "Nova Ituiutaba, Ituiutaba, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"nova pampulha, vespasiano, mg, brasil": {
+"lat": -19.7689279,
+"lng": -43.9600296,
+"nome": "Nova Pampulha 2ª Seção, Vespasiano, Minas Gerais, Região Sudeste, 33200-000, Brasil",
+"tipo": "neighbourhood"
+},
+"novo bandeirantes, campo belo, mg, brasil": null,
+"novo horizonte, bocaiuva, mg, brasil": null,
+"novo horizonte, sete lagoas, mg, brasil": {
+"lat": -19.4454184,
+"lng": -44.2460337,
+"nome": "Rua Novo Horizonte, Nossa Senhora do Carmo, Sete Lagoas, Minas Gerais, Região Sudeste, 35700-000, Brasil",
+"tipo": "residential"
+},
+"olhos d agua, ribeirao das neves, mg, brasil": {
+"lat": -19.7489927,
+"lng": -44.1567693,
+"nome": "Rua Olhos d'Água, Fazenda Castro, Ribeirão das Neves, Minas Gerais, Região Sudeste, 35740-000, Brasil",
+"tipo": "residential"
+},
+"palmeiras imperiais, planura, mg, brasil": null,
+"paraguacu, mg, brasil": {
+"lat": -21.547222,
+"lng": -45.7375,
+"nome": "Paraguaçu, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"paraiso, uberaba, mg, brasil": {
+"lat": -19.7484021,
+"lng": -47.8905908,
+"nome": "Paraíso, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "suburb"
+},
+"paraopeba, mg, brasil": {
+"lat": -19.2756823,
+"lng": -44.4034123,
+"nome": "Paraopeba, Minas Gerais, Região Sudeste, 35774-000, Brasil",
+"tipo": "town"
+},
+"parque das aroeiras, uberaba, mg, brasil": null,
+"parque das mangueiras, contagem, mg, brasil": {
+"lat": -19.9674823,
+"lng": -44.0461037,
+"nome": "Parque das Mangueiras, Regional Industrial, Contagem, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"parque diamante, mar de espanha, mg, brasil": {
+"lat": -21.8695512,
+"lng": -43.0015863,
+"nome": "Rua Parque Diamante, Mar de Espanha, Minas Gerais, Região Sudeste, 36640-000, Brasil",
+"tipo": "residential"
+},
+"parque dos girassois iii, uberaba, mg, brasil": null,
+"parque girassol, esmeraldas, mg, brasil": null,
+"parque hileia, uberaba, mg, brasil": null,
+"parque independencia, juiz de fora, mg, brasil": {
+"lat": -21.686268,
+"lng": -43.3552042,
+"nome": "Parque Independência, Grama, Muçunge da Grama, Juiz de Fora, Minas Gerais, Região Sudeste, 36048-001, Brasil",
+"tipo": "neighbourhood"
+},
+"parque riacho das pedras, contagem, mg, brasil": {
+"lat": -19.9541823,
+"lng": -44.0593309,
+"nome": "Parque Riacho das Pedras 2ª Seção, Regional Riacho, Contagem, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"parque sao joao, almenara, mg, brasil": null,
+"pingo d'agua, betim, mg, brasil": {
+"lat": -19.9745922,
+"lng": -44.2449335,
+"nome": "Pingo D'água, Regional Vianópolis, Betim, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"pioneiro, jaiba, mg, brasil": null,
+"pirauba, mg, brasil": {
+"lat": -21.276945,
+"lng": -43.025834,
+"nome": "Piraúba, Minas Gerais, Região Sudeste, 36170-000, Brasil",
+"tipo": "town"
+},
+"piraubinha, pirauba, mg, brasil": null,
+"piumhi, mg, brasil": {
+"lat": -20.4675258,
+"lng": -45.9576125,
+"nome": "Piumhi, Minas Gerais, Região Sudeste, 37925-000, Brasil",
+"tipo": "town"
+},
+"planalto, buritis, mg, brasil": null,
+"planalto, patos de minas, mg, brasil": {
+"lat": -18.6330772,
+"lng": -46.496753,
+"nome": "Planalto, Patos de Minas, Minas Gerais, Região Sudeste, 38706-319, Brasil",
+"tipo": "suburb"
+},
+"planalto, sao joaquim de bicas, mg, brasil": null,
+"planura, mg, brasil": {
+"lat": -20.1368583,
+"lng": -48.7066819,
+"nome": "Planura, Minas Gerais, Região Sudeste, 38220-000, Brasil",
+"tipo": "town"
+},
+"pocos de caldas, mg, brasil": {
+"lat": -21.7900318,
+"lng": -46.5647928,
+"nome": "Poços de Caldas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"portal do cerrado, guimarania, mg, brasil": null,
+"portal do vale, uberlandia, mg, brasil": {
+"lat": -18.897968,
+"lng": -48.2016266,
+"nome": "Portal do Vale, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"pousadas do lago, esmeraldas, mg, brasil": null,
+"pq dos bandeirantes, sao goncalo do rio abaixo, mg, brasil": null,
+"praca dona inez botinha, 10, solar caetano, luz, mg, brasil": null,
+"praia da baleia, serra, es, brasil": {
+"lat": -20.1742808,
+"lng": -40.1913873,
+"nome": "Praia da Baleia, Sítio Irema, Serra, Espírito Santo, Região Sudeste, 29173-000, Brasil",
+"tipo": "suburb"
+},
+"praia, contagem, mg, brasil": {
+"lat": -19.8884125,
+"lng": -44.092028,
+"nome": "Praia, Regional Sede, Contagem, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"pratapolis, mg, brasil": {
+"lat": -20.7444262,
+"lng": -46.8607973,
+"nome": "Pratápolis, Minas Gerais, Região Sudeste, 37970-000, Brasil",
+"tipo": "village"
+},
+"presidente, matozinhos, mg, brasil": {
+"lat": -19.5753119,
+"lng": -44.0660988,
+"nome": "Presidente, Matozinhos, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"previdenciarios, juiz de fora, mg, brasil": {
+"lat": -21.8019082,
+"lng": -43.3446764,
+"nome": "Previdenciários, São Geraldo, Juiz de Fora, Minas Gerais, Região Sudeste, 36031-520, Brasil",
+"tipo": "neighbourhood"
+},
+"princesa isabel, frutal, mg, brasil": {
+"lat": -20.0299486,
+"lng": -48.9428698,
+"nome": "Rua Princesa Isabel, Frutal, Minas Gerais, Região Sudeste, 38200-064, Brasil",
+"tipo": "residential"
+},
+"quinta das flores, muriae, mg, brasil": null,
+"quinta residencia, leopoldina, mg, brasil": null,
+"quintas do morro, nova lima, mg, brasil": {
+"lat": -20.0994409,
+"lng": -43.9255245,
+"nome": "Quintas do Morro, Nova Lima, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"r bahia, 691, rosario, areado, mg, brasil": null,
+"r doutor marcus tarcisio, 410, barra, muriae, mg, brasil": null,
+"r dr noe ferreira, 282, bela vista, patos de minas, mg, brasil": {
+"lat": -18.5715949,
+"lng": -46.5026201,
+"nome": "Rua Doutor Noé Ferreira, Bela Vista, Patos de Minas, Minas Gerais, Região Sudeste, 38702-201, Brasil",
+"tipo": "residential"
+},
+"r marciano pinto, 1635, morada alegre, juiz de fora, mg, brasil": null,
+"r nespeiras, 182, floresta encantada, esmeraldas, mg, brasil": null,
+"r ricardo de souza barros, 226, centro, palma, mg, brasil": null,
+"r salto osorio (antiga r usiminas ou av f), cidade nobre, ipatinga, mg, brasil": null,
+"r. joaquim ascanio do prado (antiga rua 05), lot sao marcos, paraguacu, mg, brasil": null,
+"rancho alegre, ribeirao das neves, mg, brasil": null,
+"recanto da mata, esmeraldas, mg, brasil": null,
+"recanto das torres, uberaba, mg, brasil": null,
+"recreio dos bandeirantes, uberaba, mg, brasil": {
+"lat": -19.7830438,
+"lng": -47.9374208,
+"nome": "Recreio dos Bandeirantes, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "suburb"
+},
+"res alvorada, iturama, mg, brasil": null,
+"res casa grande, sao joaquim de bicas, mg, brasil": null,
+"res paris park, arapora, mg, brasil": null,
+"res pequis, uberlandia, mg, brasil": null,
+"res vera lucia elias, iturama, mg, brasil": null,
+"res. betania paraiso, santana do paraiso, mg, brasil": null,
+"reserva real un golf, jaboticatubas, mg, brasil": null,
+"reserva real, jaboticatubas, mg, brasil": null,
+"reservareal - unidade golfe, reserva real, jaboticatubas, mg, brasil": null,
+"resid monte ville, belo horizonte, mg, brasil": null,
+"residencial ayrton senna, ipatinga, mg, brasil": null,
+"residencial campestre, sete lagoas, mg, brasil": null,
+"residencial centro da serra, serra, es, brasil": null,
+"residencial golden village, montes claros, mg, brasil": null,
+"residencial ilha de marajo iii, uberaba, mg, brasil": null,
+"residencial inocencio franco, ituiutaba, mg, brasil": null,
+"residencial lago azul, uberlandia, mg, brasil": null,
+"residencial morada du park, uberaba, mg, brasil": null,
+"residencial morumbi, divinopolis, mg, brasil": null,
+"residencial nascente do paraiso, sao sebastiao do paraiso, mg, brasil": null,
+"residencial nova floresta, carmo do paranaiba, mg, brasil": null,
+"residencial pequis, uberlandia, mg, brasil": null,
+"residencial portinari, varginha, mg, brasil": null,
+"residencial sao frei galvao, divinopolis, mg, brasil": null,
+"residencial sul ipes, montes claros, mg, brasil": {
+"lat": -16.7722473,
+"lng": -43.8673353,
+"nome": "Residencial Sul Ipês, Santo Amaro, Montes Claros, Minas Gerais, Região Sudeste, 39403-402, Brasil",
+"tipo": "neighbourhood"
+},
+"residencial vitoria, montes claros, mg, brasil": {
+"lat": -16.6643799,
+"lng": -43.8532294,
+"nome": "Placa Comemorativa Residencial Vitória, Rua das Flores, Cidade Industrial, Montes Claros, Minas Gerais, Região Sudeste, 39404-465, Brasil",
+"tipo": "historic"
+},
+"residencial vitoria, unai, mg, brasil": null,
+"resplendor 2a secao, igarape, mg, brasil": {
+"lat": -20.0714006,
+"lng": -44.2823911,
+"nome": "Resplendor 2ª Seção, Vilares, Igarapé, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"ribeirao das neves, mg, brasil": {
+"lat": -19.7672898,
+"lng": -44.0875436,
+"nome": "Ribeirão das Neves, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"rodeiro, mg, brasil": {
+"lat": -21.200278,
+"lng": -42.865,
+"nome": "Rodeiro, Minas Gerais, Região Sudeste, 36510-000, Brasil",
+"tipo": "village"
+},
+"rodovia br-354, 2962, estiva, itamonte, mg, brasil": null,
+"rosario, areado, mg, brasil": {
+"lat": -21.3630403,
+"lng": -46.1553522,
+"nome": "Rua Vereador João do Rosário Santos, Areado, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "residential"
+},
+"rua 01, residencial vista da serra, igarape, mg, brasil": {
+"lat": -20.0892791,
+"lng": -44.3624154,
+"nome": "Rua Quebra Anzol, Residencial Vista da Serra, Igarapé, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "residential"
+},
+"rua 02 esq av beira rio, santa vitoria, santa vitoria, mg, brasil": null,
+"rua 06, 108a, tres marias, tres marias, mg, brasil": null,
+"rua 07, 560, nova pampulha, vespasiano, mg, brasil": {
+"lat": -19.7758002,
+"lng": -43.9539611,
+"nome": "Rua Um, Nova Pampulha 1ª Seção, Vespasiano, Minas Gerais, Região Sudeste, 31630-903, Brasil",
+"tipo": "tertiary"
+},
+"rua 08, jardim maracana, uberaba, mg, brasil": {
+"lat": -19.787605,
+"lng": -47.9194749,
+"nome": "Rua Delcides Caetano Pereira, Jardim Maracanã, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua 11, 00, pioneiro, jaiba, mg, brasil": null,
+"rua 11, 257, vale do palmital, esmeraldas, mg, brasil": null,
+"rua 17, 670, residencial 2000, uberaba, mg, brasil": {
+"lat": -19.7704078,
+"lng": -47.8828148,
+"nome": "Rua Antônio Francisco Alves, Residencial 2000, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua 18, 185, alto da conquista, contagem, mg, brasil": null,
+"rua 18, 185, b alto da conquista, contagem, mg, brasil": null,
+"rua 18, 185, estrela dalva, contagem, mg, brasil": null,
+"rua 2, zn urbana itabirito, itabirito, mg, brasil": null,
+"rua 35, 757, bairro pedras grande, varzea da palma, mg, brasil": null,
+"rua 7, pq dos bandeirantes, sao goncalo do rio abaixo, mg, brasil": null,
+"rua 8, 20, residencial minas gerais, montes claros, mg, brasil": {
+"lat": -16.773355,
+"lng": -43.8675159,
+"nome": "Rua 8, Residencial Sul Ipês, Montes Claros, Minas Gerais, Região Sudeste, 39403-402, Brasil",
+"tipo": "residential"
+},
+"rua a, 3, castanheiras, governador valadares, mg, brasil": {
+"lat": -18.8851531,
+"lng": -41.9720158,
+"nome": "Rua A, Castanheiras, Governador Valadares, Minas Gerais, Região Sudeste, 35054-752, Brasil",
+"tipo": "residential"
+},
+"rua a, jardim primavera, eugenopolis, mg, brasil": null,
+"rua abilio monteiro, 454, recreio dos bandeirantes, uberaba, mg, brasil": {
+"lat": -19.7813966,
+"lng": -47.9402523,
+"nome": "Rua Abílio Monteiro, Recreio dos Bandeirantes, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua acacia, 236, floresta encantada, esmeraldas, mg, brasil": null,
+"rua acaua, 34-b, unidade 03, itapoa, sete lagoas, mg, brasil": null,
+"rua adelia hilbert teixeira, 1, resid monte ville, belo horizonte, mg, brasil": null,
+"rua aderbal rocha, 318, jardim maracana, uberaba, mg, brasil": {
+"lat": -19.7887866,
+"lng": -47.9216753,
+"nome": "Rua Aderbal Rocha, Jardim Maracanã, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua adir alves de lima, 90, dona clara, ribeirao das neves, mg, brasil": {
+"lat": -19.7630347,
+"lng": -44.0801826,
+"nome": "Rua Adir Alves de Lima, Dona Clara, Santa Martinha, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33805-300, Brasil",
+"tipo": "residential"
+},
+"rua adjar franca, 62, residencial lago azul, uberlandia, mg, brasil": null,
+"rua afif rade, 1220, ouro verde, araguari, mg, brasil": {
+"lat": -18.6287337,
+"lng": -48.1741077,
+"nome": "Rua Afif Rade, Portal do Cerrado 3, Ouro Verde, Araguari, Minas Gerais, Região Sudeste, 38444-259, Brasil",
+"tipo": "residential"
+},
+"rua afonso pena, 68, princesa isabel, frutal, mg, brasil": null,
+"rua afonso santana, tres praias, sao joao del rei, mg, brasil": null,
+"rua alaor carlos garcia, 455, jardim brasilia, uberlandia, mg, brasil": null,
+"rua albatroz, 336, grand ville uberland, uberlandia, mg, brasil": null,
+"rua alda salomao resende, 72, henriques, ribeirao das neves, mg, brasil": null,
+"rua alipio caetano de amorim, universitario, sete lagoas, mg, brasil": null,
+"rua almiro lopes de faria, 173, shopping park, uberlandia, mg, brasil": {
+"lat": -18.9750317,
+"lng": -48.2681749,
+"nome": "Rua Almiro Lopes de Faria, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38425-605, Brasil",
+"tipo": "residential"
+},
+"rua aloisio aragao villar, 641, trevo, belo horizonte, mg, brasil": {
+"lat": -19.8352182,
+"lng": -44.0059742,
+"nome": "Rua Aloisio Aragão Vilar, Trevo, Dandara, Pampulha, Belo Horizonte, Minas Gerais, Região Sudeste, 31370-470, Brasil",
+"tipo": "residential"
+},
+"rua altair ferreira naves, 117, antonio de brito mendonca, tres pontas, mg, brasil": {
+"lat": -21.3746653,
+"lng": -45.531742,
+"nome": "Rua Altair Ferreira Naves, Morada Nova, Três Pontas, Minas Gerais, Região Sudeste, 37190-000, Brasil",
+"tipo": "residential"
+},
+"rua alvaro jacinto da cruz, 471, recreio dos bandeirantes, uberaba, mg, brasil": {
+"lat": -19.7835943,
+"lng": -47.9392376,
+"nome": "Rua Álvaro Jacinto da Cruz, Recreio dos Bandeirantes, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua alzira bento da silva, 211, jardim maracana, uberaba, mg, brasil": {
+"lat": -19.7823818,
+"lng": -47.9241226,
+"nome": "Rua Alzira Bento da Silva, Jardim Maracanã, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua alzira bento da silva, 216, jardim maracana, uberaba, mg, brasil": {
+"lat": -19.7823818,
+"lng": -47.9241226,
+"nome": "Rua Alzira Bento da Silva, Jardim Maracanã, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua ana alves assuncao, 600, vila romualdo pereira, para de minas, mg, brasil": {
+"lat": -19.876575,
+"lng": -44.6025876,
+"nome": "Rua Ana Alves Assunção, Vila Romualdo Pereira da Silva, Pará de Minas, Minas Gerais, Região Sudeste, 35660-084, Brasil",
+"tipo": "residential"
+},
+"rua ana batista da cruz, 1300, belo vale, santa luzia, mg, brasil": null,
+"rua ana goncalves, 580, palmital, lagoa santa, mg, brasil": {
+"lat": -19.5788703,
+"lng": -43.904809,
+"nome": "Rua Ana Gonçalves, Palmital, Campinho de Baixo, Lagoa Santa, Minas Gerais, Região Sudeste, 33235-026, Brasil",
+"tipo": "residential"
+},
+"rua ana pereira menezes, 207, sao gabriel, belo horizonte, mg, brasil": {
+"lat": -19.8598884,
+"lng": -43.9211202,
+"nome": "Rua Ana Pereira Menezes, Vila São Dimas, São Gabriel, Regional Nordeste, Belo Horizonte, Minas Gerais, Região Sudeste, 31930-650, Brasil",
+"tipo": "residential"
+},
+"rua andre de oliveira valadao, 30, loteamento izaltino silveira da mata, caratinga, mg, brasil": null,
+"rua andre mandin teodoro, 197, sol nascente, ituiutaba, mg, brasil": null,
+"rua anesia vieira de oliveira, 274, residencial novo horizonte, alfenas, mg, brasil": {
+"lat": -21.4260452,
+"lng": -45.9693687,
+"nome": "Rua Anésia Vieira de Oliveira, Residencial Novo Horizonte, Alfenas, Minas Gerais, Região Sudeste, 37133-648, Brasil",
+"tipo": "residential"
+},
+"rua antonio alves, 300, bairro diamante, belo horizonte, mg, brasil": null,
+"rua antonio alves, 300, diamante, belo horizonte, mg, brasil": {
+"lat": -19.9876059,
+"lng": -44.0307512,
+"nome": "Rua Antônio Alves, Diamante, Barreiro, Belo Horizonte, Minas Gerais, Região Sudeste, 32235-200, Brasil",
+"tipo": "residential"
+},
+"rua antonio fernandes valentim, 1038, fundos, quinta residencia, leopoldina, mg, brasil": null,
+"rua antonio ferreira paiva, 165, bom sossego, ribeirao das neves, mg, brasil": null,
+"rua antonio guimaraes, 300, santo antonio, juiz de fora, mg, brasil": {
+"lat": -21.7726801,
+"lng": -43.3094379,
+"nome": "Rua Antônio Guimarães, Vila Santo Antônio, Santo Antônio do Paraibuna, Juiz de Fora, Minas Gerais, Região Sudeste, 36020-510, Brasil",
+"tipo": "residential"
+},
+"rua antonio henriques da silva, 10, industrial, igarape, mg, brasil": null,
+"rua antonio jose do couto, 105, monte alegre, matias barbosa, mg, brasil": null,
+"rua antonio luiz carrijo, 469-b, loteamento luizote de freitas iv, uberlandia, mg, brasil": null,
+"rua antonio paulo victor, 297, lot morada da garca, matias barbosa, mg, brasil": null,
+"rua antonio ricardo da silva, 111, vila satelite, sarzedo, mg, brasil": null,
+"rua antonio teixeira leite, 79, jardim de ala (justinopolis), ribeirao das neves, mg, brasil": null,
+"rua araticum, 370, conquista veredas, contagem, mg, brasil": {
+"lat": -19.8569288,
+"lng": -44.0416154,
+"nome": "Rua Araticum, Conquista Veredas, Regional Nacional, Contagem, Minas Gerais, Região Sudeste, 32183-680, Brasil",
+"tipo": "residential"
+},
+"rua archanjo de campos miranda, 284, eldorado, juiz de fora, mg, brasil": {
+"lat": -21.730629,
+"lng": -43.3626425,
+"nome": "Rua Arcanjo de Campos Miranda, Eldorado, Juiz de Fora, Minas Gerais, Região Sudeste, 36046-330, Brasil",
+"tipo": "residential"
+},
+"rua aristides fernandes morais, 405, conjunto alvorada, uberlandia, mg, brasil": null,
+"rua arnaldo vieira lima, 1965, funcionarios, sao francisco, mg, brasil": null,
+"rua assuntino lucio leal, 70, n.s. aparecida, iturama, mg, brasil": null,
+"rua augusta alvarenga inez, 37, candelaria, belo horizonte, mg, brasil": {
+"lat": -19.8133793,
+"lng": -43.976305,
+"nome": "Rua Augusta Alvarenga Inêz, Candelária, Venda Nova, Belo Horizonte, Minas Gerais, Região Sudeste, 31520-400, Brasil",
+"tipo": "residential"
+},
+"rua augusta, 300, bom jesus, coronel fabriciano, mg, brasil": {
+"lat": -19.5160804,
+"lng": -42.6228217,
+"nome": "Rua Dona Augusta, Bom Jesus, Coronel Fabriciano, Minas Gerais, Região Sudeste, 35171-157, Brasil",
+"tipo": "residential"
+},
+"rua austin, 227, novo mundo, uberlandia, mg, brasil": {
+"lat": -18.9220087,
+"lng": -48.2143402,
+"nome": "Rua Austin, Reserva dos Ipes, Novo Mundo, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-724, Brasil",
+"tipo": "residential"
+},
+"rua b (atual rua marcio borges), 341, bela vista, uberaba, mg, brasil": null,
+"rua b, loteamento liberdade, januaria, mg, brasil": null,
+"rua bahia, 429, rosario, areado, mg, brasil": null,
+"rua basilio da gama, 430, jardim limoeiro, serra, es, brasil": null,
+"rua beethoven, 450, chacaras california, contagem, mg, brasil": null,
+"rua belo horizonte, 255, vale do sol, sao goncalo do rio abaixo, mg, brasil": {
+"lat": -19.8176228,
+"lng": -43.3585795,
+"nome": "Rua Belo Horizonte, Cidade Universitária, Passa Dez de Baixo, São Gonçalo do Rio Abaixo, Minas Gerais, Região Sudeste, 35935-000, Brasil",
+"tipo": "residential"
+},
+"rua benjamim guimaraes, 315, mariano procopio, juiz de fora, mg, brasil": null,
+"rua beta centauri, 280, chacaras cotia, contagem, mg, brasil": {
+"lat": -19.8693737,
+"lng": -44.0464452,
+"nome": "280, Rua Beta Centauri, Chácaras Cotia, Regional Ressaca, Contagem, Minas Gerais, Região Sudeste, 32183-680, Brasil",
+"tipo": "place"
+},
+"rua bom despacho (antiga rua dois), 202, pousadas do lago, esmeraldas, mg, brasil": null,
+"rua bom despacho, 202, pousadas do lago, esmeraldas, mg, brasil": null,
+"rua botafogo, 325, justinopolis, ribeirao das neves, mg, brasil": {
+"lat": -19.7994442,
+"lng": -44.0064808,
+"nome": "Rua Botafogo, Lídice, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33900-000, Brasil",
+"tipo": "residential"
+},
+"rua botafogo, 325, ter urb justinopolis, ribeirao das neves, mg, brasil": null,
+"rua botafogo, 325, urca (justinopolis), ribeirao das neves, mg, brasil": {
+"lat": -19.7919216,
+"lng": -44.0145332,
+"nome": "Rua Manoel Messias, Botafogo, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33900-450, Brasil",
+"tipo": "residential"
+},
+"rua c, 171, novo horizonte, bocaiuva, mg, brasil": null,
+"rua c, 285, residencial golden village, montes claros, mg, brasil": null,
+"rua cabo benedito alves, 1470, bairro cotia, jardim paraiso, tres coracoes, mg, brasil": null,
+"rua cacildo queiroz de freitas, 81, qd03 lt08, res alvorada, iturama, mg, brasil": null,
+"rua caimbe, 402, marques industrial, sao joaquim de bicas, mg, brasil": null,
+"rua camilo alves de lima, 347, bom sossego, ribeirao das neves, mg, brasil": {
+"lat": -19.7627458,
+"lng": -44.0742337,
+"nome": "Rua Antônio Carlos de Abreu, Bom Sossego, Santa Martinha, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33860-420, Brasil",
+"tipo": "residential"
+},
+"rua campanario (antiga rua 55), sevilha 2a secao, ribeirao das neves, mg, brasil": null,
+"rua campanha, 132, lot sao francisco, cambuquira, mg, brasil": null,
+"rua campo florido, sevilha 2a secao, ribeirao das neves, mg, brasil": {
+"lat": -19.7488547,
+"lng": -44.0836327,
+"nome": "Rua Campo Florido, Sevilha 2ª Seção, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33840-230, Brasil",
+"tipo": "residential"
+},
+"rua campo grande, 20, sao geraldo, pirapora, mg, brasil": {
+"lat": -17.313316,
+"lng": -44.9070876,
+"nome": "Rua Campo Grande, São Geraldo, Pirapora, Minas Gerais, Região Sudeste, 39274-230, Brasil",
+"tipo": "residential"
+},
+"rua canaa, 189, betel, aimores, mg, brasil": {
+"lat": -19.5021918,
+"lng": -41.0671334,
+"nome": "Rua Canaã, Betel, Aimorés, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "residential"
+},
+"rua canastra, 2543, quintas do morro, nova lima, mg, brasil": null,
+"rua candido bernardes, 662, l 13 q 22, sao geraldo, itauna, mg, brasil": null,
+"rua capitao musa, 166, residencial dharma, tres coracoes, mg, brasil": {
+"lat": -21.7129173,
+"lng": -45.2564653,
+"nome": "Avenida Capitão Musa, Residencial Dharma, Três Corações, Minas Gerais, Região Sudeste, 37410-000, Brasil",
+"tipo": "residential"
+},
+"rua carandai, sevilha 2a secao, ribeirao das neves, mg, brasil": {
+"lat": -19.7484927,
+"lng": -44.0825901,
+"nome": "Rua Carandai, Sevilha 2ª Seção, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33840-230, Brasil",
+"tipo": "residential"
+},
+"rua carlos dias goes, 93, sao cristovao, muriae, mg, brasil": null,
+"rua carlos herculano couto, 500, francisco bernardino, juiz de fora, mg, brasil": {
+"lat": -21.7357954,
+"lng": -43.3944728,
+"nome": "Rua Carlos Herculano Couto, Francisco Bernardino, Juiz de Fora, Minas Gerais, Região Sudeste, 36081-770, Brasil",
+"tipo": "residential"
+},
+"rua carlos lacerda, 941, trevo, belo horizonte, mg, brasil": {
+"lat": -19.8331641,
+"lng": -44.0084572,
+"nome": "Rua Carlos Lacerda, Trevo, Dandara, Pampulha, Belo Horizonte, Minas Gerais, Região Sudeste, 31585-000, Brasil",
+"tipo": "residential"
+},
+"rua carlos lucio de avila, 60-a, jardim europa iv, araxa, mg, brasil": null,
+"rua carlos prates, 112, florenca, ribeirao das neves, mg, brasil": null,
+"rua carlos salge, 161, parque hileia, uberaba, mg, brasil": null,
+"rua carlos tasso rodrigues da cunha, 770, fabricio, uberaba, mg, brasil": null,
+"rua carnauba, 160, morumbi, uberlandia, mg, brasil": {
+"lat": -18.9138838,
+"lng": -48.1760255,
+"nome": "Rua Carnaúba, Ocupação Maná, Morumbi, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-300, Brasil",
+"tipo": "residential"
+},
+"rua carnauba, 20, morumbi, uberlandia, mg, brasil": {
+"lat": -18.9138838,
+"lng": -48.1760255,
+"nome": "Rua Carnaúba, Ocupação Maná, Morumbi, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-300, Brasil",
+"tipo": "residential"
+},
+"rua cecilia hager gintner, 55, parque independencia, juiz de fora, mg, brasil": {
+"lat": -21.68484,
+"lng": -43.3555903,
+"nome": "Rua Celina Mendes Deltivo, Parque Independência, Grama, Muçunge da Grama, Juiz de Fora, Minas Gerais, Região Sudeste, 36048-001, Brasil",
+"tipo": "residential"
+},
+"rua cedro, 1321, residencial nova floresta, carmo do paranaiba, mg, brasil": null,
+"rua cel vicente nunes azevedo, 45, centro, jequitai, mg, brasil": null,
+"rua cel. juventino lemos, 189, centro, pratapolis, mg, brasil": null,
+"rua celinia fortini toscano, 52, sao damiao, juiz de fora, mg, brasil": null,
+"rua celma moreira silveira (ant rua a), 204, fontesville ii, juiz de fora, mg, brasil": null,
+"rua che guevara, 31, coracao eucaristico, patos de minas, mg, brasil": null,
+"rua chico dos pinhoes, 220, novo horizonte, sete lagoas, mg, brasil": null,
+"rua ciano, 385, grand ville, uberlandia, mg, brasil": {
+"lat": -18.8987424,
+"lng": -48.2209397,
+"nome": "Rua Ciano, Grand Ville, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38406-401, Brasil",
+"tipo": "residential"
+},
+"rua cianorte (rua q), 921, jose vallim de mello, uberaba, mg, brasil": null,
+"rua cinelandia, 21, vg 01 vg 02, leblon, belo horizonte, mg, brasil": null,
+"rua claudio clover, 481, jardim brasilia, betim, mg, brasil": {
+"lat": -19.956726,
+"lng": -44.1842409,
+"nome": "481, Rua Cláudio Clover, Regional Alterosas, Senhora de Fátima, Betim, Minas Gerais, Região Sudeste, 32671-502, Brasil",
+"tipo": "place"
+},
+"rua coletora um, 348, vale do palmital 2 (melo viana), esmeraldas, mg, brasil": null,
+"rua comendador teixeira da costa, 342, santa amelia, belo horizonte, mg, brasil": {
+"lat": -19.8344486,
+"lng": -43.9787505,
+"nome": "Rua Comendador Teixeira da Costa, Santa Amélia, Pampulha, Belo Horizonte, Minas Gerais, Região Sudeste, 31560-140, Brasil",
+"tipo": "residential"
+},
+"rua conceicao do castelo, belvedere, serra, es, brasil": {
+"lat": -20.1003312,
+"lng": -40.338292,
+"nome": "Rua Conceição do Castelo, Belvedere, Serra, Espírito Santo, Região Sudeste, 29180-040, Brasil",
+"tipo": "residential"
+},
+"rua conceicao maria moreira, 165, grao para, para de minas, mg, brasil": {
+"lat": -19.8360511,
+"lng": -44.6300445,
+"nome": "Rua Conceição Maria Moreira, Residencial Flamboyant, Pará de Minas, Minas Gerais, Região Sudeste, 35664-899, Brasil",
+"tipo": "residential"
+},
+"rua conde de monte cristo, 32, ipiranga, belo horizonte, mg, brasil": {
+"lat": -19.8786565,
+"lng": -43.9314508,
+"nome": "Rua Conde de Monte Cristo, Ipiranga, Regional Nordeste, Belo Horizonte, Minas Gerais, Região Sudeste, 31160-440, Brasil",
+"tipo": "residential"
+},
+"rua cora coralina, 47, bairro cidade nova, santana do paraiso, mg, brasil": null,
+"rua d, centro, alpercata, mg, brasil": null,
+"rua dama da noite, 51, jardim das alterosas - 2a secao, betim, mg, brasil": null,
+"rua darci vieira dos santos, do congo, vila velha, es, brasil": null,
+"rua darcy durante, 88, jardim country club, pocos de caldas, mg, brasil": null,
+"rua das canarias, 729, santa amelia, belo horizonte, mg, brasil": {
+"lat": -19.8448585,
+"lng": -43.9768387,
+"nome": "Rua das Canárias, Entorno Guarapari, Santa Amélia, Pampulha, Belo Horizonte, Minas Gerais, Região Sudeste, 31555-100, Brasil",
+"tipo": "residential"
+},
+"rua das chacaras, 400, mantiqueira, belo horizonte, mg, brasil": {
+"lat": -19.796511,
+"lng": -43.9895198,
+"nome": "Rua Retiro das Chácaras, Mantiqueira, Venda Nova, Belo Horizonte, Minas Gerais, Região Sudeste, 31660-320, Brasil",
+"tipo": "residential"
+},
+"rua das margaridas, 28 b, pio xii, sao joao del rei, mg, brasil": {
+"lat": -21.1402716,
+"lng": -44.2316202,
+"nome": "Rua das Margaridas, Pio XII, Matosinhos, São João del-Rei, Minas Gerais, Região Sudeste, 36305-382, Brasil",
+"tipo": "residential"
+},
+"rua das orquideas, 360, planalto, buritis, mg, brasil": null,
+"rua das paineiras, 65, morada dos angicos, pedro leopoldo, mg, brasil": {
+"lat": -19.5658,
+"lng": -44.0349993,
+"nome": "Rua das Paineiras, Morada dos Angicos, Lagoa de Santo Antônio, Pedro Leopoldo, Minas Gerais, Região Sudeste, 33600-000, Brasil",
+"tipo": "residential"
+},
+"rua das palmeiras, 44, jose de anchieta, serra, es, brasil": null,
+"rua david gomes da silva, 79, espera feliz, espera feliz, mg, brasil": null,
+"rua de brasilia, 863, duque de caxias, betim, mg, brasil": {
+"lat": -19.9409294,
+"lng": -44.1569062,
+"nome": "863, Rua de Brasilia, Regional Alterosas, Betim, Minas Gerais, Região Sudeste, 32673-534, Brasil",
+"tipo": "building"
+},
+"rua dejanira mendes cornelio, 00, residencial vitoria, unai, mg, brasil": null,
+"rua delorme taveira da silva, 03, 154, filipinho, visconde do rio branco, mg, brasil": null,
+"rua delorme taveira da silva, 154, filipinho, visconde do rio branco, mg, brasil": null,
+"rua dez, 263, vale das esmeraldas 2 (melo viana), esmeraldas, mg, brasil": null,
+"rua dez, 30, santo antonio, nova serrana, mg, brasil": {
+"lat": -19.8715948,
+"lng": -44.9615373,
+"nome": "Rua Dez, Santa Sara, Belvedere, Nova Serrana, Minas Gerais, Região Sudeste, 35526-762, Brasil",
+"tipo": "residential"
+},
+"rua dezenove, 39, jardim bela vista, serra, es, brasil": {
+"lat": -20.116539,
+"lng": -40.3126471,
+"nome": "Rua 19, Jardim Bela Vista, Região de Serra Sede, Serra, Espírito Santo, Região Sudeste, 29177-320, Brasil",
+"tipo": "residential"
+},
+"rua dezenove, parque das aroeiras, uberaba, mg, brasil": null,
+"rua diamantina, boa vista, nova lima, mg, brasil": null,
+"rua diolinda de matos, 25, virgilio vieira, corinto, mg, brasil": null,
+"rua dirceu da fonseca, 00, mangabeiras, joao monlevade, mg, brasil": {
+"lat": -19.8042509,
+"lng": -43.1732204,
+"nome": "Rua Dirceu da Fonseca, Mangabeiras, João Monlevade, Minas Gerais, Região Sudeste, 35930-180, Brasil",
+"tipo": "residential"
+},
+"rua divino de sao lourenco, belvedere, serra, es, brasil": null,
+"rua do abacaxi, balneario ponta da fruta, vila velha, es, brasil": {
+"lat": -20.5092016,
+"lng": -40.3761291,
+"nome": "Rua do Abacaxi, Quintas de Ybapuã, Balneário Ponta da Fruta, Região 05 - Grande Jucu, Jucu, Vila Velha, Espírito Santo, Região Sudeste, 29128-528, Brasil",
+"tipo": "residential"
+},
+"rua do corredor, gameleira, aguas formosas, mg, brasil": null,
+"rua do ipe amarelo, palmeiras imperiais, planura, mg, brasil": null,
+"rua do pavao, 107, dumaville, esmeraldas, mg, brasil": null,
+"rua do rodeio, 516, morumbi, uberlandia, mg, brasil": {
+"lat": -18.9216614,
+"lng": -48.1948363,
+"nome": "Rua do Rodeio, Condomínio Residencial Barão I, Morumbi, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-287, Brasil",
+"tipo": "residential"
+},
+"rua do rodeio, morumbi, uberlandia, mg, brasil": {
+"lat": -18.9216614,
+"lng": -48.1948363,
+"nome": "Rua do Rodeio, Condomínio Residencial Barão I, Morumbi, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-287, Brasil",
+"tipo": "residential"
+},
+"rua do silencio, 1100, chacara contagem, contagem, mg, brasil": null,
+"rua do sovi, 385, loteamento residencial pequis, uberlandia, mg, brasil": null,
+"rua do tapiti, 1157, loteamento residencial pequis, uberlandia, mg, brasil": null,
+"rua do tapiti, 1157, res pequis, uberlandia, mg, brasil": null,
+"rua do tapiti, 1157, residencial pequis, uberlandia, mg, brasil": null,
+"rua dois, 268, planalto, sao joaquim de bicas, mg, brasil": null,
+"rua dois, 40, cristais (justinopolis), ribeirao das neves, mg, brasil": null,
+"rua dois, 76, riacho das pedras, contagem, mg, brasil": {
+"lat": -19.9653244,
+"lng": -44.071818,
+"nome": "Rua Dois, Regional Riacho, Riacho das Pedras, Contagem, Minas Gerais, Região Sudeste, 32250-010, Brasil",
+"tipo": "residential"
+},
+"rua domineu rody santana, 406, ourimar, serra, es, brasil": {
+"lat": -20.1837068,
+"lng": -40.1960383,
+"nome": "Rua Domineu Rody Santana, Ourimar, Serra, Espírito Santo, Região Sudeste, 29173-305, Brasil",
+"tipo": "residential"
+},
+"rua domingos batista, 119, alterosa, alterosa, mg, brasil": {
+"lat": -21.1615848,
+"lng": -46.0981736,
+"nome": "Rua Domingos José Batista, Divino Espírito Santo, Alterosa, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "residential"
+},
+"rua dona cecilia borges pauluk, 70, bairro vallim, uberaba, mg, brasil": null,
+"rua dona cecilia borges pauluk, 70, conjunto chica ferreira, uberaba, mg, brasil": null,
+"rua dona cecilia borges pauluk, 70, vallim, uberaba, mg, brasil": null,
+"rua dona josefina rossini, 170, alto da boa vista, iturama, mg, brasil": null,
+"rua dona maria jose lara, 201, chacaras gervasio monteiro lara (sao ben, santa luzia, mg, brasil": null,
+"rua dos alecrins, 216, residencia 01, vila verde, betim, mg, brasil": null,
+"rua dos anturios, 221, sapucaia, contagem, mg, brasil": {
+"lat": -19.9167331,
+"lng": -44.1252119,
+"nome": "221, Rua dos Antúrios, Regional Petrolândia, Contagem, Minas Gerais, Região Sudeste, 32071-135, Brasil",
+"tipo": "place"
+},
+"rua dos artistas, 358, morro da gloria, juiz de fora, mg, brasil": {
+"lat": -21.7495044,
+"lng": -43.3543885,
+"nome": "Rua dos Artistas, Morro da Glória, Juiz de Fora, Minas Gerais, Região Sudeste, 36035-000, Brasil",
+"tipo": "residential"
+},
+"rua dos balsamos, jardim esperanca, patos de minas, mg, brasil": {
+"lat": -18.5760306,
+"lng": -46.4868796,
+"nome": "Rua dos Balsamos, Jardim Esperança, Patos de Minas, Minas Gerais, Região Sudeste, 38702-201, Brasil",
+"tipo": "residential"
+},
+"rua dos bem-ti-vis, 114, dumaville, esmeraldas, mg, brasil": null,
+"rua dos borges, 1050, jardim vitoria, belo horizonte, mg, brasil": {
+"lat": -19.8412697,
+"lng": -43.8775352,
+"nome": "Rua dos Borges, Jardim Vitória, Regional Nordeste, Belo Horizonte, Minas Gerais, Região Sudeste, 31970-360, Brasil",
+"tipo": "unclassified"
+},
+"rua dos coqueiros, 28, retiro, esmeraldas, mg, brasil": {
+"lat": -19.8341954,
+"lng": -44.1685276,
+"nome": "Rua dos Coqueiros, Retiro, Esmeraldas, Minas Gerais, Região Sudeste, 32052-011, Brasil",
+"tipo": "residential"
+},
+"rua dos ipes, 450, panorama, uberlandia, mg, brasil": {
+"lat": -18.9640965,
+"lng": -48.3612204,
+"nome": "Rua dos Ipês, Panorama, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38421-637, Brasil",
+"tipo": "residential"
+},
+"rua doutor alberto de magalhaes franco, 156, jardim panoramico, patos de minas, mg, brasil": null,
+"rua doutor jose pedro ribeiro junqueira, 274, centro, matias barbosa, mg, brasil": null,
+"rua doutor pedro baldo, 169, alfredo freire, uberaba, mg, brasil": {
+"lat": -19.7303465,
+"lng": -47.9865243,
+"nome": "Rua Doutor Pedro Baldo, Alfredo Freire, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua doutor sebastiao de andrade, 1255, eldorado, juiz de fora, mg, brasil": {
+"lat": -21.7288578,
+"lng": -43.3659139,
+"nome": "Rua Doutor Sebastião de Andrade, Eldorado, Juiz de Fora, Minas Gerais, Região Sudeste, 36046-370, Brasil",
+"tipo": "residential"
+},
+"rua doze, 88, jardim dos bandeirantes (melo viana), esmeraldas, mg, brasil": null,
+"rua dr jurandir costa campos, 1199, estacao, matozinhos, mg, brasil": null,
+"rua durcelina de morais, 20, sublote 000, residencial sao frei galvao, divinopolis, mg, brasil": null,
+"rua e, 81, centro, campos gerais, mg, brasil": null,
+"rua e, morada da garca, matias barbosa, mg, brasil": null,
+"rua edson barbosa da silva, 624b, bela vista iii, sete lagoas, mg, brasil": null,
+"rua eduardo clementino silva (antiga rua c), 160, bela vista, leopoldina, mg, brasil": null,
+"rua elzio bergamo, 87, residencial nascente do paraiso, sao sebastiao do paraiso, mg, brasil": null,
+"rua emidio magalhaes freire, 1396, parte, industrial, pirapora, mg, brasil": null,
+"rua epitacio de carvalho, centro, machado, mg, brasil": null,
+"rua eucherio rodrigues, 700, industrial, juiz de fora, mg, brasil": {
+"lat": -21.7321551,
+"lng": -43.3949415,
+"nome": "Rua Euchério Rodrigues, Industrial, Juiz de Fora, Minas Gerais, Região Sudeste, 36081-770, Brasil",
+"tipo": "residential"
+},
+"rua eucherio rodrigues, 700, joquei clube, juiz de fora, mg, brasil": {
+"lat": -21.7308052,
+"lng": -43.3955809,
+"nome": "Rua Euchério Rodrigues, Industrial, Juiz de Fora, Minas Gerais, Região Sudeste, 36083-571, Brasil",
+"tipo": "residential"
+},
+"rua existente (atual rua b do eldorado), 203, caldas, caldas, mg, brasil": null,
+"rua expedito anicio de oliveira, 00, res. betania paraiso, santana do paraiso, mg, brasil": null,
+"rua fernando donizete gonzaga, 219, cidade delta, delta, mg, brasil": null,
+"rua fiorelo cascardo, varginha, itajuba, mg, brasil": {
+"lat": -22.4240533,
+"lng": -45.4444059,
+"nome": "Rua Fiorelo Cascardo, Vila Zeca Faria, Oriente, Itajubá, Minas Gerais, Região Sudeste, 37501-154, Brasil",
+"tipo": "road"
+},
+"rua flamboyant, 123, vale dos ipe, rodeiro, mg, brasil": null,
+"rua flor do cerrado, 700, maria teresa, belo horizonte, mg, brasil": null,
+"rua floripes de almeida mendoca, 219, jardim das laranjeiras, frutal, mg, brasil": null,
+"rua franca, 376, sao francisco de assis, esmeraldas, mg, brasil": null,
+"rua francisca de assis valerio, 146, loteamento luizote de freitas iv, uberlandia, mg, brasil": null,
+"rua francisca de souza franca, 60, jardim itamaraty iii, pocos de caldas, mg, brasil": null,
+"rua francisco cardoso da silva, 865, bela vista, brasilandia de minas, mg, brasil": null,
+"rua francisco goncalves torres, aracas, capim branco, mg, brasil": {
+"lat": -19.5369146,
+"lng": -44.1152883,
+"nome": "Rua Francisco Gonçalves Torres, Santana, Peri-Peri, Araçás, Capim Branco, Minas Gerais, Região Sudeste, 35730-000, Brasil",
+"tipo": "residential"
+},
+"rua francisco rodrigues serralha, 350, chacaras tubalina e quartel, uberlandia, mg, brasil": {
+"lat": -18.9260035,
+"lng": -48.3150349,
+"nome": "Rua Francisco Rodrigues Serralha, Chácaras Tubalina e Quartel, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38413-018, Brasil",
+"tipo": "residential"
+},
+"rua frei paulo, 311, bonsucesso, vespasiano, mg, brasil": null,
+"rua futura, 30, sagrado coracao, varginha, mg, brasil": null,
+"rua g, 41, portal dos ipes, montes claros, mg, brasil": {
+"lat": -16.7330407,
+"lng": -43.8123137,
+"nome": "Rua G, Portal dos Ipês, Montes Claros, Minas Gerais, Região Sudeste, 39406-152, Brasil",
+"tipo": "residential"
+},
+"rua galdino jose de souza, 467, d. pedro i, sao jose da lapa, mg, brasil": {
+"lat": -19.7159123,
+"lng": -43.9842278,
+"nome": "Rua Galdino José de Souza, Dom Pedro I, São José da Lapa, Minas Gerais, Região Sudeste, 33350-000, Brasil",
+"tipo": "residential"
+},
+"rua general orlando torres, 540, bairro sao miguel, matozinhos, mg, brasil": null,
+"rua geraldino rocha, 171, felixlandia (justinopolis), ribeirao das neves, mg, brasil": null,
+"rua goias, 26, amaro lanari, coronel fabriciano, mg, brasil": {
+"lat": -19.5228104,
+"lng": -42.5764917,
+"nome": "Rua Goiás, Amaro Lanari, Coronel Fabriciano, Minas Gerais, Região Sudeste, 35160-293, Brasil",
+"tipo": "residential"
+},
+"rua gramado, 15, sao pedro, esmeraldas, mg, brasil": null,
+"rua grao mongol, sevilha 2a secao, ribeirao das neves, mg, brasil": null,
+"rua gualter teixeira malta, 1037, copacabana, divinopolis, mg, brasil": null,
+"rua guarani, 320, jaboticatubas, jaboticatubas, mg, brasil": null,
+"rua guido neofiti, 515, conjunto habitacional pedro afonso junqu, pocos de caldas, mg, brasil": null,
+"rua h, 140, acacias, montes claros, mg, brasil": {
+"lat": -16.7267432,
+"lng": -43.8178221,
+"nome": "Rua H, Acácias, Montes Claros, Minas Gerais, Região Sudeste, 39406-152, Brasil",
+"tipo": "residential"
+},
+"rua h, 65a, loteamento novo jaragua, montes claros, mg, brasil": null,
+"rua harpia, 40, grand ville, uberlandia, mg, brasil": {
+"lat": -18.9106594,
+"lng": -48.214932,
+"nome": "Rua Harpia, Grand Ville, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38407-845, Brasil",
+"tipo": "residential"
+},
+"rua henrique guillaumon, 107, serra do sol, uberaba, mg, brasil": null,
+"rua honorio pires franca, 601, jardim do lago, uberaba, mg, brasil": null,
+"rua honorio pires franca, 601, santa maria, uberaba, mg, brasil": null,
+"rua hum, 129, jardim primavera, areado, mg, brasil": null,
+"rua hungria, 565, granjas primavera, ribeirao das neves, mg, brasil": null,
+"rua i, 85, nova esmeraldas, esmeraldas, mg, brasil": null,
+"rua imperatriz dona amelia, 181, chacaras granja pousada del rey, santa luzia, mg, brasil": null,
+"rua inacio higino, 673, praia da costa, vila velha, es, brasil": {
+"lat": -20.3336235,
+"lng": -40.2868574,
+"nome": "Rua Inácio Higino, Jardim Praia da Costa, Praia da Costa, Região 01 - Centro, Vila Velha, Espírito Santo, Região Sudeste, 29100-261, Brasil",
+"tipo": "residential"
+},
+"rua ione fernandes, alfredo freire iv, uberaba, mg, brasil": null,
+"rua ipe purpura, 170, 1612a, vila dos ipes, paraopeba, mg, brasil": null,
+"rua ipe, 441, sublote 002, jardinopolis, divinopolis, mg, brasil": null,
+"rua ismael carvalho espindola, 60, mansour, uberlandia, mg, brasil": null,
+"rua iso 04, reserva real, jaboticatubas, mg, brasil": null,
+"rua jaime gomes, 191, floresta, belo horizonte, mg, brasil": {
+"lat": -19.9099534,
+"lng": -43.9280843,
+"nome": "Rua Jaime Gomes, Floresta, Regional Leste, Belo Horizonte, Minas Gerais, Região Sudeste, 31015-290, Brasil",
+"tipo": "residential"
+},
+"rua jair de oliveira, 1300, alto sao joao, montes claros, mg, brasil": null,
+"rua jamile calil attie, 81, mansour, uberlandia, mg, brasil": {
+"lat": -18.9295102,
+"lng": -48.3293108,
+"nome": "Rua Jamile Calil Attiê, Veredas, Mansour, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38414-466, Brasil",
+"tipo": "residential"
+},
+"rua japu, icaivera, betim, mg, brasil": {
+"lat": -19.860689,
+"lng": -44.1617835,
+"nome": "Rua Japu, Regional Icaivera, Betim, Minas Gerais, Região Sudeste, 32611-158, Brasil",
+"tipo": "residential"
+},
+"rua jesus jota, 1501, interlagos, divinopolis, mg, brasil": {
+"lat": -20.1584463,
+"lng": -44.8711274,
+"nome": "Rua Jesus Jota, Interlagos, Divinópolis, Minas Gerais, Região Sudeste, 35500-491, Brasil",
+"tipo": "secondary"
+},
+"rua joao barbosa mendes, 485, bela vista l, sete lagoas, mg, brasil": null,
+"rua joao batista piermatei, 26, centro, antonio prado de minas, mg, brasil": null,
+"rua joao bosco ribeiro de sousa, 100, shopping park, uberlandia, mg, brasil": {
+"lat": -18.9765508,
+"lng": -48.2745674,
+"nome": "Rua João Bosco Ribeiro de Sousa, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38425-605, Brasil",
+"tipo": "residential"
+},
+"rua joao de souza nascentes, 168, eldorado, patos de minas, mg, brasil": {
+"lat": -18.6004317,
+"lng": -46.5092013,
+"nome": "Rua João de Souza Nascentes, Eldorado, Patos de Minas, Minas Gerais, Região Sudeste, 38700-164, Brasil",
+"tipo": "residential"
+},
+"rua joao deolindo, 281, vila bethania, viana, es, brasil": {
+"lat": -20.3547685,
+"lng": -40.409692,
+"nome": "Rua João Deolindo, Vila Bethânia, Vila Bethania, Viana, Espírito Santo, Região Sudeste, 29136-016, Brasil",
+"tipo": "residential"
+},
+"rua joao dias de castro, 250, jardim diamantina, sao sebastiao do paraiso, mg, brasil": null,
+"rua joao eduardo machado, 60, coorego dos alves, muzambinho, mg, brasil": null,
+"rua joao evangelista de lima, 200, lot venina antonica, carmo da mata, mg, brasil": null,
+"rua joao ferreira rosa, 80, res vera lucia elias, iturama, mg, brasil": null,
+"rua joao guimaraes rosa, 1151, sao pedro, esmeraldas, mg, brasil": null,
+"rua joao gusman, 10, jaqueline, belo horizonte, mg, brasil": {
+"lat": -19.8049398,
+"lng": -43.9350616,
+"nome": "Rua João Gusman, Jaqueline, Regional Norte, Belo Horizonte, Minas Gerais, Região Sudeste, 31748-203, Brasil",
+"tipo": "residential"
+},
+"rua joao henrique dielle, 36, sao mateus, juiz de fora, mg, brasil": null,
+"rua joao nicolau da silva, 81, tiradentes, tupaciguara, mg, brasil": {
+"lat": -18.5981408,
+"lng": -48.6830555,
+"nome": "Rua João Nicolau da Silva, Tiradentes, Tupaciguara, Minas Gerais, Região Sudeste, 38480-000, Brasil",
+"tipo": "residential"
+},
+"rua joao rodrigues de castro, 105, b. moinho de vento, uberlandia, mg, brasil": null,
+"rua joao rodrigues de castro, 105, jardim patricia, uberlandia, mg, brasil": null,
+"rua joao rodrigues de castro, 105, moinho de vento, uberlandia, mg, brasil": null,
+"rua joao rosa, 65, chacaras california, contagem, mg, brasil": null,
+"rua joao samaha, 1385, sao joao batista (venda nova), belo horizonte, mg, brasil": {
+"lat": -19.8204997,
+"lng": -43.9675696,
+"nome": "Rua João Samaha, São João Batista, Venda Nova, Belo Horizonte, Minas Gerais, Região Sudeste, 31520-400, Brasil",
+"tipo": "residential"
+},
+"rua joaquim afonso rodrigues, residencial morumbi, divinopolis, mg, brasil": null,
+"rua joaquim borges, 308, jardim aeroporto, alfenas, mg, brasil": {
+"lat": -21.434086,
+"lng": -45.9375318,
+"nome": "Rua Joaquim Borges, Jardim Aeroporto 2, Jardim Aeroporto, Alfenas, Minas Gerais, Região Sudeste, 37131-022, Brasil",
+"tipo": "residential"
+},
+"rua joaquim fernandes da silva, 33, joao paulo ii, passos, mg, brasil": {
+"lat": -20.7464877,
+"lng": -46.5956206,
+"nome": "Rua Joaquim Fernandes da Silva \"Quinzinho Alfaiate\", Recanto da Teca, João Paulo II, Passos, Minas Gerais, Região Sudeste, 37901-238, Brasil",
+"tipo": "residential"
+},
+"rua joaquim goncalves da silva, 12, candelaria, belo horizonte, mg, brasil": {
+"lat": -19.8125528,
+"lng": -43.9781378,
+"nome": "Rua Joaquim Gonçalves da Silva, Candelária, Venda Nova, Belo Horizonte, Minas Gerais, Região Sudeste, 31520-400, Brasil",
+"tipo": "residential"
+},
+"rua joaquim jose da silva, 00, residencial vitoria, unai, mg, brasil": null,
+"rua jockey clube, 482d, un 05 pav 2, centro, pedro leopoldo, mg, brasil": null,
+"rua jorge vieira, 368, planalto, patos de minas, mg, brasil": null,
+"rua jornalista paulo heneine, 20, mantiqueira, belo horizonte, mg, brasil": null,
+"rua jornalista paulo heneine, 95, mantiqueira, belo horizonte, mg, brasil": null,
+"rua jose baldo, 40, princesa isabel, frutal, mg, brasil": null,
+"rua jose bonifacio, 870, rosario, areado, mg, brasil": null,
+"rua jose cleto, 425, santa cruz, belo horizonte, mg, brasil": {
+"lat": -19.8765417,
+"lng": -43.931516,
+"nome": "Rua José Cleto, Ipiranga, Regional Nordeste, Belo Horizonte, Minas Gerais, Região Sudeste, 31160-440, Brasil",
+"tipo": "tertiary"
+},
+"rua jose coelho lemos, 0, jardim indaia, varginha, mg, brasil": {
+"lat": -21.5256135,
+"lng": -45.4540338,
+"nome": "Rua José Coelho Lemos, Estrela II, Varginha, Minas Gerais, Região Sudeste, 37030-540, Brasil",
+"tipo": "residential"
+},
+"rua jose de almada menezes, nova esperanca, piumhi, mg, brasil": null,
+"rua jose ferreira de paula, 849, veneza, ribeirao das neves, mg, brasil": {
+"lat": -19.7666464,
+"lng": -44.1311447,
+"nome": "Rua José Ferreira de Paula, Veneza, Bairro Alterosa, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33820-170, Brasil",
+"tipo": "residential"
+},
+"rua jose garibaldino, 350, chacaras tubalina e quartel, uberlandia, mg, brasil": {
+"lat": -18.9205505,
+"lng": -48.3141647,
+"nome": "Rua José Garibaldino, Chácaras Tubalina e Quartel, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38413-018, Brasil",
+"tipo": "residential"
+},
+"rua jose garibaldino, chacaras tubalina e quartel, uberlandia, mg, brasil": {
+"lat": -18.9205505,
+"lng": -48.3141647,
+"nome": "Rua José Garibaldino, Chácaras Tubalina e Quartel, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38413-018, Brasil",
+"tipo": "residential"
+},
+"rua jose gaspar, piraubinha, pirauba, mg, brasil": null,
+"rua jose joaquim pereira, 64, shopping park 2, uberlandia, mg, brasil": null,
+"rua jose maria de menezes, 20, piabas justinopolis, ribeirao das neves, mg, brasil": {
+"lat": -19.7837153,
+"lng": -44.0267871,
+"nome": "Rua José Maria de Menezes, Paraíso das Piabas, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33903-400, Brasil",
+"tipo": "tertiary"
+},
+"rua jose mungaia, 130, novo bandeirantes, campo belo, mg, brasil": null,
+"rua jose pedro pereira, 558, vila mariana, ribeirao das neves, mg, brasil": null,
+"rua jose pires de morais, 235, liberdade, santa luzia, mg, brasil": null,
+"rua jose raimundo detoni, 151, migueis, congonhal, mg, brasil": null,
+"rua jose rodrigues dos santos, 2475, adelmolandia, sabara, mg, brasil": {
+"lat": -19.9040367,
+"lng": -43.8134714,
+"nome": "Rua José Rodrigues dos Santos, Adelmolândia, Sabará, Minas Gerais, Região Sudeste, 34525-410, Brasil",
+"tipo": "unclassified"
+},
+"rua jose ronaldo barbosa, 284, camara, serra, es, brasil": {
+"lat": -20.2060086,
+"lng": -40.2258618,
+"nome": "Rua José Ronaldo Barbosa, Camará, Região de Laranjeiras, Serra, Espírito Santo, Região Sudeste, 29164-064, Brasil",
+"tipo": "residential"
+},
+"rua jose sanguinete, 69 e 79, sao joao batista (venda nova), belo horizonte, mg, brasil": null,
+"rua jose soares da costa neto, 295, lugar denominado fazenda bom jesus, contagem, mg, brasil": null,
+"rua jose vico, 131, avelino cardoso, sao geraldo, mg, brasil": null,
+"rua jota ferreira, 00, jardim europa, uberlandia, mg, brasil": {
+"lat": -18.9428926,
+"lng": -48.3482008,
+"nome": "Rua Jota Ferreira, Jardim Europa, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38414-564, Brasil",
+"tipo": "residential"
+},
+"rua julia cruz bahia, 150, niteroi, betim, mg, brasil": {
+"lat": -19.9514569,
+"lng": -44.1778992,
+"nome": "150, Rua Júlia Cruz Bahia, Regional Alterosas, Betim, Minas Gerais, Região Sudeste, 32672-100, Brasil",
+"tipo": "place"
+},
+"rua juvenal alves de oliveira, upg marajo, uberaba, mg, brasil": null,
+"rua l, 47b, residencial campestre, sete lagoas, mg, brasil": null,
+"rua l, 788, parque girassol, esmeraldas, mg, brasil": null,
+"rua laci leite de menezes 226, 226, upg marajo, uberaba, mg, brasil": null,
+"rua laura emilia costa dona, 195, eldorado, carangola, mg, brasil": null,
+"rua leonides goncalves da costa, 37, residencial morada du park, uberaba, mg, brasil": null,
+"rua lindaura guimaraes, 00, parque sao joao, almenara, mg, brasil": null,
+"rua luzia neves fleck, 150, b. gavea sul, uberlandia, mg, brasil": null,
+"rua luzia neves fleck, 150, shopping park, uberlandia, mg, brasil": {
+"lat": -18.9721167,
+"lng": -48.2748087,
+"nome": "Rua Luzia Neves Fleck, Parque Ubá, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38425-605, Brasil",
+"tipo": "residential"
+},
+"rua lygia lucas kamil, 270, santa isabel, juiz de fora, mg, brasil": {
+"lat": -21.7137334,
+"lng": -43.4258828,
+"nome": "Rua Lygia Lucas Kamil, Santa Isabel, Nova Era, Juiz de Fora, Minas Gerais, Região Sudeste, 36087-610, Brasil",
+"tipo": "residential"
+},
+"rua major sebastiao martins, 75, parque real, pouso alegre, mg, brasil": {
+"lat": -22.2903381,
+"lng": -45.9230061,
+"nome": "Rua Major Sebastião Martins, Parque Real, Quadrante Sudoeste, Pouso Alegre, Minas Gerais, Região Sudeste, 37560-260, Brasil",
+"tipo": "residential"
+},
+"rua malalis, 72, jardim buritis, capelinha, mg, brasil": null,
+"rua mangabeiras, 305, floresta encantada, esmeraldas, mg, brasil": null,
+"rua manoel divino tomaz, 332, residencial inocencio franco, ituiutaba, mg, brasil": null,
+"rua mansur farah, 223, morada do lago, tres coracoes, mg, brasil": null,
+"rua marajuaras, 1051, centro, divinopolis, mg, brasil": null,
+"rua marajuaras, 1051, fabio notini, divinopolis, mg, brasil": null,
+"rua marajuaras, 1051, fazenda do gafanhoto, divinopolis, mg, brasil": null,
+"rua marajuaras, 1051, fazenda gafanhoto, divinopolis, mg, brasil": null,
+"rua marajuaras, 1051, gafanhoto, divinopolis, mg, brasil": null,
+"rua marajuaras, 1051, ipanema, divinopolis, mg, brasil": null,
+"rua marajuaras, 1051, jardim candides, divinopolis, mg, brasil": null,
+"rua marajuaras, jardim candides, divinopolis, mg, brasil": null,
+"rua maranhao, 174, sao bernardo, juiz de fora, mg, brasil": {
+"lat": -21.7579528,
+"lng": -43.3387977,
+"nome": "Rua Maranhão, Jardim do Sol, São Bernardo, Juiz de Fora, Minas Gerais, Região Sudeste, 36062-250, Brasil",
+"tipo": "residential"
+},
+"rua marciano pinto, 1635, sagrado coracao de jesus, juiz de fora, mg, brasil": {
+"lat": -21.8097981,
+"lng": -43.3603668,
+"nome": "Rua Marciano Pinto, Cidade Nova II, Sagrado Coração de Jesus, Juiz de Fora, Minas Gerais, Região Sudeste, 36034-050, Brasil",
+"tipo": "residential"
+},
+"rua marciano pinto, 1635, santa efigenia, juiz de fora, mg, brasil": {
+"lat": -21.8040213,
+"lng": -43.3561616,
+"nome": "Rua Marciano Pinto, Cidade Nova, Santa Efigênia, Juiz de Fora, Minas Gerais, Região Sudeste, 36034-050, Brasil",
+"tipo": "tertiary"
+},
+"rua marechal deodoro, 51, vinhatico, montanha, es, brasil": {
+"lat": -18.1964289,
+"lng": -40.2626156,
+"nome": "Rua Marechal Deodoro, Assentamento Bela Vista, Vinhático, Montanha, Espírito Santo, Região Sudeste, 29894-000, Brasil",
+"tipo": "residential"
+},
+"rua maria aleixa de abreu, 109, goiania, belo horizonte, mg, brasil": null,
+"rua maria alvarenga magalhaes, 370, central park, vespasiano, mg, brasil": {
+"lat": -19.6856589,
+"lng": -43.9167152,
+"nome": "Rua Maria Alvarenga Magalhães, Central Park, Conjunto Caieiras, Vespasiano, Minas Gerais, Região Sudeste, 33206-240, Brasil",
+"tipo": "residential"
+},
+"rua maria aparecida dias, 56, loteamento antonio caiado, uberaba, mg, brasil": null,
+"rua maria da conceicao furtado (2468), jardim vitoria, belo horizonte, mg, brasil": null,
+"rua maria da penha f. silveira, 83, morada nova, itauna, mg, brasil": null,
+"rua maria de miranda, 217, lot shopping park 2, uberlandia, mg, brasil": null,
+"rua maria fernanda da cruz, 80, tubalina, uberlandia, mg, brasil": null,
+"rua maria gomes dos santos, 00, 00, frei dimas, teofilo otoni, mg, brasil": null,
+"rua maria izabel dos reis, 410, loteamento antonio caiado, uberaba, mg, brasil": null,
+"rua maria izabel fernandes, distrito zelandia, santa juliana, mg, brasil": null,
+"rua maria joana envangelista, 8, jardim quebec, patos de minas, mg, brasil": null,
+"rua maria salome glauss celia, 511, jd do lago, uberaba, mg, brasil": null,
+"rua marilandia, 00, rio marinho, vila velha, es, brasil": {
+"lat": -20.3698278,
+"lng": -40.3569871,
+"nome": "Rua Marilândia, Região 04 - Grande Cobilândia, Ibes, Vila Velha, Espírito Santo, Região Sudeste, 29112-550, Brasil",
+"tipo": "residential"
+},
+"rua mario machado, 215, fogo apagou, sabara, mg, brasil": null,
+"rua mario silva brasil, 183, residencial ayrton senna, ipatinga, mg, brasil": null,
+"rua martin francisco, 561, residencial golden village, montes claros, mg, brasil": null,
+"rua martins barbosa, 1000, benfica, juiz de fora, mg, brasil": {
+"lat": -21.6935439,
+"lng": -43.4437192,
+"nome": "Rua Martins Barbosa, Vila Holcin, Benfica, Juiz de Fora, Minas Gerais, Região Sudeste, 36092-005, Brasil",
+"tipo": "residential"
+},
+"rua mem de sa, 389, pousada del rey, igarape, mg, brasil": {
+"lat": -20.0423708,
+"lng": -44.3189032,
+"nome": "Rua Mem de Sá, Pousada del Rey, Igarapé, Minas Gerais, Região Sudeste, 32900-000, Brasil",
+"tipo": "tertiary"
+},
+"rua menino jesus de praga, 179, santa cecilia, esmeraldas, mg, brasil": {
+"lat": -19.7729842,
+"lng": -44.1562213,
+"nome": "Rua Menino Jesus de Praga, Santa Cecília, Esmeraldas, Minas Gerais, Região Sudeste, 33821-200, Brasil",
+"tipo": "residential"
+},
+"rua minas gerais, 100, fazenda bom jesus, contagem, mg, brasil": null,
+"rua minas gerais, 286, caiapos, contagem, mg, brasil": {
+"lat": -19.8387813,
+"lng": -44.0371859,
+"nome": "Rua Minas Gerais, Bairro dos Caiapós, Regional Nacional, Justinópolis, Contagem, Minas Gerais, Região Sudeste, 32185-420, Brasil",
+"tipo": "residential"
+},
+"rua ministro oliveira salazar, 818, santa monica, belo horizonte, mg, brasil": {
+"lat": -19.8237426,
+"lng": -43.9713245,
+"nome": "Rua Ministro Oliveira Salazar, Santa Mônica, Venda Nova, Belo Horizonte, Minas Gerais, Região Sudeste, 31520-400, Brasil",
+"tipo": "tertiary"
+},
+"rua monte castelo, 140, vera cruz, cariacica, es, brasil": {
+"lat": -20.3383888,
+"lng": -40.3730488,
+"nome": "Rua Monte Castelo, Vera Cruz, Itaquari, Cariacica, Espírito Santo, Região Sudeste, 29146-759, Brasil",
+"tipo": "residential"
+},
+"rua monte castelo, 555, olhos d agua, ribeirao das neves, mg, brasil": null,
+"rua nicolau alves de brito, 155, laranjeiras, uberlandia, mg, brasil": null,
+"rua nossa senhora aparecida, 79, centro, mutum, mg, brasil": null,
+"rua nossa senhora da conceicao, 1670, praia, contagem, mg, brasil": null,
+"rua nove, jardim panorama, araguari, mg, brasil": null,
+"rua novo mundo, 131, jardim sao jorge, pocos de caldas, mg, brasil": null,
+"rua octavio malvaccini, 580, marilandia, juiz de fora, mg, brasil": null,
+"rua octavio malvaccini, 585, sao pedro, juiz de fora, mg, brasil": {
+"lat": -21.7801998,
+"lng": -43.3923428,
+"nome": "Rua Octávio Malvaccini, Via do Sol, São Pedro, Juiz de Fora, Minas Gerais, Região Sudeste, 36038-136, Brasil",
+"tipo": "residential"
+},
+"rua oito, 595, fazenda do mandu, contagem, mg, brasil": null,
+"rua olivio da silva couto, 61, casa01, resplendor 2a secao, igarape, mg, brasil": null,
+"rua omicron, 36, geraldo cesario, bom despacho, mg, brasil": null,
+"rua onze, 40, residencial sul ipes, montes claros, mg, brasil": null,
+"rua orimar santiago, 11, santiago, araguari, mg, brasil": {
+"lat": -18.6215773,
+"lng": -48.1968228,
+"nome": "Rua Orimar Santiago, Jardim Panorama, Santiago, Araguari, Minas Gerais, Região Sudeste, 38444-900, Brasil",
+"tipo": "residential"
+},
+"rua oscar bernardes da costa, 75, luizote de freitas, uberlandia, mg, brasil": {
+"lat": -18.9189907,
+"lng": -48.3385902,
+"nome": "Rua Oscar Bernardes da Costa, Luizote de Freitas, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38414-466, Brasil",
+"tipo": "residential"
+},
+"rua osvaldo machado, 1201, alto sao francisco, buritizeiro, mg, brasil": {
+"lat": -17.366315,
+"lng": -44.9787522,
+"nome": "Rua Osvaldo Machado, Alto São Francisco, Buritizeiro, Minas Gerais, Região Sudeste, 39280-000, Brasil",
+"tipo": "tertiary"
+},
+"rua otavio rocha ferraz, 409, paraiso, cataguases, mg, brasil": {
+"lat": -21.4057034,
+"lng": -42.6968416,
+"nome": "Rua Otávio Rocha Ferraz, Beira Rio, Vila Reis, Cataguases, Minas Gerais, Região Sudeste, 36772-150, Brasil",
+"tipo": "residential"
+},
+"rua ouro preto, 00, sevilha 2a secao, ribeirao das neves, mg, brasil": null,
+"rua outono, 250, boa vista, uberaba, mg, brasil": null,
+"rua outono, 250, vila arquelau, uberaba, mg, brasil": {
+"lat": -19.7205098,
+"lng": -47.9133316,
+"nome": "Rua Outono, Arquelau, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua padre cornelio korovsky, 210, jardim estrela ii, varginha, mg, brasil": {
+"lat": -21.5275647,
+"lng": -45.4558756,
+"nome": "Rua Padre Cornelio Korovsky, San Marino, Varginha, Minas Gerais, Região Sudeste, 37030-540, Brasil",
+"tipo": "residential"
+},
+"rua padre humberto araujo braga, 24, tubalina, uberlandia, mg, brasil": {
+"lat": -18.9239586,
+"lng": -48.3206757,
+"nome": "Rua Padre Humberto Araújo Braga, Chácaras Tubalina e Quartel, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38413-018, Brasil",
+"tipo": "residential"
+},
+"rua padre joviano, 165, tony, ribeirao das neves, mg, brasil": {
+"lat": -19.7954826,
+"lng": -43.9994032,
+"nome": "Rua Padre Joviano, Vila Boa Vista, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33930-700, Brasil",
+"tipo": "residential"
+},
+"rua palmeira imperial, 61, morada nova, jequitinhonha, mg, brasil": null,
+"rua parana, 54, nossa senhora aparecida, frutal, mg, brasil": null,
+"rua pastor paulo viana, 337, d. pedro i, sao jose da lapa, mg, brasil": {
+"lat": -19.7170502,
+"lng": -43.9869729,
+"nome": "Rua Pastor Paulo Viana, Dom Pedro I, São José da Lapa, Minas Gerais, Região Sudeste, 33350-000, Brasil",
+"tipo": "residential"
+},
+"rua paula lima, 27, centro, juiz de fora, mg, brasil": {
+"lat": -21.7536708,
+"lng": -43.3539132,
+"nome": "Rua Paula Lima, Nossa Senhora Aparecida, Centro, Juiz de Fora, Minas Gerais, Região Sudeste, 36015-160, Brasil",
+"tipo": "tertiary"
+},
+"rua pedrinho pereira, 640, jd de dona lucinha 2, coromandel, mg, brasil": null,
+"rua pedro antonio da conceicao, 235, santa isabel, juiz de fora, mg, brasil": {
+"lat": -21.7136545,
+"lng": -43.4226714,
+"nome": "Rua Pedro Antônio da Conceição, Santa Isabel, Nova Era, Juiz de Fora, Minas Gerais, Região Sudeste, 36081-000, Brasil",
+"tipo": "residential"
+},
+"rua pedro franchi, 00, areas 4, 6 e 7, vila campanha, guaxupe, mg, brasil": null,
+"rua pedro joao jose, 110, parque ipiranga, betim, mg, brasil": {
+"lat": -20.027055,
+"lng": -44.2228782,
+"nome": "110, Rua Pedro João José, Regional Citrolândia, Betim, Minas Gerais, Região Sudeste, 32642-100, Brasil",
+"tipo": "building"
+},
+"rua petrolina, 881, sao pedro, esmeraldas, mg, brasil": {
+"lat": -19.7865771,
+"lng": -44.1562807,
+"nome": "Rua Petrolina, São Pedro, Esmeraldas, Minas Gerais, Região Sudeste, 33821-200, Brasil",
+"tipo": "residential"
+},
+"rua pica pau, 108, loteamento residencial parque das acacia, frutal, mg, brasil": null,
+"rua pica pau, 220, colonia do marcal, sao joao del rei, mg, brasil": null,
+"rua pimpim moreira, saltador, presidente olegario, mg, brasil": null,
+"rua piratinin, 212, centro, barbacena, mg, brasil": null,
+"rua planalto da borborema, 1703, laranjeiras, uberlandia, mg, brasil": {
+"lat": -18.969861,
+"lng": -48.2327059,
+"nome": "Predio Evellyn, 1703, Rua Planalto da Borborema, Laranjeiras, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38410-500, Brasil",
+"tipo": "building"
+},
+"rua presidente eurico gaspar, 11a, presidente, matozinhos, mg, brasil": null,
+"rua presidente rodrigues alves, 0, bairro presidente, matozinhos, mg, brasil": null,
+"rua presidente washington luiz, 715, presidente, matozinhos, mg, brasil": {
+"lat": -19.576587,
+"lng": -44.0676932,
+"nome": "Rua Presidente Washington Luiz, Presidente, Matozinhos, Minas Gerais, Região Sudeste, 35720-000, Brasil",
+"tipo": "residential"
+},
+"rua principal, 407, bernardo de souza, vespasiano, mg, brasil": {
+"lat": -19.7441436,
+"lng": -43.9401087,
+"nome": "Rua Principal, Bernardo de Souza, Vespasiano, Minas Gerais, Região Sudeste, 33206-006, Brasil",
+"tipo": "tertiary"
+},
+"rua prof augusto amarante, caixa d'agua, carangola, mg, brasil": null,
+"rua prof tereza leopoldina dos anjos, 162, sylvio pereira i, coronel fabriciano, mg, brasil": null,
+"rua professor irineu jose de paula, 20, previdenciarios, juiz de fora, mg, brasil": null,
+"rua professor joaquim roberto, 35, jardim patricia, uberlandia, mg, brasil": {
+"lat": -18.9185742,
+"lng": -48.3218841,
+"nome": "Rua Professor Joaquim Roberto, Jardim Patrícia, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38413-018, Brasil",
+"tipo": "residential"
+},
+"rua professora eunice brandao paiva, shopping park, uberlandia, mg, brasil": {
+"lat": -18.9824801,
+"lng": -48.2698305,
+"nome": "Rua Professora Eunice Brandão Paiva, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38425-605, Brasil",
+"tipo": "residential"
+},
+"rua professora maria celia cence, 160, b. gavea sul, uberlandia, mg, brasil": null,
+"rua professora maria celia cence, 160, shopping park, uberlandia, mg, brasil": {
+"lat": -18.9665932,
+"lng": -48.2774046,
+"nome": "Rua Professora Maria Célia Cence, Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38411-837, Brasil",
+"tipo": "residential"
+},
+"rua protasio jose ferreira, armando santos, araxa, mg, brasil": null,
+"rua prudente de moraes, residencial jacaraipe, serra, es, brasil": {
+"lat": -20.1350251,
+"lng": -40.21052,
+"nome": "Rua Prudente de Moraes, Residencial Jacaraípe, Serra, Espírito Santo, Região Sudeste, 29175-385, Brasil",
+"tipo": "residential"
+},
+"rua quarenta e tres, 0, nova pampulha, vespasiano, mg, brasil": null,
+"rua quarenta e tres, nova pampulha, vespasiano, mg, brasil": null,
+"rua quatro, 00, jardim panorama, araguari, mg, brasil": {
+"lat": -18.620982,
+"lng": -48.1960017,
+"nome": "Rua Quatro, Jardim Panorama, Santiago, Araguari, Minas Gerais, Região Sudeste, 38444-900, Brasil",
+"tipo": "residential"
+},
+"rua quatro, 429, residencial vitoria, montes claros, mg, brasil": null,
+"rua quatro, 98, pingo d'agua, betim, mg, brasil": null,
+"rua quinze, santa maria, ituiutaba, mg, brasil": null,
+"rua radialista jose correia, 220, ceu azul, belo horizonte, mg, brasil": null,
+"rua rafael batista leite, 41, alto bela vista, sao gotardo, mg, brasil": null,
+"rua raimundo nonato de souza, 1025, rancho alegre, ribeirao das neves, mg, brasil": null,
+"rua raimundo nonato de souza, 1225, rosana, ribeirao das neves, mg, brasil": {
+"lat": -19.7580398,
+"lng": -44.0775524,
+"nome": "Rua Raimundo Nonato de Souza, Rosana, Santa Martinha, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33880-220, Brasil",
+"tipo": "tertiary"
+},
+"rua raposos, 469, sao pedro, esmeraldas, mg, brasil": {
+"lat": -19.7868673,
+"lng": -44.1555576,
+"nome": "Rua Raposos, São Pedro, Esmeraldas, Minas Gerais, Região Sudeste, 33821-200, Brasil",
+"tipo": "residential"
+},
+"rua recife, 276, jardim limoeiro, serra, es, brasil": null,
+"rua rei dario l, vale dos reis, cariacica, es, brasil": {
+"lat": -20.3233007,
+"lng": -40.4283455,
+"nome": "Rua Sérgio Túlio, Vale dos Reis, Vila dos Reis, Itaquari, Cariacica, Espírito Santo, Região Sudeste, 29158-213, Brasil",
+"tipo": "residential"
+},
+"rua reinaldo alves da rocha rua 08, 850, portal do vale, uberlandia, mg, brasil": null,
+"rua ricardo silva pires, 42, centro, mucurici, es, brasil": null,
+"rua rio grande do norte, 460, centro, guimarania, mg, brasil": null,
+"rua rio grande do norte, 470, portal do cerrado, guimarania, mg, brasil": null,
+"rua rio grande do norte, 500, portal do cerrado, guimarania, mg, brasil": null,
+"rua rio grande do norte, 539, portal do cerrado, guimarania, mg, brasil": null,
+"rua rio grande do norte, 570, portal do cerrado, guimarania, mg, brasil": null,
+"rua rio grande do norte, 589, portal do cerrado, guimarania, mg, brasil": null,
+"rua rio grande do norte, 599, portal do cerrado, guimarania, mg, brasil": null,
+"rua rio grande do norte, portal do cerrado, guimarania, mg, brasil": null,
+"rua rio grande do sul, 1754, centro, pocos de caldas, mg, brasil": null,
+"rua rio paranagua, 255, parque riacho das pedras, contagem, mg, brasil": null,
+"rua rio tibre, 351, lot cidade verde ii, uberlandia, mg, brasil": null,
+"rua rio tibre, 351, mansour, uberlandia, mg, brasil": {
+"lat": -18.9283714,
+"lng": -48.332048,
+"nome": "Rua Rio Tibre, Veredas, Mansour, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38414-466, Brasil",
+"tipo": "residential"
+},
+"rua roberto carlos medeiros, 270, jardim europa, uberlandia, mg, brasil": {
+"lat": -18.9414957,
+"lng": -48.3463528,
+"nome": "Rua Roberto Carlos Medeiros, Jardim Europa, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38414-564, Brasil",
+"tipo": "residential"
+},
+"rua rodrigo pereira junior, 205, presidente roosevelt, uberlandia, mg, brasil": {
+"lat": -18.9004083,
+"lng": -48.286264,
+"nome": "Rua Rodrigo Pereira Júnior, Presidente Roosevelt, Setor Norte, Uberlândia, Minas Gerais, Região Sudeste, 38401-016, Brasil",
+"tipo": "tertiary"
+},
+"rua roland chaves mendes, 186, loteamento ilha bela, uberaba, mg, brasil": {
+"lat": -19.7392625,
+"lng": -47.9951097,
+"nome": "Rua Roland Chaves Mendes, Alfredo Freire III, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua roland chaves mendes, loteamento ilha bela, uberaba, mg, brasil": {
+"lat": -19.7392625,
+"lng": -47.9951097,
+"nome": "Rua Roland Chaves Mendes, Alfredo Freire III, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"rua rondon pacheco, morada bethania, viana, es, brasil": null,
+"rua rua laura emilia costa dona, eldorado, carangola, mg, brasil": null,
+"rua ruth rocha, 143, minas gerais, uberlandia, mg, brasil": {
+"lat": -18.8599372,
+"lng": -48.2723296,
+"nome": "Rua Ruth Rocha, Flamboyant, Minas Gerais, Setor Norte, Uberlândia, Minas Gerais, Região Sudeste, 38402-012, Brasil",
+"tipo": "residential"
+},
+"rua santa cruz, 122, palmital, lagoa santa, mg, brasil": {
+"lat": -19.5935924,
+"lng": -43.9009605,
+"nome": "Rua Santa Cruz, Palmital, Campinho de Baixo, Lagoa Santa, Minas Gerais, Região Sudeste, 33230-724, Brasil",
+"tipo": "primary"
+},
+"rua santa maria madalena, 163, pousadas do lago, esmeraldas, mg, brasil": null,
+"rua santa rita do sapucai, 54, catarina, sete lagoas, mg, brasil": null,
+"rua santo agostinho, 333, sao januario (justinopolis), ribeirao das neves, mg, brasil": {
+"lat": -19.8009876,
+"lng": -44.012217,
+"nome": "Rua Santo Agostinho, São Januário, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33900-450, Brasil",
+"tipo": "residential"
+},
+"rua sao geraldo, 43, santa cecilia, esmeraldas, mg, brasil": null,
+"rua sao joao del rei, sevilha 2a secao, ribeirao das neves, mg, brasil": null,
+"rua sao paulo apostolo, 15, tucum, cariacica, es, brasil": {
+"lat": -20.3164339,
+"lng": -40.3829148,
+"nome": "Rua Abraão Laures, Loteamento Vista de Vitória, Tucum, Cariacica, Espírito Santo, Região Sudeste, 29152-271, Brasil",
+"tipo": "residential"
+},
+"rua sao paulo apostolo, tucum, cariacica, es, brasil": {
+"lat": -20.3164339,
+"lng": -40.3829148,
+"nome": "Rua Abraão Laures, Loteamento Vista de Vitória, Tucum, Cariacica, Espírito Santo, Região Sudeste, 29152-271, Brasil",
+"tipo": "residential"
+},
+"rua sao paulo, 1755, lourdes, belo horizonte, mg, brasil": {
+"lat": -19.9267228,
+"lng": -43.942112,
+"nome": "Rua São Paulo, Lourdes, Regional Centro-Sul, Belo Horizonte, Minas Gerais, Região Sudeste, 30170-012, Brasil",
+"tipo": "tertiary"
+},
+"rua sao sebastiao, 311, centro, uberaba, mg, brasil": {
+"lat": -19.749332,
+"lng": -47.9386391,
+"nome": "Rua São Sebastião, Centro, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "tertiary"
+},
+"rua saulo nogueira, 251, residencial ilha de marajo iii, uberaba, mg, brasil": null,
+"rua sebastian de belalcazar, 142, bairro eldorado, ibirite, mg, brasil": null,
+"rua sebastiana arantes fonseca, 227, santa monica, uberlandia, mg, brasil": {
+"lat": -18.9226113,
+"lng": -48.2437915,
+"nome": "Rua Sebastiana Arantes Fonseca, Santa Mônica, Setor Leste, Uberlândia, Minas Gerais, Região Sudeste, 38408-218, Brasil",
+"tipo": "residential"
+},
+"rua sebastiao garcia, 80, benfica, juiz de fora, mg, brasil": {
+"lat": -21.6853297,
+"lng": -43.4361256,
+"nome": "Rua Marília, Distrito Industrial, Benfica, Juiz de Fora, Minas Gerais, Região Sudeste, 36090-330, Brasil",
+"tipo": "residential"
+},
+"rua sebastiao reinaldo sobrinho, 18, jardim quebec, patos de minas, mg, brasil": {
+"lat": -18.5730364,
+"lng": -46.5478019,
+"nome": "Rua Sebastião Reinaldo Sobrinho, Jardim Quebec, Patos de Minas, Minas Gerais, Região Sudeste, 38701-394, Brasil",
+"tipo": "residential"
+},
+"rua seis, 00, bela vista, guanhaes, mg, brasil": null,
+"rua sem nome, reserva real un golf, jaboticatubas, mg, brasil": null,
+"rua sema, 675, icaivera, contagem, mg, brasil": null,
+"rua senhora do porto, 1330, palmeiras, belo horizonte, mg, brasil": {
+"lat": -19.9722575,
+"lng": -43.983449,
+"nome": "Rua Senhora do Porto, Palmeiras, Regional Oeste, Belo Horizonte, Minas Gerais, Região Sudeste, 30575-730, Brasil",
+"tipo": "tertiary"
+},
+"rua serra da boa esperanca, 540, serra dourada, vespasiano, mg, brasil": null,
+"rua serra das palmeiras, 630, serra dourada, vespasiano, mg, brasil": null,
+"rua sete, 100, dumaville, esmeraldas, mg, brasil": null,
+"rua sete, 201, parque das mangueiras, contagem, mg, brasil": null,
+"rua sete, 201, santa maria, contagem, mg, brasil": null,
+"rua souza costa, 354, general osorio, uberlandia, mg, brasil": null,
+"rua suica, tucum, cariacica, es, brasil": {
+"lat": -20.3129887,
+"lng": -40.3775504,
+"nome": "Rua Suíça, Loteamento Vista de Vitória, Tucum, Cariacica, Espírito Santo, Região Sudeste, 29152-372, Brasil",
+"tipo": "residential"
+},
+"rua sylvio ribeiro aragao, 200, joquei clube, juiz de fora, mg, brasil": {
+"lat": -21.7291029,
+"lng": -43.3942069,
+"nome": "Rua Sylvio Ribeiro Aragão, Jockey Club, Juiz de Fora, Minas Gerais, Região Sudeste, 36083-571, Brasil",
+"tipo": "residential"
+},
+"rua tangara, 0, itapoa ii, sete lagoas, mg, brasil": null,
+"rua terezinha de jesus ribeiro, 145, morada do trevo, betim, mg, brasil": null,
+"rua tres, 05, distrito industrial jardim piemont norte, betim, mg, brasil": null,
+"rua tres, 121, cidade jardim, governador valadares, mg, brasil": {
+"lat": -18.9094182,
+"lng": -41.9691628,
+"nome": "Rua Três, Cidade Jardim, Governador Valadares, Minas Gerais, Região Sudeste, 35047-020, Brasil",
+"tipo": "residential"
+},
+"rua tres, 99, lot recanto verde, areado, mg, brasil": null,
+"rua tres, vale das esmeraldas 3 (melo viana), esmeraldas, mg, brasil": {
+"lat": -19.7292119,
+"lng": -44.1483925,
+"nome": "Rua 3, Vale das Esmeraldas I, Melo Viana, Esmeraldas, Minas Gerais, Região Sudeste, 35740-000, Brasil",
+"tipo": "residential"
+},
+"rua trinta e sete, 81, sao luiz, ribeirao das neves, mg, brasil": {
+"lat": -19.7967008,
+"lng": -44.0745008,
+"nome": "Rua Trinta e Sete, São Luiz, Residência Porto Seguro, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33880-300, Brasil",
+"tipo": "residential"
+},
+"rua tupis, 128, lt01, residencial buritis, ituiutaba, mg, brasil": {
+"lat": -18.9817943,
+"lng": -49.4358448,
+"nome": "Rua Tupis, Di Maria, Ituiutaba, Minas Gerais, Região Sudeste, 38303-273, Brasil",
+"tipo": "residential"
+},
+"rua uba, 85, sao francisco de assis, esmeraldas, mg, brasil": null,
+"rua um, 59, sao jeronimo, tres coracoes, mg, brasil": null,
+"rua um, loteamento vila reis, campanha, mg, brasil": null,
+"rua um, vila montanhesa, juiz de fora, mg, brasil": null,
+"rua valmir leite, 1020, santa luzia, jequitinhonha, mg, brasil": null,
+"rua vargem da serra, 267, engenho nogueira, belo horizonte, mg, brasil": {
+"lat": -19.889494,
+"lng": -43.9795911,
+"nome": "Rua Vargem da Serra, Engenho Nogueira, Pampulha, Belo Horizonte, Minas Gerais, Região Sudeste, 31310-260, Brasil",
+"tipo": "tertiary"
+},
+"rua vereador clovis campos alvim, 05, caixa d'agua, carangola, mg, brasil": null,
+"rua vereador fausto santana, 342, engenho nogueira, belo horizonte, mg, brasil": {
+"lat": -19.8899757,
+"lng": -43.9806972,
+"nome": "Rua Vereador Fausto Santana, Engenho Nogueira, Pampulha, Belo Horizonte, Minas Gerais, Região Sudeste, 31310-260, Brasil",
+"tipo": "residential"
+},
+"rua vereador renato santos antiga rua 5, 37, grande horizonte, uberaba, mg, brasil": null,
+"rua vicentina de melo alves, 423, bandeirinhas, betim, mg, brasil": null,
+"rua vicentina de melo alves, 423, chac reun guaraciaba, betim, mg, brasil": null,
+"rua vicosa, sevilha 2a secao, ribeirao das neves, mg, brasil": {
+"lat": -19.7475648,
+"lng": -44.0809727,
+"nome": "Rua Viçosa, Sevilha 2ª Seção, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33840-230, Brasil",
+"tipo": "residential"
+},
+"rua viena, 123, granja de freitas, sabara, mg, brasil": null,
+"rua vinhatico, 121, girassol (justinopolis), ribeirao das neves, mg, brasil": {
+"lat": -19.7738218,
+"lng": -44.0177439,
+"nome": "Rua Vinhático, Girassol, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33903-400, Brasil",
+"tipo": "residential"
+},
+"rua vinte e um, 20, faz velha secao 02, esmeraldas, mg, brasil": null,
+"rua vitalino ruela, 565-b, unidade 03, centro, iapu, mg, brasil": null,
+"rua voluntarios da patria, 391, sao jorge, betim, mg, brasil": {
+"lat": -20.0237382,
+"lng": -44.2355132,
+"nome": "391, Rua Voluntários da Pátria, Regional Citrolândia, Betim, Minas Gerais, Região Sudeste, 32639-470, Brasil",
+"tipo": "building"
+},
+"rua w, 20, res casa grande, sao joaquim de bicas, mg, brasil": null,
+"sabara, mg, brasil": {
+"lat": -19.8900372,
+"lng": -43.8107916,
+"nome": "Sabará, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"sagrado coracao, varginha, mg, brasil": {
+"lat": -21.5422262,
+"lng": -45.4114177,
+"nome": "Sagrado Coração, Varginha, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "neighbourhood"
+},
+"saltador, presidente olegario, mg, brasil": {
+"lat": -18.4436428,
+"lng": -46.419843,
+"nome": "Córrego Saltador, Presidente Olegário, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "river"
+},
+"santa cecilia, esmeraldas, mg, brasil": {
+"lat": -19.7731315,
+"lng": -44.1555544,
+"nome": "Santa Cecília, Esmeraldas, Minas Gerais, Região Sudeste, 33821-200, Brasil",
+"tipo": "neighbourhood"
+},
+"santa juliana, mg, brasil": {
+"lat": -19.308611,
+"lng": -47.525,
+"nome": "Santa Juliana, Minas Gerais, Região Sudeste, 38176-000, Brasil",
+"tipo": "town"
+},
+"santa luzia, jequitinhonha, mg, brasil": {
+"lat": -16.3550688,
+"lng": -41.1349564,
+"nome": "Fazenda Santa Luzia, Jequitinhonha, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "farm"
+},
+"santa luzia, mg, brasil": {
+"lat": -19.7702097,
+"lng": -43.8505291,
+"nome": "Santa Luzia, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"santa maria, contagem, mg, brasil": {
+"lat": -19.9722337,
+"lng": -44.0503336,
+"nome": "Santa Maria, Regional Industrial, Contagem, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"santa maria, ituiutaba, mg, brasil": {
+"lat": -18.9939801,
+"lng": -49.4623091,
+"nome": "Santa Maria, Ituiutaba, Minas Gerais, Região Sudeste, 38305-505, Brasil",
+"tipo": "suburb"
+},
+"santa maria, uberaba, mg, brasil": {
+"lat": -19.7606565,
+"lng": -47.9525327,
+"nome": "Santa Maria, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "suburb"
+},
+"santa vitoria, mg, brasil": {
+"lat": -18.9755586,
+"lng": -50.2367947,
+"nome": "Santa Vitória, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"santa vitoria, santa vitoria, mg, brasil": {
+"lat": -18.8465718,
+"lng": -50.1292823,
+"nome": "Santa Vitória, Minas Gerais, Região Sudeste, 38320-000, Brasil",
+"tipo": "town"
+},
+"santana do paraiso, mg, brasil": {
+"lat": -19.3652914,
+"lng": -42.5494833,
+"nome": "Santana do Paraíso, Minas Gerais, Região Sudeste, 35179-000, Brasil",
+"tipo": "municipality"
+},
+"sao bernardo, juiz de fora, mg, brasil": {
+"lat": -21.7579231,
+"lng": -43.3389944,
+"nome": "São Bernardo, Juiz de Fora, Minas Gerais, Região Sudeste, 36062-250, Brasil",
+"tipo": "suburb"
+},
+"sao cristovao, muriae, mg, brasil": {
+"lat": -21.1358785,
+"lng": -42.3545318,
+"nome": "CAMPO DE FUTEBOL DO SÃO CRISTÓVÃO, Rua Argélia, Villa Real, Centro, Muriaé, Minas Gerais, Região Sudeste, 36881-135, Brasil",
+"tipo": "leisure"
+},
+"sao damiao, juiz de fora, mg, brasil": {
+"lat": -21.7568856,
+"lng": -43.3773834,
+"nome": "Rua São Damião, Serra D'Água, Borboleta, Juiz de Fora, Minas Gerais, Região Sudeste, 36035-580, Brasil",
+"tipo": "residential"
+},
+"sao francisco de assis, esmeraldas, mg, brasil": null,
+"sao francisco, mg, brasil": {
+"lat": -15.8575867,
+"lng": -44.8897571,
+"nome": "São Francisco, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"sao geraldo, itauna, mg, brasil": {
+"lat": -20.0888476,
+"lng": -44.5976683,
+"nome": "São Geraldo, Itaúna, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"sao geraldo, mg, brasil": {
+"lat": -20.908901,
+"lng": -42.8269534,
+"nome": "São Geraldo, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"sao goncalo do rio abaixo, mg, brasil": {
+"lat": -19.8252042,
+"lng": -43.362126,
+"nome": "São Gonçalo do Rio Abaixo, Minas Gerais, Região Sudeste, 35935-000, Brasil",
+"tipo": "town"
+},
+"sao gotardo, mg, brasil": {
+"lat": -19.3168844,
+"lng": -46.0476596,
+"nome": "São Gotardo, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"sao jeronimo, tres coracoes, mg, brasil": {
+"lat": -21.7006793,
+"lng": -45.2373546,
+"nome": "São Jerônimo, Três Corações, Minas Gerais, Região Sudeste, 37410-000, Brasil",
+"tipo": "neighbourhood"
+},
+"sao joao batista (venda nova), belo horizonte, mg, brasil": {
+"lat": -19.8226252,
+"lng": -43.9579515,
+"nome": "São João Batista, Venda Nova, Belo Horizonte, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"sao joao del rei, mg, brasil": {
+"lat": -21.1335755,
+"lng": -44.2588086,
+"nome": "São João del-Rei, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"sao joao do manteninha, mg, brasil": {
+"lat": -18.7229295,
+"lng": -41.1615277,
+"nome": "São João do Manteninha, Minas Gerais, Região Sudeste, 35277-000, Brasil",
+"tipo": "village"
+},
+"sao joaquim de bicas, mg, brasil": {
+"lat": -20.0489052,
+"lng": -44.2731691,
+"nome": "São Joaquim de Bicas, Minas Gerais, Região Sudeste, 32920-000, Brasil",
+"tipo": "town"
+},
+"sao mateus, juiz de fora, mg, brasil": {
+"lat": -21.7735943,
+"lng": -43.3546617,
+"nome": "São Mateus, Juiz de Fora, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"sao pedro, esmeraldas, mg, brasil": {
+"lat": -19.7800775,
+"lng": -44.1572281,
+"nome": "São Pedro, Esmeraldas, Minas Gerais, Região Sudeste, 33821-200, Brasil",
+"tipo": "neighbourhood"
+},
+"sao sebastiao do paraiso, mg, brasil": {
+"lat": -20.9124331,
+"lng": -46.9823296,
+"nome": "São Sebastião do Paraíso, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"sarzedo, mg, brasil": {
+"lat": -20.0353,
+"lng": -44.1453,
+"nome": "Sarzedo, Minas Gerais, Região Sudeste, 32450-000, Brasil",
+"tipo": "town"
+},
+"sebastiao alves moreira, 45, novo bandeirantes, campo belo, mg, brasil": null,
+"sem nome, reserva real un golf, jaboticatubas, mg, brasil": null,
+"serra do sol, uberaba, mg, brasil": null,
+"serra dourada, vespasiano, mg, brasil": {
+"lat": -19.7452195,
+"lng": -43.934731,
+"nome": "Serra Dourada I, Vespasiano, Minas Gerais, Região Sudeste, 33202-690, Brasil",
+"tipo": "neighbourhood"
+},
+"serra, es, brasil": {
+"lat": -20.1252961,
+"lng": -40.3064477,
+"nome": "Serra, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"sete lagoas, mg, brasil": {
+"lat": -19.466111,
+"lng": -44.246944,
+"nome": "Sete Lagoas, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"sevilha 2a secao, ribeirao das neves, mg, brasil": {
+"lat": -19.7517335,
+"lng": -44.081033,
+"nome": "Sevilha 2ª Seção, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33840-230, Brasil",
+"tipo": "neighbourhood"
+},
+"shoping park, uberlandia, mg, brasil": null,
+"shopping park 2, uberlandia, mg, brasil": {
+"lat": -18.9786892,
+"lng": -48.2738794,
+"nome": "Shopping Park, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, 38425-605, Brasil",
+"tipo": "suburb"
+},
+"sitio corrego manteninha, 00, tres barras, centro, sao joao do manteninha, mg, brasil": null,
+"sitios recreio res, uberlandia, mg, brasil": null,
+"sol nascente, ituiutaba, mg, brasil": {
+"lat": -18.9820605,
+"lng": -49.4893623,
+"nome": "Sol Nascente, Ituiutaba, Minas Gerais, Região Sudeste, 38307-388, Brasil",
+"tipo": "suburb"
+},
+"solar caetano, luz, mg, brasil": null,
+"sylvio pereira i, coronel fabriciano, mg, brasil": null,
+"ter urb justinopolis, ribeirao das neves, mg, brasil": null,
+"travessa das barcas, 76, eng jose mendes juni, capitolio, mg, brasil": null,
+"tres coracoes, mg, brasil": {
+"lat": -21.695625,
+"lng": -45.2543675,
+"nome": "Três Corações, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"tres marias, tres marias, mg, brasil": {
+"lat": -18.2051533,
+"lng": -45.2484314,
+"nome": "Três Marias, Minas Gerais, Região Sudeste, 39205-000, Brasil",
+"tipo": "suburb"
+},
+"tres praias, sao joao del rei, mg, brasil": null,
+"tubalina, uberlandia, mg, brasil": {
+"lat": -18.9357767,
+"lng": -48.2986991,
+"nome": "Tubalina, Setor Sul, Uberlândia, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"tucum, cariacica, es, brasil": {
+"lat": -20.3178474,
+"lng": -40.3820078,
+"nome": "Tucum, Cariacica, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"uberaba, mg, brasil": {
+"lat": -19.750833,
+"lng": -47.936666,
+"nome": "Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "city"
+},
+"uberlandia, mg, brasil": {
+"lat": -18.9188041,
+"lng": -48.2767837,
+"nome": "Uberlândia, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
+"unai, mg, brasil": {
+"lat": -16.3628767,
+"lng": -46.892413,
+"nome": "Unaí, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"universitario, sete lagoas, mg, brasil": {
+"lat": -19.4847894,
+"lng": -44.2743936,
+"nome": "Jardim Universitário II, Sete Lagoas, Minas Gerais, Região Sudeste, 35701-242, Brasil",
+"tipo": "suburb"
+},
+"upg marajo, uberaba, mg, brasil": null,
+"vale das esmeraldas 2 (melo viana), esmeraldas, mg, brasil": {
+"lat": -19.7298595,
+"lng": -44.1486456,
+"nome": "Vale das Esmeraldas I, Melo Viana, Esmeraldas, Minas Gerais, Região Sudeste, 35740-000, Brasil",
+"tipo": "neighbourhood"
+},
+"vale das esmeraldas 3 (melo viana), esmeraldas, mg, brasil": {
+"lat": -19.7308103,
+"lng": -44.1551831,
+"nome": "Vale das Esmeraldas II, Melo Viana, Esmeraldas, Minas Gerais, Região Sudeste, 35740-000, Brasil",
+"tipo": "neighbourhood"
+},
+"vale do ipe, antonio carlos, mg, brasil": null,
+"vale do palmital 2 (melo viana), esmeraldas, mg, brasil": null,
+"vale do palmital, esmeraldas, mg, brasil": null,
+"vale dos ipe, rodeiro, mg, brasil": null,
+"vallim, uberaba, mg, brasil": {
+"lat": -19.7845042,
+"lng": -47.9084631,
+"nome": "Rua Valter de Assis Vallim, Valim de Mello, Uberaba, Minas Gerais, Região Sudeste, 38040-450, Brasil",
+"tipo": "residential"
+},
+"vargem do lobo, lagoa santa, mg, brasil": null,
+"varginha, mg, brasil": {
+"lat": -21.5565914,
+"lng": -45.4340674,
+"nome": "Varginha, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"varzea da palma, mg, brasil": {
+"lat": -17.6005,
+"lng": -44.734,
+"nome": "Várzea da Palma, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
+},
+"vespasiano, mg, brasil": {
+"lat": -19.6940958,
+"lng": -43.9186521,
+"nome": "Vespasiano, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "city"
+},
+"via de acesso, 375, donato, contagem, mg, brasil": null,
+"via de acesso, 675, donato, contagem, mg, brasil": null,
+"vila amado sales, 85, sao bernardo, juiz de fora, mg, brasil": null,
+"vila campanha, guaxupe, mg, brasil": {
+"lat": -21.3135119,
+"lng": -46.6996259,
+"nome": "Creche Vila Campanha, Rua Silvério Miguel Pasqual, Guaxupé, Minas Gerais, Região Sudeste, 37800-000, Brasil",
+"tipo": "amenity"
+},
+"vila dos ipes, paraopeba, mg, brasil": null,
+"vila mariana, ribeirao das neves, mg, brasil": {
+"lat": -19.7684407,
+"lng": -44.0969694,
+"nome": "Vila Mariana, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33805-020, Brasil",
+"tipo": "neighbourhood"
+},
+"vila montanhesa, juiz de fora, mg, brasil": null,
+"vila real (justinopolis), ribeirao das neves, mg, brasil": {
+"lat": -19.8206301,
+"lng": -44.0234807,
+"nome": "Vila Real, Vila Bispo de Maura, Justinópolis, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33937-050, Brasil",
+"tipo": "neighbourhood"
+},
+"vila satelite, sarzedo, mg, brasil": null,
+"vila verde, betim, mg, brasil": {
+"lat": -19.9909251,
+"lng": -44.1552037,
+"nome": "Vila Verde, Regional PTB, Betim, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"virgilio vieira, corinto, mg, brasil": null,
+"visconde do rio branco, mg, brasil": {
+"lat": -21.01,
+"lng": -42.840833,
+"nome": "Visconde do Rio Branco, Minas Gerais, Região Sudeste, 36520-000, Brasil",
+"tipo": "town"
+},
+"waldir furtado amorim, cachoeiro de itapemirim, es, brasil": {
+"lat": -20.8404383,
+"lng": -41.1556271,
+"nome": "Waldir Furtado Amorim (BNH de Baixo), Cachoeiro de Itapemirim, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"zn urbana itabirito, itabirito, mg, brasil": null
+}
