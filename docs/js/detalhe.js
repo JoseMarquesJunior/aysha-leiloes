@@ -156,15 +156,10 @@
       return;
     } catch (e) { /* ainda não existe */ }
     const temDoc = !!(r.url_edital || r.url_matricula);
-    const titulo = `Analisar ${r.id}`;
-    const corpoIssue = `Pedido de análise com IA do imóvel ${r.id}\n\nFicha: ${location.origin}${location.pathname}?id=${encodeURIComponent(r.id)}\nAnúncio: ${r.url_anuncio || ""}\n\n(Não edite o título: o robô lê o id dele.)`;
-    const urlIssue = cfg.repositorioIssues ? `${cfg.repositorioIssues}?title=${encodeURIComponent(titulo)}&body=${encodeURIComponent(corpoIssue)}` : null;
     corpo.innerHTML = `
-      <p>Ainda não há relatório para este imóvel. A análise lê o edital, a matrícula e o laudo inteiros, pesquisa o preço de mercado do bairro e escreve um parecer com custos no lance, sinais vermelhos, veredito e diligências. Leva de 2 a 4 minutos e fica guardada: quem abrir esta ficha depois vê o mesmo relatório sem nova análise.</p>
-      ${temDoc ? "" : '<p class="muted">Atenção: este imóvel não tem edital nem matrícula em PDF acessíveis; o parecer sairá só do anúncio e da pesquisa de mercado.</p>'}
-      <p>${cfg.urlAnaliseWorker ? `<button type="button" class="btn primario" id="btn-gerar">Gerar análise com IA</button>` : ""}
-         ${urlIssue ? `<a class="btn ${cfg.urlAnaliseWorker ? "" : "primario"}" href="${escapar(urlIssue)}" target="_blank" rel="noopener">Solicitar análise com IA (via GitHub)</a>` : ""}
-         <span class="muted" style="font-size:.8rem">${cfg.urlAnaliseWorker ? "" : "Abre um pedido no GitHub (precisa de conta gratuita); o robô gera o relatório e ele aparece aqui em alguns minutos."}</span></p>`;
+      <p>Parecer para quem vai dar lance: leitura do edital e da matrícula, preço de mercado do bairro, custos no lance, sinais vermelhos, veredito e diligências.</p>
+      ${temDoc ? "" : '<p class="muted">Este imóvel não tem edital nem matrícula em PDF acessíveis; o parecer usa o anúncio e a pesquisa de mercado.</p>'}
+      <p><button type="button" class="btn primario" id="btn-gerar">Gerar análise com IA</button> <span class="muted" style="font-size:.8rem">leva de 2 a 5 minutos</span></p>`;
     const btn = document.getElementById("btn-gerar");
     if (btn) btn.addEventListener("click", async () => {
       btn.disabled = true; btn.textContent = "Pedindo a análise…";

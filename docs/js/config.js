@@ -11,10 +11,7 @@ window.LT_CONFIG = {
   // Vazio = nada é carregado nem enviado.
   goatcounter: "leiloes-em-tabela",
 
-  // Análise com IA sob demanda. O botão abre uma issue pré-preenchida neste repositório; um workflow
-  // gera o relatório (Opus + busca na web), commita e ele passa a aparecer na ficha. Precisa de conta no GitHub.
-  // Se um dia houver um serviço próprio (Cloudflare Worker), informe a URL em urlAnaliseWorker e o botão
-  // passa a chamá-lo diretamente, sem GitHub.
-  repositorioIssues: "https://github.com/JoseMarquesJunior/aysha-leiloes/issues/new",
+  // Análise com IA sob demanda: o botão "Gerar análise com IA" chama este serviço (Cloudflare Worker, pasta
+  // worker/), que dispara o robô do GitHub; o relatório fica guardado e aparece na ficha em alguns minutos.
   urlAnaliseWorker: "https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev/analise",
 };
