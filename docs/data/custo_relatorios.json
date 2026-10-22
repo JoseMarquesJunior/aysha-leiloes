@@ -21,11 +21,22 @@
     "buscas": 1
    },
    "custo_usd": 0.2432
+  },
+  {
+   "id": "jfes-0000445-97.1996.4.02.5001-01",
+   "gerado_em": "2026-10-22T21:22:41",
+   "modelo": "claude-opus-5",
+   "uso": {
+    "entrada": 64003,
+    "saida": 3144,
+    "buscas": 3
+   },
+   "custo_usd": 0.4286
   }
  ],
- "total_usd": 0.5129,
+ "total_usd": 0.9415,
  "hoje": {
   "data": "2026-10-22",
-  "n": 2
+  "n": 3
  }
 }
