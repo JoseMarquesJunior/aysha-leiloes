@@ -6,6 +6,7 @@
 
   const LOTE_LINHAS = 300;   // renderização incremental da tabela/cards
   const COLUNAS = [
+    { id: "ia", rotulo: "Análise", fixa: true },
     { id: "sel", rotulo: "", fixa: true },
     { id: "cidade", rotulo: "Cidade", valor: r => r.cidade, chave: r => r.cidade, classe: "cel-cidade", html: true },
     { id: "bairro", rotulo: "Bairro", valor: r => r.bairro, chave: r => r.bairro },
@@ -349,8 +350,9 @@
       const sel = estado.selecionados.has(r.id);
       let tr = `<tr data-id="${escapar(r.id)}" id="linha-${escapar(r.id)}" class="${sel ? "selecionado" : ""}${r.ativo === false ? " inativo" : ""}" title="Abrir a ficha do imóvel">`;
       for (const c of cols) {
+        if (c.id === "ia") { tr += `<td class="cel-ia"><a class="btn-ia" href="${urlDetalhe(r)}#analise" title="Parecer detalhado gerado por IA: edital, matrícula, mercado, riscos e veredito">IA ✦</a></td>`; continue; }
         if (c.id === "sel") { tr += `<td><input type="checkbox" class="sel" data-id="${escapar(r.id)}" ${sel ? "checked" : ""} title="Selecionar para comparar (até 3)" aria-label="Selecionar para comparar"></td>`; continue; }
-        if (c.id === "link") { tr += `<td class="cel-links"><a class="btn-ia" href="${urlDetalhe(r)}#analise" title="Parecer detalhado gerado por IA (edital, matrícula, mercado, riscos)">análise IA</a> · <a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener" title="Abrir o anúncio no site da fonte">fonte ↗</a></td>`; continue; }
+        if (c.id === "link") { tr += `<td class="cel-links"><a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener" title="Abrir o anúncio no site da fonte">fonte ↗</a></td>`; continue; }
         if (c.id === "cidade") { tr += `<td class="cel-cidade"><a href="${urlDetalhe(r)}">${escapar(r.cidade || TRACO)}</a>${r.uf ? `<span class="muted">/${escapar(r.uf)}</span>` : ""}${marcadores(r)}</td>`; continue; }
         const v = c.valor(r);
         const conteudo = c.html ? v : escapar(nulo(v) ? TRACO : v);

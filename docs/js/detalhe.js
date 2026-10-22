@@ -225,13 +225,13 @@
       ${kpi("Leilão", data(r.data_leilao), dias === null ? "" : dias < 0 ? "já passou" : dias === 0 ? "hoje" : `em ${dias} dia${dias > 1 ? "s" : ""}`, dias !== null && dias >= 0 && dias <= 7 ? "bad" : "")}
       ${kpi("Ocupação", LT.ocupado(r.ocupado), r.aceita_fgts === true ? "aceita FGTS" : r.aceita_financiamento === true ? "aceita financiamento" : "")}
     </div>
-    <div class="links-principais">${link(r.url_anuncio, "Anúncio original", "primario")}${link(r.url_edital, "Edital")}${link(r.url_matricula, "Matrícula")}<a class="btn" href="./">← voltar à tabela</a></div>`;
+    <div class="links-principais"><a class="btn primario btn-ia-grande" href="#analise">✦ Análise com IA</a>${link(r.url_anuncio, "Anúncio original")}${link(r.url_edital, "Edital")}${link(r.url_matricula, "Matrícula")}<a class="btn" href="./">← voltar à tabela</a></div>`;
     html += '<div class="grade">';
+    html += `<div class="bloco largo relatorio" id="analise"><h3>✦ Análise com IA</h3><div id="analise-corpo"><p class="muted">verificando se já existe um relatório…</p></div></div>`;
     for (const [t, lista] of GRUPOS) html += bloco(t, campos(r, lista));
     html += bloco("Onde fica", mapaHtml(r));
     html += bloco("Outras fontes com o mesmo imóvel", outrasFontesHtml(r));
     if (r.extracao_ia) html += bloco("Extração por IA (com trechos-fonte)", extracaoIaHtml(r.extracao_ia));
-    html += `<div class="bloco largo relatorio" id="analise"><h3>Análise com IA</h3><div id="analise-corpo"><p class="muted">verificando se já existe um relatório…</p></div></div>`;
     html += bloco("Descrição original (da fonte)", `<div class="descricao">${escapar(r.descricao_original || TRACO)}</div>`, "largo");
     html += bloco("Evolução do lance mínimo", `<div class="grafico">${graficoSvg(r, eventos)}</div>`);
     html += bloco("Histórico na base", eventos.length ? `<ul class="eventos">${eventos.map(eventoHtml).join("")}</ul>` : '<p class="muted">Sem eventos registrados.</p>');
