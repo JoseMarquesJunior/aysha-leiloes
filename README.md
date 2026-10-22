@@ -243,8 +243,13 @@ na web com até 6 consultas) lendo edital, matrícula e laudo inteiros.
   em lote por `workflow_dispatch` (campo `ids`) ou localmente com `python -m collector.relatorio <id>`.
   Teto de segurança: `relatorios.maximo_por_dia` no config (100).
 - **Sem nomes de pessoas**: o prompt proíbe e `anonimizar()` passa um segundo filtro antes de gravar.
-- **Alternativa com clique anônimo**: um Cloudflare Worker (gratuito) com a chave e limite por IP; o
-  site já tem o gancho (`urlAnaliseWorker` em `docs/js/config.js`), falta só o serviço.
+- **Clique anônimo (ativo)**: o botão "Gerar análise com IA" chama o Worker Cloudflare em
+  `worker/` (publicado em `https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev/analise`),
+  que verifica se o relatório já existe, aplica limites (3 por IP por hora, 100 por dia, contadores em KV)
+  e dispara o workflow `relatorio.yml` com um token fine-grained do GitHub (segredo `GITHUB_TOKEN` do Worker,
+  permissão Actions: write). A chave da Anthropic não passa pelo Worker. A ficha espera o arquivo aparecer
+  no site (3 a 6 minutos). Sem o token no Worker, o botão responde erro e o caminho pela issue continua
+  disponível. Deploy e testes: `worker/README.md`.
 
 Custo medido com o Opus 5 (US$ 5/25 por milhão de tokens, busca US$ 0,01) nos dois primeiros pareceres,
 já com cache do bloco de documentos, 3 buscas e esforço médio: entrada de 60 a 90 mil tokens (as páginas
