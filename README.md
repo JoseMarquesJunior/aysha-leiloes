@@ -246,9 +246,11 @@ na web com até 6 consultas) lendo edital, matrícula e laudo inteiros.
 - **Alternativa com clique anônimo**: um Cloudflare Worker (gratuito) com a chave e limite por IP; o
   site já tem o gancho (`urlAnaliseWorker` em `docs/js/config.js`), falta só o serviço.
 
-Custo estimado por relatório com o Opus 5 (US$ 5/25 por milhão de tokens, busca US$ 0,01): entrada de
-25 a 40 mil tokens (documentos + páginas pesquisadas), saída de 3 a 6 mil (parecer + raciocínio), 4 a 6
-buscas: **US$ 0,30 a 0,50 por imóvel**, ou **US$ 30 a 50 por 100 imóveis**, pagos uma única vez por imóvel.
+Custo medido com o Opus 5 (US$ 5/25 por milhão de tokens, busca US$ 0,01) nos dois primeiros pareceres,
+já com cache do bloco de documentos, 3 buscas e esforço médio: entrada de 60 a 90 mil tokens (as páginas
+devolvidas pela busca na web pesam mais que o edital), saída de ~10 mil (parecer + raciocínio):
+**US$ 0,58 a 0,73 por imóvel**, ou **cerca de US$ 65 por 100 imóveis**, pagos uma única vez por imóvel.
+Sem a busca na web o custo cai para perto de US$ 0,20, mas o parecer perde a referência de mercado.
 
 ## Secrets e GitHub Actions
 
