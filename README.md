@@ -183,7 +183,7 @@ Como funciona, a cada coleta:
    (com os trechos-fonte, mostrados na ficha do imóvel). Nomes de pessoas físicas e CPFs são removidos
    antes de salvar (`remover_nomes`), além da instrução ao modelo de não os incluir.
 7. **Custo**: `docs/data/custo_ia.json` registra cada execução (chamadas, cache hits, pendentes) e cada
-   lote concluído (tokens reais de entrada/saída e custo); a página Sobre soma o mês.
+   lote concluído (tokens reais de entrada/saída e custo). O registro é interno: a página Sobre não exibe a etapa de IA; os resultados aparecem na ficha de cada imóvel.
 
 Com os preços do Haiku 5.5 (US$ 0,10/0,50 por milhão de tokens, metade no Batch), 50 imóveis por dia
 custam cerca de US$ 0,02 e um mês no teto fica abaixo de US$ 1.

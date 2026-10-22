@@ -120,10 +120,12 @@ ia:
   # Lotes pequenos costumam ficar prontos em minutos; se não, o resultado entra na execução seguinte.
   esperar_lote_minutos: 10
   cache: collector/cache/ia
-  # Filtro: só imóveis que atendam a tudo abaixo vão para a IA.
+  # Filtro: só imóveis que atendam a tudo abaixo vão para a IA. Listas vazias = todas as UFs/cidades;
+  # desconto mínimo nulo = sem corte (leilões judiciais no 1º leilão têm desconto 0 e são os que mais
+  # trazem ônus na matrícula). Os tetos diários abaixo continuam valendo.
   filtro:
-    ufs: [ES]
-    cidades: [Vitória, Vila Velha, Serra, Cariacica, Guarapari]
-    desconto_minimo_pct: 30
+    ufs: []
+    cidades: []
+    desconto_minimo_pct: null
   campos_alto_valor: [ocupado, debitos_iptu_por_conta_de, debitos_condominio_por_conta_de, onus_na_matricula]
   palavras_chave: [ocupa, desocupa, IPTU, condomínio, condominio, débito, debito, ônus, onus, penhora, hipoteca, usufruto, indisponib, comissão, comissao, FGTS, financiamento]

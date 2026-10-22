@@ -1,4 +1,4 @@
-/* Página Sobre: estado das fontes, campos em branco e custo da IA. */
+/* Página Sobre: estado das fontes, editais e campos em branco. */
 (function () {
   "use strict";
   const { TRACO, data, dataHora, escapar, nomeFonte, ROTULOS, carregarJson } = LT;
@@ -12,10 +12,9 @@
       a.href = cfg.urlApoio; a.textContent = cfg.textoApoio || "apoie o projeto";
       document.getElementById("apoio").classList.remove("hidden");
     }
-    const [status, meta, custo, editais] = await Promise.all([
+    const [status, meta, editais] = await Promise.all([
       carregarJson("status_fontes.json").catch(() => ({})),
       carregarJson("meta.json").catch(() => null),
-      carregarJson("custo_ia.json").catch(() => null),
       carregarJson("editais.json").catch(() => ({ editais: [] })),
     ]);
     const ed = document.querySelector("#tabela-editais tbody");
@@ -46,25 +45,6 @@
         .map(([c, p]) => `<tr><td>${escapar(ROTULOS[c] || c)}</td><td class="${p >= 99 ? "v-nao" : p === 0 ? "v-sim" : ""}">${p.toLocaleString("pt-BR")}%</td></tr>`).join("");
     }
 
-    const iaTexto = document.getElementById("ia-texto");
-    const iaTab = document.querySelector("#tabela-ia tbody");
-    if (!custo) { iaTexto.textContent = "Etapa de IA desligada; nenhum custo."; return; }
-    const execs = (custo.execucoes || []).filter(e => (e.data || "").startsWith(mesAtual()));
-    const soma = k => execs.reduce((s, e) => s + (e[k] || 0), 0);
-    iaTexto.innerHTML = custo.habilitada
-      ? `Etapa de IA <b>ligada</b>. Acumulado do mês (${mesAtual()}): ${execs.length} execuções, ${soma("chamadas")} chamadas, ${soma("tokens_entrada").toLocaleString("pt-BR")} tokens de entrada, ${soma("tokens_saida").toLocaleString("pt-BR")} de saída, ${soma("cache_hits")} cache hits, custo estimado US$ ${soma("custo_usd").toFixed(4)}.`
-      : `Etapa de IA <b>desligada</b> (${escapar(custo.aviso || "")}). O site funciona completo sem ela.`;
-    const est = custo.estimativa_atual;
-    if (est) {
-      iaTab.innerHTML = `
-        <tr><td>Modelo previsto</td><td>${escapar(est.modelo || TRACO)}</td></tr>
-        <tr><td>Imóveis que iriam para a IA hoje (filtro + campos em branco)</td><td>${est.candidatos_hoje}</td></tr>
-        <tr><td>Tokens de entrada por imóvel (máx.)</td><td>${est.tokens_entrada_por_imovel}</td></tr>
-        <tr><td>Tokens de saída por imóvel (máx.)</td><td>${est.tokens_saida_por_imovel_max}</td></tr>
-        <tr><td>Custo estimado por execução (Batch API, teto de ${est.chamadas_por_execucao_max} chamadas)</td><td>US$ ${est.custo_usd_por_execucao_batch}</td></tr>
-        <tr><td>Custo estimado por mês (30 execuções no teto)</td><td>US$ ${est.custo_usd_mes_batch_30_execucoes}</td></tr>
-        <tr><td class="muted" colspan="2">${escapar(est.observacao || "")}</td></tr>`;
-    }
   }
 
   iniciar().catch(err => console.error(err));
