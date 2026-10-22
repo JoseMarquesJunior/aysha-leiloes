@@ -1,0 +1,28 @@
+{
+ "hash": "0b56e37ad48534f5bfd0810e",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T17:35:57",
+ "lote": "msgbatch_019W3jqtw7XasSFnEpLs9RaR",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "O potencial arrematante deve verificar possíveis débitos do bem junto a Prefeituras e condomínios, pois a arrematação sub-roga as dívidas no preço.",
+   "Edital tem trechos sobre penhora de obstáculos à vistoria; verificar situação de ocupação do imóvel."
+  ],
+  "trechos_fonte": {
+   "comissao_leiloeiro_pct": "O leiloeiro receberá, do arrematante, a comissão de 5% (cinco por cento) sobre o valor do lance"
+  }
+ },
+ "uso": {
+  "entrada": 1018,
+  "saida": 355,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

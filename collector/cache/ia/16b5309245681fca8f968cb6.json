@@ -1,0 +1,29 @@
+{
+ "hash": "16b5309245681fca8f968cb6",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T17:35:57",
+ "lote": "msgbatch_019W3jqtw7XasSFnEpLs9RaR",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Comissão do leiloeiro de 5% pelo arrematante, paga à vista em 24 horas; reduzida a 2,5% se houver acordo ou adjudicação antes do leilão.",
+   "Leilão judicial com possibilidade de parcelamento nos termos do Art. 895 do CPC.",
+   "Obstrução de vistoria pelo executado constitui crime (art. 330 do [nome])."
+  ],
+  "trechos_fonte": {
+   "comissao_leiloeiro_pct": "O Arrematante pagará ao Leiloeiro, à vista, em até 24 (vinte e horas a partir da data do encerramento do leilão, uma comissão correspondente a 5% sobre o valor da arrematação.(cinco por cento)"
+  }
+ },
+ "uso": {
+  "entrada": 788,
+  "saida": 430,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

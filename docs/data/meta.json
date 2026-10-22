@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-10-22T16:48:19",
+ "gerado_em": "2026-10-22T17:35:57",
  "data_coleta": "2026-10-22",
  "arquivos": [
   "imoveis_BA.json",
@@ -80,12 +80,12 @@
   "data_leilao": 96.9,
   "data_segunda_praca": 99.0,
   "ocupado": 99.9,
-  "aceita_financiamento": 1.6,
-  "aceita_fgts": 100.0,
+  "aceita_financiamento": 1.5,
+  "aceita_fgts": 99.9,
   "aceita_parcelamento": 97.1,
   "debitos_iptu_por_conta_de": 100.0,
   "debitos_condominio_por_conta_de": 100.0,
-  "comissao_leiloeiro_pct": 99.6,
+  "comissao_leiloeiro_pct": 99.3,
   "matricula": 97.9,
   "numero_processo": 99.0,
   "comitente": 96.7,
@@ -94,6 +94,6 @@
   "primeira_vez_visto": 0.0,
   "ultima_vez_visto": 0.0,
   "ativo": 0.0,
-  "extracao_ia": 100.0
+  "extracao_ia": 99.7
  }
 }
