@@ -1,0 +1,15 @@
+name = "aysha-leiloes-analise"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+REPO = "JoseMarquesJunior/aysha-leiloes"
+SITE = "https://josemarquesjunior.github.io/aysha-leiloes"
+ORIGENS = "https://josemarquesjunior.github.io,http://localhost:8791"
+LIMITE_IP = "3"
+LIMITE_DIA = "100"
+
+# KV para os contadores de limite (criado por: npx wrangler kv namespace create LIMITES)
+[[kv_namespaces]]
+binding = "LIMITES"
+id = "SUBSTITUIR_PELO_ID_DO_KV"

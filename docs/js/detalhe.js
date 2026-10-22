@@ -167,12 +167,25 @@
          <span class="muted" style="font-size:.8rem">${cfg.urlAnaliseWorker ? "" : "Abre um pedido no GitHub (precisa de conta gratuita); o robô gera o relatório e ele aparece aqui em alguns minutos."}</span></p>`;
     const btn = document.getElementById("btn-gerar");
     if (btn) btn.addEventListener("click", async () => {
-      btn.disabled = true; btn.textContent = "Gerando (até 4 minutos)…";
+      btn.disabled = true; btn.textContent = "Pedindo a análise…";
       try {
         const resp = await fetch(cfg.urlAnaliseWorker, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: r.id }) });
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        corpo.innerHTML = renderRelatorio(await resp.json());
-      } catch (e) { btn.disabled = false; btn.textContent = "Tentar de novo"; alert("Não foi possível gerar agora: " + e.message); }
+        const dados = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(dados.erro || `HTTP ${resp.status}`);
+        if (dados.status === "pronto") { corpo.innerHTML = renderRelatorio(await carregarJson(`relatorios/${nomeArquivo(r.id)}.json`)); return; }
+        // o robô gera, commita e o site publica: esperamos o arquivo aparecer (normalmente 3 a 6 minutos)
+        const inicio = Date.now();
+        const status = document.createElement("p"); status.className = "muted"; btn.after(status);
+        while (Date.now() - inicio < 10 * 60 * 1000) {
+          const min = Math.floor((Date.now() - inicio) / 60000), seg = Math.floor(((Date.now() - inicio) % 60000) / 1000);
+          btn.textContent = `Gerando a análise… ${min}:${String(seg).padStart(2, "0")}`;
+          status.textContent = "A IA está lendo o edital e a matrícula e pesquisando o mercado. Pode fechar esta página e voltar depois: o resultado fica guardado.";
+          await new Promise(res => setTimeout(res, 20000));
+          try { corpo.innerHTML = renderRelatorio(await carregarJson(`relatorios/${nomeArquivo(r.id)}.json`)); return; } catch (e) { /* ainda não publicado */ }
+        }
+        btn.disabled = false; btn.textContent = "Verificar de novo";
+        status.textContent = "Está demorando mais que o normal. Recarregue a página em alguns minutos; a análise aparece aqui quando ficar pronta.";
+      } catch (e) { btn.disabled = false; btn.textContent = "Tentar de novo"; alert("Não foi possível pedir a análise agora: " + e.message); }
     });
   }
 
