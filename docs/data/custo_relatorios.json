@@ -32,11 +32,22 @@
     "buscas": 3
    },
    "custo_usd": 0.4286
+  },
+  {
+   "id": "caixa-8787701324906",
+   "gerado_em": "2026-10-22T21:39:08",
+   "modelo": "claude-opus-5",
+   "uso": {
+    "entrada": 75635,
+    "saida": 2347,
+    "buscas": 1
+   },
+   "custo_usd": 0.4469
   }
  ],
- "total_usd": 0.9415,
+ "total_usd": 1.3884,
  "hoje": {
   "data": "2026-10-22",
-  "n": 3
+  "n": 4
  }
 }
