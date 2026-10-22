@@ -107,10 +107,32 @@
    "custo_previsto": true,
    "lote_id": null,
    "lotes_pendentes": []
+  },
+  {
+   "tipo": "execucao",
+   "data": "2026-10-22",
+   "chamadas": 0,
+   "cache_hits": 8,
+   "tokens_entrada": 0,
+   "tokens_saida": 0,
+   "custo_usd": 0.0,
+   "pendentes": 0,
+   "sem_documento": 0
+  },
+  {
+   "tipo": "execucao",
+   "data": "2026-10-22",
+   "chamadas": 0,
+   "cache_hits": 8,
+   "tokens_entrada": 0,
+   "tokens_saida": 0,
+   "custo_usd": 0.0,
+   "pendentes": 0,
+   "sem_documento": 0
   }
  ],
  "estimativa_atual": {
-  "gerado_em": "2026-10-22T14:28:08",
+  "gerado_em": "2026-10-22T13:28:26",
   "modelo": "claude-haiku-5-5",
   "candidatos_hoje": 30,
   "chamadas_por_execucao_max": 30,
@@ -124,7 +146,7 @@
   "custo_usd_mes_batch_30_execucoes": 0.31,
   "observacao": "Teto, com entrada no máximo permitido; na prática só imóveis novos ou com edital alterado entram, e imóveis sem PDF legível não são enviados."
  },
- "habilitada": true,
- "aviso": null,
+ "habilitada": false,
+ "aviso": "ia_habilitada=true mas ANTHROPIC_API_KEY ausente: etapa pulada",
  "lotes_pendentes": []
 }

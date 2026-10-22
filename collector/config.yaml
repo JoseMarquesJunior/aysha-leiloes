@@ -13,7 +13,7 @@ http:
   respeitar_robots: true
 
 # UFs coletadas (vale para todas as fontes que filtram por UF).
-ufs: [ES, MG, RJ, SP]
+ufs: [ES, MG, RJ, SP, GO, PE, RS, PI, BA]
 
 # Prioridade de fontes na deduplicação: menor número = fonte principal preferida
 # (banco/órgão oficial antes de leiloeiro).
@@ -101,6 +101,11 @@ geocodificacao:
   precisao_maxima_por_uf:
     RJ: bairro
     SP: bairro
+    GO: bairro
+    PE: bairro
+    RS: bairro
+    PI: bairro
+    BA: bairro
 
 # Etapa de IA (estimativa aprovada em 2026-10-21). Só roda com ANTHROPIC_API_KEY no ambiente E
 # ia_habilitada: true; sem a chave, só aplica o que já está no cache e grava a estimativa.

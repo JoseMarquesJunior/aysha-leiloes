@@ -1,7 +1,7 @@
 # Aysha Leilões
 
 Agregador estático e independente de imóveis em leilão, licitação e venda direta, com foco inicial no
-Espírito Santo (prioridade na Grande Vitória), em Minas Gerais e, desde 2026-10-22, no Rio de Janeiro e em São Paulo. Cada imóvel é uma linha estruturada:
+Espírito Santo (prioridade na Grande Vitória), em Minas Gerais e, desde 2026-10-22, em RJ, SP, GO, PE, RS, PI e BA (os estados com mais imóveis na lista da Caixa). Cada imóvel é uma linha estruturada:
 os filtros trabalham sobre campos extraídos (valor, desconto, R$/m², área, ocupação, débitos, FGTS),
 não sobre texto solto.
 
@@ -67,16 +67,16 @@ Agendador de Tarefas do Windows como "aysha-leiloes coleta local", diário às 0
 Action, às 06:00), com log em `coleta-local.log`. O coletor mantém os registros das fontes que não rodam
 numa execução parcial e deduplica os novos contra eles.
 
-## Estados grandes (RJ e SP, desde 2026-10-22)
+## Estados grandes (RJ, SP, GO, PE, RS, PI e BA, desde 2026-10-22)
 
-A Caixa lista cerca de 8.700 imóveis no RJ e 2.700 em SP, dez vezes a base de ES + MG. Três ajustes
+A Caixa lista cerca de 8.700 imóveis no RJ, 3.200 em GO, 2.700 em SP e entre 700 e 1.100 em PE, RS, PI e BA; a base passou de 1 mil para perto de 19 mil. Três ajustes
 mantêm o site leve e o coletor dentro das políticas das fontes:
 
 - **JSON dividido por UF e carga sob demanda.** Acima de 3 MB o coletor grava `imoveis_<UF>.json`; o site
   abre com as UFs de `saida.ufs_carregadas_por_padrao` (ES e MG) e carrega RJ ou SP quando a pessoa os
   escolhe no filtro UF (o seletor marca "carregar" nas UFs ainda não baixadas). Links para a ficha levam a
   UF, então a ficha baixa só o arquivo certo.
-- **Geocodificação por bairro em RJ e SP** (`geocodificacao.precisao_maxima_por_uf`): o endereço completo
+- **Geocodificação por bairro nos estados grandes** (`geocodificacao.precisao_maxima_por_uf`): o endereço completo
   exigiria dezenas de milhares de consultas ao Nominatim; bairro + cidade repete muito, cabe no cache e
   respeita o limite de 1 consulta/segundo. ES e MG continuam no endereço. O mapa mostra esses pontos com o
   marcador de localização aproximada.
