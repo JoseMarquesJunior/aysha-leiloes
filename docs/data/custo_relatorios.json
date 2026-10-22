@@ -1,0 +1,31 @@
+{
+ "relatorios": [
+  {
+   "id": "suedpeter-3464",
+   "gerado_em": "2026-10-22T21:19:49",
+   "modelo": "claude-opus-5",
+   "uso": {
+    "entrada": 37854,
+    "saida": 2816,
+    "buscas": 1
+   },
+   "custo_usd": 0.2697
+  },
+  {
+   "id": "jfes-0000445-97.1996.4.02.5001-01",
+   "gerado_em": "2026-10-22T21:20:30",
+   "modelo": "claude-opus-5",
+   "uso": {
+    "entrada": 33390,
+    "saida": 2650,
+    "buscas": 1
+   },
+   "custo_usd": 0.2432
+  }
+ ],
+ "total_usd": 0.5129,
+ "hoje": {
+  "data": "2026-10-22",
+  "n": 2
+ }
+}
