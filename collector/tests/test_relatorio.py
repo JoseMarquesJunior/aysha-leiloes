@@ -33,3 +33,23 @@ def test_anonimizar_preserva_links_e_entidades():
 def test_nome_arquivo_seguro():
     assert relatorio._nome_arquivo("jfes-0000445-97.1996.4.02.5001-01") == "jfes-0000445-97.1996.4.02.5001-01"
     assert relatorio._nome_arquivo("x/../y") == "x_.._y"
+
+
+def test_recorta_edital_unificado_ao_processo():
+    texto = ("CABEÇALHO geral da vara\n"
+             "01 - PROCESSO N.º 0001-11.2020.4.02.5001\nBEM: carro\nAVALIAÇÃO: R$ 1\n"
+             "02 - PROCESSO N.º 0002-22.2020.4.02.5001\nBEM: apartamento 102\nAVALIAÇÃO: R$ 2\n"
+             "03 - PROCESSO N.º 0003-33.2020.4.02.5001\nBEM: terreno\nAVALIAÇÃO: R$ 3\n"
+             "LOCAL, DATAS E HORÁRIO: 1º LEILÃO dia 10 de novembro\ncomissão de 10%")
+    rec = relatorio.recortar_documento(texto, "0002-22.2020.4.02.5001")
+    assert "CABEÇALHO" in rec and "apartamento 102" in rec and "comissão de 10%" in rec
+    assert "carro" not in rec and "terreno" not in rec
+    assert relatorio.recortar_documento(texto, None) == texto
+    assert relatorio.recortar_documento("sem blocos 0002-22.2020.4.02.5001", "0002-22.2020.4.02.5001").startswith("sem blocos")
+
+
+def test_remover_nomes_preserva_entidades():
+    from collector.ia import remover_nomes
+    assert remover_nomes("Exequente: Condomínio Conj. Res. Mata da Praia III") == "Exequente: Condomínio Conj. Res. Mata da Praia III"
+    assert remover_nomes("Exequente: União – Procuradoria da Fazenda Nacional") == "Exequente: União – Procuradoria da Fazenda Nacional"
+    assert remover_nomes("Executado: Carlos Alberto Souza") == "Executado: [nome]"

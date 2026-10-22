@@ -90,9 +90,30 @@ def _campos_do_anuncio(r: dict) -> str:
     return "\n".join(linhas)
 
 
+def recortar_documento(texto: str, numero_processo: str | None) -> str:
+    """Editais de leilão unificado (JFES) listam dezenas de processos; para o parecer de um imóvel basta o
+    cabeçalho/regras gerais e o bloco do processo dele. Sem número de processo, ou se o bloco não for
+    encontrado, devolve o texto inteiro."""
+    if not numero_processo or numero_processo not in texto:
+        return texto
+    partes = re.split(r"(?=\n\s*\d{2}\s*-\s*PROCESSO\s+N)", texto)
+    if len(partes) < 3:
+        return texto
+    cabecalho = partes[0]
+    bloco = next((p for p in partes[1:] if numero_processo in p), None)
+    if bloco is None:
+        return texto
+    # as regras gerais do leilão (datas, comissão, parcelamento) costumam vir depois do último bloco
+    cauda = partes[-1]
+    m = re.search(r"\n\s*(?:LOCAL,?\s*DATAS?|DAS CONDI|CONDI[ÇC][ÕO]ES|REGRAS|DO LEIL[ÃA]O|LEIL[ÃA]O:)", cauda, re.I)
+    regras = cauda[m.start():] if m and bloco is not cauda else ("" if bloco is cauda else "")
+    return cabecalho + "\n" + bloco + ("\n" + regras if regras else "")
+
+
 def montar_mensagem(r: dict, textos: list[str]) -> str:
     docs = []
     for i, t in enumerate(textos, 1):
+        t = recortar_documento(t, r.get("numero_processo"))
         t = re.sub(r"[ \t]+", " ", t)
         if len(t) > MAX_CHARS_DOCUMENTO:
             t = t[:MAX_CHARS_DOCUMENTO] + "\n[... documento cortado por tamanho ...]"
@@ -136,7 +157,9 @@ def _usage_total(msg, acumulado: dict) -> None:
 
 def gerar(r: dict, textos: list[str], client, modelo: str = MODELO) -> dict:
     """Chama o modelo (com busca na web) e devolve {markdown, uso, custo_usd, fontes}."""
-    mensagens = [{"role": "user", "content": montar_mensagem(r, textos)}]
+    # o bloco com os documentos fica em cache: a busca na web roda em várias iterações servidoras e cada
+    # continuação reenvia o contexto inteiro; com cache, as repetições custam 10 % do preço de entrada
+    mensagens = [{"role": "user", "content": [{"type": "text", "text": montar_mensagem(r, textos), "cache_control": {"type": "ephemeral"}}]}]
     uso = {"entrada": 0, "saida": 0, "buscas": 0}
     fontes: list[dict] = []
     texto_final = ""
