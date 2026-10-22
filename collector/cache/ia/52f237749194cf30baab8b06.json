@@ -1,0 +1,35 @@
+{
+ "hash": "52f237749194cf30baab8b06",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": true,
+  "aceita_fgts": true,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Imóvel sem informação de ocupação no trecho analisado; verificar antes da participação.",
+   "Débitos de IPTU e condomínio não definidos no trecho; responsabilidade do interessado levantar os débitos.",
+   "Comissão de 5% paga pelo proponente classificado, não inclusa no lance.",
+   "Pagamento da comissão exigido no dia da arrematação; parte à vista em até 2 dias após homologação.",
+   "Escritura/contrato registrado deve ser apresentado em até 30 dias da assinatura do contrato.",
+   "Para financiamento ou FGTS, verificar aprovação de crédito na CAIXA antes da disputa; uso simultâneo de FGTS converte propostas para pagamento à vista."
+  ],
+  "trechos_fonte": {
+   "debitos_condominio_por_conta_de": "RESPONSÁVEL PELO LEVANTAMENTO DOS DÉBITOS: Interessado/ proponente classificado.",
+   "aceita_financiamento": "Os interessados no financiamento habitacional na modalidade SBPE e/ou utilização do recursos da conta vinculada do FGTS devem comparecer em qualquer agência da CAIXA",
+   "aceita_fgts": "6.6. FGTS : Valor ofertado com utilização de recursos vinculados à conta do FGTS ([nome] por [nome]), que deve ser de titularidade do proponente",
+   "comissao_leiloeiro_pct": "COMISSÃO: 5% da proposta. Paga pelo proponente classificado ao leiloeiro. Não inclusa do lance."
+  }
+ },
+ "uso": {
+  "entrada": 2974,
+  "saida": 681,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

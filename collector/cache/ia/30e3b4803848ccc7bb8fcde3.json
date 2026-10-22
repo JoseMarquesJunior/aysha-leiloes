@@ -1,0 +1,32 @@
+{
+ "hash": "30e3b4803848ccc7bb8fcde3",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade"
+  ],
+  "alertas": [
+   "Matrícula nº 2.270 possui penhoras em múltiplos processos trabalhistas e de execução fiscal, incluindo carta precatória de Colatina/ES.",
+   "O anúncio menciona ônus constantes da matrícula, cujo conteúdo integral não consta no trecho analisado; verificar a matrícula atualizada.",
+   "Não há informação sobre ocupação, débitos de IPTU/condomínio, financiamento ou comissão do leiloeiro no trecho fornecido."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "[nome] nos autos nº. 1000056-83.2019.5.02.0320, em trâmite na 10ª Vara do Trabalho da Comarca de Guarulhos/SP; Penhora nos autos nº. 0000153-67.2021.5.17.0141"
+  }
+ },
+ "uso": {
+  "entrada": 3690,
+  "saida": 485,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

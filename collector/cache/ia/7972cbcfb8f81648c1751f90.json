@@ -1,0 +1,39 @@
+{
+ "hash": "7972cbcfb8f81648c1751f90",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": "comprador",
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora",
+   "hipoteca",
+   "alienação fiduciária"
+  ],
+  "alertas": [
+   "Pagamento à vista em até 24 horas após o leilão",
+   "Arrematante assume IPTU, ITBI, condomínio, água, luz e ônus que recaiam sobre o imóvel",
+   "Imóvel vendido ad-corpus, no estado de ocupação e conservação em que se encontra",
+   "Desocupação, averbação e regularização por conta do adquirente",
+   "Comissão de leiloeiro de 5% paga pelo arrematante no ato",
+   "Possíveis credores hipotecários, fiduciários e com penhora averbada mencionados no edital"
+  ],
+  "trechos_fonte": {
+   "debitos_iptu_por_conta_de": "O arrematante/comprador pagará no ato do leilão a Leiloeira, o valor da arrematação, mais 5% (cinco por cento) de comissão da Leiloeira, calculado sobre o valor da arrematação, e assumirá os débitos d",
+   "debitos_condominio_por_conta_de": "e assumirá os débitos de IPTU, ITBI, taxas de condomínio, água, luz, bem como eventuais ônus que recaiam sobre os bens, após a realização da arrematação.",
+   "comissao_leiloeiro_pct": "O arrematante/comprador pagará no ato do leilão a Leiloeira, o valor da arrematação, mais 5% (cinco por cento) de comissão da Leiloeira",
+   "onus_na_matricula": "ÔNUS/ OBSERVAÇÃO : Eventuais constantes na matrícula imobiliária e órgãos de registro competentes."
+  }
+ },
+ "uso": {
+  "entrada": 1398,
+  "saida": 695,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

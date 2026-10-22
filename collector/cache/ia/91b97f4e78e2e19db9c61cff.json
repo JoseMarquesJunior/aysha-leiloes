@@ -1,0 +1,40 @@
+{
+ "hash": "91b97f4e78e2e19db9c61cff",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": "comprador",
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 10.0,
+  "onus_na_matricula": [
+   "indisponibilidade",
+   "penhora",
+   "arrolamento de bens"
+  ],
+  "alertas": [
+   "Débitos condominiais e de IPTU a cargo do arrematante, incluindo multas e juros moratórios (art. 1.345 CC).",
+   "Diversas indisponibilidades e penhoras averbadas na matrícula de várias varas federais e estaduais.",
+   "Valor da dívida exequenda de R$ 12.610.173,33 nos autos.",
+   "Imóvel fechado, sem uso e sem manutenção; vistoria e ocupação não informadas.",
+   "Comissão da leiloeira de 10% e custas de arrematação de 0,5% a cargo do arrematante.",
+   "Custas de cartório para registro das restrições em caso de parcelamento.",
+   "Ônus de transporte do bem e despesas de registro da transferência por conta do arrematante."
+  ],
+  "trechos_fonte": {
+   "debitos_iptu_por_conta_de": "(5) Eventuais débitos incidentes sobre o bem, tais como tributos, cotas condominiais, dentre outros, os quais deverão ser acrescidos ao preço da arrematação, ou seja, a cargo do arrematante.",
+   "debitos_condominio_por_conta_de": "(5) em caso de arrematação de imóvel, o adquirente de unidade responde por eventuais débitos do alienante em relação ao condomínio, inclusive multas e juros moratórios, nos termos do art. 1.345 do [no",
+   "comissao_leiloeiro_pct": "(2) comissão da leiloeira de 10%, calculada sobre o valor da arrematação;",
+   "onus_na_matricula": "ÔNUS: 01) Débitos condominiais e eventuais débitos tributários de IPTU; indisponibilidade referente ao processo nº 0506396-95.2001.8.08.0035"
+  }
+ },
+ "uso": {
+  "entrada": 3113,
+  "saida": 746,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

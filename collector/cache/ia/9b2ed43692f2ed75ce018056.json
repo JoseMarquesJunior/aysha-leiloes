@@ -1,0 +1,35 @@
+{
+ "hash": "9b2ed43692f2ed75ce018056",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "averbação premonitória",
+   "penhora"
+  ],
+  "alertas": [
+   "Débito exequendo de R$ 2.058.267,55 atualizado até 30/07/2026",
+   "Cabe ao licitante verificar débitos do imóvel nos órgãos competentes (prefeitura, condomínio)",
+   "Imóvel vendido no estado de conservação em que se encontra, sem garantias",
+   "Comissão do leiloeiro de 5% paga pelo arrematante em até 24 horas",
+   "Parcelamento admitido com entrada de 25% e restante em até 30 meses com caução ou hipoteca"
+  ],
+  "trechos_fonte": {
+   "comissao_leiloeiro_pct": "PAGAMENTO DO LEILOEIRO: O arrematante pagará à vista, em até 24 horas a partir da data do encerramento do leilão por meio de depósito bancário, a comissão de 5% sobre o valor da arrematação",
+   "onus_na_matricula": "ÔNUS: AV-2Averbação premonitória 0001704-69.2016.8.08.0008 1a Vara Cível de Barra de São Francisco/ES - AV-3 Averbação premonitória 0002904-09.2019.8.08.0008 1a Vara Cível de Barra de São Francisco/ES"
+  }
+ },
+ "uso": {
+  "entrada": 2912,
+  "saida": 614,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

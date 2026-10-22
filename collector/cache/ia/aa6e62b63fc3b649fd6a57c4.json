@@ -1,0 +1,36 @@
+{
+ "hash": "aa6e62b63fc3b649fd6a57c4",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "hipoteca",
+   "arresto"
+  ],
+  "alertas": [
+   "Imóvel de uso misto com edificação de dois pavimentos, sem confirmação de regularidade na descrição fornecida.",
+   "Constam débitos condominiais de R$ 3.067,52 em 26/08/2025 nos processos do lote de Serra/ES.",
+   "Constam múltiplas penhoras e indisponibilidades ligadas à União e outros juízos, exigindo verificação da matrícula.",
+   "Débitos com a [nome]/ES no valor de R$ 3.847,78 constam em outro lote do edital, não necessariamente no imóvel de Serra/ES.",
+   "Leilão judicial eletrônico, data 11/11/2025, lance mínimo R$ 290.000,00."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: 01) [nome] nos autos nº. 0011902-53.2001.4.02.5001 em favor da [nome], em trâmite na 2ª Vara Federal de Execuções Fiscais de Vitória/ES."
+  }
+ },
+ "uso": {
+  "entrada": 3694,
+  "saida": 560,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

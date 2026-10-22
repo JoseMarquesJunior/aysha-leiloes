@@ -1,0 +1,29 @@
+{
+ "hash": "af5e775cc1c38581ed482271",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Comissão do leiloeiro de 5% sobre o valor da arrematação, paga pelo arrematante em até 24 horas.",
+   "Edital não informa situação de ocupação, débitos de IPTU/condomínio nem aceitação de financiamento ou FGTS."
+  ],
+  "trechos_fonte": {
+   "aceita_financiamento": "admitido parcelamento nos termos do Art. 895, do CPC.",
+   "comissao_leiloeiro_pct": "O Arrematante pagará ao Leiloeiro, à vista, em até 24 (vinte e horas a partir da data do encerramento do leilão, uma comissão correspondente a 5% sobre o valor da arrematação."
+  }
+ },
+ "uso": {
+  "entrada": 788,
+  "saida": 399,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

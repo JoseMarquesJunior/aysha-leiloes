@@ -1,0 +1,35 @@
+{
+ "hash": "b348f5d8aa699a6972ccb542",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "arresto",
+   "hipoteca"
+  ],
+  "alertas": [
+   "Imóvel de leilão judicial com diversas penhoras e indisponibilidades registradas em favor da União, Município e INSS.",
+   "Débitos junto à [nome]/ES de R$ 817,10 em 22/10/2025 informados nos trechos, sem definição de quem assume.",
+   "Não há informação sobre ocupação do imóvel nos trechos fornecidos.",
+   "Verificar a matrícula atualizada e os autos de cada execução antes de dar lance."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "Débitos junto a [nome]/ES no valor de R$ 817,10 (oitocentos e dezessete reais e onze centavos), em 22 de outubro de 2025."
+  }
+ },
+ "uso": {
+  "entrada": 3624,
+  "saida": 462,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

@@ -1,0 +1,32 @@
+{
+ "hash": "26736dd8c8a0be82a1e24269",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "hipoteca"
+  ],
+  "alertas": [
+   "Consta hipoteca averbada em favor da exequente.",
+   "Débitos de IPTU e taxa de coleta de lixo de R$ 21.922,62 atualizados até 29/11/2022.",
+   "Há débitos condominiais junto ao Condomínio Itaparica Sol, sem valor informado.",
+   "Custas de arrematação de 0,5% a cargo do arrematante."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: Consta averbado Hipoteca em favor da Exequente; Débitos de IPTU e [nome] junto ao Município de Vila Velha no valor de R$ 21.922,62 atualizados até 29/11/2022; débitos condominiais"
+  }
+ },
+ "uso": {
+  "entrada": 3644,
+  "saida": 443,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

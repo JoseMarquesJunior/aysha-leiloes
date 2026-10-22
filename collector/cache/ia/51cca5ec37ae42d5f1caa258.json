@@ -1,0 +1,35 @@
+{
+ "hash": "51cca5ec37ae42d5f1caa258",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "hipoteca",
+   "arresto",
+   "indisponibilidade"
+  ],
+  "alertas": [
+   "Leilão judicial eletrônico conduzido pela 3ª Vara Federal de Execução Fiscal de Vitória/ES.",
+   "Trecho do documento sobre o imóvel de [nome]/ES não traz ônus específicos; a lista de ônus refere-se a outro bem do edital.",
+   "Consta hipoteca e múltiplas penhoras/arrestos/indisponibilidades em processos listados no edital, exigindo verificação na matrícula.",
+   "Débitos de IPTU e condomínio não informados para o terreno de [nome]/ES nos trechos fornecidos."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: [nome] em favor de Banco de Desenvolvimento do Espírito Santo S/A - BANDES; Arresto nos autos nº. 602/97 em favor do Estado do Espírito Santo; Penhora nos autos nº. 600/97"
+  }
+ },
+ "uso": {
+  "entrada": 3627,
+  "saida": 533,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

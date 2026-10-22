@@ -1,0 +1,34 @@
+{
+ "hash": "dea89abdcb0fa0dadb61a608",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "hipoteca"
+  ],
+  "alertas": [
+   "Constam débitos de condomínio de junho/2014 a julho/2025 no valor de R$ 129.680,39",
+   "Hipoteca em favor da Caixa Econômica Federal (extingue-se com a arrematação)",
+   "Benfeitorias não averbadas na matrícula imobiliária",
+   "Saldo devedor pode ser atualizado até a data do leilão",
+   "Comissão da leiloeira de 5% e custas judiciais de 0,5% incidem sobre o lance"
+  ],
+  "trechos_fonte": {
+   "comissao_leiloeiro_pct": "A comissão da leiloeira... no percentual de 5% sobre o valor da arrematação do bem",
+   "onus_na_matricula": "hipoteca em favor da Caixa Econômica Federal; outros eventuais constantes na mtrícula imobiliária"
+  }
+ },
+ "uso": {
+  "entrada": 3376,
+  "saida": 449,
+  "cache_lido": 0,
+  "cache_criado": 1425
+ }
+}

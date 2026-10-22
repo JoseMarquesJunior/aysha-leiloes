@@ -1,0 +1,40 @@
+{
+ "hash": "2e23fef51a95741ee04c158e",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "hipoteca"
+  ],
+  "alertas": [
+   "Débitos de IPTU de R$ 15.906,76 (atualizados até junho de 2025) serão sub-rogados no valor da arrematação.",
+   "Indisponibilidade nos autos do processo nº 0051600-92.2013.5.17.0006 (6ª Vara do Trabalho de Vitória/ES).",
+   "Imóvel terreno baldio com desnível acentuado decorrente de escavação, sem calçamento, esgoto ou galeria pluvial.",
+   "Comissão da leiloeira de 5% sobre o valor da arrematação, paga em 24 horas, além do lance.",
+   "Possível preferência de coproprietário ou cônjuge alheio à execução (meação) e direito de preferência do art. 1.322 do [nome].",
+   "Ocupação do imóvel dependerá de [nome] na Posse, não informada no trecho.",
+   "Edital cita parcelamento com entrada de 25% e saldo em até 30 meses com caução por hipoteca sobre o próprio imóvel."
+  ],
+  "trechos_fonte": {
+   "ocupado": "IMÓVEL OCUPADO: A desocupação do imóvel será realizada mediante expedição de [nome] na Posse que será expedido pelo M.M. Juízo Comitente.",
+   "debitos_iptu_por_conta_de": "Débitos de IPTU, serão sub-rogados no valor da arrematação nos termos do art. 130, “caput” e parágrafo único, do C.T.N.",
+   "comissao_leiloeiro_pct": "A comissão devida à Leiloeira será de 5% (cinco por cento) sobre o valor da arrematação, não se incluindo no valor do lanço",
+   "onus_na_matricula": "Indisponibilidade nos autos do processo nº 0051600-92.2013.5.17.0006, em trâmite perante a 6ª Vara do Trabalho de Vitória/ES."
+  }
+ },
+ "uso": {
+  "entrada": 3143,
+  "saida": 807,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

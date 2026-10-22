@@ -1,0 +1,32 @@
+{
+ "hash": "c78d061b8eb64d1e6dc27120",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "indisponibilidade"
+  ],
+  "alertas": [
+   "Imóvel penhorado em processo judicial; consta indisponibilidade averbada nos autos nº 5004831-06.2024.4.02.5001 (5ª Vara Federal Cível de Vitória/ES).",
+   "Débito exequendo de R$ 549.511,31 em 14/02/2023; verificar quitação e eventuais débitos de IPTU e condomínio antes do lance.",
+   "Custas de arrematação de 0,5% a cargo do arrematante, conforme edital.",
+   "Verificar matrícula atualizada e eventuais ônus não listados no edital."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: Consta averbado Indisponibilidade nos autos nº. 5004831-06.2024.4.02.5001, em trâmite no Juízo da 5ª Vara Federal Cível de Vitória/ES. Outros eventuais constantes na [nome]."
+  }
+ },
+ "uso": {
+  "entrada": 3618,
+  "saida": 511,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

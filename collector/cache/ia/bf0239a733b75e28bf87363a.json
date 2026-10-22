@@ -1,0 +1,41 @@
+{
+ "hash": "bf0239a733b75e28bf87363a",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora",
+   "arresto",
+   "indisponibilidade",
+   "hipoteca"
+  ],
+  "alertas": [
+   "Imóvel pode estar ocupado; desocupação depende de [nome] na Posse",
+   "Débitos de IPTU sub-rogados no valor da arrematação",
+   "Débitos de condomínio não informados quanto à responsabilidade",
+   "Comissão da leiloeira de 5% devida pelo arrematante, paga em 24 horas",
+   "Prazo de 24 horas para depósito do lance, sob pena de sanções",
+   "Possível direito de preferência de coproprietário ou cônjuge (meação)"
+  ],
+  "trechos_fonte": {
+   "ocupado": "IMÓVEL OCUPADO: A desocupação do imóvel será realizada mediante expedição de [nome] na Posse que será expedido pelo M.M. Juízo Comitente.",
+   "debitos_iptu_por_conta_de": "Débitos de IPTU, serão sub-rogados no valor da arrematação nos termos do art. 130, “caput” e parágrafo único, do C.T.N.",
+   "debitos_condominio_por_conta_de": "ÔNUS: Eventuais débitos de condomínio e IPTU. Outros eventuais constantes na [nome].",
+   "comissao_leiloeiro_pct": "A comissão devida à Leiloeira será de 5% (cinco por cento) sobre o valor da arrematação, não se incluindo no valor do lanço",
+   "onus_na_matricula": "HIPOTECA: Eventual gravame de hipoteca extingue-se com a arrematação; BAIXA PENHORAS, DEMAIS ÔNUS E TRIBUTOS: Com a venda no leilão, caso haja penhoras, arrestos, indisponibilidades"
+  }
+ },
+ "uso": {
+  "entrada": 2936,
+  "saida": 724,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

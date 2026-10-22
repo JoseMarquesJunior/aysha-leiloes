@@ -1,0 +1,29 @@
+{
+ "hash": "dfad267db17cf86fbfb6804b",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Comissão de 5% do leiloeiro paga pelo arrematante, fora do valor do lance.",
+   "Multa de 10% sobre o lance e impedimento de participar de leilões em caso de inadimplência do arrematante.",
+   "Dados de ocupação, débitos de IPTU/condomínio e ônus na matrícula não constam nos trechos fornecidos."
+  ],
+  "trechos_fonte": {
+   "comissao_leiloeiro_pct": "d) COMISSÃO DO LEILOEIRO: 5% (cinco por cento) sobre o valor da arrematação, a ser paga pelo arrematante diretamente ao Leiloeiro."
+  }
+ },
+ "uso": {
+  "entrada": 1125,
+  "saida": 401,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

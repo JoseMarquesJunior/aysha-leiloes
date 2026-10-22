@@ -1,0 +1,38 @@
+{
+ "hash": "ca48a10d76384d91a778913a",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": "comprador",
+  "aceita_financiamento": true,
+  "aceita_fgts": true,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Comissão de 5% do leiloeiro paga pelo arrematante no dia da arrematação, não inclusa no lance",
+   "Responsabilidade pelo levantamento dos débitos é do interessado/proponente classificado",
+   "Parte à vista deve ser paga em até 2 dias após a homologação",
+   "Escritura/contrato registrado deve ser apresentado em 30 dias da assinatura",
+   "Imóvel vendido no estado de ocupação e conservação em que se encontra",
+   "Não são aceitas outras formas de pagamento além das constantes no anúncio",
+   "Entrada mínima de 5% em recursos próprios mesmo com FGTS ou financiamento",
+   "Proponente pode manter apenas 1 proposta ativa com indicação de FGTS; propostas simultâneas são convertidas para pagamento à vista"
+  ],
+  "trechos_fonte": {
+   "debitos_iptu_por_conta_de": "RESPONSÁVEL PELO LEVANTAMENTO DOS DÉBITOS: Interessado/ proponente classificado.",
+   "debitos_condominio_por_conta_de": "RESPONSÁVEL PELO LEVANTAMENTO DOS DÉBITOS: Interessado/ proponente classificado.",
+   "aceita_financiamento": "6.7 Financiamento : Recursos oriundos de empréstimo habitacional em operação realizada com a CAIXA.",
+   "aceita_fgts": "6.6 FGTS : Valor ofertado com utilização de recursos vinculados à conta do FGTS ([nome] por [nome])",
+   "comissao_leiloeiro_pct": "COMISSÃO: 5% da proposta. Paga pelo proponente classificado ao leiloeiro. Não inclusa do lance."
+  }
+ },
+ "uso": {
+  "entrada": 2855,
+  "saida": 721,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

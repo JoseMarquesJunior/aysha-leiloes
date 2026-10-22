@@ -1,0 +1,33 @@
+{
+ "hash": "9840f3a42ae99197b2e9618a",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade"
+  ],
+  "alertas": [
+   "Imóvel possui penhoras averbadas na matrícula (itens R. 02, R. 03 e R. 04 citados no anúncio), com processos ainda não detalhados nos trechos fornecidos.",
+   "Não há informação nos trechos sobre ocupação do imóvel.",
+   "Não há informação nos trechos sobre débitos de IPTU, condomínio ou comissão do leiloeiro.",
+   "Área desmembrada de área maior; confirmar regularidade do desmembramento e do registro junto ao INCRA e ao Cartório."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "Consta R. 02 – Penhora nos autos nº 6.567/97; R. 03 – Penhora nos autos nº 105980061334/ES; R . 04 – Penhora nos autos"
+  }
+ },
+ "uso": {
+  "entrada": 3712,
+  "saida": 470,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

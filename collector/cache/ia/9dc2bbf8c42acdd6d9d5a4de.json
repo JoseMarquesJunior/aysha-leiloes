@@ -1,0 +1,28 @@
+{
+ "hash": "9dc2bbf8c42acdd6d9d5a4de",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Comissão do leiloeiro de 5% pago pelo arrematante, reduzida a 2,5% em caso de acordo ou adjudicação",
+   "Parcelamento admitido nos termos do Art. 895 do CPC"
+  ],
+  "trechos_fonte": {
+   "comissao_leiloeiro_pct": "O Arrematante pagará ao Leiloeiro, à vista, em até 24 (vinte e quatro) horas a partir da data do encerramento do leilão, uma comissão correspondente a 5% sobre o valor da arrematação."
+  }
+ },
+ "uso": {
+  "entrada": 788,
+  "saida": 365,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

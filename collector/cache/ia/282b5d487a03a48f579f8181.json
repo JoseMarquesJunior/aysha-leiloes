@@ -1,0 +1,32 @@
+{
+ "hash": "282b5d487a03a48f579f8181",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade"
+  ],
+  "alertas": [
+   "Lote situado em barranco de cerca de 2m de altura, sem edificações.",
+   "Trecho sobre ônus aponta penhora e indisponibilidade nos autos citados, mas os trechos fornecidos referem-se a outros itens do edital e não ao terreno de [nome].",
+   "Não há informação sobre ocupação, débitos de IPTU ou condomínio, financiamento, FGTS ou comissão do leiloeiro para este imóvel."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: 01) [nome] nos autos nº. 0011902-53.2001.4.02.5001 em favor da [nome], em trâmite na 2ª Vara Federal de Execuções Fiscais de Vitória/ES."
+  }
+ },
+ "uso": {
+  "entrada": 3688,
+  "saida": 471,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

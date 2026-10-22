@@ -1,0 +1,35 @@
+{
+ "hash": "895b12713c036eae4cf3bb64",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": true,
+  "aceita_fgts": true,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Comissão do leiloeiro de 5% paga pelo proponente classificado, não inclusa no lance",
+   "Responsabilidade pelo levantamento dos débitos cabe ao interessado/proponente classificado",
+   "Pagamento da comissão do leiloeiro no dia da arrematação",
+   "Entrada mínima de 5% em recursos próprios obrigatória",
+   "Pagamento da parte à vista em até 2 dias após a homologação",
+   "Escritura/contrato registrado deve ser apresentado em 30 dias da assinatura",
+   "Imóvel vendido no estado de ocupação e conservação em que se encontra"
+  ],
+  "trechos_fonte": {
+   "aceita_financiamento": "O preenchimento dos campos relativos ao financiamento habitacional e/ou FGTS não garante aprovação da operação",
+   "aceita_fgts": "6.6. FGTS : Valor ofertado com utilização de recursos vinculados à conta do FGTS ([nome] por [nome])",
+   "comissao_leiloeiro_pct": "COMISSÃO: 5% da proposta. Paga pelo proponente classificado ao leiloeiro. Não inclusa do lance."
+  }
+ },
+ "uso": {
+  "entrada": 2961,
+  "saida": 556,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "hash": "890d1d0cfd5570434abb89f0",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora",
+   "arresto",
+   "indisponibilidade",
+   "hipoteca"
+  ],
+  "alertas": [
+   "Débitos de IPTU sub-rogados no valor da arrematação (art. 130 CTN), por conta do arrematante",
+   "Débitos de condomínio (propter rem) podem ser cobrados do arrematante conforme art. 908 §1º CPC",
+   "Imóvel pode estar ocupado; desocupação depende de [nome] na Posse",
+   "Comissão da leiloeira de 5% devida pelo arrematante em 24 horas, fora do lance",
+   "Possível direito de meação e preferência do coproprietário/cônjuge não executado",
+   "Risco de desistência ou invalidação da arrematação; devolução de comissão sujeita a correção",
+   "Edital indica lance mínimo do 2º leilão de R$ 400.000,00, diferente do lance mínimo informado de R$ 500.000,00",
+   "Débitos da ação de R$ 143.920,93 em 08/05/2026, sujeitos a atualização"
+  ],
+  "trechos_fonte": {
+   "ocupado": "IMÓVEL OCUPADO: A desocupação do imóvel será realizada mediante expedição de [nome] na Posse que será expedido pelo M.M. Juízo Comitente.",
+   "debitos_iptu_por_conta_de": "Débitos de IPTU, serão sub-rogados no valor da arrematação nos termos do art. 130, “caput” e parágrafo único, do C.T.N.",
+   "comissao_leiloeiro_pct": "A comissão devida à Leiloeira será de 5% (cinco por cento) sobre o valor da arrematação, não se incluindo no valor do lanço",
+   "onus_na_matricula": "HIPOTECA: Eventual gravame de hipoteca extingue-se com a arrematação, assim, nada será devido pelo arrematante ao credor hipotecário"
+  }
+ },
+ "uso": {
+  "entrada": 3026,
+  "saida": 773,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

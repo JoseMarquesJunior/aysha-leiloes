@@ -1,0 +1,37 @@
+{
+ "hash": "ce2583f3568d1cdf25b37fee",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": "comprador",
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "hipoteca",
+   "arresto"
+  ],
+  "alertas": [
+   "Constam débitos condominiais de R$ 3.067,52 (26/08/2025) em um dos itens, com dívida fiscal elevada (R$ 73.885,53 em 01/10/2024)",
+   "Imóvel com múltiplas penhoras e indisponibilidades judiciais e fiscais averbadas, exigindo análise jurídica detalhada da matrícula antes do lance",
+   "Débitos municipais junto à [nome]/ES de R$ 3.847,78 (23/09/2025) constam para um dos itens",
+   "Hipoteca legal em favor do [nome] consta em um dos itens",
+   "Edital indica natureza judicial, com leilão exclusivamente eletrônico em 11/11/2025 e lance mínimo de R$ 7.532.000,00"
+  ],
+  "trechos_fonte": {
+   "debitos_condominio_por_conta_de": "[nome] condominiais no valor de R$ 3.067,52 (três mil, sessenta e sete reais e cinquenta e dois centavos), em 26 de agosto de 2025",
+   "onus_na_matricula": "ÔNUS: 01) [nome] nos autos nº. 0011902-53.2001.4.02.5001 em favor da [nome]"
+  }
+ },
+ "uso": {
+  "entrada": 3666,
+  "saida": 618,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

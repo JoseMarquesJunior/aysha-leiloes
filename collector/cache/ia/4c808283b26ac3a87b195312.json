@@ -1,0 +1,33 @@
+{
+ "hash": "4c808283b26ac3a87b195312",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora"
+  ],
+  "alertas": [
+   "Lance mínimo de R$ 810.000,00 em leilão judicial.",
+   "Possível parcelamento com 25% de entrada e saldo em até 59 parcelas, limitado à dívida de R$ 3.598.651,95.",
+   "Saldo remanescente acima da dívida deve ser pago à vista.",
+   "Adquirente de unidade pode responder por débitos do alienante, conforme observação do edital.",
+   "Processo judicial nº 0008034-13.2014.4.02.5001 com possíveis ônus registrados nas matrículas."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "Registrado no Cartório de Registro de Imóveis de Guarapari/ES, Livro nº 2, Ficha 01, Matrículas nº 37.660 e 37.647"
+  }
+ },
+ "uso": {
+  "entrada": 541,
+  "saida": 456,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

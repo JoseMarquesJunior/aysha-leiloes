@@ -1,0 +1,32 @@
+{
+ "hash": "46243b678fb058ab9add948e",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "indisponibilidade"
+  ],
+  "alertas": [
+   "Coproprietário [nome] e cônjuge têm quota-parte reservada em caso de arrematação",
+   "Imóvel com acesso por terra batida em ruim estado de conservação",
+   "Data do leilão não informada no anúncio"
+  ],
+  "trechos_fonte": {
+   "comissao_leiloeiro_pct": "(2) comissão da leiloeira de 5%, calculada sobre o valor da arrematação;",
+   "onus_na_matricula": "[nome] nos autos nº. 0108124-63.2013.4.02.5001 em trâmite na 4ª Vara Federal Cível de Vitória/ES"
+  }
+ },
+ "uso": {
+  "entrada": 3635,
+  "saida": 389,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "hash": "5f3cf91bb110086a267ea051",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": "vendedor",
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora"
+  ],
+  "alertas": [
+   "Débitos anteriores à arrematação não são responsabilidade do arrematante, mas o interessado deve verificar débitos junto ao condomínio e prefeitura.",
+   "Imóvel vendido no estado em que se encontra, sem garantias quanto a reparos.",
+   "Caso ocupado, será expedido [nome] na Posse, podendo exigir segunda diligência.",
+   "Comissão do leiloeiro de 5% paga pelo arrematante em até 24 horas após o leilão.",
+   "Pagamento parcelado admite entrada à vista e restante em até 30 meses com caução ou hipoteca do próprio imóvel."
+  ],
+  "trechos_fonte": {
+   "debitos_condominio_por_conta_de": "Débitos anteriores à arrematação não são responsabilidade do arrematante. Matrícula do imóvel será disponibilizada no site do leilão.",
+   "comissao_leiloeiro_pct": "O arrematante pagará à vista, em até 24 horas a partir da data do encerramento do leilão por meio de depósito bancário, a comissão de 5% sobre o valor da arrematação, ao leiloeiro.",
+   "onus_na_matricula": "Conforme auto de penhora, depósito e avaliação de 11/06/2021, possui 165,00 m², três quartos, dois banheiros"
+  }
+ },
+ "uso": {
+  "entrada": 2920,
+  "saida": 603,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

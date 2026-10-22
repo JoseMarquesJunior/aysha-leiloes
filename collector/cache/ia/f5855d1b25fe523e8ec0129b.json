@@ -1,0 +1,35 @@
+{
+ "hash": "f5855d1b25fe523e8ec0129b",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "inalienabilidade",
+   "hipoteca"
+  ],
+  "alertas": [
+   "Imóvel rural com benfeitorias (posto desativado, restaurante e borracharia locados) que o trecho não detalha quanto à situação registral.",
+   "Confrontação com a BR-101 e faixa de domínio da rodovia pode gerar restrições; verificar.",
+   "Matrícula com múltiplas penhoras e indisponibilidades em favor da União e de outros credores, além de inalienabilidades trabalhistas, nos processos de outro lote do edital.",
+   "Eventuais débitos de laudêmio ou ônus não identificados no trecho; verificar a matrícula do imóvel."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "AV.19 – Inalienabilidade nos autos nº. 00499.1999.131.17.02-2-RT em trâmite na Vara do Trabalho de Cachoeiro do Itapemirim/ES, em favor de [nome]; R.22 – Penhora nos autos nº. 0001517-67.2006.4.02.500"
+  }
+ },
+ "uso": {
+  "entrada": 3651,
+  "saida": 556,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

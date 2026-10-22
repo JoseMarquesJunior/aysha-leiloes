@@ -1,0 +1,37 @@
+{
+ "hash": "e69ffd049ebf589c82c41104",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "hipoteca",
+   "inalienabilidade",
+   "indisponibilidade",
+   "penhora"
+  ],
+  "alertas": [
+   "Consta hipoteca em favor do Banco de Desenvolvimento do Espírito Santo S/A.",
+   "Constam múltiplas penhoras e indisponibilidades em favor de entes públicos e de terceiros",
+   "Benfeitorias descritas na penhora estão em ruínas e silos não existem mais no local",
+   "Existência de animais de gado leiteiro na área, indicando possível ocupação",
+   "Restrições RENAJUD e débito executado de R$ 2.004.389,50 em 04/03/2024 em processo de execução fiscal"
+  ],
+  "trechos_fonte": {
+   "ocupado": "Obs.: As benfeitorias descritas na penhora já não existem mais, estão todas em ruínas. No local foi construído um pequeno curral e foi verificado a existência de animais de gado leiteiro na área.",
+   "onus_na_matricula": "ÔNUS: [nome] em favor do Banco de Desenvolvimento do Espírito Santo S/A.; Inalienabilidade nos autos nº. 00499.1999.131.17.00-2, em favor de [nome]"
+  }
+ },
+ "uso": {
+  "entrada": 3591,
+  "saida": 573,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

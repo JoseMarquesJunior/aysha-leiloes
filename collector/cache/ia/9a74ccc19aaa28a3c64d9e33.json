@@ -1,0 +1,36 @@
+{
+ "hash": "9a74ccc19aaa28a3c64d9e33",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "arresto",
+   "hipoteca",
+   "indisponibilidade"
+  ],
+  "alertas": [
+   "Benfeitorias em estado precário e sem manutenção há vários anos",
+   "Interior do imóvel não pôde ser inspecionado (portas e janelas vedadas)",
+   "Imóvel sem cadastro ativo na Prefeitura; débitos municipais não verificáveis",
+   "Múltiplas penhoras, arrestos, hipoteca e indisponibilidades na matrícula",
+   "Leilão judicial com ônus de execuções fiscais e trabalhistas em favor da União, Estado, INSS e CVM"
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: [nome] em favor de Banco de Desenvolvimento do Espírito Santo S/A - BANDES; Arresto nos autos nº. 602/97 em favor do Estado do Espírito Santo; Penhora nos autos nº. 600/97 em favor do Estado do "
+  }
+ },
+ "uso": {
+  "entrada": 3610,
+  "saida": 518,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

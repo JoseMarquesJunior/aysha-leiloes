@@ -1,0 +1,37 @@
+{
+ "hash": "cbf97d703f7c5756b37ccbd9",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "hipoteca",
+   "inalienabilidade",
+   "aforamento"
+  ],
+  "alertas": [
+   "Não há acesso pela frente: o lote não possui rua aberta em frente, o que pode inviabilizar a acessibilidade ao imóvel.",
+   "Imóvel com múltiplos ônus averbados na matrícula, incluindo penhoras e indisponibilidades de diversos processos.",
+   "Débitos de execução fiscal e outros créditos vinculados ao imóvel; verificar valores e eventuais saldos remanescentes antes do lance.",
+   "Sem benfeitorias e com vegetação cobrindo o lote; verificar regularidade e situação do terreno.",
+   "Dados do edital referem-se a outro bem na parte transcrita; confirmar a correspondência entre o anúncio e a matrícula."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: Consta averbado Penhora nos autos nº. 96.0009518-3, em trâmite na 4ª Vara Federal, [nome]; Penhora nos autos nº. 97.0006058-6-03000"
+  }
+ },
+ "uso": {
+  "entrada": 3710,
+  "saida": 574,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

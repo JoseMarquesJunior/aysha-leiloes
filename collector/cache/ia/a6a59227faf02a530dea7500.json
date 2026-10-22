@@ -1,0 +1,32 @@
+{
+ "hash": "a6a59227faf02a530dea7500",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade"
+  ],
+  "alertas": [
+   "Existência de penhora em favor do BANESTES S/A e indisponibilidade em favor da União, conforme trechos do edital.",
+   "Edital não informa sobre ocupação do imóvel nos trechos fornecidos.",
+   "Débitos de IPTU e condomínio não informados nos trechos fornecidos; verificar antes de arrematar."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: [nome] dos autos 024.07.006842-4 (0702625-51.2007.8.08.0024) em trâmite na 3ª Vara Cível de Vitória/ES, em favor do BANESTES S/A; Indisponibilidade dos autos 0008936-10.2007.4.02.5001"
+  }
+ },
+ "uso": {
+  "entrada": 3605,
+  "saida": 449,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

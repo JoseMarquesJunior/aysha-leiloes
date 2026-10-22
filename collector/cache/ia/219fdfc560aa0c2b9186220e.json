@@ -1,0 +1,39 @@
+{
+ "hash": "219fdfc560aa0c2b9186220e",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": true,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "hipoteca",
+   "inalienabilidade",
+   "aforamento"
+  ],
+  "alertas": [
+   "Imóvel aparenta abandono e não há residentes no local; possível ocupação irregular.",
+   "Lote sem abertura direta para a rua, separado da calçada por muro.",
+   "Diversos ônus averbados na matrícula, incluindo penhoras e indisponibilidades em múltiplos processos.",
+   "Valores de débito de execuções fiscais de milhões de reais vinculados ao imóvel.",
+   "Imóvel possui construção antiga deteriorada.",
+   "Lote proximo à BR-101; verificar situação de regularização e acesso."
+  ],
+  "trechos_fonte": {
+   "ocupado": "não residindo ninguém no local, sendo a parte frontal sem edificaçõ",
+   "onus_na_matricula": "ÔNUS: Consta averbado Aforamento conforme [nome]; [nome] nos autos nº. 13.387/04; Penhora nos autos nº. 2005.50.04.001034-4"
+  }
+ },
+ "uso": {
+  "entrada": 3714,
+  "saida": 526,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

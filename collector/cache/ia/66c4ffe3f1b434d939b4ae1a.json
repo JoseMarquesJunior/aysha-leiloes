@@ -1,0 +1,37 @@
+{
+ "hash": "66c4ffe3f1b434d939b4ae1a",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "hipoteca",
+   "inalienabilidade",
+   "aforamento",
+   "usucapião"
+  ],
+  "alertas": [
+   "Anúncio de terreno em Eunápolis/BA não corresponde aos trechos fornecidos, que tratam de processos federais de Vitória/ES e [nome]/ES",
+   "Não há dados no trecho sobre ocupação, débitos de IPTU ou condomínio, financiamento, FGTS ou comissão do leiloeiro para o imóvel de Eunápolis/BA",
+   "Matrículas com múltiplas penhoras, indisponibilidades e ação de usucapião averbada, exigindo verificação antes da arrematação",
+   "Possíveis débitos de laudêmio por se tratar de terreno de marinha"
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: 01) [nome] / [nome] nos autos nº. 05002.000380/2001-75, em trâmite na SPU-ES; [nome] / Fraude à Execução e Penhora nos presentes autos; Indisponibilidade nos autos"
+  }
+ },
+ "uso": {
+  "entrada": 3691,
+  "saida": 571,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

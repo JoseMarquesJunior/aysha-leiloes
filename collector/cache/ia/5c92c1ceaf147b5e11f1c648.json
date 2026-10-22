@@ -1,0 +1,32 @@
+{
+ "hash": "5c92c1ceaf147b5e11f1c648",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": true,
+  "aceita_fgts": true,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Responsável pelo levantamento dos débitos é o interessado/proponente classificado.",
+   "Comissão de 5% paga pelo proponente ao leiloeiro, não inclusa no lance.",
+   "Prazo de 30 dias após assinatura para apresentar escritura/contrato registrado.",
+   "Pagamento de entrada mínima de 5% em recursos próprios é obrigatório."
+  ],
+  "trechos_fonte": {
+   "aceita_financiamento": "Os interessados no financiamento habitacional na modalidade SBPE e/ou utilização do recursos da conta vinculada",
+   "aceita_fgts": "6.6. FGTS : Valor ofertado com utilização de recursos vinculados à conta do FGTS ([nome] por Tempo de",
+   "comissao_leiloeiro_pct": "COMISSÃO: 5% da proposta. Paga pelo proponente classificado ao leiloeiro. Não inclusa do lance."
+  }
+ },
+ "uso": {
+  "entrada": 2969,
+  "saida": 476,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

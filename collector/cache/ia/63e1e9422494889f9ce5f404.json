@@ -1,0 +1,36 @@
+{
+ "hash": "63e1e9422494889f9ce5f404",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "hipoteca",
+   "arresto",
+   "penhora",
+   "indisponibilidade"
+  ],
+  "alertas": [
+   "Imóvel possui penhoras e arrestos em favor da União, Estado do Espírito Santo, INSS, CVM e [nome]",
+   "Existência de hipoteca em favor do BANDES",
+   "Benfeitorias de aproximadamente 5.000m² não averbadas na matrícula",
+   "Imóvel sem cadastro ativo na base da Prefeitura, impossibilitando verificação de débitos municipais",
+   "Trechos fornecidos não tratam do imóvel de [nome]; análise limitada"
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "[nome] em favor de Banco de Desenvolvimento do Espírito Santo S/A - BANDES; Arresto nos autos nº. 602/97 em favor do Estado do Espírito Santo; Penhora nos autos nº. 600/97"
+  }
+ },
+ "uso": {
+  "entrada": 3645,
+  "saida": 506,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "hash": "459c7f0812a303940da824a3",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": "comprador",
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "hipoteca",
+   "arresto"
+  ],
+  "alertas": [
+   "Constam débitos condominiais de R$ 3.067,52 (ago/2025) em um dos lotes, por conta do comprador segundo o trecho apresentado.",
+   "Existem múltiplas penhoras e indisponibilidades averbadas na matrícula, em favor da União e de outros credores.",
+   "Constam débitos junto à [nome]/ES de R$ 3.847,78 (set/2025) em outro lote.",
+   "Dados de ocupação, IPTU, financiamento, FGTS e comissão do leiloeiro não constam dos trechos fornecidos.",
+   "Documento de referência parcial: o trecho disponível não traz o edital completo do lote de Serra/ES."
+  ],
+  "trechos_fonte": {
+   "debitos_condominio_por_conta_de": "[nome] condominiais no valor de R$ 3.067,52 (três mil, sessenta e sete reais e cinquenta e dois centavos), em 26 de agosto de 2025",
+   "onus_na_matricula": "[nome] nos autos nº. 0011902-53.2001.4.02.5001 em favor da [nome], em trâmite na 2ª Vara Federal de Execuções Fiscais de Vitória/ES"
+  }
+ },
+ "uso": {
+  "entrada": 3661,
+  "saida": 606,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

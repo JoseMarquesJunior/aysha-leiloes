@@ -1,0 +1,38 @@
+{
+ "hash": "e4866a73003855d6181897de",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora",
+   "averbação premonitória"
+  ],
+  "alertas": [
+   "Imóvel não possui matrícula individualizada; desmembramento e regularização registral ficam sob responsabilidade do arrematante.",
+   "Débitos de IPTU sub-rogados no valor da arrematação (art. 130 CTN).",
+   "Ônus: débitos fiscais de IPTU e averbação premonitória do processo nº 5000125-16.2016.8.08.0003.",
+   "Imóvel ocupado: desocupação depende de [nome] na Posse.",
+   "Comissão da leiloeira de 5% sobre o valor da arrematação, a pagar em 24 horas.",
+   "Os lotes 03 e 04 são iguais; a venda de um fecha o outro para lances."
+  ],
+  "trechos_fonte": {
+   "ocupado": "IMÓVEL OCUPADO: A desocupação do imóvel será realizada mediante expedição de [nome] na Posse",
+   "debitos_iptu_por_conta_de": "Débitos de IPTU, serão sub-rogados no valor da arrematação nos termos do art. 130, “caput” e parágrafo único, do C.T.N.",
+   "comissao_leiloeiro_pct": "A comissão devida à Leiloeira será de 5% (cinco por cento) sobre o valor da arrematação",
+   "onus_na_matricula": "ÔNUS: Débitos fiscais de IPTU objeto da presente execução; averbação premonitória do processo nº 5000125-16.2016.8.08.0003"
+  }
+ },
+ "uso": {
+  "entrada": 3137,
+  "saida": 651,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

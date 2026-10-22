@@ -1,0 +1,36 @@
+{
+ "hash": "38e13b9199427b27eeebe822",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "hipoteca",
+   "inalienabilidade",
+   "aforamento"
+  ],
+  "alertas": [
+   "Anúncio do imóvel comercial no RJ está truncado e não permite confirmar a matrícula ou a ocupação.",
+   "Trechos fornecidos referem-se a outros processos de execução fiscal em Vitória/ES, [nome]/ES e Linhares/ES, não ao imóvel do [nome].",
+   "Há múltiplas penhoras, indisponibilidades e hipoteca averbadas nos bens listados, com débitos elevados.",
+   "Não há informação sobre responsabilidade por IPTU, condomínio ou comissão do leiloeiro."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: Consta averbado Penhora nos autos nº. 96.0009518-3, em trâmite na 4ª Vara Federal, [nome]; Penhora nos autos nº. 97.0006058-6-03000"
+  }
+ },
+ "uso": {
+  "entrada": 3738,
+  "saida": 541,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

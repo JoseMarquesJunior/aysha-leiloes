@@ -1,0 +1,36 @@
+{
+ "hash": "0140086b19cd90162ca0b16a",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-22T20:09:32",
+ "lote": "msgbatch_01Mny4JM8ZDbTVq9ZYv15k6d",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "hipoteca",
+   "indisponibilidade",
+   "inalienabilidade"
+  ],
+  "alertas": [
+   "Imóvel possui múltiplas penhoras e indisponibilidades averbadas na matrícula",
+   "Hipoteca em favor de Banco do Brasil S/A averbada na matrícula",
+   "Inalienabilidade decorrente de processos trabalhistas",
+   "Imóvel leiloado em execução judicial sem indicação de ocupação no trecho analisado",
+   "Lance mínimo de R$ 150.000,00 para o leilão de 2026-11-10"
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "ÔNUS: Consta averbado Hipoteca conforme R. 5/1196; Hipoteca em favor de Banco do Brasil S/A ; Penhora nos autos nº. 10.179/99 - 011990373505, em trâmite na 2ª Vara Cível e Comercial"
+  }
+ },
+ "uso": {
+  "entrada": 3720,
+  "saida": 489,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}
