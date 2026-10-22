@@ -5,7 +5,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://venda-imoveis.caixa.gov.br/",
-  "duracao_s": 20.0,
+  "duracao_s": 22.8,
   "info": {
    "data_geracao": "2026-10-21",
    "por_uf": {
@@ -29,7 +29,7 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-22T13:28:26",
+  "ultima_execucao": "2026-10-22T16:48:19",
   "data_coleta": "2026-10-22"
  },
  "banestes": {
@@ -38,7 +38,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.banestes.com.br/publicacoes_legais/leilao-bem-imovel.html",
-  "duracao_s": 2.1,
+  "duracao_s": 2.3,
   "info": {
    "total_editais_imoveis": 9
   }
@@ -49,7 +49,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.bandes.com.br/Site/Dinamico/Show/978/Leilao-de-Imoveis",
-  "duracao_s": 4.5,
+  "duracao_s": 4.7,
   "info": {
    "arquivos_com_texto": 6
   }
@@ -60,7 +60,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://imoveis.vendasgov.serpro.gov.br/",
-  "duracao_s": 2.9,
+  "duracao_s": 2.8,
   "info": {
    "venda": 1,
    "leilao": 3
@@ -72,7 +72,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.trf2.jus.br/jfes/transparencia/listagem",
-  "duracao_s": 10.5,
+  "duracao_s": 10.6,
   "info": {
    "artigos": 10
   },
@@ -84,7 +84,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.emleilao.com.br/",
-  "duracao_s": 954.7,
+  "duracao_s": 951.0,
   "info": {
    "emleilao": 372,
    "buaiz": 0,
@@ -98,7 +98,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.vixleiloes.com.br/",
-  "duracao_s": 88.9,
+  "duracao_s": 92.8,
   "info": {
    "leiloes_abertos": 34,
    "lotes_vistos": 1
@@ -107,7 +107,7 @@
  "colodete": {
   "ultima_coleta_ok": "2026-10-22",
   "registros": 26,
-  "ultimo_erro": null,
+  "ultimo_erro": "bloqueia IPs de datacenter: coletada só localmente",
   "ativa": true,
   "site": "https://www.colodeteleiloes.com.br/",
   "duracao_s": 70.7,
@@ -124,7 +124,7 @@
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.hdleiloes.com.br/",
-  "duracao_s": 24.5,
+  "duracao_s": 24.1,
   "info": {
    "leiloes": 29,
    "ES": 140,
