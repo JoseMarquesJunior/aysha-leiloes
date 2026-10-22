@@ -221,14 +221,20 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
     if gcfg.get("ativa") and not sem_geo:
         geo = Geocodificador(cliente, gcfg["url"], RAIZ / gcfg["cache"], gcfg.get("intervalo_segundos", 1.1),
                              gcfg.get("maximo_por_execucao", 400), gcfg.get("precisao_maxima_por_uf"))
-        pendentes = [r for r in registros if r.get("ativo", True) and r.get("lat") is None]
+        # ordem: UFs prioritárias do projeto primeiro (ES, MG), depois as demais; dentro de cada UF, fontes
+        # com endereço/bairro extraídos (leiloeiros, JFES) antes da Caixa
+        prioridade_uf = {u: i for i, u in enumerate(config.get("ufs", []))}
+
+        def ordem(r):
+            return (prioridade_uf.get(r.get("uf"), 99), 1 if r.get("fonte") == "caixa" else 0)
+        pendentes = sorted((r for r in registros if r.get("ativo", True) and r.get("lat") is None), key=ordem)
         for r in pendentes:
             geo.geocodificar(r)
         # registros que ficaram no nível "cidade" tentam de novo quando há bairro/endereço (vindos do regex)
         # ou candidatos no fim da descrição; consultas repetidas saem do cache e não contam no teto
-        for r in registros:
-            if not r.get("ativo", True) or r.get("geo_precisao") != "cidade" or geo.consultas >= geo.maximo:
-                continue
+        for r in sorted((r for r in registros if r.get("ativo", True) and r.get("geo_precisao") == "cidade"), key=ordem):
+            if geo.consultas >= geo.maximo:
+                break
             if not (r.get("bairro") or r.get("endereco") or r.get("descricao_original")):
                 continue
             tentativa = dict(r, lat=None, lng=None, geo_precisao=None)

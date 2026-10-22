@@ -154,21 +154,43 @@
    "custo_usd": 0.0,
    "pendentes": 0,
    "sem_documento": 0
+  },
+  {
+   "tipo": "execucao",
+   "data": "2026-10-22",
+   "chamadas": 0,
+   "cache_hits": 29,
+   "tokens_entrada": 0,
+   "tokens_saida": 0,
+   "custo_usd": 0.0,
+   "pendentes": 0,
+   "sem_documento": 0
+  },
+  {
+   "tipo": "execucao",
+   "data": "2026-10-22",
+   "chamadas": 0,
+   "cache_hits": 0,
+   "tokens_entrada": 0,
+   "tokens_saida": 0,
+   "custo_usd": 0.0,
+   "pendentes": 0,
+   "sem_documento": 22812
   }
  ],
  "estimativa_atual": {
-  "gerado_em": "2026-10-22T15:22:13",
+  "gerado_em": "2026-10-22T16:01:05",
   "modelo": "claude-haiku-5-5",
   "candidatos_hoje": 23402,
-  "chamadas_por_execucao_max": 50,
+  "chamadas_por_execucao_max": 1000,
   "tokens_sistema_cacheados": 420,
   "tokens_entrada_por_imovel": 2385,
   "tokens_saida_por_imovel_max": 900,
   "custo_usd_por_imovel_tempo_real": 0.00069,
   "custo_usd_por_imovel_batch": 0.00034,
-  "custo_usd_por_execucao_tempo_real": 0.0344,
-  "custo_usd_por_execucao_batch": 0.0172,
-  "custo_usd_mes_batch_30_execucoes": 0.52,
+  "custo_usd_por_execucao_tempo_real": 0.688,
+  "custo_usd_por_execucao_batch": 0.344,
+  "custo_usd_mes_batch_30_execucoes": 10.32,
   "observacao": "Teto, com entrada no máximo permitido; na prática só imóveis novos ou com edital alterado entram, e imóveis sem PDF legível não são enviados."
  },
  "habilitada": false,

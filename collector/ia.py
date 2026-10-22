@@ -391,18 +391,18 @@ def executar(registros: list[dict], cfg_ia: dict, pasta_saida: Path, cliente=Non
     cache_hits = 0
     fila: list[tuple[dict, str, str]] = []   # (registro, hash, entrada)
     sem_documento = 0
-    if ligada or any(pasta.glob("*.json")):
+    if ligada or any(p.name != "_lotes.json" for p in pasta.glob("*.json")):
         for r in registros:
             if not r.get("ativo", True) or not passa_filtro(r, filtro):
-                continue
-            if not (ligada or r.get("extracao_ia")):
                 continue
             textos = textos_dos_documentos(r, cliente, config or {}) if cliente else []
             if not textos:
                 sem_documento += 1
                 continue
             entrada = texto_de_entrada(r, textos, cfg_ia)
-            h = hash_documento(entrada)
+            # a chave do cache é o documento + anúncio, não a entrada inteira: lance e data mudam entre
+            # coletas e não justificam reprocessar o mesmo edital
+            h = hash_documento("\n".join(textos) + "\n" + (r.get("descricao_original") or "")[:800])
             item = no_cache(pasta, h)
             if item:
                 aplicar_resultado(r, item)
