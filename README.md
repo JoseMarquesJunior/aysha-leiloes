@@ -226,6 +226,30 @@ O que é enviado: o caminho da página (sem a query string, ou seja, sem os filt
 imóvel como `/imovel/<id>` (mostra os imóveis mais abertos), referência (de onde veio) e tamanho da tela.
 Acessos em `localhost` não são contados. O painel pode ser tornado público em "Settings → Public".
 
+## Análise detalhada com IA (relatório por imóvel)
+
+Diferente da extração de campos (Haiku, acima), o botão "análise IA" de cada linha abre a ficha do imóvel
+na seção "Análise com IA", um parecer em Markdown no estilo de analista de leilões: resumo do lote, conta
+de custos no lance, referência de mercado pesquisada na web, sinais vermelhos, veredito e diligências.
+`collector/relatorio.py` gera o parecer com `claude-opus-5` (pensamento adaptativo, `effort: high`, busca
+na web com até 6 consultas) lendo edital, matrícula e laudo inteiros.
+
+- **Gerado uma vez, guardado para sempre**: `docs/data/relatorios/<id>.json`, servido estaticamente. A
+  ficha primeiro procura esse arquivo; só se ele não existe aparece o botão de solicitar. Um novo clique
+  nunca refaz a análise. Custo real de cada um fica no arquivo e em `docs/data/custo_relatorios.json`.
+- **Como o pedido chega ao robô**: o site é estático, então o botão abre uma issue pré-preenchida
+  ("Analisar <id>") no repositório; o workflow `relatorio.yml` roda na abertura da issue, gera o parecer,
+  commita, comenta o link na issue e a fecha. Quem pede precisa de conta no GitHub. Também dá para gerar
+  em lote por `workflow_dispatch` (campo `ids`) ou localmente com `python -m collector.relatorio <id>`.
+  Teto de segurança: `relatorios.maximo_por_dia` no config (100).
+- **Sem nomes de pessoas**: o prompt proíbe e `anonimizar()` passa um segundo filtro antes de gravar.
+- **Alternativa com clique anônimo**: um Cloudflare Worker (gratuito) com a chave e limite por IP; o
+  site já tem o gancho (`urlAnaliseWorker` em `docs/js/config.js`), falta só o serviço.
+
+Custo estimado por relatório com o Opus 5 (US$ 5/25 por milhão de tokens, busca US$ 0,01): entrada de
+25 a 40 mil tokens (documentos + páginas pesquisadas), saída de 3 a 6 mil (parecer + raciocínio), 4 a 6
+buscas: **US$ 0,30 a 0,50 por imóvel**, ou **US$ 30 a 50 por 100 imóveis**, pagos uma única vez por imóvel.
+
 ## Secrets e GitHub Actions
 
 - O workflow `coletar.yml` roda às 09:00 UTC (06:00 em Brasília) e por disparo manual

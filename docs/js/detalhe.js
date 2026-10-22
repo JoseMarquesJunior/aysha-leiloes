@@ -100,6 +100,82 @@
     (aprox ? L.circle([r.lat, r.lng], { radius: r.geo_precisao === "bairro" ? 600 : 2500, color: "#777", fillOpacity: .15 }) : L.circleMarker([r.lat, r.lng], { radius: 8, color: "#0b5fff", fillColor: "#0b5fff", fillOpacity: .9 })).addTo(m);
   }
 
+  /* ---------- análise com IA (relatório gerado uma vez e guardado em data/relatorios/<id>.json) ---------- */
+  function nomeArquivo(id) { return id.replace(/[^\w.\-]/g, "_"); }
+  function mdInline(s) {
+    s = escapar(s);
+    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    s = s.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, "$1<i>$2</i>").replace(/`([^`]+)`/g, "<code>$1</code>");
+    return s;
+  }
+  function markdownParaHtml(md) {
+    const linhas = md.replace(/\r/g, "").split("\n");
+    const out = [];
+    let lista = null, tabela = null, par = [];
+    const fecharPar = () => { if (par.length) { out.push(`<p>${par.map(mdInline).join(" ")}</p>`); par = []; } };
+    const fecharLista = () => { if (lista) { out.push(`</${lista}>`); lista = null; } };
+    const fecharTabela = () => {
+      if (!tabela) return;
+      const [cab, ...corpo] = tabela;
+      out.push("<table><thead><tr>" + cab.map(c => `<th>${mdInline(c)}</th>`).join("") + "</tr></thead><tbody>" +
+        corpo.map(l => "<tr>" + l.map(c => `<td>${mdInline(c)}</td>`).join("") + "</tr>").join("") + "</tbody></table>");
+      tabela = null;
+    };
+    for (const raw of linhas) {
+      const l = raw.trimEnd();
+      if (/^\s*\|.*\|\s*$/.test(l)) {
+        fecharPar(); fecharLista();
+        const celulas = l.trim().slice(1, -1).split("|").map(c => c.trim());
+        if (celulas.every(c => /^:?-{2,}:?$/.test(c))) continue;  // linha separadora
+        (tabela = tabela || []).push(celulas);
+        continue;
+      }
+      fecharTabela();
+      let m;
+      if ((m = l.match(/^(#{1,4})\s+(.*)/))) { fecharPar(); fecharLista(); out.push(`<h${m[1].length + 2}>${mdInline(m[2])}</h${m[1].length + 2}>`); continue; }
+      if ((m = l.match(/^\s*[-*]\s+(.*)/))) { fecharPar(); if (lista !== "ul") { fecharLista(); out.push("<ul>"); lista = "ul"; } out.push(`<li>${mdInline(m[1])}</li>`); continue; }
+      if ((m = l.match(/^\s*\d+[.)]\s+(.*)/))) { fecharPar(); if (lista !== "ol") { fecharLista(); out.push("<ol>"); lista = "ol"; } out.push(`<li>${mdInline(m[1])}</li>`); continue; }
+      if (!l.trim()) { fecharPar(); fecharLista(); continue; }
+      par.push(l.trim());
+    }
+    fecharPar(); fecharLista(); fecharTabela();
+    return out.join("\n");
+  }
+  function renderRelatorio(rel) {
+    const uso = rel.uso || {};
+    return `<div class="relatorio-meta muted">Gerado em ${dataHora(rel.gerado_em)} · modelo ${escapar(rel.modelo || "")} · ${rel.documentos_lidos || 0} documento(s) lido(s) · ${uso.buscas || 0} busca(s) na web · custo US$ ${(rel.custo_usd || 0).toFixed(3)}. Relatório gerado uma vez e guardado; não é refeito a cada clique.</div>
+      <div class="relatorio-texto">${markdownParaHtml(rel.markdown || "")}</div>
+      <p class="aviso">Parecer automático, gerado por IA a partir do edital, da matrícula e de buscas na web. Pode conter erros. Não é assessoria jurídica nem recomendação de investimento: confira os documentos e consulte um profissional antes de dar lance.</p>`;
+  }
+  async function carregarAnalise(r) {
+    const corpo = document.getElementById("analise-corpo");
+    const cfg = window.LT_CONFIG || {};
+    try {
+      const rel = await carregarJson(`relatorios/${nomeArquivo(r.id)}.json`);
+      corpo.innerHTML = renderRelatorio(rel);
+      return;
+    } catch (e) { /* ainda não existe */ }
+    const temDoc = !!(r.url_edital || r.url_matricula);
+    const titulo = `Analisar ${r.id}`;
+    const corpoIssue = `Pedido de análise com IA do imóvel ${r.id}\n\nFicha: ${location.origin}${location.pathname}?id=${encodeURIComponent(r.id)}\nAnúncio: ${r.url_anuncio || ""}\n\n(Não edite o título: o robô lê o id dele.)`;
+    const urlIssue = cfg.repositorioIssues ? `${cfg.repositorioIssues}?title=${encodeURIComponent(titulo)}&body=${encodeURIComponent(corpoIssue)}` : null;
+    corpo.innerHTML = `
+      <p>Ainda não há relatório para este imóvel. A análise lê o edital, a matrícula e o laudo inteiros, pesquisa o preço de mercado do bairro e escreve um parecer com custos no lance, sinais vermelhos, veredito e diligências. Leva de 2 a 4 minutos e fica guardada: quem abrir esta ficha depois vê o mesmo relatório sem nova análise.</p>
+      ${temDoc ? "" : '<p class="muted">Atenção: este imóvel não tem edital nem matrícula em PDF acessíveis; o parecer sairá só do anúncio e da pesquisa de mercado.</p>'}
+      <p>${cfg.urlAnaliseWorker ? `<button type="button" class="btn primario" id="btn-gerar">Gerar análise com IA</button>` : ""}
+         ${urlIssue ? `<a class="btn ${cfg.urlAnaliseWorker ? "" : "primario"}" href="${escapar(urlIssue)}" target="_blank" rel="noopener">Solicitar análise com IA (via GitHub)</a>` : ""}
+         <span class="muted" style="font-size:.8rem">${cfg.urlAnaliseWorker ? "" : "Abre um pedido no GitHub (precisa de conta gratuita); o robô gera o relatório e ele aparece aqui em alguns minutos."}</span></p>`;
+    const btn = document.getElementById("btn-gerar");
+    if (btn) btn.addEventListener("click", async () => {
+      btn.disabled = true; btn.textContent = "Gerando (até 4 minutos)…";
+      try {
+        const resp = await fetch(cfg.urlAnaliseWorker, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: r.id }) });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        corpo.innerHTML = renderRelatorio(await resp.json());
+      } catch (e) { btn.disabled = false; btn.textContent = "Tentar de novo"; alert("Não foi possível gerar agora: " + e.message); }
+    });
+  }
+
   function areaRef(r) { return r.tipo === "terreno" ? (r.area_terreno_m2 ?? r.area_privativa_m2) : (r.area_privativa_m2 ?? r.area_terreno_m2); }
   function diasAte(iso) { if (!iso) return null; const d = Math.round((new Date(iso + "T00:00:00") - new Date(LT.hojeIso() + "T00:00:00")) / 86400000); return d; }
 
@@ -142,12 +218,14 @@
     html += bloco("Onde fica", mapaHtml(r));
     html += bloco("Outras fontes com o mesmo imóvel", outrasFontesHtml(r));
     if (r.extracao_ia) html += bloco("Extração por IA (com trechos-fonte)", extracaoIaHtml(r.extracao_ia));
+    html += `<div class="bloco largo relatorio" id="analise"><h3>Análise com IA</h3><div id="analise-corpo"><p class="muted">verificando se já existe um relatório…</p></div></div>`;
     html += bloco("Descrição original (da fonte)", `<div class="descricao">${escapar(r.descricao_original || TRACO)}</div>`, "largo");
     html += bloco("Evolução do lance mínimo", `<div class="grafico">${graficoSvg(r, eventos)}</div>`);
     html += bloco("Histórico na base", eventos.length ? `<ul class="eventos">${eventos.map(eventoHtml).join("")}</ul>` : '<p class="muted">Sem eventos registrados.</p>');
     html += "</div>";
     el.innerHTML = html;
     montarMapa(r);
+    carregarAnalise(r).then(() => { if (location.hash === "#analise") document.getElementById("analise").scrollIntoView({ behavior: "smooth" }); });
     const voltar = document.getElementById("voltar");
     if (voltar && document.referrer && document.referrer.includes(location.host) && document.referrer.includes("index")) voltar.href = document.referrer;
   }

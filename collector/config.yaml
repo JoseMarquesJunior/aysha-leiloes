@@ -150,3 +150,9 @@ ia:
     desconto_minimo_pct: null
   campos_alto_valor: [ocupado, debitos_iptu_por_conta_de, debitos_condominio_por_conta_de, onus_na_matricula]
   palavras_chave: [ocupa, desocupa, IPTU, condomínio, condominio, débito, debito, ônus, onus, penhora, hipoteca, usufruto, indisponib, comissão, comissao, FGTS, financiamento]
+
+# Relatórios detalhados sob demanda (collector/relatorio.py): Opus com busca na web, gerados uma vez
+# por imóvel e guardados em docs/data/relatorios/. Teto de segurança por dia (qualquer pessoa com conta
+# no GitHub pode pedir um pela issue que o botão do site abre).
+relatorios:
+  maximo_por_dia: 100
