@@ -180,7 +180,7 @@ def texto_de_entrada(r: dict, textos_documentos: list[str], cfg_ia: dict) -> str
 # ---------------------------------------------------------------- nomes de pessoas -----------
 
 _PREFIXOS_OK = r"(?:rua|r\.|avenida|av\.|travessa|praca|alameda|estrada|rodovia|bairro|loteamento|edificio|ed\.|condominio|cond\.|residencial|jardim|vila|cartorio|oficio|comarca|vara|juizo|tribunal|justica|banco|caixa|banestes|bandes|cooperativa|sicoob|leiloeir[oa]|leiloes|municipio|cidade|estado)"
-_ENTIDADE = re.compile(r"\b(condominio|conj|res|residencial|edificio|parque|jardim|vila|praia|mata|bosque|morro|centro|fazenda|nacional|uniao|procuradoria|banco|caixa|banestes|bandes|leil|juizado|vara|cartorio|oficio|tribunal|justica|federal|estadual|municipal|prefeitura|secretaria|cooperativa|sicoob|companhia|cia|ltda|s\.?a\.?|empreendimentos|incorporadora|construtora|imobiliaria|shopping|hospital|escola|igreja|associacao|sindicato|instituto|fundacao)\b")
+_ENTIDADE = re.compile(r"\b(condominio|conj|res|residencial|edificio|parque|jardim|vila|praia|mata|bosque|morro|centro|fazenda|nacional|uniao|procuradoria|banco|caixa|banestes|bandes|leil|juizado|vara|cartorio|oficio|zona|cri|comarca|registro|imoveis|tribunal|justica|federal|estadual|municipal|prefeitura|secretaria|cooperativa|sicoob|companhia|cia|ltda|s\.?a\.?|empreendimentos|incorporadora|construtora|imobiliaria|shopping|hospital|escola|igreja|associacao|sindicato|instituto|fundacao|vitoria|serra|cariacica|velha|guarapari)\b")
 _NOME = re.compile(r"\b([A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]{2,}(?:\s+(?:d[aeo]s?\s+)?[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]{2,}){1,4})\b")
 
 

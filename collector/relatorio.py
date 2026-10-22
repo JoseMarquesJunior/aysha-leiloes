@@ -186,6 +186,9 @@ def gerar(r: dict, textos: list[str], client, modelo: str = MODELO) -> dict:
             texto_final += "\n\n_O modelo recusou parte da análise (stop_reason=refusal)._"
         break
     markdown = anonimizar(texto_final.strip())
+    # o modelo às vezes emenda o texto no título ("## Referência de mercadoO preço..."): separa
+    for titulo in ("Resumo do lote", "Conta no lance mínimo", "Referência de mercado", "Sinais vermelhos", "Veredito"):
+        markdown = re.sub(rf"^(## {re.escape(titulo)})(?=\S)", r"\1\n", markdown, flags=re.M)
     if fontes and "Fontes" not in markdown[-600:] and "Sources" not in markdown[-600:]:
         markdown += "\n\nFontes:\n" + "\n".join(f"- [{f['titulo']}]({f['url']})" for f in fontes[:10])
     return {"markdown": markdown, "uso": uso, "custo_usd": custo_usd(modelo, uso["entrada"], uso["saida"], uso["buscas"]), "fontes": fontes}
