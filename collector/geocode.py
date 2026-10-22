@@ -55,12 +55,14 @@ def _rua_bate(endereco_limpo: str, display_name: str) -> bool:
 
 
 class Geocodificador:
-    def __init__(self, cliente, url: str, caminho_cache: str, intervalo: float = 1.1, maximo: int = 400):
+    def __init__(self, cliente, url: str, caminho_cache: str, intervalo: float = 1.1, maximo: int = 400,
+                 precisao_maxima_por_uf: dict | None = None):
         self.cliente = cliente
         self.url = url
         self.caminho = Path(caminho_cache)
         self.intervalo = intervalo
         self.maximo = maximo
+        self.precisao_maxima_por_uf = precisao_maxima_por_uf or {}
         self.consultas = 0
         self.cache: dict = {}
         if self.caminho.exists():
@@ -102,10 +104,11 @@ class Geocodificador:
         if not cidade or not uf:
             return
         endereco = limpar_endereco(r.get("endereco"))
+        maxima = self.precisao_maxima_por_uf.get(uf, "endereco")
         tentativas = []
-        if endereco:
+        if endereco and maxima == "endereco":
             tentativas.append(("endereco", ", ".join(p for p in (endereco, bairro, cidade, uf, "Brasil") if p)))
-        if bairro:
+        if bairro and maxima in ("endereco", "bairro"):
             tentativas.append(("bairro", ", ".join((bairro, cidade, uf, "Brasil"))))
         tentativas.append(("cidade", ", ".join((cidade, uf, "Brasil"))))
         for precisao, q in tentativas:

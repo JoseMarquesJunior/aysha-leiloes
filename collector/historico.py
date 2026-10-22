@@ -70,9 +70,23 @@ def fundir_com_anteriores(anteriores: dict[str, dict], atuais: dict[str, dict], 
     return saida
 
 
-def gravar_snapshot(pasta: Path, hoje: str, registros: list[dict]) -> Path:
+def gravar_snapshot(pasta: Path, hoje: str, registros: list[dict], anteriores: dict[str, dict] | None = None,
+                    completo: bool = False) -> Path:
+    """Snapshot do dia. Por padrão só com os imóveis novos ou cujos campos essenciais mudaram desde a
+    base anterior (delta); `completo=True` grava todos (feito no 1º dia do mês). Com bases de dezenas de
+    milhares de registros, o snapshot completo diário encheria o repositório."""
     pasta.mkdir(parents=True, exist_ok=True)
-    dados = [{c: r.get(c) for c in CAMPOS_SNAPSHOT} for r in registros if r.get("ativo", True)]
+    dados = []
+    for r in registros:
+        if not r.get("ativo", True):
+            continue
+        atual = {c: r.get(c) for c in CAMPOS_SNAPSHOT}
+        if completo or anteriores is None:
+            dados.append(atual)
+            continue
+        velho = anteriores.get(r["id"])
+        if velho is None or any(velho.get(c) != atual[c] for c in CAMPOS_SNAPSHOT if c != "id"):
+            dados.append(atual)
     caminho = pasta / f"{hoje}.json"
     caminho.write_text(json.dumps(dados, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     return caminho

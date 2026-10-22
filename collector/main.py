@@ -54,7 +54,10 @@ def carregar_base_anterior(pasta: Path) -> dict[str, dict]:
     base: dict[str, dict] = {}
     for nome in arquivos:
         for r in _ler_json(pasta / nome, []):
-            base[r["id"]] = r
+            completo = {c: None for c in CAMPOS}
+            completo["outras_fontes"] = []
+            completo.update(r)  # os arquivos são gravados sem os campos null
+            base[r["id"]] = completo
     return base
 
 
@@ -121,16 +124,22 @@ def percentual_nulos(registros: list[dict]) -> dict[str, float]:
             if c not in ("outras_fontes",)}
 
 
+def _compacto(r: dict) -> dict:
+    """Registro sem campos null e sem outras_fontes vazia: o site repõe os nulos ao carregar
+    (common.js, CAMPOS). Reduz o JSON em cerca de 40 % — importa em RJ e SP, com milhares de imóveis."""
+    return {k: v for k, v in r.items() if v is not None and not (k == "outras_fontes" and not v)}
+
+
 def gravar_saida(pasta: Path, registros: list[dict], config: dict, status: dict, hoje: str) -> list[str]:
     registros.sort(key=lambda r: (r.get("uf") or "", r.get("cidade") or "", r.get("id") or ""))
     limite = config["saida"].get("dividir_por_uf_acima_de_mb", 3) * 1024 * 1024
-    conteudo = json.dumps(registros, ensure_ascii=False, separators=(",", ":"))
+    conteudo = json.dumps([_compacto(r) for r in registros], ensure_ascii=False, separators=(",", ":"))
     arquivos: list[str]
     if len(conteudo.encode("utf-8")) > limite:
         arquivos = []
         for uf in sorted({r.get("uf") or "XX" for r in registros}):
             nome = f"imoveis_{uf}.json"
-            _gravar_json(pasta / nome, [r for r in registros if (r.get("uf") or "XX") == uf])
+            _gravar_json(pasta / nome, [_compacto(r) for r in registros if (r.get("uf") or "XX") == uf])
             arquivos.append(nome)
         (pasta / "imoveis.json").unlink(missing_ok=True)
     else:
@@ -144,6 +153,8 @@ def gravar_saida(pasta: Path, registros: list[dict], config: dict, status: dict,
         "data_coleta": hoje,
         "arquivos": arquivos,
         "dividido_por_uf": len(arquivos) > 1 or arquivos[0] != "imoveis.json",
+        "ufs_padrao": config["saida"].get("ufs_carregadas_por_padrao") or config.get("ufs", []),
+        "ufs": sorted({r.get("uf") for r in registros if r.get("uf")}),
         "total": len(registros),
         "ativos": len(ativos),
         "por_fonte": {f: sum(1 for r in ativos if r.get("fonte") == f) for f in sorted({r.get("fonte") for r in ativos})},
@@ -208,7 +219,7 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
     gcfg = config.get("geocodificacao", {})
     if gcfg.get("ativa") and not sem_geo:
         geo = Geocodificador(cliente, gcfg["url"], RAIZ / gcfg["cache"], gcfg.get("intervalo_segundos", 1.1),
-                             gcfg.get("maximo_por_execucao", 400))
+                             gcfg.get("maximo_por_execucao", 400), gcfg.get("precisao_maxima_por_uf"))
         pendentes = [r for r in registros if r.get("ativo", True) and r.get("lat") is None]
         for r in pendentes:
             geo.geocodificar(r)
@@ -216,9 +227,10 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
         com_geo = sum(1 for r in registros if r.get("lat") is not None)
         log.info("geocodificação: %d consultas novas; %d/%d com coordenadas", geo.consultas, com_geo, len(registros))
 
-    # 6. snapshots
+    # 6. snapshots (delta diário; completo no dia configurado do mês ou quando não há base anterior)
     snap_dir = pasta / "snapshots"
-    hist.gravar_snapshot(snap_dir, hoje, registros)
+    completo = (not anteriores) or date.today().day == config["saida"].get("snapshot_completo_dia", 1)
+    hist.gravar_snapshot(snap_dir, hoje, registros, anteriores, completo=completo)
     hist.compactar_snapshots(snap_dir, hoje, config["saida"].get("dias_snapshots_diarios", 90))
 
     # 7. IA (Batch API, cache permanente, tetos diários; só roda com chave + ia_habilitada)

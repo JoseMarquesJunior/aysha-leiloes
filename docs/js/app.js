@@ -64,7 +64,7 @@
   function $(id) { return document.getElementById(id); }
   function valoresSel(id) { return Array.from($(id).selectedOptions).map(o => o.value); }
   function numOuNull(id) { const v = $(id).value; return v === "" ? null : Number(v); }
-  function urlDetalhe(r) { return `imovel.html?id=${encodeURIComponent(r.id)}`; }
+  function urlDetalhe(r) { return `imovel.html?id=${encodeURIComponent(r.id)}${r.uf ? "&uf=" + encodeURIComponent(r.uf) : ""}`; }
 
   // ---------- menus de seleção múltipla (sobre os <select multiple> escondidos) ----------
   const ROTULO_OPCAO = { "f-tipo": cap, "f-natureza": cap, "f-fonte": nomeFonte };
@@ -143,7 +143,10 @@
   }
   function montarOpcoes() {
     const ativos = estado.todos.filter(r => r.ativo !== false);
-    preencherSelect("f-uf", estado.todasUfs ? estado.todasUfs.map(u => [u, ""]) : contagem("uf", ativos));
+    if (estado.todasUfs) {
+      const n = Object.fromEntries(contagem("uf", ativos));
+      preencherSelect("f-uf", estado.todasUfs.map(u => [u, estado.ufsCarregadas.has(u) ? (n[u] || 0) : "carregar"]));
+    } else preencherSelect("f-uf", contagem("uf", ativos));
     preencherSelect("f-tipo", contagem("tipo", ativos));
     preencherSelect("f-natureza", contagem("natureza", ativos));
     preencherSelect("f-modalidade", contagem("modalidade", ativos));
@@ -530,7 +533,7 @@
   // ---------- cabeçalho (status) ----------
   function renderStatus() {
     const m = estado.meta, st = estado.status || {};
-    $("contador").textContent = m ? `${m.ativos.toLocaleString("pt-BR")} imóveis · coleta de ${data(m.data_coleta)}` : "";
+    $("contador").textContent = m ? `${m.ativos.toLocaleString("pt-BR")} imóveis em ${(m.ufs || Object.keys(m.por_uf || {})).join(", ")} · coleta de ${data(m.data_coleta)}` : "";
     const ativas = Object.entries(st).filter(([n, s]) => !n.startsWith("_") && s.ativa);
     const ok = ativas.filter(([, s]) => s.ultima_coleta_ok === (m && m.data_coleta));
     const falhas = ativas.filter(([n]) => !ok.some(([k]) => k === n));
@@ -570,9 +573,11 @@
     const ufs = valoresSel("f-uf");
     const faltam = ufs.filter(u => !estado.ufsCarregadas.has(u));
     if (!faltam.length) return;
+    $("contador-filtrado").textContent = `carregando ${faltam.join(", ")}…`;
     const novos = await Promise.all(faltam.map(u => carregarJson(`imoveis_${u}.json`)));
-    estado.todos = estado.todos.concat(novos.flat());
+    estado.todos = estado.todos.concat(novos.flat().map(LT.normalizar));
     faltam.forEach(u => estado.ufsCarregadas.add(u));
+    indexarHistorico();
   }
 
   function limparFiltros() {
@@ -593,7 +598,12 @@
     estado.meta = base.meta; estado.todos = base.imoveis; estado.historico = historico; estado.status = status;
     estado.dividido = !!base.meta.dividido_por_uf;
     for (const a of base.carregados) { const m = a.match(/^imoveis_(\w+)\.json$/); if (m) estado.ufsCarregadas.add(m[1]); }
-    if (estado.dividido && ufsUrl) estado.todasUfs = base.arquivos.map(a => (a.match(/^imoveis_(\w+)\.json$/) || [])[1]).filter(Boolean);
+    if (estado.dividido) {
+      // o seletor de UF lista todas as UFs da base, carregadas ou não; as não carregadas entram ao serem escolhidas
+      estado.todasUfs = base.meta.ufs || base.arquivos.map(a => (a.match(/^imoveis_(\w+)\.json$/) || [])[1]).filter(Boolean);
+      const naoCarregadas = estado.todasUfs.filter(u => !estado.ufsCarregadas.has(u));
+      if (naoCarregadas.length) $("contador").title = `Carregadas: ${Array.from(estado.ufsCarregadas).join(", ")}. Selecione ${naoCarregadas.join(", ")} no filtro UF para carregar.`;
+    }
     indexarHistorico();
     renderStatus();
     document.querySelectorAll(".ms").forEach(montarMs);

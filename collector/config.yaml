@@ -13,7 +13,7 @@ http:
   respeitar_robots: true
 
 # UFs coletadas (vale para todas as fontes que filtram por UF).
-ufs: [ES, MG]
+ufs: [ES, MG, RJ, SP]
 
 # Prioridade de fontes na deduplicação: menor número = fonte principal preferida
 # (banco/órgão oficial antes de leiloeiro).
@@ -79,6 +79,10 @@ saida:
   pasta: docs/data
   # Acima deste tamanho, imoveis.json é dividido em imoveis_<UF>.json (carregados sob demanda pelo site).
   dividir_por_uf_acima_de_mb: 3
+  # Com a base dividida, o site abre com estas UFs; as outras carregam quando selecionadas no filtro.
+  ufs_carregadas_por_padrao: [ES, MG]
+  # Snapshot diário guarda só o que mudou desde a coleta anterior; snapshot completo no 1º dia do mês.
+  snapshot_completo_dia: 1
   # Registros que sumiram da fonte continuam no JSON (ativo=false) por este prazo.
   dias_retencao_removidos: 90
   # Snapshots diários com mais que isto são compactados num resumo mensal.
@@ -92,6 +96,11 @@ geocodificacao:
   cache: collector/cache/geo.json
   # Limite de novas consultas por execução (protege o Nominatim e o tempo do Action).
   maximo_por_execucao: 1000
+  # Precisão máxima por UF: nos estados grandes (milhares de imóveis) geocodificamos só bairro + cidade,
+  # que repete muito e cabe no cache; endereço completo fica para o foco do projeto (ES e MG).
+  precisao_maxima_por_uf:
+    RJ: bairro
+    SP: bairro
 
 # Etapa de IA (estimativa aprovada em 2026-10-21). Só roda com ANTHROPIC_API_KEY no ambiente E
 # ia_habilitada: true; sem a chave, só aplica o que já está no cache e grava a estimativa.

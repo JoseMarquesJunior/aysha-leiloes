@@ -93,16 +93,36 @@
     return r.json();
   }
 
-  /* Carrega meta.json e os arquivos de imóveis. Se a base está dividida por UF e `ufs` é informado,
-     carrega só essas UFs (carga sob demanda); devolve {meta, imoveis, carregados:Set}. */
+  /* Carrega meta.json e os arquivos de imóveis. Com a base dividida por UF, carrega só as UFs pedidas
+     (`ufs`) ou, sem pedido, as UFs padrão de meta.ufs_padrao; as outras ficam para carga sob demanda.
+     Devolve {meta, imoveis, carregados:Set, arquivos}. */
   async function carregarImoveis(ufs) {
     const meta = await carregarJson("meta.json");
     const arquivos = meta.arquivos || ["imoveis.json"];
-    const escolhidos = (meta.dividido_por_uf && ufs && ufs.length)
-      ? arquivos.filter(a => ufs.some(u => a === `imoveis_${u}.json`))
-      : arquivos;
+    let escolhidos = arquivos;
+    if (meta.dividido_por_uf) {
+      const pedidas = (ufs && ufs.length) ? ufs : (meta.ufs_padrao || []);
+      const filtrados = arquivos.filter(a => pedidas.some(u => a === `imoveis_${u}.json`));
+      if (filtrados.length) escolhidos = filtrados;
+    }
     const listas = await Promise.all(escolhidos.map(carregarJson));
-    return { meta, imoveis: listas.flat(), carregados: new Set(escolhidos), arquivos };
+    const imoveis = listas.flat();
+    for (const r of imoveis) normalizar(r);
+    return { meta, imoveis, carregados: new Set(escolhidos), arquivos };
+  }
+
+  /* Os arquivos são gravados sem os campos null (economia de ~40 %); aqui todo registro volta a ter
+     todos os campos do esquema, para o resto do código tratar "ausente" e "null" do mesmo jeito. */
+  const CAMPOS = ["id", "fonte", "url_anuncio", "url_edital", "url_matricula", "leiloeiro", "tipo", "uf", "cidade", "bairro", "endereco",
+    "lat", "lng", "geo_precisao", "area_privativa_m2", "area_terreno_m2", "area_total_m2", "quartos", "vagas", "valor_avaliacao",
+    "valor_minimo", "desconto_pct", "valor_m2", "natureza", "modalidade", "data_leilao", "data_segunda_praca", "ocupado",
+    "aceita_financiamento", "aceita_fgts", "aceita_parcelamento", "debitos_iptu_por_conta_de", "debitos_condominio_por_conta_de",
+    "comissao_leiloeiro_pct", "matricula", "numero_processo", "comitente", "descricao_original", "url_foto", "primeira_vez_visto",
+    "ultima_vez_visto", "ativo", "outras_fontes", "extracao_ia"];
+  function normalizar(r) {
+    for (const c of CAMPOS) if (!(c in r)) r[c] = c === "outras_fontes" ? [] : null;
+    if (r.ativo === null) r.ativo = true;
+    return r;
   }
 
   function lerQuery() {
@@ -137,6 +157,6 @@
 
   global.LT = {
     TRACO, nulo, moeda, numero, pct, area, data, dataHora, simNao, ocupado, texto, cap, escapar, semAcentos,
-    diasEntre, hojeIso, nomeFonte, SITES_FONTES, ROTULOS, formatarCampo, carregarJson, carregarImoveis, lerQuery,
+    diasEntre, hojeIso, nomeFonte, SITES_FONTES, ROTULOS, formatarCampo, carregarJson, carregarImoveis, lerQuery, normalizar, CAMPOS,
   };
 })(window);

@@ -107,7 +107,8 @@
     const id = lerQuery().id;
     const el = document.getElementById("detalhe");
     if (!id) { el.innerHTML = '<p>Informe um imóvel: <code>imovel.html?id=…</code></p>'; return; }
-    const [base, historico] = await Promise.all([carregarImoveis(null), carregarJson("historico.json").catch(() => ({ eventos: [] }))]);
+    const ufLink = lerQuery().uf;  // a tabela passa a UF no link: com a base dividida, carrega só esse arquivo
+    const [base, historico] = await Promise.all([carregarImoveis(ufLink ? [ufLink] : null), carregarJson("historico.json").catch(() => ({ eventos: [] }))]);
     let r = base.imoveis.find(x => x.id === id);
     if (!r && base.meta.dividido_por_uf) {
       for (const a of base.arquivos) {

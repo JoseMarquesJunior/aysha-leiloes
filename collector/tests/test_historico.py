@@ -66,3 +66,13 @@ def test_gravar_historico_descarta_eventos_velhos(tmp_path):
     res = h.gravar_historico(caminho, antigo, novos, "2026-10-21", dias_retencao_eventos=365)
     assert [e["id"] for e in res["eventos"]] == ["y"]
     assert json.loads(caminho.read_text(encoding="utf-8"))["eventos"] == res["eventos"]
+
+
+def test_snapshot_delta_so_com_mudancas(tmp_path):
+    anteriores = {"a": _r("a", valor_minimo=100.0), "b": _r("b", valor_minimo=50.0), "c": _r("c", valor_minimo=70.0)}
+    atuais = [_r("a", valor_minimo=100.0), _r("b", valor_minimo=45.0), _r("c", valor_minimo=70.0, data_leilao="2026-11-01"), _r("d", valor_minimo=1.0)]
+    p = h.gravar_snapshot(tmp_path, "2026-10-22", atuais, anteriores)
+    ids = [x["id"] for x in json.loads(p.read_text(encoding="utf-8"))]
+    assert ids == ["b", "c", "d"]  # 'a' não mudou e fica de fora
+    p2 = h.gravar_snapshot(tmp_path, "2026-11-01", atuais, anteriores, completo=True)
+    assert len(json.loads(p2.read_text(encoding="utf-8"))) == 4
