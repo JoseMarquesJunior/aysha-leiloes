@@ -83,3 +83,21 @@ def test_num():
     assert ex._num("334") == 334.0
     assert ex._num("12.502.000") == 12502000.0
     assert ex._num("abc") is None
+
+
+def test_endereco_e_bairro_da_descricao():
+    t = "Terreno urbano c/ 200,00m², situado na Rua Tupinambás, nº 120, Bairro Aquidaban, Cachoeiro de Itapemirim/ES."
+    assert ex.extrair_endereco(t) == "Rua Tupinambás, nº 120"
+    assert ex.extrair_bairro(t) == "Aquidaban"
+    assert ex.extrair_bairro("Apartamento no bairro Mata da Praia, Vitória") == "Mata da Praia"
+    assert ex.extrair_endereco("Avenida Lourival Nunes nº 27 Lote 36, Bairro Jardim Limoeiro") == "Avenida Lourival Nunes nº 27"
+    assert ex.extrair_endereco("Imóvel rural no Córrego Desengano") is None
+    assert ex.extrair_bairro("sem referência") is None
+
+
+def test_candidatos_bairro_do_fim():
+    t = "APTO Nº 402 COM 03 QTS DO ED. PORTO RICO MATA DA PRAIA - VITÓRIA/ES"
+    assert ex.candidatos_bairro_do_fim(t, "Vitória")[0] == "MATA DA PRAIA"
+    assert ex.candidatos_bairro_do_fim(t, "Serra") == []  # cidade diferente da descrição
+    assert ex.candidatos_bairro_do_fim("CASA EM JARDIM CAMBURI - VITÓRIA/ES | Lance 2ª praça: R$ 1.000,00", "Vitória") == ["JARDIM CAMBURI"]
+    assert ex.candidatos_bairro_do_fim("sem padrão", "Vitória") == []

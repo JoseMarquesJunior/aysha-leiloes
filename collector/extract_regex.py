@@ -205,6 +205,56 @@ def extrair_numero_processo(texto: str) -> str | None:
     return m.group(1) if m else None
 
 
+_VIA = r"(?:Rua|R\.|Avenida|Av\.|Travessa|Tv\.|Alameda|Al\.|Rodovia|Rod\.|Estrada|Estr\.|Pra[çc]a|Largo|Ladeira|Beco|Via)"
+
+
+def extrair_endereco(texto: str) -> str | None:
+    """'situado na Rua Tupinambás, nº 120, Bairro X' -> 'Rua Tupinambás, nº 120'. Só logradouro e número."""
+    if not texto:
+        return None
+    m = re.search(_VIA + r"\s+[A-ZÀ-Úa-zà-ú0-9][^,;\n()]{2,60}?(?:,\s*(?:n[ºo°.]?\s*)?\d+[A-Za-z]?)?(?=[,;.\n(]|\s+-\s|\s+(?:bairro|lote|quadra|apto|apartamento|casa|sala|loja|esquina|em|no|na)\b|$)",
+                  texto, re.I)
+    if not m:
+        return None
+    end = re.sub(r"\s+", " ", m.group(0)).strip(" ,.")
+    return end if len(end) >= 6 else None
+
+
+def extrair_bairro(texto: str) -> str | None:
+    """'Bairro Aquidaban, Cachoeiro' / 'no bairro Mata da Praia' -> 'Aquidaban' / 'Mata da Praia'."""
+    if not texto:
+        return None
+    m = re.search(r"\b[Bb]airro\s+(?:d[aeo]s?\s+)?([A-ZÀ-Ú][\w'ÀÁÂÃÉÊÍÓÔÕÚÇàáâãéêíóôõúç\-]*(?:\s+(?:d[aeo]s?\s+)?[A-ZÀ-Ú0-9][\w'ÀÁÂÃÉÊÍÓÔÕÚÇàáâãéêíóôõúç\-]*){0,3})",
+                  texto)
+    if not m:
+        return None
+    b = m.group(1).strip(" ,.-")
+    if re.match(r"(?i)^(de|do|da|em|no|na|e|o|a)$", b) or len(b) < 3:
+        return None
+    return b
+
+
+def candidatos_bairro_do_fim(texto: str, cidade: str | None) -> list[str]:
+    """Descrições de leiloeiro terminam em '... ED. PORTO RICO MATA DA PRAIA - VITÓRIA/ES'. Devolve os
+    últimos 3 e 2 termos antes de ' - CIDADE/UF' como candidatos a bairro, para o geocodificador validar."""
+    if not texto:
+        return []
+    m = re.search(r"([A-ZÀ-Ú0-9][A-ZÀ-Ú0-9.'\s]{3,80}?)\s*-\s*([A-ZÀ-Ú][A-ZÀ-Ú\s]+)/([A-Z]{2})\s*(?:\||$)", texto.strip())
+    if not m:
+        return []
+    if cidade and sem_acentos(m.group(2)).strip().lower() != sem_acentos(cidade).lower():
+        return []
+    palavras = [p for p in re.split(r"\s+", m.group(1).strip()) if p and not re.fullmatch(r"[A-Z]{1,2}\.|N[ºO°]?|\d+", p)]
+    saida = []
+    for n in (3, 2):
+        if len(palavras) >= n:
+            cand = " ".join(palavras[-n:])
+            cand = re.sub(r"(?i)^(?:DE|DA|DO|DOS|DAS|E|EM|NO|NA|NOS|NAS|COM|AO|À)\s+", "", cand)
+            if cand and cand not in saida and len(cand.split()) >= 2 or (cand and len(cand) >= 5 and cand not in saida):
+                saida.append(cand)
+    return saida
+
+
 def extrair_tudo(texto: str) -> dict:
     """Todos os campos que o regex consegue tirar do texto; só inclui o que foi encontrado."""
     if not texto:
@@ -227,5 +277,7 @@ def extrair_tudo(texto: str) -> dict:
         "data_segunda_praca": data_segunda,
         "matricula": extrair_matricula(texto),
         "numero_processo": extrair_numero_processo(texto),
+        "endereco": extrair_endereco(texto),
+        "bairro": extrair_bairro(texto),
     }
     return {k: v for k, v in achados.items() if v is not None}

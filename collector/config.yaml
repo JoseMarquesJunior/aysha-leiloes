@@ -13,7 +13,7 @@ http:
   respeitar_robots: true
 
 # UFs coletadas (vale para todas as fontes que filtram por UF).
-ufs: [ES, MG, RJ, SP, GO, PE, RS, PI, BA]
+ufs: [ES, MG, RJ, SP, GO, PE, RS, PI, BA, PB, RN, CE, PR, SE, PA, MA, AM, MS, MT, SC, AL, DF, RO, TO, AC, AP, RR]
 
 # Prioridade de fontes na deduplicação: menor número = fonte principal preferida
 # (banco/órgão oficial antes de leiloeiro).
@@ -80,7 +80,8 @@ saida:
   # Acima deste tamanho, imoveis.json é dividido em imoveis_<UF>.json (carregados sob demanda pelo site).
   dividir_por_uf_acima_de_mb: 3
   # Com a base dividida, o site abre com estas UFs; as outras carregam quando selecionadas no filtro.
-  ufs_carregadas_por_padrao: [ES, MG]
+  # Lista vazia = todas (hoje ~16 MB de JSON, ~3 MB comprimidos pelo GitHub Pages).
+  ufs_carregadas_por_padrao: []
   # Snapshot diário guarda só o que mudou desde a coleta anterior; snapshot completo no 1º dia do mês.
   snapshot_completo_dia: 1
   # Registros que sumiram da fonte continuam no JSON (ativo=false) por este prazo.
@@ -106,6 +107,24 @@ geocodificacao:
     RS: bairro
     PI: bairro
     BA: bairro
+    PB: bairro
+    RN: bairro
+    CE: bairro
+    PR: bairro
+    SE: bairro
+    PA: bairro
+    MA: bairro
+    AM: bairro
+    MS: bairro
+    MT: bairro
+    SC: bairro
+    AL: bairro
+    DF: bairro
+    RO: bairro
+    TO: bairro
+    AC: bairro
+    AP: bairro
+    RR: bairro
 
 # Etapa de IA (estimativa aprovada em 2026-10-21). Só roda com ANTHROPIC_API_KEY no ambiente E
 # ia_habilitada: true; sem a chave, só aplica o que já está no cache e grava a estimativa.
@@ -115,10 +134,12 @@ ia:
   # Saída é JSON com até 7 trechos-fonte de 200 caracteres: 900 tokens cobrem com folga (pensamento desligado).
   max_tokens_saida: 900
   max_caracteres_entrada: 6000
-  limite_chamadas_por_execucao: 50
-  limite_custo_usd_por_execucao: 0.50
-  # Lotes pequenos costumam ficar prontos em minutos; se não, o resultado entra na execução seguinte.
-  esperar_lote_minutos: 10
+  # Tetos elevados em 2026-10-22 (autorização do mantenedor) para processar a fila inteira nas primeiras
+  # coletas; cada imóvel custa cerca de US$ 0,0003 no Batch. Voltar a 50 / 0.50 quando a fila zerar, se quiser.
+  limite_chamadas_por_execucao: 1000
+  limite_custo_usd_por_execucao: 2.00
+  # Lotes grandes podem levar mais de 10 min; se não ficarem prontos, o resultado entra na execução seguinte.
+  esperar_lote_minutos: 20
   cache: collector/cache/ia
   # Filtro: só imóveis que atendam a tudo abaixo vão para a IA. Listas vazias = todas as UFs/cidades;
   # desconto mínimo nulo = sem corte (leilões judiciais no 1º leilão têm desconto 0 e são os que mais

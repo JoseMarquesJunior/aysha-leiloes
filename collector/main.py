@@ -153,8 +153,9 @@ def gravar_saida(pasta: Path, registros: list[dict], config: dict, status: dict,
         "data_coleta": hoje,
         "arquivos": arquivos,
         "dividido_por_uf": len(arquivos) > 1 or arquivos[0] != "imoveis.json",
-        "ufs_padrao": config["saida"].get("ufs_carregadas_por_padrao") or config.get("ufs", []),
         "ufs": sorted({r.get("uf") for r in registros if r.get("uf")}),
+        # lista vazia no config = o site carrega todas as UFs na abertura
+        "ufs_padrao": config["saida"].get("ufs_carregadas_por_padrao") or sorted({r.get("uf") for r in registros if r.get("uf")}),
         "total": len(registros),
         "ativos": len(ativos),
         "por_fonte": {f: sum(1 for r in ativos if r.get("fonte") == f) for f in sorted({r.get("fonte") for r in ativos})},
@@ -223,6 +224,17 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
         pendentes = [r for r in registros if r.get("ativo", True) and r.get("lat") is None]
         for r in pendentes:
             geo.geocodificar(r)
+        # registros que ficaram no nível "cidade" tentam de novo quando há bairro/endereço (vindos do regex)
+        # ou candidatos no fim da descrição; consultas repetidas saem do cache e não contam no teto
+        for r in registros:
+            if not r.get("ativo", True) or r.get("geo_precisao") != "cidade" or geo.consultas >= geo.maximo:
+                continue
+            if not (r.get("bairro") or r.get("endereco") or r.get("descricao_original")):
+                continue
+            tentativa = dict(r, lat=None, lng=None, geo_precisao=None)
+            geo.geocodificar(tentativa)
+            if tentativa.get("geo_precisao") in ("endereco", "bairro"):
+                r.update({k: tentativa[k] for k in ("lat", "lng", "geo_precisao", "bairro")})
         geo.salvar()
         com_geo = sum(1 for r in registros if r.get("lat") is not None)
         log.info("geocodificação: %d consultas novas; %d/%d com coordenadas", geo.consultas, com_geo, len(registros))

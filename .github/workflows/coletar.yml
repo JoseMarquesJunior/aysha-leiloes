@@ -24,7 +24,7 @@ concurrency:
 jobs:
   coletar:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120  # 27 estados (~45 min) + espera pelo lote de IA (até 20 min)
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4

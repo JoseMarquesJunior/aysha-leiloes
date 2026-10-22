@@ -193,3 +193,35 @@ def test_hdleiloes_lote():
     assert rj["numero_processo"] and "." in rj["numero_processo"]
     if judicial.get("vl_lanceinicialsegundoleilao"):
         assert rj["data_segunda_praca"] and "Lance inicial 2º leilão" in rj["descricao_original"]
+
+
+def test_geocodificador_ordem_de_tentativas(monkeypatch):
+    """Sem rede: registra as consultas feitas e simula respostas, para conferir a ordem das tentativas."""
+    from collector import geocode
+    feitas = []
+
+    class Cliente:
+        def get(self, url, params=None, intervalo=None, api=False):
+            q = params["q"]; feitas.append(q)
+            class R:
+                def json(self_inner):
+                    if q.lower().startswith("mata da praia,"):
+                        return [{"lat": "-20.27", "lon": "-40.29", "addresstype": "suburb", "display_name": "Mata da Praia, Vitória, ES, Brasil"}]
+                    if q.startswith("Rua Tupinambás"):
+                        return [{"lat": "-20.85", "lon": "-41.11", "addresstype": "residential", "display_name": "Rua Tupinambás, Aquidaban, Cachoeiro de Itapemirim"}]
+                    if q.startswith("Bairro Inexistente,"):
+                        return []
+                    return [{"lat": "-20.32", "lon": "-40.34", "addresstype": "city", "display_name": "Vitória, ES, Brasil"}]
+            return R()
+
+    g = geocode.Geocodificador(Cliente(), "u", str(__import__("pathlib").Path(__import__("tempfile").mkdtemp()) / "geo.json"),
+                               intervalo=0, maximo=100, precisao_maxima_por_uf={"RJ": "bairro"})
+    # candidato de bairro tirado do fim da descrição (leiloeiro sem campo de bairro)
+    r = {"uf": "ES", "cidade": "Vitória", "bairro": None, "endereco": None, "descricao_original": "APTO 402 ED. PORTO RICO MATA DA PRAIA - VITÓRIA/ES"}
+    g.geocodificar(r)
+    assert r["geo_precisao"] == "bairro" and r["bairro"] == "Mata da Praia" and r["lat"] == -20.27
+    # estado grande: bairro inexistente no OSM -> tenta o endereço antes de cair na cidade
+    r2 = {"uf": "RJ", "cidade": "Cachoeiro de Itapemirim", "bairro": "Bairro Inexistente", "endereco": "Rua Tupinambás, 120", "descricao_original": ""}
+    g.geocodificar(r2)
+    assert r2["geo_precisao"] == "endereco" and r2["lat"] == -20.85
+    assert [q.split(",")[0] for q in feitas] == ["MATA DA PRAIA", "Bairro Inexistente", "Rua Tupinambás"]

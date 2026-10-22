@@ -110,6 +110,15 @@ class Geocodificador:
             tentativas.append(("endereco", ", ".join(p for p in (endereco, bairro, cidade, uf, "Brasil") if p)))
         if bairro and maxima in ("endereco", "bairro"):
             tentativas.append(("bairro", ", ".join((bairro, cidade, uf, "Brasil"))))
+        if not bairro and maxima in ("endereco", "bairro"):
+            # sem bairro declarado: candidatos tirados do fim da descrição ("... MATA DA PRAIA - VITÓRIA/ES")
+            from .extract_regex import candidatos_bairro_do_fim
+            for cand in candidatos_bairro_do_fim(r.get("descricao_original") or "", cidade):
+                tentativas.append(("bairro?", ", ".join((cand, cidade, uf, "Brasil"))))
+        if endereco and maxima == "bairro":
+            # estados grandes: o endereço completo só é consultado quando o bairro não existe no OpenStreetMap
+            # (as consultas de bairro que falharam ficam no cache e não custam nada nas execuções seguintes)
+            tentativas.append(("endereco", ", ".join(p for p in (endereco, bairro, cidade, uf, "Brasil") if p)))
         tentativas.append(("cidade", ", ".join((cidade, uf, "Brasil"))))
         for precisao, q in tentativas:
             res = self._consultar(q)
@@ -125,5 +134,12 @@ class Geocodificador:
                     continue
             if precisao == "bairro" and tipo in _TIPOS_CIDADE:
                 continue
+            if precisao == "bairro?":
+                # candidato: só vale se o Nominatim devolveu um bairro/localidade cujo nome contém o candidato
+                cand = q.split(",")[0]
+                if tipo not in _TIPOS_BAIRRO or not _rua_bate(cand, res.get("nome") or ""):
+                    continue
+                r["bairro"] = r.get("bairro") or (res.get("nome") or cand).split(",")[0].strip()
+                precisao = "bairro"
             r["lat"], r["lng"], r["geo_precisao"] = res["lat"], res["lng"], precisao
             return
