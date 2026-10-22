@@ -35,8 +35,8 @@ PASTA = RAIZ / "docs" / "data" / "relatorios"
 MODELO = "claude-opus-5"
 PRECOS_USD_MTOK = {"claude-opus-5": (5.0, 25.0), "claude-opus-5-5": (4.0, 20.0)}
 PRECO_BUSCA_USD = 0.01  # US$ 10 por mil buscas na web
-MAX_BUSCAS = 6
-MAX_TOKENS = 12000
+MAX_BUSCAS = 3   # cada busca devolve páginas inteiras: 6 buscas levaram a 120 mil tokens de entrada no 1º teste
+MAX_TOKENS = 9000
 MAX_CHARS_DOCUMENTO = 60000  # ~17 mil tokens por documento; acima disso o texto é cortado no fim
 
 SISTEMA = """Você é um analista experiente de leilões de imóveis no Brasil, escrevendo para investidores e pessoas do ramo que vão decidir se dão lance. Você recebe os dados do anúncio e o texto dos documentos (edital, matrícula, laudo) e pode pesquisar na web preços de mercado do bairro e do prédio.
@@ -68,6 +68,12 @@ def _carregar_base() -> dict[str, dict]:
     for nome in meta.get("arquivos", ["imoveis.json"]):
         for r in json.loads((pasta / nome).read_text(encoding="utf-8")):
             base[r["id"]] = r
+    # ids absorvidos pela deduplicação (lote de leiloeiro fundido ao registro da Caixa/JFES) apontam para o
+    # registro principal, que é o que a ficha do site usa
+    for r in list(base.values()):
+        for o in r.get("outras_fontes") or []:
+            if o.get("id") and o["id"] not in base:
+                base[o["id"]] = r
     return base
 
 
@@ -101,14 +107,22 @@ def custo_usd(modelo: str, tokens_in: int, tokens_out: int, buscas: int) -> floa
     return round((tokens_in * pe + tokens_out * ps) / 1e6 + buscas * PRECO_BUSCA_USD, 4)
 
 
+_GATILHOS_PESSOA = re.compile(r"\b(executad[oa]s?|exequentes?|terceir[oa]s?|deposit[áa]ri[oa]s?|titular(?:es)?|propriet[áa]ri[oa]s?|c[ôo]njuge|herdeir[oa]s?|esp[óo]lio|adquirente|devedor(?:a|es)?|CPF|falecid[oa]|inventariante|usufrutu[áa]ri[oa]s?|vendedor(?:a|es)?|comprador(?:a|es)?|em nome de|por conta de)\b", re.I)
+_CPF = re.compile(r"\b\d{3}\.\d{3}\.\d{3}-\d{2}\b")
+
+
 def anonimizar(markdown: str) -> str:
-    """Segunda barreira contra nomes de pessoas (a primeira é a instrução ao modelo)."""
+    """Segunda barreira contra nomes de pessoas (a primeira é a instrução ao modelo). Só mexe nas linhas que
+    falam de partes (executado, terceiro, depositário, titular, CPF...): aplicar o filtro ao texto inteiro
+    mascarava condomínios, leiloeiros e varas ("Conj. Res. Mata da Praia III", "5º Juizado")."""
     saida = []
     for linha in markdown.splitlines():
-        if linha.lstrip().startswith(("http", "- [", "[", "Sources", "Fontes")) or "](http" in linha:
+        if "](http" in linha or linha.lstrip().startswith(("http", "Sources", "Fontes")):
             saida.append(linha)  # links e fontes ficam como estão
-            continue
-        saida.append(remover_nomes(linha) or "")
+        elif _GATILHOS_PESSOA.search(linha):
+            saida.append(remover_nomes(linha) or "")
+        else:
+            saida.append(_CPF.sub("[CPF]", linha))
     return "\n".join(saida)
 
 
@@ -129,7 +143,7 @@ def gerar(r: dict, textos: list[str], client, modelo: str = MODELO) -> dict:
     for _ in range(6):  # pause_turn: a API retoma de onde parou quando reenviamos o histórico
         with client.messages.stream(
             model=modelo, max_tokens=MAX_TOKENS, system=SISTEMA, messages=mensagens,
-            thinking={"type": "adaptive"}, output_config={"effort": "high"},
+            thinking={"type": "adaptive"}, output_config={"effort": "medium"},  # high gerou 14 mil tokens de saída
             tools=[{"type": "web_search_20260209", "name": "web_search", "max_uses": MAX_BUSCAS,
                     "user_location": {"type": "approximate", "country": "BR", "city": r.get("cidade") or "Vitória", "region": r.get("uf") or "ES"}}],
         ) as stream:
@@ -156,14 +170,15 @@ def gerar(r: dict, textos: list[str], client, modelo: str = MODELO) -> dict:
 
 def gerar_e_gravar(id_: str, base: dict | None = None, forcar: bool = False) -> dict:
     PASTA.mkdir(parents=True, exist_ok=True)
+    base = base or _carregar_base()
+    if id_ not in base:
+        raise KeyError(f"imóvel {id_} não está na base")
+    r = base[id_]
+    id_ = r["id"]  # id principal, quando o pedido veio com o id de uma fonte absorvida
     destino = PASTA / f"{_nome_arquivo(id_)}.json"
     if destino.exists() and not forcar:
         log.info("relatório de %s já existe; nada a fazer", id_)
         return json.loads(destino.read_text(encoding="utf-8"))
-    base = base or _carregar_base()
-    r = base.get(id_)
-    if not r:
-        raise KeyError(f"imóvel {id_} não está na base")
     config = yaml.safe_load((RAIZ / "collector" / "config.yaml").read_text(encoding="utf-8"))
     cliente = cliente_do_config(config)
     textos = textos_dos_documentos(r, cliente, config)
