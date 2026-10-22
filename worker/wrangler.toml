@@ -12,4 +12,4 @@ LIMITE_DIA = "100"
 # KV para os contadores de limite (criado por: npx wrangler kv namespace create LIMITES)
 [[kv_namespaces]]
 binding = "LIMITES"
-id = "SUBSTITUIR_PELO_ID_DO_KV"
+id = "e90cfdcd18a64c00866feec94a4b3464"

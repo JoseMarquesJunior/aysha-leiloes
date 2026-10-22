@@ -16,5 +16,5 @@ window.LT_CONFIG = {
   // Se um dia houver um serviço próprio (Cloudflare Worker), informe a URL em urlAnaliseWorker e o botão
   // passa a chamá-lo diretamente, sem GitHub.
   repositorioIssues: "https://github.com/JoseMarquesJunior/aysha-leiloes/issues/new",
-  urlAnaliseWorker: "",
+  urlAnaliseWorker: "https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev/analise",
 };
