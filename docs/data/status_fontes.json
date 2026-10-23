@@ -47,8 +47,8 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-22T20:09:33",
-  "data_coleta": "2026-10-22"
+  "ultima_execucao": "2026-10-23T07:53:45",
+  "data_coleta": "2026-10-23"
  },
  "banestes": {
   "ultima_coleta_ok": "2026-10-22",
@@ -123,9 +123,9 @@
   }
  },
  "colodete": {
-  "ultima_coleta_ok": "2026-10-22",
+  "ultima_coleta_ok": "2026-10-23",
   "registros": 5,
-  "ultimo_erro": "bloqueia IPs de datacenter: coletada só localmente",
+  "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.colodeteleiloes.com.br/",
   "duracao_s": 26.8,
