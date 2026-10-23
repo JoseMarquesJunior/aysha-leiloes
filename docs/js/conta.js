@@ -45,7 +45,6 @@
       <p>${escapar(c.email)} · <a href="#" id="sair">sair</a></p>
       <div class="kpis">
         <div class="kpi"><div class="r">Créditos</div><div class="v">${c.creditos}</div><div class="s">1 crédito = 1 análise com IA</div></div>
-        <div class="kpi"><div class="r">Análises</div><div class="v">${(c.analises || []).length}</div><div class="s">toda conta nova ganha 1 crédito</div></div>
       </div>
       <div id="retorno-pedido"></div>
       <h2 id="creditos">Comprar créditos</h2>
