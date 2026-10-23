@@ -18,7 +18,7 @@
  *   POST /interno/relatorio                    -> o robô do GitHub grava o relatório gerado (header X-Interno)
  *   GET  /interno/relatorio/:id                -> o robô relê um relatório guardado (header X-Interno)
  *
- * Segredos (wrangler secret put): GITHUB_TOKEN, INTERNO_SECRET, MP_ACCESS_TOKEN, BREVO_API_KEY
+ * Segredos (wrangler secret put): GITHUB_TOKEN, INTERNO_SECRET, MP_ACCESS_TOKEN, MP_WEBHOOK_SECRET, BREVO_API_KEY
  * Variáveis (wrangler.toml): REPO, SITE, ORIGENS, LIMITE_IP, LIMITE_DIA, EMAIL_REMETENTE, NOME_REMETENTE, PACOTES
  * Bindings: DB (D1), LIMITES (KV)
  */
@@ -280,9 +280,33 @@ async function confirmarPagamento(env, paymentId) {
   return { ok: true, status: "approved" };
 }
 
+/* Assinatura do Mercado Pago: header x-signature "ts=<ts>,v1=<hmac>", com HMAC-SHA256(segredo) sobre o
+   manifesto "id:<data.id em minúsculas>;request-id:<x-request-id>;ts:<ts>;" (as partes sem valor são omitidas).
+   Com MP_WEBHOOK_SECRET configurado, notificações sem assinatura válida são recusadas. */
+async function assinaturaValida(request, env, url) {
+  if (!env.MP_WEBHOOK_SECRET) return true;  // sem segredo configurado, a verificação fica desligada
+  const sig = request.headers.get("x-signature") || "";
+  const partes = Object.fromEntries(sig.split(",").map(p => p.trim().split("=").map(s => s.trim())).filter(p => p.length === 2));
+  if (!partes.ts || !partes.v1) return false;
+  const dataId = url.searchParams.get("data.id") || "";
+  const requestId = request.headers.get("x-request-id") || "";
+  let manifesto = "";
+  if (dataId) manifesto += `id:${/^[a-zA-Z0-9]+$/.test(dataId) ? dataId.toLowerCase() : dataId};`;
+  if (requestId) manifesto += `request-id:${requestId};`;
+  manifesto += `ts:${partes.ts};`;
+  const chave = await crypto.subtle.importKey("raw", new TextEncoder().encode(env.MP_WEBHOOK_SECRET), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const mac = await crypto.subtle.sign("HMAC", chave, new TextEncoder().encode(manifesto));
+  const esperado = [...new Uint8Array(mac)].map(b => b.toString(16).padStart(2, "0")).join("");
+  if (esperado.length !== partes.v1.length) return false;
+  let dif = 0;
+  for (let i = 0; i < esperado.length; i++) dif |= esperado.charCodeAt(i) ^ partes.v1.charCodeAt(i);
+  return dif === 0;
+}
+
 async function webhook(request, env) {
   // formatos: ?topic=payment&id=123  |  ?type=payment&data.id=123  |  corpo {action:"payment.updated", data:{id}}
   const url = new URL(request.url);
+  if (!(await assinaturaValida(request, env, url))) return json({ erro: "assinatura inválida" }, 401);
   let paymentId = url.searchParams.get("data.id") || (url.searchParams.get("topic") === "payment" ? url.searchParams.get("id") : null);
   const d = await corpo(request);
   if (!paymentId && d && d.data && d.data.id && String(d.type || d.action || "").includes("payment")) paymentId = String(d.data.id);

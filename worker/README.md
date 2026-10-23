@@ -38,6 +38,7 @@ npx wrangler secret put GITHUB_TOKEN                # token fine-grained do repo
 npx wrangler secret put INTERNO_SECRET              # string aleatória; a mesma vai em `gh secret set INTERNO_SECRET`
 npx wrangler secret put BREVO_API_KEY               # e-mail transacional (Brevo, plano grátis: 300/dia)
 npx wrangler secret put MP_ACCESS_TOKEN             # Mercado Pago → Suas integrações → credenciais de produção
+npx wrangler secret put MP_WEBHOOK_SECRET           # Mercado Pago → Webhooks → assinatura secreta (valida o x-signature)
 npx wrangler deploy
 ```
 
@@ -61,7 +62,8 @@ Conta em mercadopago.com.br (pessoa física com CPF serve). Em "Suas integraçõ
 (Checkout Pro) e copie o **Access Token de produção** para `MP_ACCESS_TOKEN`. O Worker cria uma
 preferência por pedido (`external_reference` = id do pedido), manda a pessoa para o checkout (Pix, cartão,
 boleto) e recebe a notificação em `/pagamento/webhook`; configure essa URL em "Webhooks" da aplicação
-(evento "Pagamentos"). O crédito é lançado uma única vez, mesmo que a notificação chegue repetida, e a página
+(evento "Pagamentos") e copie a assinatura secreta dessa tela para `MP_WEBHOOK_SECRET`: com ela o Worker
+valida o header `x-signature` e recusa chamadas que não vieram do Mercado Pago. O crédito é lançado uma única vez, mesmo que a notificação chegue repetida, e a página
 de retorno (`conta.html?pedido=`) consulta o pedido até ver a confirmação. Para testar, use as credenciais
 de teste e os cartões de teste do Mercado Pago com `sandbox_init_point`.
 
