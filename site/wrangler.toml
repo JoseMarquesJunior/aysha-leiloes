@@ -2,7 +2,7 @@
 # Publicar: npx wrangler deploy -c site/wrangler.toml   (na raiz do repositório)
 # A pasta docs/ é servida como está; o script só entra em /api/* (UF do visitante) e em /imovel.html
 # (pré-visualização de link por imóvel). Cabeçalhos de segurança: docs/_headers.
-name = "aysha-leiloes"
+name = "aysha"
 main = "index.js"
 compatibility_date = "2026-10-01"
 

@@ -58,6 +58,15 @@ Em `wrangler.toml`: `SITE`, `ORIGENS` (CORS), `EMAIL_REMETENTE`/`NOME_REMETENTE`
 Token do GitHub: Settings → Developer settings → Fine-grained tokens → repositório `aysha-leiloes`,
 permissão "Actions" = Read and write (só isso). Ao expirar, repita `wrangler secret put`.
 
+### E-mail pelo Gmail (sem domínio próprio)
+
+Enquanto não há domínio, o melhor caminho é enviar pela própria conta do Gmail via API do Google: os
+servidores do Google assinam a mensagem, e ela passa nas verificações de autenticidade (pelo Brevo, "em
+nome de" um Gmail, cai no spam). Limite de ~500 mensagens por dia. Configuração em `scripts/gmail_token.py`
+(o cabeçalho do arquivo explica os passos no console do Google Cloud): o script autoriza a conta e grava
+`GMAIL_CLIENT_ID`, `GMAIL_CLIENT_SECRET` e `GMAIL_REFRESH_TOKEN` no Worker. Com os três presentes, o Gmail
+tem prioridade sobre o Brevo. `EMAIL_REMETENTE` precisa ser o endereço da conta autorizada.
+
 ### E-mail (Brevo)
 
 Crie a conta em brevo.com, confirme o remetente (Senders & IP → Add sender, pode ser um Gmail) e gere uma

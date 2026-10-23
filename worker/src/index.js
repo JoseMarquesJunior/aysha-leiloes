@@ -21,7 +21,8 @@
  *   POST /interno/relatorio                    -> o robô do GitHub grava o relatório gerado (header X-Interno)
  *   GET  /interno/relatorio/:id                -> o robô relê um relatório guardado (header X-Interno)
  *
- * Segredos (wrangler secret put): GITHUB_TOKEN, INTERNO_SECRET, MP_ACCESS_TOKEN, MP_WEBHOOK_SECRET, BREVO_API_KEY
+ * Segredos (wrangler secret put): GITHUB_TOKEN, INTERNO_SECRET, MP_ACCESS_TOKEN, MP_WEBHOOK_SECRET,
+ *   e-mail: GMAIL_CLIENT_ID + GMAIL_CLIENT_SECRET + GMAIL_REFRESH_TOKEN (preferido) ou BREVO_API_KEY
  * Variáveis (wrangler.toml): REPO, SITE, ORIGENS, LIMITE_IP, LIMITE_DIA, EMAIL_REMETENTE, NOME_REMETENTE, PACOTES
  * Bindings: DB (D1), LIMITES (KV)
  */
@@ -70,9 +71,50 @@ async function contar(env, chave, ttl) {
   return atual;
 }
 
-// ---------------------------------------------------------------- e-mail (Brevo) ------
+// ---------------------------------------------------------------- e-mail --------------
+/* Dois caminhos: Gmail API (os servidores do Google assinam a mensagem como gmail.com, então ela passa nas
+   verificações de autenticidade mesmo sem domínio próprio; limite ~500/dia) quando GMAIL_CLIENT_ID,
+   GMAIL_CLIENT_SECRET e GMAIL_REFRESH_TOKEN existem (scripts/gmail_token.py); senão, Brevo. */
+function b64utf8(s) {
+  const bytes = new TextEncoder().encode(s);
+  let bin = "";
+  for (let i = 0; i < bytes.length; i += 8192) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192));
+  return btoa(bin);
+}
+async function tokenGmail(env) {
+  const guardado = await env.LIMITES.get("gmail:token");
+  if (guardado) return guardado;
+  const r = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({ client_id: env.GMAIL_CLIENT_ID, client_secret: env.GMAIL_CLIENT_SECRET, refresh_token: env.GMAIL_REFRESH_TOKEN, grant_type: "refresh_token" }),
+  });
+  if (!r.ok) throw new Error(`Google OAuth ${r.status}: ${(await r.text()).slice(0, 200)}`);
+  const d = await r.json();
+  await env.LIMITES.put("gmail:token", d.access_token, { expirationTtl: Math.max(60, (d.expires_in || 3600) - 300) });
+  return d.access_token;
+}
+async function enviarGmail(env, para, assunto, html) {
+  const token = await tokenGmail(env);
+  const mime = [
+    `From: =?UTF-8?B?${b64utf8(env.NOME_REMETENTE || "Aysha Leilões")}?= <${env.EMAIL_REMETENTE}>`,
+    `To: ${para}`,
+    `Subject: =?UTF-8?B?${b64utf8(assunto)}?=`,
+    "MIME-Version: 1.0",
+    "Content-Type: text/html; charset=UTF-8",
+    "Content-Transfer-Encoding: base64",
+    "",
+    b64utf8(html),
+  ].join("\r\n");
+  const raw = b64utf8(mime).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  const r = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
+    method: "POST", headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" }, body: JSON.stringify({ raw }),
+  });
+  if (!r.ok) throw new Error(`Gmail não enviou (${r.status}): ${(await r.text()).slice(0, 200)}`);
+}
 async function enviarEmail(env, para, assunto, html) {
-  if (!env.BREVO_API_KEY || !env.EMAIL_REMETENTE) throw new Error("envio de e-mail não configurado (BREVO_API_KEY / EMAIL_REMETENTE)");
+  if (!env.EMAIL_REMETENTE) throw new Error("EMAIL_REMETENTE não configurado");
+  if (env.GMAIL_CLIENT_ID && env.GMAIL_CLIENT_SECRET && env.GMAIL_REFRESH_TOKEN) return enviarGmail(env, para, assunto, html);
+  if (!env.BREVO_API_KEY) throw new Error("envio de e-mail não configurado (Gmail ou BREVO_API_KEY)");
   const r = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "Accept": "application/json" },
