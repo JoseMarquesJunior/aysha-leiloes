@@ -235,7 +235,7 @@ custos no lance, referência de mercado pesquisada na web, sinais vermelhos, ver
 buscas na web, bloco de documentos em cache) lendo edital, matrícula e laudo inteiros.
 
 - **Produto pago, com a primeira análise grátis.** Quem quer uma análise entra com o e-mail (link mágico,
-  sem senha); a primeira análise de cada conta é grátis e as seguintes custam 1 crédito. Pacotes de créditos
+  sem senha); toda conta nova ganha 1 crédito (a primeira análise é grátis) e cada análise custa 1 crédito. Pacotes de créditos
   (1 / 5 / 20) são vendidos pelo Mercado Pago (Pix, cartão, boleto) com confirmação por webhook e recibo por
   e-mail. Página `conta.html`: saldo, compra, histórico de análises e de compras. Termos e privacidade em
   `sobre.html#contas`.
@@ -257,7 +257,7 @@ buscas na web, bloco de documentos em cache) lendo edital, matrícula e laudo in
 - **Sem nomes de pessoas**: o prompt proíbe, `anonimizar()` passa um segundo filtro no parecer e
   `limpar_campos()` descarta campos estruturados com nomes.
 - **Funil no GoatCounter**: além das visitas, eventos sem dados pessoais (`evento/login-pedido`,
-  `conta-nova`, `login-ok`, `analise-gratis`, `analise-credito`, `compra-iniciada`, `compra-paga`) mostram
+  `conta-nova`, `login-ok`, `analise-credito`, `compra-iniciada`, `compra-paga`) mostram
   no painel quantos visitantes viram conta, pedem análise e compram.
 - **Migração dos pareceres antigos** (gerados quando ainda eram servidos pelo site):
   `python -m collector.relatorio --migrar` (ou o workflow com `ids = --migrar`) envia o texto ao Worker,

@@ -158,7 +158,7 @@
     if (!LT.urlWorker()) { corpo.innerHTML = '<p class="muted">Análise indisponível nesta instalação.</p>'; return; }
     if (!LT.sessao()) {
       corpo.innerHTML = DESCRICAO_ANALISE + semDoc + '<div id="login-analise"></div>';
-      LT.formularioLogin(document.getElementById("login-analise"), { titulo: "<b>A primeira análise é grátis.</b> Entre com seu e-mail para gerar ou abrir a análise deste imóvel.", voltarPara: location.href.split("#")[0] + "#analise" });
+      LT.formularioLogin(document.getElementById("login-analise"), { titulo: "<b>Toda conta nova ganha 1 crédito: a primeira análise é grátis.</b> Entre com seu e-mail para gerar ou abrir a análise deste imóvel.", voltarPara: location.href.split("#")[0] + "#analise" });
       return;
     }
     let r1;
@@ -170,9 +170,9 @@
     // sem acesso ainda: mostra o que a análise vai custar
     const conta = await LT.api("/conta").catch(() => ({ ok: false, dados: {} }));
     const c = conta.dados || {};
-    const custo = c.gratis_disponivel ? "<b>grátis</b> (sua primeira análise)" : c.creditos > 0 ? `<b>1 crédito</b> (você tem ${c.creditos})` : "<b>1 crédito</b> (você não tem créditos)";
+    const custo = c.creditos > 0 ? `<b>1 crédito</b> (você tem ${c.creditos})` : "<b>1 crédito</b> (você não tem créditos)";
     corpo.innerHTML = DESCRICAO_ANALISE + semDoc + `<p>Custo desta análise: ${custo}. Conta: ${escapar(c.email || LT.emailSessao())} · <a href="conta.html">minha conta</a></p>
-      <p>${(c.gratis_disponivel || c.creditos > 0)
+      <p>${(c.creditos > 0)
         ? '<button type="button" class="btn primario" id="btn-gerar">Gerar análise com IA</button> <span class="muted" style="font-size:.8rem">leva de 2 a 5 minutos</span>'
         : '<a class="btn primario" href="conta.html#creditos">Comprar créditos</a> <span class="muted" style="font-size:.8rem">Pix ou cartão, a partir de R$ 14,90</span>'}</p>`;
     const btn = document.getElementById("btn-gerar");
@@ -183,7 +183,7 @@
       catch (e) { btn.disabled = false; btn.textContent = "Tentar de novo"; alert("Sem conexão com o serviço de análises."); return; }
       if (r2.status === 402) { location.href = "conta.html#creditos"; return; }
       if (!r2.ok && r2.status !== 202) { btn.disabled = false; btn.textContent = "Tentar de novo"; alert("Não foi possível pedir a análise agora: " + (r2.dados.erro || `HTTP ${r2.status}`)); return; }
-      LT.evento(r2.dados.origem === "gratis" ? "analise-gratis" : "analise-credito");
+      LT.evento("analise-credito");
       if (r2.dados.status === "pronto") { corpo.innerHTML = renderRelatorio(r2.dados.relatorio); return; }
       if (r2.dados.status === "fila") { corpo.innerHTML = `<p class="aviso">${escapar(r2.dados.mensagem)}</p>`; return; }
       esperarRelatorio(r, corpo, null);

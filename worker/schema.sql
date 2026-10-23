@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
   email TEXT NOT NULL UNIQUE,
   criado_em TEXT NOT NULL,
   ultimo_login TEXT,
-  creditos INTEGER NOT NULL DEFAULT 0,
-  gratis_usado INTEGER NOT NULL DEFAULT 0
+  creditos INTEGER NOT NULL DEFAULT 1,     -- conta nova nasce com 1 crédito (primeira análise grátis)
+  gratis_usado INTEGER NOT NULL DEFAULT 1  -- legado: hoje a "análise grátis" é o crédito inicial
 );
 
 -- links de login (válidos por 20 minutos, uso único)

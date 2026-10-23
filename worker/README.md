@@ -21,7 +21,7 @@ recibo por e-mail. Não guarda a chave da Anthropic: para gerar um parecer novo,
 | `POST /pagamento/webhook` | — | notificação do Mercado Pago; consulta o pagamento e credita uma única vez |
 | `POST /interno/relatorio` | `X-Interno` | o robô do GitHub grava o parecer gerado (texto, custo, campos estruturados) |
 
-Regras de cobrança: a primeira análise de cada conta é grátis; depois, 1 crédito por imóvel, inclusive quando o
+Regras de cobrança: toda conta nova nasce com 1 crédito (a primeira análise é grátis); 1 crédito por imóvel, inclusive quando o
 parecer já existia (a entrega é por conta). Reabrir um parecer já liberado não custa nada. Novas gerações têm
 teto diário (`LIMITE_DIA`, contador em KV) porque custam dinheiro de verdade (Opus + busca na web).
 

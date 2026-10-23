@@ -7,7 +7,7 @@
   const q = lerQuery();
 
   function reais(centavos) { return "R$ " + (centavos / 100).toFixed(2).replace(".", ","); }
-  const ORIGEM = { gratis: "análise grátis", credito: "1 crédito", cortesia: "cortesia" };
+  const ORIGEM = { gratis: "1 crédito (grátis)", credito: "1 crédito", cortesia: "cortesia" };
   const STATUS_PEDIDO = { criado: "aguardando pagamento", pago: "pago", cancelado: "cancelado" };
 
   async function entrarComToken(token) {
@@ -45,7 +45,7 @@
       <p>${escapar(c.email)} · <a href="#" id="sair">sair</a></p>
       <div class="kpis">
         <div class="kpi"><div class="r">Créditos</div><div class="v">${c.creditos}</div><div class="s">1 crédito = 1 análise com IA</div></div>
-        <div class="kpi"><div class="r">Análise grátis</div><div class="v ${c.gratis_disponivel ? "ok" : ""}">${c.gratis_disponivel ? "disponível" : "usada"}</div><div class="s">a primeira análise de cada conta</div></div>
+        <div class="kpi"><div class="r">Análises</div><div class="v">${(c.analises || []).length}</div><div class="s">toda conta nova ganha 1 crédito</div></div>
       </div>
       <div id="retorno-pedido"></div>
       <h2 id="creditos">Comprar créditos</h2>
@@ -89,7 +89,7 @@
 
   function mostrarLogin() {
     el.innerHTML = `<h2>Minha conta</h2>
-      <p>Com uma conta você gera análises com IA dos imóveis (a primeira é grátis), guarda os relatórios e compra créditos com Pix ou cartão.</p>
+      <p>Com uma conta você gera análises com IA dos imóveis, guarda os relatórios e compra créditos com Pix ou cartão. Toda conta nova ganha 1 crédito: a primeira análise é grátis.</p>
       <div id="login"></div>`;
     LT.formularioLogin(document.getElementById("login"), { voltarPara: location.origin + location.pathname });
   }

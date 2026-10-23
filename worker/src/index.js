@@ -106,7 +106,8 @@ async function entrar(request, env, h) {
   let u = await env.DB.prepare("SELECT id FROM usuarios WHERE email = ?").bind(l.email).first();
   let nova = false;
   if (!u) {
-    await env.DB.prepare("INSERT INTO usuarios (email, criado_em, ultimo_login) VALUES (?, ?, ?)").bind(l.email, agora(), agora()).run();
+    // conta nova já nasce com 1 crédito: é a primeira análise grátis
+    await env.DB.prepare("INSERT INTO usuarios (email, criado_em, ultimo_login, creditos, gratis_usado) VALUES (?, ?, ?, 1, 1)").bind(l.email, agora(), agora()).run();
     u = await env.DB.prepare("SELECT id FROM usuarios WHERE email = ?").bind(l.email).first();
     nova = true;
   } else {
@@ -132,7 +133,7 @@ async function conta(usuario, env, h) {
   const compras = (await env.DB.prepare(
     "SELECT id, pacote, creditos, valor_centavos, status, criado_em, pago_em FROM pedidos WHERE usuario_id = ? ORDER BY criado_em DESC LIMIT 100")
     .bind(usuario.id).all()).results;
-  return json({ email: usuario.email, creditos: usuario.creditos, gratis_disponivel: !usuario.gratis_usado, analises, compras, pacotes: pacotes(env) }, 200, h);
+  return json({ email: usuario.email, creditos: usuario.creditos, analises, compras, pacotes: pacotes(env) }, 200, h);
 }
 
 // ---------------------------------------------------------------- relatórios ----------
@@ -171,18 +172,10 @@ async function analisar(request, usuario, env, h) {
   if (!ID_OK.test(String(id || ""))) return json({ erro: "id inválido" }, 400, h);
   // já tem acesso? devolve o que houver
   if (await temAcesso(env, usuario.id, id)) return obterRelatorio(usuario, id, env, h);
-  // cobra: análise grátis ou 1 crédito
-  let origem;
-  if (!usuario.gratis_usado) {
-    origem = "gratis";
-    await env.DB.prepare("UPDATE usuarios SET gratis_usado = 1 WHERE id = ? AND gratis_usado = 0").bind(usuario.id).run();
-  } else if (usuario.creditos > 0) {
-    origem = "credito";
-    const res = await env.DB.prepare("UPDATE usuarios SET creditos = creditos - 1 WHERE id = ? AND creditos > 0").bind(usuario.id).run();
-    if (!res.meta || res.meta.changes === 0) return json({ erro: "sem créditos", precisa_comprar: true }, 402, h);
-  } else {
-    return json({ erro: "sem créditos", precisa_comprar: true }, 402, h);
-  }
+  // cobra 1 crédito (toda conta nova nasce com 1: a primeira análise é grátis)
+  const origem = "credito";
+  const res = await env.DB.prepare("UPDATE usuarios SET creditos = creditos - 1 WHERE id = ? AND creditos > 0").bind(usuario.id).run();
+  if (!res.meta || res.meta.changes === 0) return json({ erro: "sem créditos", precisa_comprar: true }, 402, h);
   await env.DB.prepare("INSERT OR IGNORE INTO acessos (usuario_id, id_imovel, liberado_em, origem) VALUES (?, ?, ?, ?)").bind(usuario.id, id, agora(), origem).run();
   const existente = await env.DB.prepare("SELECT * FROM relatorios WHERE id_imovel = ?").bind(id).first();
   if (existente) return json({ status: "pronto", origem, relatorio: relatorioSaida(existente) }, 200, h);
