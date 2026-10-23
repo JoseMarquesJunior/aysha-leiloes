@@ -10,5 +10,22 @@
  },
  "custo_usd": 0.2697,
  "fontes": [],
- "campos": null
+ "campos": {
+  "tipo": "apartamento",
+  "area_privativa_m2": 99.28,
+  "area_total_m2": 99.28,
+  "quartos": 3,
+  "comissao_leiloeiro_pct": 5,
+  "valor_avaliacao": 520564.16,
+  "endereco": "Avenida Rosendo Serapião Souza Filho, 213, Apartamento 402, Edifício Porto Rico, Bloco C-6",
+  "bairro": "Mata da Praia",
+  "cidade": "Vitória",
+  "matricula": "59541",
+  "numero_processo": "5020105-70.2022.8.08.0024",
+  "comitente": "5º Juizado Especial Cível de Vitória/ES",
+  "uf": "ES",
+  "ocupado": false,
+  "aceita_parcelamento": true,
+  "data_leilao": "2026-12-10"
+ }
 }

@@ -10,5 +10,15 @@
  },
  "custo_usd": 0.2505,
  "fontes": [],
- "campos": null
+ "campos": {
+  "tipo": "comercial",
+  "area_privativa_m2": 850,
+  "area_terreno_m2": 384,
+  "valor_avaliacao": 2312542.36,
+  "endereco": "RUA MARILANDIA, N. 00, QD 32, LT 36",
+  "cidade": "Vila Velha",
+  "comitente": "Caixa Econômica Federal",
+  "uf": "ES",
+  "aceita_financiamento": false
+ }
 }

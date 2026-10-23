@@ -10,5 +10,22 @@
  },
  "custo_usd": 0.4469,
  "fontes": [],
- "campos": null
+ "campos": {
+  "tipo": "apartamento",
+  "area_privativa_m2": 67.2,
+  "area_total_m2": 84.78,
+  "quartos": 2,
+  "vagas": 1,
+  "comissao_leiloeiro_pct": 5,
+  "valor_avaliacao": 275000,
+  "endereco": "Rua Monte Castelo, 140, Apto 502, Bloco A",
+  "cidade": "Cariacica",
+  "matricula": "70084",
+  "comitente": "CAIXA ECONOMICA FEDERAL",
+  "uf": "ES",
+  "aceita_financiamento": false,
+  "aceita_fgts": true,
+  "aceita_parcelamento": false,
+  "data_leilao": "2026-10-26"
+ }
 }

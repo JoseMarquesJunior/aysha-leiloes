@@ -10,5 +10,25 @@
  },
  "custo_usd": 0.4286,
  "fontes": [],
- "campos": null
+ "campos": {
+  "tipo": "apartamento",
+  "area_privativa_m2": 101.68,
+  "area_terreno_m2": 32.25,
+  "area_total_m2": 101.68,
+  "quartos": 2,
+  "vagas": 1,
+  "comissao_leiloeiro_pct": 6,
+  "valor_avaliacao": 753000,
+  "endereco": "Rua Oscar Rodrigues de Oliveira, 657, apto 102, Bloco IV, Edifício Parque Monsarás",
+  "bairro": "Jardim da Penha",
+  "cidade": "Vitória",
+  "matricula": "263",
+  "numero_processo": "0000445-97.1996.4.02.5001",
+  "comitente": "Justiça Federal - 3ª Vara Federal de Execução Fiscal de Vitória (JFES)",
+  "uf": "ES",
+  "ocupado": true,
+  "aceita_parcelamento": true,
+  "data_leilao": "2026-11-10",
+  "data_segunda_praca": "2026-11-10"
+ }
 }
