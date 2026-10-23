@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-10-23T07:53:45",
+ "gerado_em": "2026-10-23T12:52:59",
  "data_coleta": "2026-10-23",
  "arquivos": [
   "imoveis_AC.json",
@@ -89,11 +89,11 @@
   "SP",
   "TO"
  ],
- "total": 23480,
- "ativos": 23391,
+ "total": 23479,
+ "ativos": 23390,
  "por_fonte": {
   "bandes": 8,
-  "caixa": 23096,
+  "caixa": 23095,
   "jfes": 44,
   "leiloeiro-colodete": 5,
   "leiloeiro-emleilao": 57,
@@ -121,7 +121,7 @@
   "PE": 1148,
   "PI": 771,
   "PR": 444,
-  "RJ": 8672,
+  "RJ": 8671,
   "RN": 670,
   "RO": 29,
   "RR": 2,

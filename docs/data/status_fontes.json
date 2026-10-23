@@ -47,7 +47,7 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-23T07:53:45",
+  "ultima_execucao": "2026-10-23T12:52:59",
   "data_coleta": "2026-10-23"
  },
  "banestes": {
@@ -97,12 +97,12 @@
   "ultima_tentativa": "2026-10-21"
  },
  "suporteleiloes": {
-  "ultima_coleta_ok": "2026-10-22",
+  "ultima_coleta_ok": "2026-10-23",
   "registros": 530,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.emleilao.com.br/",
-  "duracao_s": 1430.9,
+  "duracao_s": 1350.7,
   "info": {
    "emleilao": 493,
    "buaiz": 0,

@@ -1,0 +1,33 @@
+{
+ "hash": "63353cd046a5a0babdcbc77a",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-23T12:52:58",
+ "lote": "msgbatch_012qUDpuGACVxZrYb5LjVuBM",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora"
+  ],
+  "alertas": [
+   "Arrematante não responde por dívidas e ônus anteriores à arrematação, inclusive propter rem (art. 130 CTN; 908 CPC).",
+   "Cabe ao licitante verificar débitos junto a prefeitura e condomínio; bem vendido no estado em que se encontra.",
+   "Comissão do leiloeiro de 5% paga pelo arrematante em até 24 horas.",
+   "Imóvel com penhora e depositário fiel, conforme [nome] de 10/05/2018; ônus conforme matrículas nos autos."
+  ],
+  "trechos_fonte": {
+   "comissao_leiloeiro_pct": "PAGAMENTO DO LEILOEIRO: O arrematante pagará à vista, em até 24 horas a partir da data do encerramento do leilão por meio de depósito bancário, a comissão de 5% sobre o valor da arrematação, ao leiloe",
+   "onus_na_matricula": "FIEL DEPOSITÁRIO(A): ANTÔNIO DE PAULA DE OLIVEIRA (conforme [nome] e Depósito de 10/05/2018) VALOR DA EXECUÇÃO nestes autos: R$ 755.835,73"
+  }
+ },
+ "uso": {
+  "entrada": 2847,
+  "saida": 589,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}
