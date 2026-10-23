@@ -410,8 +410,11 @@ def completar_campos_faltantes(base: dict | None = None) -> int:
             continue
         try:
             item = baixar_do_worker(meta["id"])
-            textos = textos_dos_documentos(r, cliente, config)
-            campos, uso = extrair_campos(r, textos, item.get("markdown", ""), client)
+            if item.get("campos") is not None:  # o Worker já tem (corrida anterior que não chegou a commitar)
+                campos, uso = item["campos"], {"entrada": 0, "saida": 0}
+            else:
+                textos = textos_dos_documentos(r, cliente, config)
+                campos, uso = extrair_campos(r, textos, item.get("markdown", ""), client)
         except Exception:
             log.exception("campos de %s não extraídos", meta["id"])
             continue
