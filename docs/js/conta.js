@@ -1,0 +1,101 @@
+/* Página "Minha conta": entrada pelo link mágico (?token=), saldo de créditos, compra de pacotes (Mercado
+   Pago), histórico de análises e de compras, retorno do checkout (?pedido=). */
+(function () {
+  "use strict";
+  const { escapar, dataHora, lerQuery } = LT;
+  const el = document.getElementById("conta");
+  const q = lerQuery();
+
+  function reais(centavos) { return "R$ " + (centavos / 100).toFixed(2).replace(".", ","); }
+  const ORIGEM = { gratis: "análise grátis", credito: "1 crédito", cortesia: "cortesia" };
+  const STATUS_PEDIDO = { criado: "aguardando pagamento", pago: "pago", cancelado: "cancelado" };
+
+  async function entrarComToken(token) {
+    el.innerHTML = '<p class="muted">entrando…</p>';
+    const r = await LT.api("/auth/entrar", { body: { token } }).catch(() => ({ ok: false, dados: { erro: "sem conexão" } }));
+    history.replaceState(null, "", "conta.html");
+    if (!r.ok) {
+      el.innerHTML = `<h2>Minha conta</h2><p class="aviso">${escapar(r.dados.erro || "link inválido")}</p><div id="login"></div>`;
+      LT.formularioLogin(document.getElementById("login"), { titulo: "Peça um novo link:" });
+      return;
+    }
+    LT.guardarSessao(r.dados.sessao, r.dados.email);
+    LT.evento(r.dados.nova_conta ? "conta-nova" : "login-ok");
+    const voltar = LT.lerVoltar();
+    if (voltar && voltar.startsWith(location.origin) && !/conta\.html/.test(voltar)) { location.href = voltar; return; }
+    await mostrarConta();
+  }
+
+  async function mostrarConta() {
+    const r = await LT.api("/conta").catch(() => null);
+    if (!r) { el.innerHTML = '<h2>Minha conta</h2><p class="muted">Serviço fora do ar no momento. Tente de novo em alguns minutos.</p>'; return; }
+    if (r.status === 401) { mostrarLogin(); return; }
+    const c = r.dados;
+    const pacotes = (c.pacotes || []).map(p => `<div class="pacote"><div class="nome">${escapar(p.nome)}</div><div class="preco">${reais(p.valor_centavos)}</div>
+        <div class="muted" style="font-size:.8rem">${reais(Math.round(p.valor_centavos / p.creditos))} por análise</div>
+        <button type="button" class="btn primario" data-pacote="${escapar(p.id)}">Comprar</button></div>`).join("");
+    const analises = (c.analises || []).length
+      ? `<ul class="eventos">${c.analises.map(a => `<li><a href="imovel.html?id=${encodeURIComponent(a.id_imovel)}#analise">${escapar(a.id_imovel)}</a> · ${ORIGEM[a.origem] || escapar(a.origem)} · ${a.gerado_em ? "pronta" : "em geração"} · ${dataHora(a.liberado_em)}</li>`).join("")}</ul>`
+      : '<p class="muted">Nenhuma análise ainda. Abra a ficha de um imóvel e clique em “Análise com IA”.</p>';
+    const compras = (c.compras || []).length
+      ? `<table class="simples"><thead><tr><th>Data</th><th>Pacote</th><th>Valor</th><th>Situação</th></tr></thead><tbody>${c.compras.map(p =>
+        `<tr><td>${dataHora(p.criado_em)}</td><td>${p.creditos} crédito(s)</td><td>${reais(p.valor_centavos)}</td><td>${STATUS_PEDIDO[p.status] || escapar(p.status)}${p.pago_em ? " em " + dataHora(p.pago_em) : ""}</td></tr>`).join("")}</tbody></table>`
+      : '<p class="muted">Nenhuma compra.</p>';
+    el.innerHTML = `<h2>Minha conta</h2>
+      <p>${escapar(c.email)} · <a href="#" id="sair">sair</a></p>
+      <div class="kpis">
+        <div class="kpi"><div class="r">Créditos</div><div class="v">${c.creditos}</div><div class="s">1 crédito = 1 análise com IA</div></div>
+        <div class="kpi"><div class="r">Análise grátis</div><div class="v ${c.gratis_disponivel ? "ok" : ""}">${c.gratis_disponivel ? "disponível" : "usada"}</div><div class="s">a primeira análise de cada conta</div></div>
+      </div>
+      <div id="retorno-pedido"></div>
+      <h2 id="creditos">Comprar créditos</h2>
+      <p>Pix ou cartão, pelo Mercado Pago. Os créditos entram na conta assim que o pagamento é confirmado (Pix: em segundos; cartão: na hora, salvo análise antifraude) e não expiram. Você recebe um recibo por e-mail.</p>
+      <div class="pacotes" id="pacotes">${pacotes || '<p class="muted">Compra ainda não disponível.</p>'}</div>
+      <p class="muted" style="font-size:.8rem">Abrir de novo uma análise que você já tem não gasta crédito. Uma análise já gerada por outra pessoa também custa 1 crédito, porque a entrega é por conta. <a href="sobre.html#contas">Termos, reembolso e privacidade</a>.</p>
+      <h2>Minhas análises</h2>${analises}
+      <h2>Compras</h2>${compras}`;
+    document.getElementById("sair").addEventListener("click", async ev => { ev.preventDefault(); await LT.api("/auth/sair", { body: {} }).catch(() => null); LT.limparSessao(); mostrarLogin(); });
+    for (const b of el.querySelectorAll("button[data-pacote]")) b.addEventListener("click", () => comprar(b.dataset.pacote, b));
+    if (q.pedido) acompanharPedido(q.pedido);
+    if (location.hash === "#creditos") document.getElementById("creditos").scrollIntoView({ behavior: "smooth" });
+  }
+
+  async function comprar(pacote, btn) {
+    btn.disabled = true; btn.textContent = "Abrindo o pagamento…";
+    const r = await LT.api("/pagamento/criar", { body: { pacote } }).catch(() => ({ ok: false, dados: { erro: "sem conexão" } }));
+    if (!r.ok) { btn.disabled = false; btn.textContent = "Comprar"; alert("Não foi possível iniciar a compra: " + (r.dados.erro || "tente de novo")); return; }
+    LT.evento("compra-iniciada");
+    location.href = r.dados.checkout;
+  }
+
+  async function acompanharPedido(pedido) {
+    const box = document.getElementById("retorno-pedido");
+    history.replaceState(null, "", "conta.html");
+    if (q.falha) { box.innerHTML = '<p class="aviso">O pagamento não foi concluído. Nada foi cobrado; você pode tentar de novo.</p>'; return; }
+    box.innerHTML = '<p class="aviso">Confirmando o pagamento…</p>';
+    for (let i = 0; i < 20; i++) {
+      const r = await LT.api(`/pagamento/estado/${encodeURIComponent(pedido)}`).catch(() => null);
+      if (r && r.ok && r.dados.status === "pago") {
+        LT.evento("compra-paga");
+        box.innerHTML = `<p class="aviso ok">Pagamento confirmado: ${r.dados.creditos} crédito(s) adicionados. Saldo atual: ${r.dados.saldo}. O recibo foi enviado por e-mail.</p>`;
+        setTimeout(mostrarConta, 2500);
+        return;
+      }
+      if (r && r.ok && r.dados.status === "cancelado") { box.innerHTML = '<p class="aviso">O pagamento foi recusado ou cancelado. Nada foi cobrado.</p>'; return; }
+      await new Promise(res => setTimeout(res, 3000));
+    }
+    box.innerHTML = '<p class="aviso">Ainda não recebemos a confirmação. Pix e boleto podem levar alguns minutos; os créditos entram sozinhos quando o pagamento for aprovado. Recarregue esta página mais tarde.</p>';
+  }
+
+  function mostrarLogin() {
+    el.innerHTML = `<h2>Minha conta</h2>
+      <p>Com uma conta você gera análises com IA dos imóveis (a primeira é grátis), guarda os relatórios e compra créditos com Pix ou cartão.</p>
+      <div id="login"></div>`;
+    LT.formularioLogin(document.getElementById("login"), { voltarPara: location.origin + location.pathname });
+  }
+
+  if (!LT.urlWorker()) { el.innerHTML = '<h2>Minha conta</h2><p class="muted">Contas indisponíveis nesta instalação.</p>'; return; }
+  if (q.token) entrarComToken(q.token);
+  else if (LT.sessao()) mostrarConta();
+  else mostrarLogin();
+})();

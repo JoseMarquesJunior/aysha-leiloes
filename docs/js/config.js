@@ -11,7 +11,7 @@ window.LT_CONFIG = {
   // Vazio = nada é carregado nem enviado.
   goatcounter: "leiloes-em-tabela",
 
-  // Análise com IA sob demanda: o botão "Gerar análise com IA" chama este serviço (Cloudflare Worker, pasta
-  // worker/), que dispara o robô do GitHub; o relatório fica guardado e aparece na ficha em alguns minutos.
-  urlAnaliseWorker: "https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev/analise",
+  // Serviço de contas, créditos e análises com IA (Cloudflare Worker, pasta worker/): login por link mágico,
+  // saldo de créditos, entrega dos relatórios a quem tem acesso e checkout no Mercado Pago.
+  urlWorker: "https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev",
 };

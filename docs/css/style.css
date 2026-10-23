@@ -213,6 +213,22 @@ footer p { margin: 4px 0; max-width: 1100px; }
 .sobre table { width: 100%; border-collapse: collapse; font-size: .85rem; background: var(--panel); }
 .sobre th, .sobre td { border-bottom: 1px solid var(--border); padding: 5px 8px; text-align: left; vertical-align: top; }
 
+/* ---------- conta, login e pacotes ---------- */
+.login { background: var(--bg); border: 1px solid var(--border); border-radius: var(--raio); padding: 10px 12px; max-width: 520px; margin: 8px 0; }
+.login label { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; color: var(--muted); margin-bottom: 8px; }
+.login input[type=email] { border: 1px solid var(--border-forte); border-radius: 4px; padding: 7px 9px; font-size: 1rem; color: var(--text); background: var(--panel); }
+.login .login-msg { margin: 6px 0 0; font-size: .9rem; }
+.conta .kpis { margin: 8px 0 12px; }
+.pacotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; max-width: 640px; margin: 8px 0; }
+.pacote { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.pacote .nome { font-weight: 700; }
+.pacote .preco { font-size: 1.3rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.pacote .btn { margin-top: 6px; }
+.aviso.ok { background: #e8f5ec; border-color: #9fd3ad; }
+table.simples { border-collapse: collapse; font-size: .9rem; }
+table.simples th, table.simples td { border-bottom: 1px solid var(--border); padding: 4px 10px 4px 0; text-align: left; }
+#nav-conta { font-weight: 600; }
+
 /* ---------- celular ---------- */
 @media (max-width: 760px) {
   :root { font-size: 13px; }

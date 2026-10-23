@@ -228,34 +228,45 @@ Acessos em `localhost` não são contados. O painel pode ser tornado público em
 
 ## Análise detalhada com IA (relatório por imóvel)
 
-Diferente da extração de campos (Haiku, acima), o botão "análise IA" de cada linha abre a ficha do imóvel
-na seção "Análise com IA", um parecer em Markdown no estilo de analista de leilões: resumo do lote, conta
-de custos no lance, referência de mercado pesquisada na web, sinais vermelhos, veredito e diligências.
-`collector/relatorio.py` gera o parecer com `claude-opus-5` (pensamento adaptativo, `effort: high`, busca
-na web com até 6 consultas) lendo edital, matrícula e laudo inteiros.
+Diferente da extração de campos (Haiku, acima), o botão "IA ✦" de cada linha abre a ficha do imóvel na
+seção "Análise com IA", um parecer em Markdown no estilo de analista de leilões: resumo do lote, conta de
+custos no lance, referência de mercado pesquisada na web, sinais vermelhos, veredito e diligências.
+`collector/relatorio.py` gera o parecer com `claude-opus-5` (pensamento adaptativo, `effort: medium`, até 3
+buscas na web, bloco de documentos em cache) lendo edital, matrícula e laudo inteiros.
 
-- **Gerado uma vez, guardado para sempre**: `docs/data/relatorios/<id>.json`, servido estaticamente. A
-  ficha primeiro procura esse arquivo; só se ele não existe aparece o botão de solicitar. Um novo clique
-  nunca refaz a análise. Custo real de cada um fica no arquivo e em `docs/data/custo_relatorios.json`.
-- **Como o pedido chega ao robô**: o site é estático, então o botão abre uma issue pré-preenchida
-  ("Analisar <id>") no repositório; o workflow `relatorio.yml` roda na abertura da issue, gera o parecer,
-  commita, comenta o link na issue e a fecha. Quem pede precisa de conta no GitHub. Também dá para gerar
-  em lote por `workflow_dispatch` (campo `ids`) ou localmente com `python -m collector.relatorio <id>`.
-  Teto de segurança: `relatorios.maximo_por_dia` no config (100).
-- **Sem nomes de pessoas**: o prompt proíbe e `anonimizar()` passa um segundo filtro antes de gravar.
-- **Clique anônimo (ativo)**: o botão "Gerar análise com IA" chama o Worker Cloudflare em
-  `worker/` (publicado em `https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev/analise`),
-  que verifica se o relatório já existe, aplica limites (3 por IP por hora, 100 por dia, contadores em KV)
-  e dispara o workflow `relatorio.yml` com um token fine-grained do GitHub (segredo `GITHUB_TOKEN` do Worker,
-  permissão Actions: write). A chave da Anthropic não passa pelo Worker. A ficha espera o arquivo aparecer
-  no site (3 a 6 minutos). Sem o token no Worker, o botão responde erro e o caminho pela issue continua
-  disponível. Deploy e testes: `worker/README.md`.
+- **Produto pago, com a primeira análise grátis.** Quem quer uma análise entra com o e-mail (link mágico,
+  sem senha); a primeira análise de cada conta é grátis e as seguintes custam 1 crédito. Pacotes de créditos
+  (1 / 5 / 20) são vendidos pelo Mercado Pago (Pix, cartão, boleto) com confirmação por webhook e recibo por
+  e-mail. Página `conta.html`: saldo, compra, histórico de análises e de compras. Termos e privacidade em
+  `sobre.html#contas`.
+- **Gerado uma vez, entregue só a quem tem acesso.** O texto do parecer fica no banco D1 do Worker
+  (`worker/`), nunca no site público. O repositório guarda só metadados e custo
+  (`collector/cache/relatorios/<id>.json`, `docs/data/custo_relatorios.json`). Um pedido para um imóvel já
+  analisado devolve o texto na hora e não chama o modelo.
+- **A análise também estrutura a ficha.** Junto com o parecer, uma chamada barata ao Haiku (saída
+  estruturada) extrai os campos do esquema que a fonte não informou (área, endereço, bairro, cidade, quartos,
+  vagas, matrícula, processo, ocupação, débitos, comissão, datas, comitente). Eles ficam nos metadados e a
+  coleta diária (`relatorio.aplicar_campos_guardados`, logo depois do regex) os aplica ao registro só onde
+  está vazio; endereço/bairro novos zeram a geocodificação de baixa precisão para o ponto no mapa melhorar.
+- **Como o pedido chega ao robô.** O Worker valida a sessão, cobra (grátis ou crédito) e, se o parecer
+  não existe, dispara `relatorio.yml` (`workflow_dispatch`, token fine-grained do GitHub com Actions:
+  write). O workflow gera, envia o texto ao Worker (`POST /interno/relatorio`, segredo `INTERNO_SECRET`) e
+  commita os metadados. A ficha consulta o Worker a cada 20 s até o parecer aparecer (3 a 6 minutos). A
+  chave da Anthropic não passa pelo Worker. Teto diário de gerações: `LIMITE_DIA` no Worker e
+  `relatorios.maximo_por_dia` no config.
+- **Sem nomes de pessoas**: o prompt proíbe, `anonimizar()` passa um segundo filtro no parecer e
+  `limpar_campos()` descarta campos estruturados com nomes.
+- **Funil no GoatCounter**: além das visitas, eventos sem dados pessoais (`evento/login-pedido`,
+  `conta-nova`, `login-ok`, `analise-gratis`, `analise-credito`, `compra-iniciada`, `compra-paga`) mostram
+  no painel quantos visitantes viram conta, pedem análise e compram.
+- **Migração dos pareceres antigos** (gerados quando ainda eram servidos pelo site):
+  `python -m collector.relatorio --migrar` (ou o workflow com `ids = --migrar`) envia o texto ao Worker,
+  extrai os campos estruturados e apaga `docs/data/relatorios/`.
 
-Custo medido com o Opus 5 (US$ 5/25 por milhão de tokens, busca US$ 0,01) nos dois primeiros pareceres,
-já com cache do bloco de documentos, 3 buscas e esforço médio: entrada de 60 a 90 mil tokens (as páginas
-devolvidas pela busca na web pesam mais que o edital), saída de ~10 mil (parecer + raciocínio):
-**US$ 0,58 a 0,73 por imóvel**, ou **cerca de US$ 65 por 100 imóveis**, pagos uma única vez por imóvel.
-Sem a busca na web o custo cai para perto de US$ 0,20, mas o parecer perde a referência de mercado.
+Custo medido com o Opus 5 (US$ 5/25 por milhão de tokens, busca US$ 0,01) nos primeiros pareceres, já com
+cache do bloco de documentos, 3 buscas e esforço médio: **US$ 0,45 a 0,73 por imóvel** (a extração de campos
+com o Haiku soma menos de US$ 0,01). Com créditos a R$ 14,90 (1) / R$ 59 (5) / R$ 199 (20), a margem cobre
+o modelo, a taxa do Mercado Pago (~1 % Pix, ~5 % cartão) e as análises grátis.
 
 ## Secrets e GitHub Actions
 
@@ -263,7 +274,8 @@ Sem a busca na web o custo cai para perto de US$ 0,20, mas o parecer perde a ref
   (`gh workflow run coletar.yml -f fontes=caixa`). Instala dependências com cache do pip, roda os testes,
   executa o coletor e commita `docs/data` e `collector/cache` apenas quando a lista de imóveis, o
   histórico, o status ou os caches mudaram.
-- Único secret: `ANTHROPIC_API_KEY` (`Settings → Secrets and variables → Actions` ou
+- Secrets: `ANTHROPIC_API_KEY` e `INTERNO_SECRET` (o mesmo valor configurado no Worker; o workflow
+  `relatorio.yml` usa os dois). `ANTHROPIC_API_KEY` (`Settings → Secrets and variables → Actions` ou
   `gh secret set ANTHROPIC_API_KEY`). O workflow já repassa a variável; com `ia_habilitada: true` no
   config a etapa de IA roda. Sem o secret, a coleta continua normal e a IA fica inerte.
 - GitHub Pages: `Settings → Pages → Deploy from a branch → main / docs`.

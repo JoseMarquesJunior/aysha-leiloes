@@ -186,8 +186,16 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
     _gravar_json(pasta / "editais.json", {"gerado_em": datetime.now().isoformat(timespec="seconds"), "editais": lista_editais},
                  compacto=False)
 
-    # 2. regex + derivados
+    # 2. regex + derivados; depois, os campos estruturados que as análises com IA (relatorio.py) já extraíram
+    #    para imóveis analisados: preenchem só o que a fonte e o regex deixaram vazio
     aplicar_regex(registros)
+    try:
+        from . import relatorio
+        n_campos = relatorio.aplicar_campos_guardados(registros)
+        if n_campos:
+            log.info("campos das análises com IA aplicados a %d registro(s)", n_campos)
+    except Exception:
+        log.exception("aplicação dos campos das análises falhou")
 
     # 3. deduplicação — o conjunto inclui os registros ativos das fontes que não rodaram nesta execução
     #    (falha ou --fontes), para que um lote novo de leiloeiro ainda case com um imóvel antigo da Caixa

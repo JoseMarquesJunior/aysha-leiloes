@@ -53,3 +53,34 @@ def test_remover_nomes_preserva_entidades():
     assert remover_nomes("Exequente: Condomínio Conj. Res. Mata da Praia III") == "Exequente: Condomínio Conj. Res. Mata da Praia III"
     assert remover_nomes("Exequente: União – Procuradoria da Fazenda Nacional") == "Exequente: União – Procuradoria da Fazenda Nacional"
     assert remover_nomes("Executado: Carlos Alberto Souza") == "Executado: [nome]"
+
+
+def test_limpar_campos_valida_faixas_tipos_e_nomes():
+    from collector.relatorio import limpar_campos
+    bruto = {"tipo": "Apartamentos", "area_privativa_m2": 72.456, "area_terreno_m2": 2, "quartos": 3.0, "vagas": True,
+             "endereco": "Rua  das Flores, 10, apto 301", "bairro": "Mata da Praia", "cidade": "Vitória", "uf": "es",
+             "matricula": "12345", "numero_processo": None, "ocupado": False, "aceita_fgts": "sim",
+             "debitos_iptu_por_conta_de": "comprador", "debitos_condominio_por_conta_de": "ninguém",
+             "comissao_leiloeiro_pct": 5, "valor_avaliacao": 350000, "data_leilao": "2026-11-05", "data_segunda_praca": "05/11/2026",
+             "comitente": "Caixa Econômica Federal"}
+    c = limpar_campos(bruto)
+    assert c["tipo"] == "apartamento" and c["area_privativa_m2"] == 72.46 and "area_terreno_m2" not in c
+    assert c["quartos"] == 3 and "vagas" not in c and c["endereco"] == "Rua das Flores, 10, apto 301"
+    assert c["uf"] == "ES" and c["ocupado"] is False and "aceita_fgts" not in c
+    assert c["debitos_iptu_por_conta_de"] == "comprador" and "debitos_condominio_por_conta_de" not in c
+    assert c["data_leilao"] == "2026-11-05" and "data_segunda_praca" not in c and c["comitente"] == "Caixa Econômica Federal"
+
+
+def test_aplicar_campos_so_preenche_vazios_e_reinicia_geo_de_baixa_precisao():
+    from collector.relatorio import aplicar_campos
+    from collector.schema import novo_registro
+    r = novo_registro(id="x-1", fonte="hdleiloes", tipo="apartamento", cidade="Vitória", uf="ES", valor_minimo=200000.0,
+                      lat=-20.3, lng=-40.3, geo_precisao="cidade")
+    preenchidos = aplicar_campos(r, {"area_privativa_m2": 80.0, "bairro": "Mata da Praia", "cidade": "Vila Velha", "quartos": 2})
+    assert set(preenchidos) == {"area_privativa_m2", "bairro", "quartos"}
+    assert r["cidade"] == "Vitória"            # não sobrescreve
+    assert r["valor_m2"] == 2500.0             # derivado recalculado
+    assert r["lat"] is None and r["geo_precisao"] is None  # vai geocodificar de novo com o bairro
+    r2 = novo_registro(id="x-2", fonte="caixa", lat=-20.3, lng=-40.3, geo_precisao="endereco")
+    aplicar_campos(r2, {"bairro": "Centro"})
+    assert r2["geo_precisao"] == "endereco"    # precisão de endereço não é descartada

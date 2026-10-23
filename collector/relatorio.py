@@ -5,12 +5,16 @@ a matrícula e o laudo inteiros, pesquisa comparáveis de mercado na web e escre
 resumo do lote, conta de custos no lance, referência de mercado, sinais vermelhos, veredito e checklist
 de diligência. Modelo: Opus 5 (pedido do mantenedor), com busca na web.
 
-Economia: o relatório de cada imóvel é gerado UMA vez e guardado em docs/data/relatorios/<id>.json
-(servido estaticamente pelo site). Um novo clique só recupera o arquivo. O custo real (tokens, buscas)
-fica registrado no próprio arquivo e em docs/data/custo_relatorios.json.
+Economia: o relatório de cada imóvel é gerado UMA vez. O texto vai para o banco do Worker (D1), que o
+entrega só a quem tem acesso (conta + análise grátis ou crédito); nada do parecer fica no site público.
+Em collector/cache/relatorios/<id>.json ficam apenas os metadados (custo, tokens) e os CAMPOS ESTRUTURADOS
+extraídos junto com o parecer (área, endereço, bairro, quartos, matrícula...), que a coleta diária aplica
+ao registro do imóvel (só onde ainda está vazio). O custo acumulado fica em docs/data/custo_relatorios.json.
 
-Uso:  python -m collector.relatorio <id> [<id> ...]   (precisa de ANTHROPIC_API_KEY)
-      python -m collector.relatorio --fila             (gera para os ids em docs/data/relatorios/_fila.json)
+Uso:  python -m collector.relatorio <id> [<id> ...]   (precisa de ANTHROPIC_API_KEY; com WORKER_URL e
+                                                      INTERNO_SECRET envia o parecer ao Worker)
+      python -m collector.relatorio --migrar           (envia ao Worker os relatórios antigos de docs/data/relatorios,
+                                                      extrai os campos deles e apaga os arquivos públicos)
 """
 
 from __future__ import annotations
@@ -27,13 +31,17 @@ import yaml
 
 from .ia import remover_nomes, textos_dos_documentos
 from .http_client import cliente_do_config
+from .schema import TIPOS, completar, normalizar_tipo, preencher_derivados
 
 log = logging.getLogger(__name__)
 
 RAIZ = Path(__file__).resolve().parent.parent
-PASTA = RAIZ / "docs" / "data" / "relatorios"
+PASTA_PUBLICA_ANTIGA = RAIZ / "docs" / "data" / "relatorios"    # só para a migração (--migrar)
+PASTA = RAIZ / "collector" / "cache" / "relatorios"              # metadados + campos estruturados (sem o texto)
+PASTA_LOCAL = RAIZ / "collector" / "cache" / "relatorios_local"  # texto do parecer quando não há Worker (não versionado)
 MODELO = "claude-opus-5"
-PRECOS_USD_MTOK = {"claude-opus-5": (5.0, 25.0), "claude-opus-5-5": (4.0, 20.0)}
+MODELO_CAMPOS = "claude-haiku-5-5"
+PRECOS_USD_MTOK = {"claude-opus-5": (5.0, 25.0), "claude-opus-5-5": (4.0, 20.0), "claude-haiku-5-5": (0.10, 0.50)}
 PRECO_BUSCA_USD = 0.01  # US$ 10 por mil buscas na web
 MAX_BUSCAS = 3   # cada busca devolve páginas inteiras: 6 buscas levaram a 120 mil tokens de entrada no 1º teste
 MAX_TOKENS = 6000  # parecer de até 500 palavras + raciocínio
@@ -147,6 +155,167 @@ def anonimizar(markdown: str) -> str:
     return "\n".join(saida)
 
 
+# ---------------------------------------------------------------- campos estruturados ---------------
+# Depois do parecer, uma chamada barata (Haiku, saída estruturada) lê o parecer + os documentos e devolve
+# os campos do esquema que a fonte não informou. A coleta diária aplica só onde o registro está null.
+CAMPOS_ESTRUTURADOS = ("tipo", "area_privativa_m2", "area_terreno_m2", "area_total_m2", "quartos", "vagas", "endereco",
+                       "bairro", "cidade", "uf", "matricula", "numero_processo", "ocupado", "aceita_financiamento",
+                       "aceita_fgts", "aceita_parcelamento", "debitos_iptu_por_conta_de", "debitos_condominio_por_conta_de",
+                       "comissao_leiloeiro_pct", "valor_avaliacao", "data_leilao", "data_segunda_praca", "comitente")
+
+
+def _nulo_ou(t: dict) -> dict:
+    return {"anyOf": [t, {"type": "null"}]}
+
+
+ESQUEMA_CAMPOS = {
+    "type": "object",
+    "additionalProperties": False,
+    "required": list(CAMPOS_ESTRUTURADOS),
+    "properties": {
+        "tipo": _nulo_ou({"type": "string", "enum": list(TIPOS)}),
+        "area_privativa_m2": _nulo_ou({"type": "number"}), "area_terreno_m2": _nulo_ou({"type": "number"}),
+        "area_total_m2": _nulo_ou({"type": "number"}),
+        "quartos": _nulo_ou({"type": "integer"}), "vagas": _nulo_ou({"type": "integer"}),
+        "endereco": _nulo_ou({"type": "string"}), "bairro": _nulo_ou({"type": "string"}),
+        "cidade": _nulo_ou({"type": "string"}), "uf": _nulo_ou({"type": "string"}),
+        "matricula": _nulo_ou({"type": "string"}), "numero_processo": _nulo_ou({"type": "string"}),
+        "ocupado": _nulo_ou({"type": "boolean"}), "aceita_financiamento": _nulo_ou({"type": "boolean"}),
+        "aceita_fgts": _nulo_ou({"type": "boolean"}), "aceita_parcelamento": _nulo_ou({"type": "boolean"}),
+        "debitos_iptu_por_conta_de": _nulo_ou({"type": "string", "enum": ["vendedor", "comprador"]}),
+        "debitos_condominio_por_conta_de": _nulo_ou({"type": "string", "enum": ["vendedor", "comprador"]}),
+        "comissao_leiloeiro_pct": _nulo_ou({"type": "number"}),
+        "valor_avaliacao": _nulo_ou({"type": "number"}),
+        "data_leilao": _nulo_ou({"type": "string"}), "data_segunda_praca": _nulo_ou({"type": "string"}),
+        "comitente": _nulo_ou({"type": "string"}),
+    },
+}
+
+SISTEMA_CAMPOS = (
+    "Você estrutura dados de imóveis em leilão no Brasil. Receberá o parecer de um analista, os dados do anúncio "
+    "e o texto dos documentos (edital, matrícula). Responda SOMENTE com o JSON do esquema. Regras: null quando "
+    "nenhuma fonte informa; nunca invente nem estime; áreas em m² (número), quartos e vagas inteiros; endereco = "
+    "logradouro, número e complemento (sem CEP, sem bairro, sem cidade); bairro, cidade e uf (sigla de 2 letras) "
+    "separados; matricula e numero_processo só o número; datas em AAAA-MM-DD; comissao_leiloeiro_pct em número "
+    "(5 para 5 %); débitos: 'vendedor' quando quem vende/credor assume, 'comprador' quando o arrematante assume; "
+    "comitente = quem vende (banco, empresa, vara/juízo), nunca pessoa física; nunca escreva nomes de pessoas físicas."
+)
+
+_DATA_ISO = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def limpar_campos(c: dict) -> dict:
+    """Valida o JSON do modelo: faixas plausíveis, tipos, sem nomes de pessoas; devolve só o aproveitável."""
+    out: dict = {}
+
+    def num(k, lo, hi, inteiro=False):
+        v = c.get(k)
+        if isinstance(v, bool) or not isinstance(v, (int, float)):
+            return
+        if lo <= v <= hi:
+            out[k] = int(v) if inteiro else round(float(v), 2)
+
+    def txt(k, maximo=200):
+        v = c.get(k)
+        if isinstance(v, str) and v.strip():
+            v = re.sub(r"\s+", " ", v).strip()[:maximo]
+            if "[nome]" in (remover_nomes(v) or ""):
+                return
+            out[k] = v
+
+    t = normalizar_tipo(c.get("tipo")) if c.get("tipo") else None
+    if t and t != "outro":
+        out["tipo"] = t
+    num("area_privativa_m2", 5, 50000)
+    num("area_terreno_m2", 5, 100000000)
+    num("area_total_m2", 5, 100000000)
+    num("quartos", 0, 30, True)
+    num("vagas", 0, 100, True)
+    num("comissao_leiloeiro_pct", 0, 20)
+    num("valor_avaliacao", 1000, 1e9)
+    for k in ("endereco", "bairro", "cidade", "matricula", "numero_processo", "comitente"):
+        txt(k, 300 if k == "endereco" else 120)
+    uf = c.get("uf")
+    if isinstance(uf, str) and re.fullmatch(r"[A-Za-z]{2}", uf.strip()):
+        out["uf"] = uf.strip().upper()
+    for k in ("ocupado", "aceita_financiamento", "aceita_fgts", "aceita_parcelamento"):
+        if isinstance(c.get(k), bool):
+            out[k] = c[k]
+    for k in ("debitos_iptu_por_conta_de", "debitos_condominio_por_conta_de"):
+        if c.get(k) in ("vendedor", "comprador"):
+            out[k] = c[k]
+    for k in ("data_leilao", "data_segunda_praca"):
+        if isinstance(c.get(k), str) and _DATA_ISO.match(c[k]):
+            out[k] = c[k]
+    return out
+
+
+def extrair_campos(r: dict, textos: list[str], markdown: str, client) -> tuple[dict, dict]:
+    """Chamada barata ao Haiku (saída estruturada) para estruturar o que o parecer e os documentos dizem.
+    Devolve (campos limpos, uso)."""
+    partes = [f"## Parecer do analista\n{markdown}", f"## Dados do anúncio\n{_campos_do_anuncio(r)}"]
+    for i, t in enumerate(textos, 1):
+        t = re.sub(r"[ \t]+", " ", recortar_documento(t, r.get("numero_processo")))
+        partes.append(f"## Documento {i}\n{t[:MAX_CHARS_DOCUMENTO]}")
+    msg = client.messages.create(
+        model=MODELO_CAMPOS, max_tokens=800, system=SISTEMA_CAMPOS,
+        thinking={"type": "disabled"}, output_config={"effort": "low", "format": {"type": "json_schema", "schema": ESQUEMA_CAMPOS}},
+        messages=[{"role": "user", "content": "\n\n".join(partes)}],
+    )
+    texto = next((b.text for b in msg.content if b.type == "text"), "")
+    try:
+        bruto = json.loads(texto)
+    except json.JSONDecodeError:
+        bruto = {}
+    uso = {"entrada": msg.usage.input_tokens or 0, "saida": msg.usage.output_tokens or 0}
+    return limpar_campos(bruto), uso
+
+
+def aplicar_campos(r: dict, campos: dict) -> list[str]:
+    """Preenche no registro só o que está null; se endereço/bairro/cidade entraram, zera a geocodificação
+    de precisão baixa para o próximo passo geocodificar de novo. Devolve os campos preenchidos."""
+    antes = {k: r.get(k) for k in campos}
+    completar(r, preencher_null_com={k: v for k, v in campos.items() if k in r})
+    preenchidos = [k for k in campos if antes.get(k) is None and r.get(k) is not None]
+    if any(k in preenchidos for k in ("endereco", "bairro", "cidade")) and r.get("geo_precisao") not in (None, "endereco"):
+        r["lat"] = r["lng"] = r["geo_precisao"] = None
+    if preenchidos:
+        preencher_derivados(r)
+    return preenchidos
+
+
+def carregar_campos_guardados() -> dict[str, dict]:
+    """{id: campos} de todos os relatórios já gerados (collector/cache/relatorios/*.json)."""
+    saida: dict[str, dict] = {}
+    if not PASTA.exists():
+        return saida
+    for p in PASTA.glob("*.json"):
+        if p.name.startswith("_"):
+            continue
+        try:
+            d = json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if d.get("campos"):
+            saida[d.get("id") or p.stem] = d["campos"]
+    return saida
+
+
+def aplicar_campos_guardados(registros: list[dict]) -> int:
+    """Etapa da coleta diária: aplica aos registros os campos estruturados dos relatórios já gerados."""
+    guardados = carregar_campos_guardados()
+    if not guardados:
+        return 0
+    n = 0
+    for r in registros:
+        c = guardados.get(r["id"])
+        if c and aplicar_campos(r, c):
+            n += 1
+    return n
+
+
+# ---------------------------------------------------------------- geração ---------------------------
+
 def _usage_total(msg, acumulado: dict) -> None:
     u = msg.usage
     acumulado["entrada"] += (u.input_tokens or 0) + (getattr(u, "cache_read_input_tokens", 0) or 0) + (getattr(u, "cache_creation_input_tokens", 0) or 0)
@@ -194,32 +363,105 @@ def gerar(r: dict, textos: list[str], client, modelo: str = MODELO) -> dict:
     return {"markdown": markdown, "uso": uso, "custo_usd": custo_usd(modelo, uso["entrada"], uso["saida"], uso["buscas"]), "fontes": fontes}
 
 
-def gerar_e_gravar(id_: str, base: dict | None = None, forcar: bool = False) -> dict:
+def enviar_ao_worker(item: dict) -> bool:
+    """Grava o parecer no banco do Worker (POST /interno/relatorio). Devolve False quando o Worker não
+    está configurado (WORKER_URL + INTERNO_SECRET)."""
+    url, segredo = os.environ.get("WORKER_URL", "").rstrip("/"), os.environ.get("INTERNO_SECRET", "")
+    if not url or not segredo:
+        return False
+    import urllib.request
+    corpo = {k: item.get(k) for k in ("id", "gerado_em", "modelo", "custo_usd", "documentos_lidos", "uso", "campos", "markdown")}
+    req = urllib.request.Request(f"{url}/interno/relatorio", data=json.dumps(corpo, ensure_ascii=False).encode("utf-8"),
+                                 headers={"Content-Type": "application/json", "X-Interno": segredo, "User-Agent": "aysha-leiloes-relatorio"}, method="POST")
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        if resp.status != 200:
+            raise RuntimeError(f"Worker respondeu {resp.status}")
+    return True
+
+
+def _metadados(item: dict) -> dict:
+    return {k: item.get(k) for k in ("id", "gerado_em", "modelo", "documentos_lidos", "uso", "custo_usd", "fontes", "campos")}
+
+
+def _guardar(item: dict) -> None:
+    """Metadados + campos no cache versionado (sem o texto); texto no Worker ou, sem Worker, em pasta local."""
     PASTA.mkdir(parents=True, exist_ok=True)
+    (PASTA / f"{_nome_arquivo(item['id'])}.json").write_text(json.dumps(_metadados(item), ensure_ascii=False, indent=1), encoding="utf-8")
+    if not enviar_ao_worker(item):
+        PASTA_LOCAL.mkdir(parents=True, exist_ok=True)
+        (PASTA_LOCAL / f"{_nome_arquivo(item['id'])}.json").write_text(json.dumps(item, ensure_ascii=False, indent=1), encoding="utf-8")
+        log.warning("WORKER_URL/INTERNO_SECRET ausentes: parecer de %s guardado só em %s", item["id"], PASTA_LOCAL)
+
+
+def gerar_e_gravar(id_: str, base: dict | None = None, forcar: bool = False) -> dict:
     base = base or _carregar_base()
     if id_ not in base:
         raise KeyError(f"imóvel {id_} não está na base")
     r = base[id_]
     id_ = r["id"]  # id principal, quando o pedido veio com o id de uma fonte absorvida
-    destino = PASTA / f"{_nome_arquivo(id_)}.json"
-    if destino.exists() and not forcar:
-        log.info("relatório de %s já existe; nada a fazer", id_)
-        return json.loads(destino.read_text(encoding="utf-8"))
+    meta_existente = PASTA / f"{_nome_arquivo(id_)}.json"
+    if meta_existente.exists() and not forcar:
+        log.info("relatório de %s já foi gerado; nada a fazer", id_)
+        return json.loads(meta_existente.read_text(encoding="utf-8"))
     config = yaml.safe_load((RAIZ / "collector" / "config.yaml").read_text(encoding="utf-8"))
     cliente = cliente_do_config(config)
     textos = textos_dos_documentos(r, cliente, config)
     import anthropic
     client = anthropic.Anthropic()
     res = gerar(r, textos, client)
+    campos, uso_campos = {}, {"entrada": 0, "saida": 0}
+    try:
+        campos, uso_campos = extrair_campos(r, textos, res["markdown"], client)
+    except Exception:
+        log.exception("extração de campos estruturados de %s falhou (o parecer segue)", id_)
+    custo = round(res["custo_usd"] + custo_usd(MODELO_CAMPOS, uso_campos["entrada"], uso_campos["saida"], 0), 4)
     item = {"id": id_, "gerado_em": datetime.now().isoformat(timespec="seconds"), "modelo": MODELO,
-            "documentos_lidos": len(textos), "uso": res["uso"], "custo_usd": res["custo_usd"], "fontes": res["fontes"],
-            "markdown": res["markdown"]}
-    destino.write_text(json.dumps(item, ensure_ascii=False, indent=1), encoding="utf-8")
+            "documentos_lidos": len(textos), "uso": {**res["uso"], "campos": uso_campos}, "custo_usd": custo, "fontes": res["fontes"],
+            "campos": campos, "markdown": res["markdown"]}
+    _guardar(item)
     _registrar_custo(item)
-    _atualizar_indice()
-    log.info("relatório de %s gerado: %d docs, %d/%d tokens, %d buscas, US$ %.4f", id_, len(textos),
-             res["uso"]["entrada"], res["uso"]["saida"], res["uso"]["buscas"], res["custo_usd"])
+    log.info("relatório de %s gerado: %d docs, %d/%d tokens, %d buscas, %d campos estruturados, US$ %.4f", id_, len(textos),
+             res["uso"]["entrada"], res["uso"]["saida"], res["uso"]["buscas"], len(campos), custo)
     return item
+
+
+def migrar_relatorios_antigos(base: dict | None = None) -> int:
+    """Relatórios gerados quando ainda eram servidos pelo site público: envia o texto ao Worker, extrai os
+    campos estruturados (se houver chave) e apaga o arquivo público. Idempotente."""
+    base = base or _carregar_base()
+    if not PASTA_PUBLICA_ANTIGA.exists():
+        return 0
+    client = None
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        import anthropic
+        client = anthropic.Anthropic()
+    config = yaml.safe_load((RAIZ / "collector" / "config.yaml").read_text(encoding="utf-8"))
+    cliente = cliente_do_config(config)
+    n = 0
+    for p in sorted(PASTA_PUBLICA_ANTIGA.glob("*.json")):
+        if p.name.startswith("_"):
+            p.unlink()
+            continue
+        item = json.loads(p.read_text(encoding="utf-8"))
+        r = base.get(item.get("id"))
+        if client and r and not item.get("campos"):
+            try:
+                textos = textos_dos_documentos(r, cliente, config)
+                item["campos"], uso = extrair_campos(r, textos, item.get("markdown", ""), client)
+                item["custo_usd"] = round((item.get("custo_usd") or 0) + custo_usd(MODELO_CAMPOS, uso["entrada"], uso["saida"], 0), 4)
+            except Exception:
+                log.exception("campos de %s não extraídos na migração", item.get("id"))
+        if not enviar_ao_worker(item):
+            log.error("Worker não configurado: %s não migrado", p.name)
+            continue
+        PASTA.mkdir(parents=True, exist_ok=True)
+        (PASTA / p.name).write_text(json.dumps(_metadados(item), ensure_ascii=False, indent=1), encoding="utf-8")
+        p.unlink()
+        n += 1
+        log.info("migrado: %s (%d campos)", item.get("id"), len(item.get("campos") or {}))
+    if not any(PASTA_PUBLICA_ANTIGA.iterdir()):
+        PASTA_PUBLICA_ANTIGA.rmdir()
+    return n
 
 
 def _nome_arquivo(id_: str) -> str:
@@ -233,12 +475,6 @@ def _registrar_custo(item: dict) -> None:
     dados["total_usd"] = round(sum(x["custo_usd"] for x in dados["relatorios"]), 4)
     dados["hoje"] = {"data": date.today().isoformat(), "n": sum(1 for x in dados["relatorios"] if x["gerado_em"][:10] == date.today().isoformat())}
     p.write_text(json.dumps(dados, ensure_ascii=False, indent=1), encoding="utf-8")
-
-
-def _atualizar_indice() -> None:
-    ids = sorted(p.stem for p in PASTA.glob("*.json") if not p.name.startswith("_"))
-    (PASTA / "_indice.json").write_text(json.dumps({"ids": ids, "atualizado_em": datetime.now().isoformat(timespec="seconds")},
-                                                   ensure_ascii=False), encoding="utf-8")
 
 
 def gerados_hoje() -> int:
@@ -255,18 +491,18 @@ def main(argv=None) -> int:
     if not argv:
         print(__doc__)
         return 2
+    if argv[0] == "--migrar":
+        n = migrar_relatorios_antigos()
+        log.info("%d relatório(s) migrado(s) para o Worker", n)
+        return 0
     config = yaml.safe_load((RAIZ / "collector" / "config.yaml").read_text(encoding="utf-8")).get("relatorios", {})
     teto = config.get("maximo_por_dia", 100)
-    ids = list(argv)
-    if argv[0] == "--fila":
-        fila = PASTA / "_fila.json"
-        ids = json.loads(fila.read_text(encoding="utf-8")).get("ids", []) if fila.exists() else []
     if not os.environ.get("ANTHROPIC_API_KEY"):
         print("ANTHROPIC_API_KEY ausente")
         return 1
     base = _carregar_base()
     ok = 0
-    for id_ in ids:
+    for id_ in argv:
         if gerados_hoje() >= teto:
             log.warning("teto diário de %d relatórios atingido; %s fica para amanhã", teto, id_)
             break
@@ -275,9 +511,7 @@ def main(argv=None) -> int:
             ok += 1
         except Exception:
             log.exception("relatório de %s falhou", id_)
-    if argv[0] == "--fila":
-        (PASTA / "_fila.json").write_text(json.dumps({"ids": [i for i in ids if not (PASTA / f"{_nome_arquivo(i)}.json").exists()]}), encoding="utf-8")
-    return 0 if ok or not ids else 1
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":

@@ -101,7 +101,6 @@
   }
 
   /* ---------- análise com IA (relatório gerado uma vez e guardado em data/relatorios/<id>.json) ---------- */
-  function nomeArquivo(id) { return id.replace(/[^\w.\-]/g, "_"); }
   function mdInline(s) {
     s = escapar(s);
     s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
@@ -143,45 +142,69 @@
   }
   function renderRelatorio(rel) {
     const uso = rel.uso || {};
-    return `<div class="relatorio-meta muted">Gerado em ${dataHora(rel.gerado_em)} · modelo ${escapar(rel.modelo || "")} · ${rel.documentos_lidos || 0} documento(s) lido(s) · ${uso.buscas || 0} busca(s) na web · custo US$ ${(rel.custo_usd || 0).toFixed(3)}. Relatório gerado uma vez e guardado; não é refeito a cada clique.</div>
+    return `<div class="relatorio-meta muted">Gerado em ${dataHora(rel.gerado_em)} · ${rel.documentos_lidos || 0} documento(s) lido(s) · ${uso.buscas || 0} busca(s) na web. Guardado na sua conta; abrir de novo não gasta crédito.</div>
       <div class="relatorio-texto">${markdownParaHtml(rel.markdown || "")}</div>
       <p class="aviso">Parecer automático, gerado por IA a partir do edital, da matrícula e de buscas na web. Pode conter erros. Não é assessoria jurídica nem recomendação de investimento: confira os documentos e consulte um profissional antes de dar lance.</p>`;
   }
+  const DESCRICAO_ANALISE = "<p>Parecer para quem vai dar lance: leitura do edital e da matrícula, preço de mercado do bairro, custos no lance, sinais vermelhos, veredito e diligências. Os dados estruturados que a análise encontrar (área, endereço, bairro, quartos…) também passam a preencher esta ficha na coleta seguinte.</p>";
+
+  /* Fluxo: sem conta → formulário de login; com conta → pergunta ao Worker se já tem acesso ao relatório
+     (pronto / em andamento / sem acesso). Sem acesso: botão que usa a análise grátis ou 1 crédito; sem
+     crédito, link para comprar. Quem pede uma análise nova espera o robô (3 a 6 minutos). */
   async function carregarAnalise(r) {
     const corpo = document.getElementById("analise-corpo");
-    const cfg = window.LT_CONFIG || {};
-    try {
-      const rel = await carregarJson(`relatorios/${nomeArquivo(r.id)}.json`);
-      corpo.innerHTML = renderRelatorio(rel);
-      return;
-    } catch (e) { /* ainda não existe */ }
     const temDoc = !!(r.url_edital || r.url_matricula);
-    corpo.innerHTML = `
-      <p>Parecer para quem vai dar lance: leitura do edital e da matrícula, preço de mercado do bairro, custos no lance, sinais vermelhos, veredito e diligências.</p>
-      ${temDoc ? "" : '<p class="muted">Este imóvel não tem edital nem matrícula em PDF acessíveis; o parecer usa o anúncio e a pesquisa de mercado.</p>'}
-      <p><button type="button" class="btn primario" id="btn-gerar">Gerar análise com IA</button> <span class="muted" style="font-size:.8rem">leva de 2 a 5 minutos</span></p>`;
+    const semDoc = temDoc ? "" : '<p class="muted">Este imóvel não tem edital nem matrícula em PDF acessíveis; o parecer usa o anúncio e a pesquisa de mercado.</p>';
+    if (!LT.urlWorker()) { corpo.innerHTML = '<p class="muted">Análise indisponível nesta instalação.</p>'; return; }
+    if (!LT.sessao()) {
+      corpo.innerHTML = DESCRICAO_ANALISE + semDoc + '<div id="login-analise"></div>';
+      LT.formularioLogin(document.getElementById("login-analise"), { titulo: "<b>A primeira análise é grátis.</b> Entre com seu e-mail para gerar ou abrir a análise deste imóvel.", voltarPara: location.href.split("#")[0] + "#analise" });
+      return;
+    }
+    let r1;
+    try { r1 = await LT.api(`/relatorio/${encodeURIComponent(r.id)}`); }
+    catch (e) { corpo.innerHTML = '<p class="muted">Serviço de análises fora do ar no momento. Tente de novo em alguns minutos.</p>'; return; }
+    if (r1.status === 401) { carregarAnalise(r); return; }  // sessão expirada: volta ao login
+    if (r1.ok && r1.dados.status === "pronto") { corpo.innerHTML = renderRelatorio(r1.dados.relatorio); return; }
+    if (r1.status === 202 && r1.dados.status === "em_andamento") { esperarRelatorio(r, corpo, r1.dados.pedido_em); return; }
+    // sem acesso ainda: mostra o que a análise vai custar
+    const conta = await LT.api("/conta").catch(() => ({ ok: false, dados: {} }));
+    const c = conta.dados || {};
+    const custo = c.gratis_disponivel ? "<b>grátis</b> (sua primeira análise)" : c.creditos > 0 ? `<b>1 crédito</b> (você tem ${c.creditos})` : "<b>1 crédito</b> (você não tem créditos)";
+    corpo.innerHTML = DESCRICAO_ANALISE + semDoc + `<p>Custo desta análise: ${custo}. Conta: ${escapar(c.email || LT.emailSessao())} · <a href="conta.html">minha conta</a></p>
+      <p>${(c.gratis_disponivel || c.creditos > 0)
+        ? '<button type="button" class="btn primario" id="btn-gerar">Gerar análise com IA</button> <span class="muted" style="font-size:.8rem">leva de 2 a 5 minutos</span>'
+        : '<a class="btn primario" href="conta.html#creditos">Comprar créditos</a> <span class="muted" style="font-size:.8rem">Pix ou cartão, a partir de R$ 14,90</span>'}</p>`;
     const btn = document.getElementById("btn-gerar");
     if (btn) btn.addEventListener("click", async () => {
       btn.disabled = true; btn.textContent = "Pedindo a análise…";
-      try {
-        const resp = await fetch(cfg.urlAnaliseWorker, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: r.id }) });
-        const dados = await resp.json().catch(() => ({}));
-        if (!resp.ok) throw new Error(dados.erro || `HTTP ${resp.status}`);
-        if (dados.status === "pronto") { corpo.innerHTML = renderRelatorio(await carregarJson(`relatorios/${nomeArquivo(r.id)}.json`)); return; }
-        // o robô gera, commita e o site publica: esperamos o arquivo aparecer (normalmente 3 a 6 minutos)
-        const inicio = Date.now();
-        const status = document.createElement("p"); status.className = "muted"; btn.after(status);
-        while (Date.now() - inicio < 10 * 60 * 1000) {
-          const min = Math.floor((Date.now() - inicio) / 60000), seg = Math.floor(((Date.now() - inicio) % 60000) / 1000);
-          btn.textContent = `Gerando a análise… ${min}:${String(seg).padStart(2, "0")}`;
-          status.textContent = "A IA está lendo o edital e a matrícula e pesquisando o mercado. Pode fechar esta página e voltar depois: o resultado fica guardado.";
-          await new Promise(res => setTimeout(res, 20000));
-          try { corpo.innerHTML = renderRelatorio(await carregarJson(`relatorios/${nomeArquivo(r.id)}.json`)); return; } catch (e) { /* ainda não publicado */ }
-        }
-        btn.disabled = false; btn.textContent = "Verificar de novo";
-        status.textContent = "Está demorando mais que o normal. Recarregue a página em alguns minutos; a análise aparece aqui quando ficar pronta.";
-      } catch (e) { btn.disabled = false; btn.textContent = "Tentar de novo"; alert("Não foi possível pedir a análise agora: " + e.message); }
+      let r2;
+      try { r2 = await LT.api("/analise", { body: { id: r.id } }); }
+      catch (e) { btn.disabled = false; btn.textContent = "Tentar de novo"; alert("Sem conexão com o serviço de análises."); return; }
+      if (r2.status === 402) { location.href = "conta.html#creditos"; return; }
+      if (!r2.ok && r2.status !== 202) { btn.disabled = false; btn.textContent = "Tentar de novo"; alert("Não foi possível pedir a análise agora: " + (r2.dados.erro || `HTTP ${r2.status}`)); return; }
+      LT.evento(r2.dados.origem === "gratis" ? "analise-gratis" : "analise-credito");
+      if (r2.dados.status === "pronto") { corpo.innerHTML = renderRelatorio(r2.dados.relatorio); return; }
+      if (r2.dados.status === "fila") { corpo.innerHTML = `<p class="aviso">${escapar(r2.dados.mensagem)}</p>`; return; }
+      esperarRelatorio(r, corpo, null);
     });
+  }
+  async function esperarRelatorio(r, corpo, pedidoEm) {
+    // o robô gera e grava no Worker: consultamos a cada 20 s (normalmente 3 a 6 minutos)
+    const inicio = pedidoEm ? Math.max(Date.parse(pedidoEm) || Date.now(), Date.now() - 9 * 60000) : Date.now();
+    corpo.innerHTML = `<p><button type="button" class="btn primario" disabled id="btn-espera">Gerando a análise…</button></p>
+      <p class="muted" id="espera-msg">A IA está lendo o edital e a matrícula e pesquisando o mercado. Pode fechar esta página e voltar depois: o resultado fica guardado na sua conta.</p>`;
+    const btn = document.getElementById("btn-espera"), msg = document.getElementById("espera-msg");
+    while (Date.now() - inicio < 12 * 60 * 1000) {
+      const dec = Date.now() - inicio, min = Math.floor(dec / 60000), seg = Math.floor((dec % 60000) / 1000);
+      btn.textContent = `Gerando a análise… ${min}:${String(seg).padStart(2, "0")}`;
+      await new Promise(res => setTimeout(res, 20000));
+      const x = await LT.api(`/relatorio/${encodeURIComponent(r.id)}`).catch(() => null);
+      if (x && x.ok && x.dados.status === "pronto") { corpo.innerHTML = renderRelatorio(x.dados.relatorio); return; }
+    }
+    btn.disabled = false; btn.textContent = "Verificar de novo";
+    btn.addEventListener("click", () => carregarAnalise(r));
+    msg.textContent = "Está demorando mais que o normal. Clique para verificar ou volte em alguns minutos; a análise aparece aqui quando ficar pronta.";
   }
 
   function areaRef(r) { return r.tipo === "terreno" ? (r.area_terreno_m2 ?? r.area_privativa_m2) : (r.area_privativa_m2 ?? r.area_terreno_m2); }

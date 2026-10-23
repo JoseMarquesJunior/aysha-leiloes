@@ -13,3 +13,6 @@ Thumbs.db
 
 # log da coleta local agendada
 coleta-local.log
+
+# texto dos pareceres gerados sem Worker configurado (nunca versionado)
+collector/cache/relatorios_local/

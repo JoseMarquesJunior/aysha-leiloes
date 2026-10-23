@@ -155,8 +155,74 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", iniciarContagem);
   else iniciarContagem();
 
+  /* Eventos do funil (GoatCounter): visitante → conta criada → análise pedida → compra paga. Cada evento é
+     um "path" próprio no painel (evento/conta-nova, evento/analise-gratis, evento/compra-paga...). Sem
+     dados pessoais: só o nome do evento. O script carrega assíncrono; antes disso os eventos esperam. */
+  const filaEventos = [];
+  function evento(nome) {
+    const cfg = global.LT_CONFIG || {};
+    if (!cfg.goatcounter) return;
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
+    filaEventos.push(nome);
+    enviarEventos();
+  }
+  function enviarEventos() {
+    const gc = global.goatcounter;
+    if (!gc || typeof gc.count !== "function") { if (filaEventos.length) setTimeout(enviarEventos, 1000); return; }
+    while (filaEventos.length) {
+      const nome = filaEventos.shift();
+      try { gc.count({ path: "evento/" + nome, title: nome, event: true }); } catch (e) { /* bloqueador */ }
+    }
+  }
+
+  /* Conta (link mágico) e chamadas ao Worker. A sessão é um token portador guardado no navegador. */
+  const CHAVE_SESSAO = "lt.sessao", CHAVE_EMAIL = "lt.email", CHAVE_VOLTAR = "lt.voltar";
+  function urlWorker() { return ((global.LT_CONFIG || {}).urlWorker || "").replace(/\/$/, ""); }
+  function sessao() { try { return localStorage.getItem(CHAVE_SESSAO) || ""; } catch (e) { return ""; } }
+  function emailSessao() { try { return localStorage.getItem(CHAVE_EMAIL) || ""; } catch (e) { return ""; } }
+  function guardarSessao(token, email) { try { localStorage.setItem(CHAVE_SESSAO, token); localStorage.setItem(CHAVE_EMAIL, email || ""); } catch (e) { /* sem storage */ } }
+  function limparSessao() { try { localStorage.removeItem(CHAVE_SESSAO); localStorage.removeItem(CHAVE_EMAIL); } catch (e) { /* sem storage */ } }
+  function guardarVoltar(url) { try { localStorage.setItem(CHAVE_VOLTAR, url || ""); } catch (e) { /* sem storage */ } }
+  function lerVoltar() { try { const v = localStorage.getItem(CHAVE_VOLTAR) || ""; localStorage.removeItem(CHAVE_VOLTAR); return v; } catch (e) { return ""; } }
+  /* api("/conta") → {ok, status, dados}; nunca lança por HTTP (só por rede). 401 limpa a sessão. */
+  async function api(caminho, opcoes) {
+    const o = opcoes || {};
+    const headers = { "Content-Type": "application/json" };
+    const t = sessao();
+    if (t) headers.Authorization = "Bearer " + t;
+    const resp = await fetch(urlWorker() + caminho, { method: o.method || (o.body ? "POST" : "GET"), headers, body: o.body ? JSON.stringify(o.body) : undefined });
+    const dados = await resp.json().catch(() => ({}));
+    if (resp.status === 401 && t) limparSessao();
+    return { ok: resp.ok, status: resp.status, dados };
+  }
+  /* Formulário de login (e-mail → link mágico) renderizado dentro de `el`; `voltarPara` é a URL para onde
+     o link do e-mail devolve a pessoa depois de entrar. */
+  function formularioLogin(el, opcoes) {
+    const o = opcoes || {};
+    el.innerHTML = `<form class="login" autocomplete="on">
+      ${o.titulo ? `<p>${o.titulo}</p>` : ""}
+      <label>Seu e-mail <input type="email" name="email" required placeholder="voce@exemplo.com" value="${escapar(emailSessao())}"></label>
+      <button type="submit" class="btn primario">Receber link de acesso</button>
+      <p class="muted" style="font-size:.8rem;margin:6px 0 0">Sem senha: enviamos um link por e-mail que vale 20 minutos. Ao continuar você aceita os <a href="sobre.html#contas">termos de uso</a>.</p>
+      <p class="login-msg" aria-live="polite"></p></form>`;
+    const form = el.querySelector("form"), msg = el.querySelector(".login-msg"), btn = el.querySelector("button");
+    form.addEventListener("submit", async ev => {
+      ev.preventDefault();
+      const email = form.email.value.trim().toLowerCase();
+      btn.disabled = true; msg.textContent = "Enviando…";
+      guardarVoltar(o.voltarPara || location.href);
+      const r = await api("/auth/pedir", { body: { email } }).catch(() => ({ ok: false, dados: { erro: "sem conexão com o serviço" } }));
+      if (r.ok) {
+        evento("login-pedido");
+        msg.innerHTML = `<b>Link enviado para ${escapar(email)}.</b> Abra o e-mail e clique no link para continuar (confira o spam).`;
+        form.querySelector("label").classList.add("hidden"); btn.classList.add("hidden");
+      } else { btn.disabled = false; msg.textContent = "Não deu certo: " + (r.dados.erro || "tente de novo"); }
+    });
+  }
+
   global.LT = {
     TRACO, nulo, moeda, numero, pct, area, data, dataHora, simNao, ocupado, texto, cap, escapar, semAcentos,
     diasEntre, hojeIso, nomeFonte, SITES_FONTES, ROTULOS, formatarCampo, carregarJson, carregarImoveis, lerQuery, normalizar, CAMPOS,
+    evento, urlWorker, sessao, emailSessao, guardarSessao, limparSessao, guardarVoltar, lerVoltar, api, formularioLogin,
   };
 })(window);

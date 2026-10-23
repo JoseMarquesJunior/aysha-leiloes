@@ -6,10 +6,19 @@ compatibility_date = "2026-10-01"
 REPO = "JoseMarquesJunior/aysha-leiloes"
 SITE = "https://josemarquesjunior.github.io/aysha-leiloes"
 ORIGENS = "https://josemarquesjunior.github.io,http://localhost:8791"
-LIMITE_IP = "3"
 LIMITE_DIA = "100"
+EMAIL_REMETENTE = "jmarques.oliveirajunior@gmail.com"
+NOME_REMETENTE = "Aysha Leilões"
+# Tabela de créditos (valores em centavos). Edite e rode `npx wrangler deploy`.
+PACOTES = '[{"id":"1","nome":"1 análise","creditos":1,"valor_centavos":1490},{"id":"5","nome":"5 análises","creditos":5,"valor_centavos":5900},{"id":"20","nome":"20 análises","creditos":20,"valor_centavos":19900}]'
 
 # KV para os contadores de limite (criado por: npx wrangler kv namespace create LIMITES)
 [[kv_namespaces]]
 binding = "LIMITES"
 id = "e90cfdcd18a64c00866feec94a4b3464"
+
+# D1: contas, créditos, relatórios, pedidos (criado por: npx wrangler d1 create aysha-contas)
+[[d1_databases]]
+binding = "DB"
+database_name = "aysha-contas"
+database_id = "8c3f8ce1-79eb-4fbb-b20c-ba9baa160e82"

@@ -1,25 +1,21 @@
 name: Relatório de imóvel com IA
 
-# Gera o parecer detalhado (Opus + busca na web) de um ou mais imóveis e commita em docs/data/relatorios/.
-# Disparos:
-#  - manual (workflow_dispatch) com a lista de ids;
-#  - abertura de issue cujo título começa com "Analisar " seguido do id (é o que o botão do site faz:
-#    abre uma issue pré-preenchida; a pessoa precisa de conta no GitHub). O workflow comenta na issue
-#    com o link da ficha e a fecha.
-# Cada relatório é gerado uma vez: se o arquivo já existe, nada é chamado.
+# Gera o parecer detalhado (Opus + busca na web) de um ou mais imóveis, extrai os campos estruturados e
+# envia o texto ao Worker (banco D1), que o entrega só a quem tem acesso. No repositório ficam apenas os
+# metadados e os campos (collector/cache/relatorios) e o custo acumulado.
+# Disparo: workflow_dispatch com a lista de ids (é o que o Worker faz quando alguém pede uma análise)
+# ou com "--migrar" para enviar ao Worker os relatórios antigos de docs/data/relatorios.
+# Cada relatório é gerado uma vez: se os metadados já existem, nada é chamado.
 
 on:
   workflow_dispatch:
     inputs:
       ids:
-        description: "Ids dos imóveis, separados por espaço (ex.: caixa-8787701324906 hd-224061)"
+        description: "Ids dos imóveis, separados por espaço (ex.: caixa-8787701324906 hd-224061), ou --migrar"
         required: true
-  issues:
-    types: [opened]
 
 permissions:
   contents: write
-  issues: write
 
 concurrency:
   group: relatorios
@@ -27,7 +23,6 @@ concurrency:
 
 jobs:
   relatorio:
-    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.issue.title, 'Analisar ')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -41,42 +36,27 @@ jobs:
       - name: Ids a analisar
         id: ids
         env:
-          TITULO: ${{ github.event.issue.title }}
           IDS_INPUT: ${{ inputs.ids }}
         run: |
-          if [ "${{ github.event_name }}" = "issues" ]; then
-            IDS=$(echo "$TITULO" | sed -E 's/^Analisar[[:space:]]+//' | tr -cd 'A-Za-z0-9._ -')
-          else
-            IDS="$IDS_INPUT"
-          fi
+          IDS=$(echo "$IDS_INPUT" | tr -cd 'A-Za-z0-9._ -')
           echo "ids=$IDS" >> "$GITHUB_OUTPUT"
           echo "Ids: $IDS"
 
       - name: Gerar relatórios
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          WORKER_URL: https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev
+          INTERNO_SECRET: ${{ secrets.INTERNO_SECRET }}
         run: python -m collector.relatorio ${{ steps.ids.outputs.ids }}
 
       - name: Commitar
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A docs/data/relatorios docs/data/custo_relatorios.json collector/cache/pdf
+          git add -A collector/cache/relatorios docs/data/relatorios docs/data/custo_relatorios.json collector/cache/pdf
           git commit -m "relatórios: ${{ steps.ids.outputs.ids }}" || { echo "nada novo"; exit 0; }
           for tentativa in 1 2 3; do
             if git push; then exit 0; fi
             git pull --rebase origin main || exit 1
           done
           exit 1
-
-      - name: Responder na issue
-        if: github.event_name == 'issues'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          IDS: ${{ steps.ids.outputs.ids }}
-        run: |
-          CORPO="Relatório gerado. Em alguns minutos ele aparece na ficha do imóvel:"
-          for id in $IDS; do CORPO="$CORPO
-          - https://josemarquesjunior.github.io/aysha-leiloes/imovel.html?id=$id#analise"; done
-          gh issue comment ${{ github.event.issue.number }} --body "$CORPO"
-          gh issue close ${{ github.event.issue.number }}
