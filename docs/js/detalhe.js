@@ -141,9 +141,7 @@
     return out.join("\n");
   }
   function renderRelatorio(rel) {
-    const uso = rel.uso || {};
-    return `<div class="relatorio-meta muted">${rel.documentos_lidos || 0} documento(s) lido(s) · ${uso.buscas || 0} busca(s) na web. Guardado na sua conta; abrir de novo não gasta crédito.</div>
-      <div class="relatorio-texto">${markdownParaHtml(rel.markdown || "")}</div>
+    return `<div class="relatorio-texto">${markdownParaHtml(rel.markdown || "")}</div>
       <p class="aviso">Parecer automático, gerado por IA a partir do edital, da matrícula e de buscas na web. Pode conter erros. Não é assessoria jurídica nem recomendação de investimento: confira os documentos e consulte um profissional antes de dar lance.</p>`;
   }
   const DESCRICAO_ANALISE = "<p>Parecer para quem vai dar lance: leitura do edital e da matrícula, preço de mercado do bairro, custos no lance, sinais vermelhos, veredito e diligências. Os dados estruturados que a análise encontrar (área, endereço, bairro, quartos…) também passam a preencher esta ficha na coleta seguinte.</p>";
