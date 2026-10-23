@@ -1,0 +1,14 @@
+# Cabeçalhos de segurança (Cloudflare Pages). Scripts só do próprio site e do GoatCounter; conexões só ao
+# Worker e ao GoatCounter; mapas do OpenStreetMap; fotos dos anúncios de qualquer origem https.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://gc.zgo.at; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev https://leiloes-em-tabela.goatcounter.com; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+
+/data/*
+  Cache-Control: public, max-age=900
+
+/vendor/*
+  Cache-Control: public, max-age=604800

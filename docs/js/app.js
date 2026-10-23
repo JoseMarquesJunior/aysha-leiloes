@@ -535,7 +535,15 @@
   // ---------- cabeçalho (status) ----------
   function renderStatus() {
     const m = estado.meta, st = estado.status || {};
-    $("contador").textContent = m ? `${m.ativos.toLocaleString("pt-BR")} imóveis em ${(m.ufs || Object.keys(m.por_uf || {})).join(", ")} · coleta de ${data(m.data_coleta)}` : "";
+    if (!m) { $("contador").textContent = ""; return; }
+    const todasUfs = m.ufs || Object.keys(m.por_uf || {});
+    const carregadas = Array.from(estado.ufsCarregadas).sort();
+    if (estado.dividido && carregadas.length && carregadas.length < todasUfs.length) {
+      const n = estado.todos.filter(r => r.ativo !== false).length;
+      $("contador").textContent = `${n.toLocaleString("pt-BR")} imóveis em ${carregadas.join(", ")} (base: ${m.ativos.toLocaleString("pt-BR")} em ${todasUfs.length} estados; escolha outros no filtro UF) · coleta de ${data(m.data_coleta)}`;
+    } else {
+      $("contador").textContent = `${m.ativos.toLocaleString("pt-BR")} imóveis em ${todasUfs.join(", ")} · coleta de ${data(m.data_coleta)}`;
+    }
     const ativas = Object.entries(st).filter(([n, s]) => !n.startsWith("_") && s.ativa);
     const ok = ativas.filter(([, s]) => s.ultima_coleta_ok === (m && m.data_coleta));
     const falhas = ativas.filter(([n]) => !ok.some(([k]) => k === n));
@@ -570,16 +578,71 @@
   }
 
   // ---------- carga sob demanda por UF ----------
-  async function garantirUfs() {
+  async function carregarUfs(lista) {
     if (!estado.dividido) return;
-    const ufs = valoresSel("f-uf");
-    const faltam = ufs.filter(u => !estado.ufsCarregadas.has(u));
+    const faltam = lista.filter(u => !estado.ufsCarregadas.has(u) && (!estado.todasUfs || estado.todasUfs.includes(u)));
     if (!faltam.length) return;
     $("contador-filtrado").textContent = `carregando ${faltam.join(", ")}…`;
     const novos = await Promise.all(faltam.map(u => carregarJson(`imoveis_${u}.json`)));
     estado.todos = estado.todos.concat(novos.flat().map(LT.normalizar));
     faltam.forEach(u => estado.ufsCarregadas.add(u));
     indexarHistorico();
+  }
+  async function garantirUfs() { await carregarUfs(valoresSel("f-uf")); }
+
+  // ---------- primeira visita: UF do visitante (celular) e painel "onde você procura?" ----------
+  const UFS_BR = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"];
+  const CELULAR = window.matchMedia("(max-width: 760px)").matches;
+  function lerLocal(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function gravarLocal(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* sem storage */ } }
+  /* No celular, a base inteira (todas as UFs) pesa demais: carregamos só a UF da pessoa. A UF vem da
+     última escolha dela ou da geolocalização de rede (api/uf, servida pelo Worker do site; sem permissão
+     e sem guardar nada). Sem resposta, começa pelo ES, origem do projeto. */
+  async function ufDoVisitante() {
+    const lembrada = lerLocal("lt.ufInicial");
+    if (UFS_BR.includes(lembrada)) return lembrada;
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 2500);
+      const r = await fetch("api/uf", { signal: ctrl.signal, cache: "no-store" });
+      clearTimeout(t);
+      const d = await r.json();
+      if (UFS_BR.includes(d.uf)) return d.uf;
+    } catch (e) { /* fora da Cloudflare ou sem rede */ }
+    return "ES";
+  }
+  function boasVindas(ufInicial) {
+    const painel = $("boas-vindas");
+    if (!painel || location.search || lerLocal("lt.boasvindas")) return;
+    const ufs = estado.todasUfs || Array.from(new Set(estado.todos.map(r => r.uf).filter(Boolean))).sort();
+    $("bv-uf").innerHTML = '<option value="">Todo o Brasil</option>' + ufs.map(u => `<option value="${u}"${u === ufInicial ? " selected" : ""}>${u}</option>`).join("");
+    const encherCidades = () => {
+      const uf = $("bv-uf").value;
+      const cid = contagem("cidade", estado.todos.filter(r => r.ativo !== false && (!uf || r.uf === uf)));
+      $("bv-cidade").innerHTML = '<option value="">Todas as cidades</option>' + cid.map(([c, n]) => `<option value="${escapar(c)}">${escapar(c)} (${n})</option>`).join("");
+    };
+    encherCidades();
+    $("bv-uf").addEventListener("change", async () => {
+      const uf = $("bv-uf").value;
+      if (uf && !estado.ufsCarregadas.has(uf)) { $("bv-cidade").innerHTML = "<option>carregando…</option>"; await carregarUfs([uf]); }
+      encherCidades();
+    });
+    const fechar = () => { painel.classList.add("hidden"); gravarLocal("lt.boasvindas", "1"); };
+    $("bv-ver").addEventListener("click", async () => {
+      const uf = $("bv-uf").value, cidade = $("bv-cidade").value;
+      for (const o of $("f-uf").options) o.selected = !!uf && o.value === uf;
+      await garantirUfs(); montarOpcoes();
+      for (const o of $("f-cidade").options) o.selected = !!cidade && o.value === cidade;
+      atualizarCidadesBairros(); aplicarFiltros(); fechar();
+      if (uf) gravarLocal("lt.ufInicial", uf);
+    });
+    $("bv-todos").addEventListener("click", async () => {
+      for (const o of $("f-uf").options) o.selected = false;
+      $("bv-todos").disabled = true; $("bv-todos").textContent = "carregando o Brasil…";
+      await carregarUfs(ufs); montarOpcoes(); aplicarFiltros(); fechar();
+    });
+    $("bv-fechar").addEventListener("click", fechar);
+    painel.classList.remove("hidden");
   }
 
   function limparFiltros() {
@@ -591,7 +654,9 @@
   // ---------- início ----------
   async function iniciar() {
     const q = lerQuery();
-    const ufsUrl = q.uf ? q.uf.split(",") : null;
+    let ufsUrl = q.uf ? q.uf.split(",") : null;
+    let ufInicial = null;
+    if (!ufsUrl && CELULAR) { ufInicial = await ufDoVisitante(); ufsUrl = [ufInicial]; }
     const [base, historico, status] = await Promise.all([
       carregarImoveis(ufsUrl),
       carregarJson("historico.json").catch(() => ({ eventos: [] })),
@@ -610,11 +675,18 @@
     renderStatus();
     document.querySelectorAll(".ms").forEach(montarMs);
     montarOpcoes();
+    if (ufInicial && estado.ufsCarregadas.has(ufInicial)) {
+      // celular: a UF do visitante entra como filtro visível (chip "UF: ES"), trocável a qualquer momento
+      for (const o of $("f-uf").options) o.selected = o.value === ufInicial;
+      atualizarCidadesBairros();
+    }
     lerUrlParaFiltros();
     montarMenuColunas();
+    boasVindas(ufInicial || (lerLocal("lt.ufInicial") || ""));
 
+    $("filtros").addEventListener("submit", e => e.preventDefault());
     $("filtros").addEventListener("change", async e => {
-      if (e.target.id === "f-uf") { await garantirUfs(); montarOpcoes(); }
+      if (e.target.id === "f-uf") { await garantirUfs(); montarOpcoes(); const sel = valoresSel("f-uf"); if (sel.length === 1) gravarLocal("lt.ufInicial", sel[0]); }
       if (e.target.id === "f-cidade") atualizarCidadesBairros();
       if (e.target.tagName === "SELECT" || e.target.type === "checkbox" || e.target.type === "number") aplicarFiltros();
     });

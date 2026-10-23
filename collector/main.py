@@ -267,6 +267,13 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
 
     # 8. saída
     gravar_saida(pasta, registros, config, status, hoje)
+
+    # 9. páginas estáticas por UF/cidade, sitemap e mapas de pré-visualização de links
+    try:
+        from . import paginas
+        log.info("páginas estáticas: %s", paginas.gerar(RAIZ / "docs", registros, config, hoje))
+    except Exception:
+        log.exception("geração das páginas estáticas falhou")
     return {"registros": len(registros), "eventos": len(eventos), "status": status}
 
 

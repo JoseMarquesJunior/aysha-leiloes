@@ -101,50 +101,12 @@
   }
 
   /* ---------- análise com IA (relatório gerado uma vez e guardado em data/relatorios/<id>.json) ---------- */
-  function mdInline(s) {
-    s = escapar(s);
-    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-    s = s.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, "$1<i>$2</i>").replace(/`([^`]+)`/g, "<code>$1</code>");
-    return s;
-  }
-  function markdownParaHtml(md) {
-    const linhas = md.replace(/\r/g, "").split("\n");
-    const out = [];
-    let lista = null, tabela = null, par = [];
-    const fecharPar = () => { if (par.length) { out.push(`<p>${par.map(mdInline).join(" ")}</p>`); par = []; } };
-    const fecharLista = () => { if (lista) { out.push(`</${lista}>`); lista = null; } };
-    const fecharTabela = () => {
-      if (!tabela) return;
-      const [cab, ...corpo] = tabela;
-      out.push("<table><thead><tr>" + cab.map(c => `<th>${mdInline(c)}</th>`).join("") + "</tr></thead><tbody>" +
-        corpo.map(l => "<tr>" + l.map(c => `<td>${mdInline(c)}</td>`).join("") + "</tr>").join("") + "</tbody></table>");
-      tabela = null;
-    };
-    for (const raw of linhas) {
-      const l = raw.trimEnd();
-      if (/^\s*\|.*\|\s*$/.test(l)) {
-        fecharPar(); fecharLista();
-        const celulas = l.trim().slice(1, -1).split("|").map(c => c.trim());
-        if (celulas.every(c => /^:?-{2,}:?$/.test(c))) continue;  // linha separadora
-        (tabela = tabela || []).push(celulas);
-        continue;
-      }
-      fecharTabela();
-      let m;
-      if ((m = l.match(/^(#{1,4})\s+(.*)/))) { fecharPar(); fecharLista(); out.push(`<h${m[1].length + 2}>${mdInline(m[2])}</h${m[1].length + 2}>`); continue; }
-      if ((m = l.match(/^\s*[-*]\s+(.*)/))) { fecharPar(); if (lista !== "ul") { fecharLista(); out.push("<ul>"); lista = "ul"; } out.push(`<li>${mdInline(m[1])}</li>`); continue; }
-      if ((m = l.match(/^\s*\d+[.)]\s+(.*)/))) { fecharPar(); if (lista !== "ol") { fecharLista(); out.push("<ol>"); lista = "ol"; } out.push(`<li>${mdInline(m[1])}</li>`); continue; }
-      if (!l.trim()) { fecharPar(); fecharLista(); continue; }
-      par.push(l.trim());
-    }
-    fecharPar(); fecharLista(); fecharTabela();
-    return out.join("\n");
-  }
+  const { markdownParaHtml } = LT;
   function renderRelatorio(rel) {
     return `<div class="relatorio-texto">${markdownParaHtml(rel.markdown || "")}</div>
       <p class="aviso">Parecer automático, gerado por IA a partir do edital, da matrícula e de buscas na web. Pode conter erros. Não é assessoria jurídica nem recomendação de investimento: confira os documentos e consulte um profissional antes de dar lance.</p>`;
   }
-  const DESCRICAO_ANALISE = "<p>Parecer para quem vai dar lance: leitura do edital e da matrícula, preço de mercado do bairro, custos no lance, sinais vermelhos, veredito e diligências. Os dados estruturados que a análise encontrar (área, endereço, bairro, quartos…) também passam a preencher esta ficha na coleta seguinte.</p>";
+  const DESCRICAO_ANALISE = '<p>Parecer para quem vai dar lance: leitura do edital e da matrícula, preço de mercado do bairro, custos no lance, sinais vermelhos, veredito e diligências. Os dados estruturados que a análise encontrar (área, endereço, bairro, quartos…) também passam a preencher esta ficha na coleta seguinte. <a href="exemplo-analise.html" target="_blank" rel="noopener">Veja um exemplo de análise completa ↗</a></p>';
 
   /* Fluxo: sem conta → formulário de login; com conta → pergunta ao Worker se já tem acesso ao relatório
      (pronto / em andamento / sem acesso). Sem acesso: botão que usa a análise grátis ou 1 crédito; sem
@@ -193,7 +155,7 @@
     corpo.innerHTML = `<p><button type="button" class="btn primario" disabled id="btn-espera">Gerando a análise…</button></p>
       <p class="muted" id="espera-msg">A IA está lendo o edital e a matrícula e pesquisando o mercado. Pode fechar esta página e voltar depois: o resultado fica guardado na sua conta.</p>`;
     const btn = document.getElementById("btn-espera"), msg = document.getElementById("espera-msg");
-    while (Date.now() - inicio < 12 * 60 * 1000) {
+    while (Date.now() - inicio < 15 * 60 * 1000) {
       const dec = Date.now() - inicio, min = Math.floor(dec / 60000), seg = Math.floor((dec % 60000) / 1000);
       btn.textContent = `Gerando a análise… ${min}:${String(seg).padStart(2, "0")}`;
       await new Promise(res => setTimeout(res, 20000));

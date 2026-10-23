@@ -72,7 +72,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A docs/data collector/cache
+          git add -A docs/data docs/leiloes docs/sitemap.xml collector/cache
           git commit -m "dados: coleta de $(date -u +'%Y-%m-%d %H:%M UTC')"
           for tentativa in 1 2 3; do
             if git push; then exit 0; fi
@@ -80,3 +80,9 @@ jobs:
             git pull --rebase origin main || exit 1
           done
           exit 1
+
+  publicar:
+    needs: coletar
+    if: inputs.diagnostico_ia == ''
+    uses: ./.github/workflows/publicar.yml
+    secrets: inherit

@@ -1,0 +1,37 @@
+name: Publicar site (Cloudflare)
+
+# Publica a pasta docs/ no Cloudflare (Workers com arquivos estáticos, o "Pages" atual) a cada push que
+# mude o site, e também ao fim da coleta diária (chamado por coletar.yml). Precisa dos secrets
+# CLOUDFLARE_API_TOKEN (token com permissão "Workers Scripts: Edit") e CLOUDFLARE_ACCOUNT_ID.
+# Sem eles, o passo é pulado e o site continua no último deploy.
+
+on:
+  push:
+    branches: [main]
+    paths: ["docs/**", "site/**"]
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: publicar-site
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Publicar
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "CLOUDFLARE_API_TOKEN/CLOUDFLARE_ACCOUNT_ID ausentes: publicação pulada."
+            exit 0
+          fi
+          npx --yes wrangler@4 deploy -c site/wrangler.toml

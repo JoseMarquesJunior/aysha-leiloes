@@ -1,5 +1,9 @@
 /* Configuração do site (sem build): edite e publique. */
 window.LT_CONFIG = {
+  // Endereço público do site. Quem abrir o endereço antigo (GitHub Pages) é redirecionado para cá.
+  // Ao ativar o domínio próprio, troque aqui, no SITE/ORIGENS do Worker e nos <link rel="canonical">.
+  urlSite: "https://aysha-leiloes.aysha-leiloes-analise.workers.dev",
+
   // Link de apoio ao projeto (ex.: "https://buymeacoffee.com/seu-usuario" ou "https://ko-fi.com/seu-usuario").
   // Vazio = o botão "Apoie o projeto" não aparece.
   urlApoio: "",

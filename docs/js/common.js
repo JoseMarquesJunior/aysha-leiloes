@@ -140,7 +140,7 @@
     const codigo = (cfg.goatcounter || "").trim();
     if (!codigo || /^[a-z0-9-]+$/i.test(codigo) === false) return;
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
-    let caminho = location.pathname.replace(/index\.html$/, "");
+    let caminho = location.pathname.replace(/^\/aysha-leiloes/, "").replace(/index\.html$/, "") || "/";
     if (/imovel\.html$/.test(location.pathname)) {
       const id = new URLSearchParams(location.search).get("id");
       caminho = "/imovel/" + (id ? id.replace(/[^\w.-]/g, "_") : "sem-id");
@@ -154,6 +154,55 @@
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", iniciarContagem);
   else iniciarContagem();
+
+  /* Markdown (subconjunto: títulos, parágrafos, listas, tabelas, negrito, itálico, código, links) → HTML seguro. */
+  function mdInline(s) {
+    s = escapar(s);
+    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    s = s.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, "$1<i>$2</i>").replace(/`([^`]+)`/g, "<code>$1</code>");
+    return s;
+  }
+  function markdownParaHtml(md) {
+    const linhas = md.replace(/\r/g, "").split("\n");
+    const out = [];
+    let lista = null, tabela = null, par = [];
+    const fecharPar = () => { if (par.length) { out.push(`<p>${par.map(mdInline).join(" ")}</p>`); par = []; } };
+    const fecharLista = () => { if (lista) { out.push(`</${lista}>`); lista = null; } };
+    const fecharTabela = () => {
+      if (!tabela) return;
+      const [cab, ...corpo] = tabela;
+      out.push("<table><thead><tr>" + cab.map(c => `<th>${mdInline(c)}</th>`).join("") + "</tr></thead><tbody>" +
+        corpo.map(l => "<tr>" + l.map(c => `<td>${mdInline(c)}</td>`).join("") + "</tr>").join("") + "</tbody></table>");
+      tabela = null;
+    };
+    for (const raw of linhas) {
+      const l = raw.trimEnd();
+      if (/^\s*\|.*\|\s*$/.test(l)) {
+        fecharPar(); fecharLista();
+        const celulas = l.trim().slice(1, -1).split("|").map(c => c.trim());
+        if (celulas.every(c => /^:?-{2,}:?$/.test(c))) continue;  // linha separadora
+        (tabela = tabela || []).push(celulas);
+        continue;
+      }
+      fecharTabela();
+      let m;
+      if ((m = l.match(/^(#{1,4})\s+(.*)/))) { fecharPar(); fecharLista(); out.push(`<h${m[1].length + 2}>${mdInline(m[2])}</h${m[1].length + 2}>`); continue; }
+      if ((m = l.match(/^\s*[-*]\s+(.*)/))) { fecharPar(); if (lista !== "ul") { fecharLista(); out.push("<ul>"); lista = "ul"; } out.push(`<li>${mdInline(m[1])}</li>`); continue; }
+      if ((m = l.match(/^\s*\d+[.)]\s+(.*)/))) { fecharPar(); if (lista !== "ol") { fecharLista(); out.push("<ol>"); lista = "ol"; } out.push(`<li>${mdInline(m[1])}</li>`); continue; }
+      if (!l.trim()) { fecharPar(); fecharLista(); continue; }
+      par.push(l.trim());
+    }
+    fecharPar(); fecharLista(); fecharTabela();
+    return out.join("\n");
+  }
+
+  /* Endereço antigo (GitHub Pages) → endereço atual, preservando caminho, query e fragmento. */
+  (function redirecionarSeAntigo() {
+    const alvo = ((global.LT_CONFIG || {}).urlSite || "").replace(/\/$/, "");
+    if (!alvo || !/\.github\.io$/.test(location.hostname)) return;
+    const caminho = location.pathname.replace(/^\/aysha-leiloes/, "");
+    location.replace(alvo + caminho + location.search + location.hash);
+  })();
 
   /* Eventos do funil (GoatCounter): visitante → conta criada → análise pedida → compra paga. Cada evento é
      um "path" próprio no painel (evento/conta-nova, evento/analise-gratis, evento/compra-paga...). Sem
@@ -223,6 +272,6 @@
   global.LT = {
     TRACO, nulo, moeda, numero, pct, area, data, dataHora, simNao, ocupado, texto, cap, escapar, semAcentos,
     diasEntre, hojeIso, nomeFonte, SITES_FONTES, ROTULOS, formatarCampo, carregarJson, carregarImoveis, lerQuery, normalizar, CAMPOS,
-    evento, urlWorker, sessao, emailSessao, guardarSessao, limparSessao, guardarVoltar, lerVoltar, api, formularioLogin,
+    evento, urlWorker, sessao, emailSessao, guardarSessao, limparSessao, guardarVoltar, lerVoltar, api, formularioLogin, markdownParaHtml,
   };
 })(window);

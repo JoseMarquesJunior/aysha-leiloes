@@ -4,21 +4,22 @@ name: Relatório de imóvel com IA
 # envia o texto ao Worker (banco D1), que o entrega só a quem tem acesso. No repositório ficam apenas os
 # metadados e os campos (collector/cache/relatorios) e o custo acumulado.
 # Disparo: workflow_dispatch com a lista de ids (é o que o Worker faz quando alguém pede uma análise)
-# ou com "--migrar" para enviar ao Worker os relatórios antigos de docs/data/relatorios.
+# ou com "--migrar" / "--campos" (modos de manutenção, só pelo mantenedor).
 # Cada relatório é gerado uma vez: se os metadados já existem, nada é chamado.
+# Execuções de ids diferentes rodam em paralelo (grupo de concorrência por ids); o push tem rebase+retry.
 
 on:
   workflow_dispatch:
     inputs:
       ids:
-        description: "Ids dos imóveis, separados por espaço (ex.: caixa-8787701324906 hd-224061), ou --migrar"
+        description: "Ids dos imóveis, separados por espaço (ex.: caixa-8787701324906 hd-224061), ou --migrar / --campos"
         required: true
 
 permissions:
   contents: write
 
 concurrency:
-  group: relatorios
+  group: relatorio-${{ inputs.ids }}
   cancel-in-progress: false
 
 jobs:
@@ -33,21 +34,21 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
 
-      - name: Ids a analisar
-        id: ids
-        env:
-          IDS_INPUT: ${{ inputs.ids }}
-        run: |
-          IDS=$(echo "$IDS_INPUT" | tr -cd 'A-Za-z0-9._ -')
-          echo "ids=$IDS" >> "$GITHUB_OUTPUT"
-          echo "Ids: $IDS"
-
       - name: Gerar relatórios
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           WORKER_URL: https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev
           INTERNO_SECRET: ${{ secrets.INTERNO_SECRET }}
-        run: python -m collector.relatorio ${{ steps.ids.outputs.ids }}
+          IDS_INPUT: ${{ inputs.ids }}
+        run: |
+          # os ids chegam por variável de ambiente, nunca interpolados no script; cada id vira um argumento
+          # separado depois de "--", então nenhum id é lido como opção do programa
+          IDS=$(printf '%s' "$IDS_INPUT" | tr -cd 'A-Za-z0-9._ -')
+          echo "Ids: $IDS"
+          case "$IDS" in
+            --migrar|--campos) python -m collector.relatorio "$IDS" ;;
+            *) read -ra LISTA <<< "$IDS"; python -m collector.relatorio -- "${LISTA[@]}" ;;
+          esac
 
       - name: Commitar
         run: |
@@ -55,9 +56,10 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A collector/cache/relatorios docs/data/custo_relatorios.json collector/cache/pdf
           [ -d docs/data/relatorios ] && git add -A docs/data/relatorios || true
-          git commit -m "relatórios: ${{ steps.ids.outputs.ids }}" || { echo "nada novo"; exit 0; }
-          for tentativa in 1 2 3; do
+          git commit -m "relatórios: ${{ inputs.ids }}" || { echo "nada novo"; exit 0; }
+          for tentativa in 1 2 3 4 5; do
             if git push; then exit 0; fi
+            sleep $((RANDOM % 10 + 3))
             git pull --rebase origin main || exit 1
           done
           exit 1

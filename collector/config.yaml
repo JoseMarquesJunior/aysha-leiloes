@@ -77,6 +77,8 @@ fontes:
 
 saida:
   pasta: docs/data
+  # endereço público do site (sitemap.xml, canonical e Open Graph das páginas por UF/cidade)
+  url_site: https://aysha-leiloes.aysha-leiloes-analise.workers.dev
   # Acima deste tamanho, imoveis.json é dividido em imoveis_<UF>.json (carregados sob demanda pelo site).
   dividir_por_uf_acima_de_mb: 3
   # Com a base dividida, o site abre com estas UFs; as outras carregam quando selecionadas no filtro.
@@ -156,3 +158,4 @@ ia:
 # no GitHub pode pedir um pela issue que o botão do site abre).
 relatorios:
   maximo_por_dia: 100
+  alerta_custo_usd_dia: 10   # acima disso, o robô avisa o mantenedor por e-mail (uma vez por dia)

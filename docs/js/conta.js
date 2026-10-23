@@ -52,8 +52,18 @@
       <div class="pacotes" id="pacotes">${pacotes || '<p class="muted">Compra ainda não disponível.</p>'}</div>
       <p class="muted" style="font-size:.8rem">Abrir de novo uma análise que você já tem não gasta crédito. Uma análise já gerada por outra pessoa também custa 1 crédito, porque a entrega é por conta. <a href="sobre.html#contas">Termos, reembolso e privacidade</a>.</p>
       <h2>Minhas análises</h2>${analises}
-      <h2>Compras</h2>${compras}`;
+      <h2>Compras</h2>${compras}
+      <h2>Segurança e privacidade</h2>
+      <p>A sessão expira após 30 dias sem uso. <button type="button" class="btn pequeno" id="sair-todos">Sair de todos os dispositivos</button></p>
+      <p>Você pode apagar sua conta a qualquer momento: e-mail, sessões e acessos às análises são removidos; os registros de compra ficam sem vínculo com o seu e-mail, porque precisam ser guardados por obrigação fiscal. Créditos não usados são perdidos. <button type="button" class="btn pequeno perigo" id="apagar-conta">Apagar minha conta</button></p>`;
     document.getElementById("sair").addEventListener("click", async ev => { ev.preventDefault(); await LT.api("/auth/sair", { body: {} }).catch(() => null); LT.limparSessao(); mostrarLogin(); });
+    document.getElementById("sair-todos").addEventListener("click", async () => { await LT.api("/auth/sair_todos", { body: {} }).catch(() => null); LT.limparSessao(); mostrarLogin(); });
+    document.getElementById("apagar-conta").addEventListener("click", async () => {
+      if (!confirm(`Apagar a conta ${c.email}? Isso remove seus acessos às análises e não pode ser desfeito.`)) return;
+      const r = await LT.api("/conta/apagar", { body: {} }).catch(() => ({ ok: false }));
+      if (!r.ok) { alert("Não foi possível apagar agora. Tente de novo."); return; }
+      LT.limparSessao(); el.innerHTML = '<h2>Minha conta</h2><p class="aviso ok">Conta apagada.</p><p><a href="./">← voltar à tabela</a></p>';
+    });
     for (const b of el.querySelectorAll("button[data-pacote]")) b.addEventListener("click", () => comprar(b.dataset.pacote, b));
     if (q.pedido) acompanharPedido(q.pedido);
     if (location.hash === "#creditos") document.getElementById("creditos").scrollIntoView({ behavior: "smooth" });
@@ -94,7 +104,9 @@
   }
 
   if (!LT.urlWorker()) { el.innerHTML = '<h2>Minha conta</h2><p class="muted">Contas indisponíveis nesta instalação.</p>'; return; }
-  if (q.token) entrarComToken(q.token);
+  // o token do link mágico vem no fragmento (#token=...), que não vai ao servidor nem para o GoatCounter
+  const tokenHash = (location.hash.match(/token=([0-9a-f]+)/) || [])[1];
+  if (tokenHash || q.token) entrarComToken(tokenHash || q.token);
   else if (LT.sessao()) mostrarConta();
   else mostrarLogin();
 })();

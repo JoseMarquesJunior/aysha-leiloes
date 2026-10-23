@@ -8,6 +8,9 @@
  *   POST /auth/pedir        {email}            -> envia o link de login por e-mail
  *   POST /auth/entrar       {token}            -> troca o token do link por um token de sessão
  *   POST /auth/sair                            -> encerra a sessão
+ *   POST /auth/sair_todos                      -> encerra todas as sessões do usuário
+ *   POST /conta/apagar                         -> apaga a conta (LGPD)
+ *   POST /interno/alerta    {assunto, texto}   -> o robô avisa o mantenedor por e-mail (header X-Interno)
  *   GET  /conta                                -> saldo, análises liberadas, compras (autenticado)
  *   POST /analise           {id}               -> libera (grátis ou 1 crédito) e devolve o relatório, ou dispara a geração
  *   GET  /relatorio/:id                        -> relatório, se o usuário tem acesso
@@ -23,8 +26,19 @@
  * Bindings: DB (D1), LIMITES (KV)
  */
 
-const ID_OK = /^[\w.\-]{3,80}$/;
+// id de imóvel: começa com letra ou dígito (nunca com "-", para não virar opção de linha de comando no robô)
+const ID_OK = /^[A-Za-z0-9][\w.\-]{2,79}$/;
 const EMAIL_OK = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const SESSAO_DIAS_INATIVIDADE = 30;
+
+// Domínios de e-mail descartável mais usados: cada conta nova ganha 1 crédito que custa dinheiro de verdade.
+const DOMINIOS_DESCARTAVEIS = new Set(("10minutemail.com 10minutemail.net 10minemail.com 20minutemail.com 33mail.com guerrillamail.com guerrillamail.net guerrillamail.org guerrillamail.biz guerrillamail.de guerrillamailblock.com grr.la sharklasers.com spam4.me mailinator.com mailinator.net mailinator2.com maildrop.cc yopmail.com yopmail.fr yopmail.net cool.fr.nf jetable.fr.nf nospam.ze.tc nomail.xl.cx mega.zik.dj speed.1s.fr courriel.fr.nf moncourrier.fr.nf monemail.fr.nf monmail.fr.nf temp-mail.org temp-mail.io tempmail.com tempmail.net tempmail.dev tempmailo.com tempail.com tempr.email discard.email discardmail.com discardmail.de spamgourmet.com trashmail.com trashmail.net trashmail.me trashmail.at trashmail.io trash-mail.com trash-mail.at throwawaymail.com throwam.com fakeinbox.com fakemail.net getnada.com nada.email getairmail.com airmail.cc dispostable.com mintemail.com mytemp.email mohmal.com emailondeck.com burnermail.io mailnesia.com mailcatch.com mailexpire.com spambog.com spambog.de spambog.ru spamherelots.com harakirimail.com incognitomail.org mailnull.com e4ward.com tempinbox.com tmpmail.net tmpmail.org tmpeml.com tmail.ws tmails.net emailfake.com crazymailing.com inboxkitten.com mailsac.com mail-temp.com moakt.com moakt.cc tempmailaddress.com anonbox.net anonymbox.com wegwerfmail.de wegwerfmail.net wegwerfmail.org wegwerfemail.de einrot.com luxusmail.org mailtemp.net owlymail.com cuvox.de dayrep.com fleckens.hu gustr.com jourrapide.com rhyta.com superrito.com teleworm.us armyspy.com mailpoof.com tempmails.net emailtemporario.com.br emailtemporario.net tempmail.com.br temporario.email mailtemporario.com.br mailtemp.com.br descartavel.email emailtemp.com.br tempmail.ninja mailimate.com 1secmail.com 1secmail.net 1secmail.org dropmail.me minuteinbox.com internxt.com firemail.cc tempmailer.com tempmailer.de emailnax.com cmail.club mailhub.pro").split(" "));
+
+function emailDescartavel(email) {
+  const dominio = email.split("@")[1] || "";
+  if (DOMINIOS_DESCARTAVEIS.has(dominio)) return true;
+  return [...DOMINIOS_DESCARTAVEIS].some(d => dominio.endsWith("." + d));
+}
 
 // ---------------------------------------------------------------- utilidades ----------
 function agora() { return new Date().toISOString(); }
@@ -73,23 +87,27 @@ async function usuarioDaSessao(request, env) {
   const auth = request.headers.get("Authorization") || "";
   const t = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
   if (!/^[0-9a-f]{64}$/.test(t)) return null;
-  const s = await env.DB.prepare("SELECT u.id, u.email, u.creditos, u.gratis_usado FROM sessoes s JOIN usuarios u ON u.id = s.usuario_id WHERE s.token = ? AND s.expira_em > ?")
+  const s = await env.DB.prepare("SELECT u.id, u.email, u.creditos, s.expira_em FROM sessoes s JOIN usuarios u ON u.id = s.usuario_id WHERE s.token = ? AND s.expira_em > ?")
     .bind(t, agora()).first();
-  return s || null;
+  if (!s) return null;
+  // expiração por inatividade: cada uso empurra o vencimento (no máximo uma gravação por dia)
+  const novaExp = new Date(Date.now() + SESSAO_DIAS_INATIVIDADE * 86400000).toISOString();
+  if (Date.parse(novaExp) - Date.parse(s.expira_em) > 86400000) await env.DB.prepare("UPDATE sessoes SET expira_em = ? WHERE token = ?").bind(novaExp, t).run();
+  return s;
 }
 
 async function pedirLogin(request, env, h) {
   const { email } = await corpo(request);
   const e = String(email || "").trim().toLowerCase();
   if (!EMAIL_OK.test(e) || e.length > 120) return json({ erro: "e-mail inválido" }, 400, h);
+  if (emailDescartavel(e)) return json({ erro: "e-mails temporários não são aceitos; use um e-mail permanente" }, 400, h);
   const ip = request.headers.get("CF-Connecting-IP") || "0.0.0.0";
   if ((await contar(env, `login:${await hashIp(ip)}:${new Date().toISOString().slice(0, 13)}`, 3600)) > 10)
     return json({ erro: "muitos pedidos de login; tente mais tarde" }, 429, h);
   const t = token(24);
   await env.DB.prepare("INSERT INTO links_login (token, email, expira_em) VALUES (?, ?, ?)").bind(t, e, maisMinutos(20)).run();
-  const link = `${env.SITE.replace(/\/$/, "")}/conta.html?token=${t}`;
-  // modo de teste do mantenedor: com o segredo interno, devolve o link em vez de enviar
-  if (request.headers.get("X-Interno") && request.headers.get("X-Interno") === env.INTERNO_SECRET) return json({ ok: true, link }, 200, h);
+  // o token vai no fragmento (#): não é enviado ao servidor do site nem fica em logs de acesso
+  const link = `${env.SITE.replace(/\/$/, "")}/conta.html#token=${t}`;
   await enviarEmail(env, e, "Seu acesso ao Aysha Leilões",
     `<p>Olá! Para entrar no Aysha Leilões, clique no link abaixo (vale por 20 minutos):</p>
      <p><a href="${link}">${link}</a></p>
@@ -115,7 +133,7 @@ async function entrar(request, env, h) {
   }
   const s = token(32);
   await env.DB.prepare("INSERT INTO sessoes (token, usuario_id, criado_em, expira_em) VALUES (?, ?, ?, ?)")
-    .bind(s, u.id, agora(), new Date(Date.now() + 90 * 86400000).toISOString()).run();
+    .bind(s, u.id, agora(), new Date(Date.now() + SESSAO_DIAS_INATIVIDADE * 86400000).toISOString()).run();
   return json({ sessao: s, email: l.email, nova_conta: nova }, 200, h);
 }
 
@@ -123,6 +141,33 @@ async function sair(request, env, h) {
   const auth = request.headers.get("Authorization") || "";
   const t = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
   if (t) await env.DB.prepare("DELETE FROM sessoes WHERE token = ?").bind(t).run();
+  return json({ ok: true }, 200, h);
+}
+
+async function sairDeTodos(usuario, env, h) {
+  await env.DB.prepare("DELETE FROM sessoes WHERE usuario_id = ?").bind(usuario.id).run();
+  return json({ ok: true }, 200, h);
+}
+
+/* Exclusão da conta (LGPD, art. 18): apaga e-mail, sessões, links e acessos. Os pedidos pagos ficam sem
+   vínculo com o e-mail (só o id numérico), porque registros de venda precisam ser guardados. */
+async function apagarConta(usuario, env, h) {
+  await env.DB.batch([
+    env.DB.prepare("DELETE FROM sessoes WHERE usuario_id = ?").bind(usuario.id),
+    env.DB.prepare("DELETE FROM acessos WHERE usuario_id = ?").bind(usuario.id),
+    env.DB.prepare("DELETE FROM analises_pendentes WHERE usuario_id = ?").bind(usuario.id),
+    env.DB.prepare("DELETE FROM links_login WHERE email = ?").bind(usuario.email),
+    env.DB.prepare("DELETE FROM usuarios WHERE id = ?").bind(usuario.id),
+  ]);
+  return json({ ok: true }, 200, h);
+}
+
+/* Aviso ao mantenedor (custo do dia acima do teto etc.), enviado pelo robô com o segredo interno. */
+async function alertaInterno(request, env, h) {
+  if (request.headers.get("X-Interno") !== env.INTERNO_SECRET) return json({ erro: "não autorizado" }, 401, h);
+  const d = await corpo(request);
+  if (!d.assunto || !d.texto) return json({ erro: "faltam assunto/texto" }, 400, h);
+  await enviarEmail(env, env.ALERTA_EMAIL || env.EMAIL_REMETENTE, `[Aysha Leilões] ${String(d.assunto).slice(0, 120)}`, `<pre>${String(d.texto).slice(0, 5000).replace(/</g, "&lt;")}</pre>`);
   return json({ ok: true }, 200, h);
 }
 
@@ -277,7 +322,7 @@ async function confirmarPagamento(env, paymentId) {
    manifesto "id:<data.id em minúsculas>;request-id:<x-request-id>;ts:<ts>;" (as partes sem valor são omitidas).
    Com MP_WEBHOOK_SECRET configurado, notificações sem assinatura válida são recusadas. */
 async function assinaturaValida(request, env, url) {
-  if (!env.MP_WEBHOOK_SECRET) return true;  // sem segredo configurado, a verificação fica desligada
+  if (!env.MP_WEBHOOK_SECRET) return false;  // sem segredo configurado, nenhuma notificação é aceita
   const sig = request.headers.get("x-signature") || "";
   const partes = Object.fromEntries(sig.split(",").map(p => p.trim().split("=").map(s => s.trim())).filter(p => p.length === 2));
   if (!partes.ts || !partes.v1) return false;
@@ -343,11 +388,14 @@ export default {
       if (m === "POST" && rota === "/auth/pedir") return pedirLogin(request, env, h);
       if (m === "POST" && rota === "/auth/entrar") return entrar(request, env, h);
       if (m === "POST" && rota === "/auth/sair") return sair(request, env, h);
+      if (m === "POST" && rota === "/interno/alerta") return alertaInterno(request, env, h);
       if (m === "GET" && rota === "/pacotes") return json({ pacotes: pacotes(env) }, 200, h);
 
       const usuario = await usuarioDaSessao(request, env);
       if (!usuario) return json({ erro: "faça login", precisa_login: true }, 401, h);
       if (m === "GET" && rota === "/conta") return conta(usuario, env, h);
+      if (m === "POST" && rota === "/auth/sair_todos") return sairDeTodos(usuario, env, h);
+      if (m === "POST" && rota === "/conta/apagar") return apagarConta(usuario, env, h);
       if (m === "POST" && rota === "/analise") return analisar(request, usuario, env, h);
       if (m === "GET" && rota.startsWith("/relatorio/")) return obterRelatorio(usuario, decodeURIComponent(rota.slice(11)), env, h);
       if (m === "POST" && rota === "/pagamento/criar") return criarPagamento(request, usuario, env, h);

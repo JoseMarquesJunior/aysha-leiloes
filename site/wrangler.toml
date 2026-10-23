@@ -1,0 +1,17 @@
+# Hospedagem do site (Cloudflare Workers com arquivos estáticos; é o que a Cloudflare hoje chama de Pages).
+# Publicar: npx wrangler deploy -c site/wrangler.toml   (na raiz do repositório)
+# A pasta docs/ é servida como está; o script só entra em /api/* (UF do visitante) e em /imovel.html
+# (pré-visualização de link por imóvel). Cabeçalhos de segurança: docs/_headers.
+name = "aysha-leiloes"
+main = "index.js"
+compatibility_date = "2026-10-01"
+
+[assets]
+directory = "../docs"
+binding = "ASSETS"
+# os links do site usam .html explícito (imovel.html?id=…); com outro modo a plataforma redirecionaria para
+# /imovel e a pré-visualização por imóvel deixaria de funcionar. Com "none", "/" e "pasta/" não caem sozinhos
+# em index.html: o script faz isso para "/" e "/leiloes/*".
+html_handling = "none"
+not_found_handling = "404-page"
+run_worker_first = ["/", "/leiloes/*", "/api/*", "/imovel.html"]

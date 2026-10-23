@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /conta.html
+Disallow: /data/
+
+Sitemap: https://aysha-leiloes.aysha-leiloes-analise.workers.dev/sitemap.xml

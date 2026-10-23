@@ -229,22 +229,76 @@ table.simples { border-collapse: collapse; font-size: .9rem; }
 table.simples th, table.simples td { border-bottom: 1px solid var(--border); padding: 4px 10px 4px 0; text-align: left; }
 #nav-conta { font-weight: 600; }
 
+.btn.perigo { color: var(--bad); border-color: var(--bad); }
+.btn.perigo:hover { background: var(--bad); color: #fff; }
+
+/* ---------- acessibilidade ---------- */
+.skip { position: absolute; left: -999px; top: 8px; z-index: 100; background: var(--accent); color: #fff; padding: 8px 12px; border-radius: var(--raio); }
+.skip:focus { left: 8px; }
+
+/* ---------- boas-vindas (primeira visita) ---------- */
+.boas-vindas { background: var(--panel); border: 1px solid var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); border-radius: 10px; padding: 14px 16px; margin: 8px 0 12px; }
+.boas-vindas h2 { margin: 0 0 4px; font-size: 1.15rem; }
+.boas-vindas p { margin: 0 0 10px; }
+.bv-linha { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+.bv-linha label { display: flex; flex-direction: column; gap: 3px; font-size: .8rem; color: var(--muted); }
+.bv-linha select { min-width: 140px; border: 1px solid var(--border-forte); border-radius: var(--raio); padding: 7px 8px; background: var(--panel); color: var(--text); font-size: 1rem; }
+.bv-linha .bv-fechar { margin-left: auto; }
+.bv-rodape { margin: 10px 0 0; font-size: .85rem; }
+
+/* ---------- páginas estáticas por UF/cidade ---------- */
+.seo ul.cidades { columns: 3; column-gap: 24px; padding-left: 18px; }
+.seo .tabela-wrap { max-height: none; }
+.seo h3 { margin: 18px 0 6px; }
+.exemplo .chamada { margin: 16px 0; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+/* ---------- modo escuro ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1419; --panel: #171d24; --text: #e6e9ed; --muted: #9aa5b1; --border: #2a333d; --border-forte: #3a4654;
+    --accent: #5b9bff; --accent-escuro: #8ab8ff; --accent-soft: #1b2b45; --ok: #4cc47b; --warn: #e2a04a; --bad: #ff7b72; --new: #47c69a;
+    --row-alt: #141a21; --row-hover: #1e2a3d; --sombra: 0 4px 16px rgba(0, 0, 0, .5);
+  }
+  .ms-botao, .btn { background: var(--panel); color: var(--text); }
+  .btn.ativo, .btn.primario, .segmentado .modo.ativo, .btn-ia { background: var(--accent); color: #0f1419; border-color: var(--accent); }
+  .tabela th { background: #1e262f; color: #c5ced8; }
+  .tabela th:hover { background: #26303b; }
+  .tabela tr.selecionado { background: #3a3417 !important; }
+  .tag.novo { background: #163a2e; } .tag.queda { background: #46201d; } .tag.alta { background: #46331a; }
+  .card .foto { background-color: #222b35; }
+  .card .desc-badge.neg { background: #46201d; }
+  .comparacao td.melhor { background: #1b3a26; }
+  .barra-selecao { background: #e6e9ed; color: #0f1419; }
+  .barra-selecao .btn { background: #0f1419; color: #e6e9ed; }
+  .relatorio-texto th { background: #1e262f; }
+  .aviso { background: #3a3417; border-color: #6b5e1f; }
+  .aviso.ok { background: #163a2e; border-color: #2e7a52; }
+  .leaflet-container { background: #1a2129; }
+  .leaflet-layer { filter: brightness(.75) contrast(1.05); }
+}
+
 /* ---------- celular ---------- */
 @media (max-width: 760px) {
-  :root { font-size: 13px; }
+  :root { font-size: 14px; }
   .topo .linha1 { gap: 6px 10px; padding: 8px 12px 4px; }
   .topo .tagline { display: none; }
   .topo .resumo { margin-left: 0; width: 100%; }
   .filtros { padding: 4px 12px 8px; }
   .busca-wrap { flex-basis: 100%; }
+  /* 16px nos campos: abaixo disso o iOS dá zoom sozinho ao focar */
+  input, select, .ms-menu input[type=search], .busca-wrap input, .faixa input, .bv-linha select { font-size: 16px; }
   .ms-menu { position: fixed; left: 8px; right: 8px; top: auto; max-width: none; min-width: 0; }
-  .faixa input { width: 74px; }
+  .faixa input { width: 92px; }
+  .btn, .ms-botao, .segmentado .modo { min-height: 44px; }
+  .ms-menu label, .colunas-menu .lista label { min-height: 40px; display: flex; align-items: center; }
   main { padding: 6px 8px 20px; }
   .barra-modos .contador { font-size: .95rem; }
   .tabela-wrap { max-height: none; }
-  .tabela th, .tabela td { padding: 4px 6px; }
+  .tabela th, .tabela td { padding: 10px 8px; }   /* linhas com ~44px: alvo de toque confortável */
+  .tabela td.cel-ia .btn-ia { padding: 8px 12px; }
   .painel-comparar { width: 100%; }
   .cards { grid-template-columns: 1fr; }
   .kpis { grid-template-columns: repeat(2, 1fr); }
   .detalhe h2 { font-size: 1.15rem; }
+  .seo ul.cidades { columns: 2; }
 }

@@ -547,6 +547,12 @@ def main(argv=None) -> int:
         n = completar_campos_faltantes()
         log.info("campos estruturados completados em %d relatório(s)", n)
         return 0
+    # "--" separa opções de ids: tudo depois dele é id, mesmo que comece com "-"
+    ids = argv[1:] if argv[0] == "--" else argv
+    ruins = [i for i in ids if i.startswith("-")]
+    if ruins:
+        log.error("ids inválidos (começam com '-'): %s", ruins)
+        return 2
     config = yaml.safe_load((RAIZ / "collector" / "config.yaml").read_text(encoding="utf-8")).get("relatorios", {})
     teto = config.get("maximo_por_dia", 100)
     if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -554,7 +560,7 @@ def main(argv=None) -> int:
         return 1
     base = _carregar_base()
     ok = 0
-    for id_ in argv:
+    for id_ in ids:
         if gerados_hoje() >= teto:
             log.warning("teto diário de %d relatórios atingido; %s fica para amanhã", teto, id_)
             break
@@ -563,7 +569,41 @@ def main(argv=None) -> int:
             ok += 1
         except Exception:
             log.exception("relatório de %s falhou", id_)
+    try:
+        alertar_custo(config)
+    except Exception:
+        log.exception("alerta de custo falhou")
     return 0 if ok else 1
+
+
+def alertar_custo(cfg: dict) -> bool:
+    """Avisa o mantenedor por e-mail (via Worker) quando o custo do dia passa do teto configurado
+    (relatorios.alerta_custo_usd_dia, padrão US$ 10). No máximo um aviso por dia."""
+    p = RAIZ / "docs" / "data" / "custo_relatorios.json"
+    if not p.exists():
+        return False
+    dados = json.loads(p.read_text(encoding="utf-8"))
+    hoje = date.today().isoformat()
+    teto = float(cfg.get("alerta_custo_usd_dia", 10))
+    do_dia = [x for x in dados.get("relatorios", []) if x.get("gerado_em", "")[:10] == hoje]
+    custo_dia = round(sum(x.get("custo_usd") or 0 for x in do_dia), 4)
+    if custo_dia < teto or dados.get("alerta_enviado_em") == hoje:
+        return False
+    url, segredo = os.environ.get("WORKER_URL", "").rstrip("/"), os.environ.get("INTERNO_SECRET", "")
+    if not url or not segredo:
+        return False
+    import urllib.request
+    texto = (f"Custo das análises com IA hoje ({hoje}): US$ {custo_dia:.2f} em {len(do_dia)} relatório(s); teto de alerta US$ {teto:.2f}.\n"
+             f"Total acumulado: US$ {dados.get('total_usd', 0):.2f}.\n"
+             "Se for abuso, baixe LIMITE_DIA no Worker (wrangler.toml) ou pause o workflow relatorio.yml.")
+    req = urllib.request.Request(f"{url}/interno/alerta", data=json.dumps({"assunto": f"custo do dia US$ {custo_dia:.2f}", "texto": texto}).encode("utf-8"),
+                                 headers={"Content-Type": "application/json", "X-Interno": segredo, "User-Agent": "aysha-leiloes-relatorio"}, method="POST")
+    with urllib.request.urlopen(req, timeout=30):
+        pass
+    dados["alerta_enviado_em"] = hoje
+    p.write_text(json.dumps(dados, ensure_ascii=False, indent=1), encoding="utf-8")
+    log.warning("alerta de custo enviado: US$ %.2f hoje", custo_dia)
+    return True
 
 
 if __name__ == "__main__":
