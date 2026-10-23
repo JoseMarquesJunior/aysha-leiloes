@@ -15,6 +15,7 @@ Uso:  python -m collector.relatorio <id> [<id> ...]   (precisa de ANTHROPIC_API_
                                                       INTERNO_SECRET envia o parecer ao Worker)
       python -m collector.relatorio --migrar           (envia ao Worker os relatórios antigos de docs/data/relatorios,
                                                       extrai os campos deles e apaga os arquivos públicos)
+      python -m collector.relatorio --campos           (extrai os campos dos relatórios em que a extração falhou)
 """
 
 from __future__ import annotations
@@ -168,33 +169,34 @@ def _nulo_ou(t: dict) -> dict:
     return {"anyOf": [t, {"type": "null"}]}
 
 
+# A API aceita no máximo 16 campos anuláveis (anyOf) por esquema: os textos usam "" para "não informado" e
+# só números e booleanos são anuláveis (11).
 ESQUEMA_CAMPOS = {
     "type": "object",
     "additionalProperties": False,
     "required": list(CAMPOS_ESTRUTURADOS),
     "properties": {
-        "tipo": _nulo_ou({"type": "string", "enum": list(TIPOS)}),
+        "tipo": {"type": "string", "enum": list(TIPOS) + [""]},
         "area_privativa_m2": _nulo_ou({"type": "number"}), "area_terreno_m2": _nulo_ou({"type": "number"}),
         "area_total_m2": _nulo_ou({"type": "number"}),
         "quartos": _nulo_ou({"type": "integer"}), "vagas": _nulo_ou({"type": "integer"}),
-        "endereco": _nulo_ou({"type": "string"}), "bairro": _nulo_ou({"type": "string"}),
-        "cidade": _nulo_ou({"type": "string"}), "uf": _nulo_ou({"type": "string"}),
-        "matricula": _nulo_ou({"type": "string"}), "numero_processo": _nulo_ou({"type": "string"}),
+        "endereco": {"type": "string"}, "bairro": {"type": "string"}, "cidade": {"type": "string"}, "uf": {"type": "string"},
+        "matricula": {"type": "string"}, "numero_processo": {"type": "string"},
         "ocupado": _nulo_ou({"type": "boolean"}), "aceita_financiamento": _nulo_ou({"type": "boolean"}),
         "aceita_fgts": _nulo_ou({"type": "boolean"}), "aceita_parcelamento": _nulo_ou({"type": "boolean"}),
-        "debitos_iptu_por_conta_de": _nulo_ou({"type": "string", "enum": ["vendedor", "comprador"]}),
-        "debitos_condominio_por_conta_de": _nulo_ou({"type": "string", "enum": ["vendedor", "comprador"]}),
+        "debitos_iptu_por_conta_de": {"type": "string", "enum": ["vendedor", "comprador", ""]},
+        "debitos_condominio_por_conta_de": {"type": "string", "enum": ["vendedor", "comprador", ""]},
         "comissao_leiloeiro_pct": _nulo_ou({"type": "number"}),
         "valor_avaliacao": _nulo_ou({"type": "number"}),
-        "data_leilao": _nulo_ou({"type": "string"}), "data_segunda_praca": _nulo_ou({"type": "string"}),
-        "comitente": _nulo_ou({"type": "string"}),
+        "data_leilao": {"type": "string"}, "data_segunda_praca": {"type": "string"},
+        "comitente": {"type": "string"},
     },
 }
 
 SISTEMA_CAMPOS = (
     "Você estrutura dados de imóveis em leilão no Brasil. Receberá o parecer de um analista, os dados do anúncio "
-    "e o texto dos documentos (edital, matrícula). Responda SOMENTE com o JSON do esquema. Regras: null quando "
-    "nenhuma fonte informa; nunca invente nem estime; áreas em m² (número), quartos e vagas inteiros; endereco = "
+    "e o texto dos documentos (edital, matrícula). Responda SOMENTE com o JSON do esquema. Regras: null (números e "
+    "booleanos) ou \"\" (textos) quando nenhuma fonte informa; nunca invente nem estime; áreas em m² (número), quartos e vagas inteiros; endereco = "
     "logradouro, número e complemento (sem CEP, sem bairro, sem cidade); bairro, cidade e uf (sigla de 2 letras) "
     "separados; matricula e numero_processo só o número; datas em AAAA-MM-DD; comissao_leiloeiro_pct em número "
     "(5 para 5 %); débitos: 'vendedor' quando quem vende/credor assume, 'comprador' quando o arrematante assume; "
@@ -379,6 +381,49 @@ def enviar_ao_worker(item: dict) -> bool:
     return True
 
 
+def baixar_do_worker(id_: str) -> dict:
+    """Relatório guardado no Worker (GET /interno/relatorio/<id>), com o texto."""
+    import urllib.parse
+    import urllib.request
+    url, segredo = os.environ.get("WORKER_URL", "").rstrip("/"), os.environ.get("INTERNO_SECRET", "")
+    if not url or not segredo:
+        raise RuntimeError("WORKER_URL/INTERNO_SECRET ausentes")
+    req = urllib.request.Request(f"{url}/interno/relatorio/{urllib.parse.quote(id_, safe='')}",
+                                 headers={"X-Interno": segredo, "User-Agent": "aysha-leiloes-relatorio"})
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def completar_campos_faltantes(base: dict | None = None) -> int:
+    """Relatórios já gerados cuja extração de campos falhou (campos = null): baixa o texto do Worker,
+    extrai os campos, regrava os metadados e reenvia ao Worker."""
+    base = base or _carregar_base()
+    import anthropic
+    client = anthropic.Anthropic()
+    config = yaml.safe_load((RAIZ / "collector" / "config.yaml").read_text(encoding="utf-8"))
+    cliente = cliente_do_config(config)
+    n = 0
+    for p in sorted(PASTA.glob("*.json")) if PASTA.exists() else []:
+        meta = json.loads(p.read_text(encoding="utf-8"))
+        r = base.get(meta.get("id"))
+        if meta.get("campos") is not None or not r:
+            continue
+        try:
+            item = baixar_do_worker(meta["id"])
+            textos = textos_dos_documentos(r, cliente, config)
+            campos, uso = extrair_campos(r, textos, item.get("markdown", ""), client)
+        except Exception:
+            log.exception("campos de %s não extraídos", meta["id"])
+            continue
+        meta["campos"] = campos
+        meta["custo_usd"] = round((meta.get("custo_usd") or 0) + custo_usd(MODELO_CAMPOS, uso["entrada"], uso["saida"], 0), 4)
+        enviar_ao_worker({**item, "campos": campos, "custo_usd": meta["custo_usd"]})
+        p.write_text(json.dumps(meta, ensure_ascii=False, indent=1), encoding="utf-8")
+        n += 1
+        log.info("campos de %s: %s", meta["id"], ", ".join(sorted(campos)) or "nenhum")
+    return n
+
+
 def _metadados(item: dict) -> dict:
     return {k: item.get(k) for k in ("id", "gerado_em", "modelo", "documentos_lidos", "uso", "custo_usd", "fontes", "campos")}
 
@@ -494,6 +539,10 @@ def main(argv=None) -> int:
     if argv[0] == "--migrar":
         n = migrar_relatorios_antigos()
         log.info("%d relatório(s) migrado(s) para o Worker", n)
+        return 0
+    if argv[0] == "--campos":
+        n = completar_campos_faltantes()
+        log.info("campos estruturados completados em %d relatório(s)", n)
         return 0
     config = yaml.safe_load((RAIZ / "collector" / "config.yaml").read_text(encoding="utf-8")).get("relatorios", {})
     teto = config.get("maximo_por_dia", 100)

@@ -16,6 +16,7 @@
  *   GET  /pagamento/estado/:pedido             -> status do pedido (página de retorno)
  *   POST /pagamento/webhook                    -> notificação do Mercado Pago (sem CORS)
  *   POST /interno/relatorio                    -> o robô do GitHub grava o relatório gerado (header X-Interno)
+ *   GET  /interno/relatorio/:id                -> o robô relê um relatório guardado (header X-Interno)
  *
  * Segredos (wrangler secret put): GITHUB_TOKEN, INTERNO_SECRET, MP_ACCESS_TOKEN, BREVO_API_KEY
  * Variáveis (wrangler.toml): REPO, SITE, ORIGENS, LIMITE_IP, LIMITE_DIA, EMAIL_REMETENTE, NOME_REMETENTE, PACOTES
@@ -214,6 +215,13 @@ async function gravarRelatorioInterno(request, env, h) {
   return json({ ok: true }, 200, h);
 }
 
+async function lerRelatorioInterno(request, id, env, h) {
+  if (request.headers.get("X-Interno") !== env.INTERNO_SECRET) return json({ erro: "não autorizado" }, 401, h);
+  if (!ID_OK.test(id)) return json({ erro: "id inválido" }, 400, h);
+  const r = await env.DB.prepare("SELECT * FROM relatorios WHERE id_imovel = ?").bind(id).first();
+  return r ? json(relatorioSaida(r), 200, h) : json({ erro: "não existe" }, 404, h);
+}
+
 // ---------------------------------------------------------------- Mercado Pago --------
 async function criarPagamento(request, usuario, env, h) {
   if (!env.MP_ACCESS_TOKEN) return json({ erro: "pagamento ainda não configurado" }, 503, h);
@@ -314,6 +322,7 @@ export default {
     try {
       if (m === "POST" && rota === "/pagamento/webhook") return webhook(request, env);
       if (m === "POST" && rota === "/interno/relatorio") return gravarRelatorioInterno(request, env, h);
+      if (m === "GET" && rota.startsWith("/interno/relatorio/")) return lerRelatorioInterno(request, decodeURIComponent(rota.slice(19)), env, h);
       if (m === "POST" && rota === "/auth/pedir") return pedirLogin(request, env, h);
       if (m === "POST" && rota === "/auth/entrar") return entrar(request, env, h);
       if (m === "POST" && rota === "/auth/sair") return sair(request, env, h);
