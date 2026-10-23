@@ -1,0 +1,14 @@
+{
+ "id": "suedpeter-3464",
+ "gerado_em": "2026-10-22T21:19:49",
+ "modelo": "claude-opus-5",
+ "documentos_lidos": 1,
+ "uso": {
+  "entrada": 37854,
+  "saida": 2816,
+  "buscas": 1
+ },
+ "custo_usd": 0.2697,
+ "fontes": [],
+ "campos": null
+}

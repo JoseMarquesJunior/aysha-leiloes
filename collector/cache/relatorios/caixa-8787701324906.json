@@ -1,0 +1,14 @@
+{
+ "id": "caixa-8787701324906",
+ "gerado_em": "2026-10-22T21:39:08",
+ "modelo": "claude-opus-5",
+ "documentos_lidos": 2,
+ "uso": {
+  "entrada": 75635,
+  "saida": 2347,
+  "buscas": 1
+ },
+ "custo_usd": 0.4469,
+ "fontes": [],
+ "campos": null
+}
