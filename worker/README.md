@@ -12,6 +12,9 @@ recibo por e-mail. Não guarda a chave da Anthropic: para gerar um parecer novo,
 | `POST /auth/pedir {email}` | — | envia o link de login (vale 20 min, uso único); 10 pedidos/hora por IP |
 | `POST /auth/entrar {token}` | — | troca o token do link por um token de sessão (90 dias) |
 | `POST /auth/sair` | sessão | encerra a sessão |
+| `POST /auth/sair_todos` | sessão | encerra todas as sessões do usuário |
+| `POST /conta/apagar` | sessão | apaga a conta (LGPD): e-mail, sessões, links e acessos; pedidos ficam só com o id numérico |
+| `POST /interno/alerta {assunto, texto}` | `X-Interno` | o robô avisa o mantenedor por e-mail (custo do dia acima do teto) |
 | `GET /conta` | sessão | e-mail, créditos, análise grátis disponível, análises liberadas, compras, pacotes |
 | `POST /analise {id}` | sessão | libera o relatório (análise grátis ou 1 crédito). Se já existe, devolve na hora; senão dispara o robô |
 | `GET /relatorio/:id` | sessão | o parecer, se o usuário tem acesso (`pronto`, `em_andamento` ou 403) |
@@ -24,6 +27,12 @@ recibo por e-mail. Não guarda a chave da Anthropic: para gerar um parecer novo,
 Regras de cobrança: toda conta nova nasce com 1 crédito (a primeira análise é grátis); 1 crédito por imóvel, inclusive quando o
 parecer já existia (a entrega é por conta). Reabrir um parecer já liberado não custa nada. Novas gerações têm
 teto diário (`LIMITE_DIA`, contador em KV) porque custam dinheiro de verdade (Opus + busca na web).
+
+Proteções: ids só começam com letra ou dígito (nunca viram opção de linha de comando no robô); e-mails de
+domínios descartáveis são recusados no cadastro; o token do link mágico vai no fragmento da URL (`#token=`);
+sessões expiram após 30 dias sem uso; o webhook do Mercado Pago só aceita notificações assinadas (sem
+`MP_WEBHOOK_SECRET`, recusa tudo); o robô avisa por e-mail (`ALERTA_EMAIL`, ou o remetente) quando o custo
+do dia passa de `relatorios.alerta_custo_usd_dia` no config.
 
 ## Publicar (uma vez)
 
@@ -53,8 +62,9 @@ permissão "Actions" = Read and write (só isso). Ao expirar, repita `wrangler s
 
 Crie a conta em brevo.com, confirme o remetente (Senders & IP → Add sender, pode ser um Gmail) e gere uma
 chave em SMTP & API → API keys. Sem `BREVO_API_KEY`, `POST /auth/pedir` responde erro 500 e ninguém consegue
-entrar. Para testar sem e-mail, o mantenedor pode mandar o header `X-Interno: <INTERNO_SECRET>` em
-`/auth/pedir`: a resposta traz o link em vez de enviá-lo.
+entrar. Para testar sem e-mail, gere um link direto no banco:
+`npx wrangler d1 execute aysha-contas --remote --command "INSERT INTO links_login (token, email, expira_em) VALUES ('<48 hex>', 'voce@exemplo.com', '<ISO +20min>')"`
+e abra `conta.html#token=<48 hex>`.
 
 ### Mercado Pago
 

@@ -28,7 +28,14 @@ collector/                 coletor em Python (roda no GitHub Actions todo dia à
   tests/                   pytest
   cache/geo.json           cache de geocodificação (commitado)
   cache/ia/<hash>.json     cache permanente da IA (commitado; vazio enquanto a IA estiver desligada)
-docs/                      site estático servido pelo GitHub Pages (HTML, CSS e JS puro; Leaflet + markercluster no mapa)
+docs/                      site estático servido pela Cloudflare (HTML, CSS e JS puro; Leaflet + markercluster locais em vendor/)
+  _headers                 cabeçalhos de segurança (CSP, nosniff, Referrer-Policy, Permissions-Policy)
+  conta.html, js/conta.js  conta por link mágico: créditos, compra (Mercado Pago), histórico, sair, apagar conta
+  exemplo-analise.html     um parecer real, aberto, para quem quer ver o que a análise com IA entrega
+  leiloes/<UF>/*.html      páginas estáticas por estado e cidade (buscadores), geradas na coleta; sitemap.xml, robots.txt
+  og.png                   imagem da pré-visualização de links (Open Graph)
+site/                      Worker que serve docs/ na Cloudflare: /api/uf (UF do visitante) e prévia de link por imóvel
+worker/                    Worker da API: contas, créditos, relatórios (D1), Mercado Pago, e-mail (Brevo)
   index.html, js/app.js    tabela / cards / mapa; filtros em menus compactos com busca, chips dos filtros ativos,
                            "Mais filtros" recolhível, linha clicável, renderização incremental, comparação, CSV, URL
   imovel.html, js/detalhe.js  ficha completa, outras fontes, extração IA, histórico e gráfico (SVG)
@@ -42,7 +49,36 @@ docs/                      site estático servido pelo GitHub Pages (HTML, CSS e
 .github/workflows/coletar.yml  agendamento diário + disparo manual; cache do pip; commit só quando os dados mudam
 ```
 
-Não há backend nem chaves no site. Se algum dia houver chave (IA), ela fica só em GitHub Secrets.
+Não há chaves no site. As chaves ficam em GitHub Secrets (coleta e relatórios) e nos segredos do Worker
+(`worker/`, contas e pagamentos).
+
+## Hospedagem (Cloudflare)
+
+O site saiu do GitHub Pages em 2026-10-23: os termos do Pages proíbem sites de comércio, e o site vende
+créditos. Hoje ele é um Worker da Cloudflare com arquivos estáticos (`site/wrangler.toml`, pasta `docs/`),
+em `https://aysha-leiloes.aysha-leiloes-analise.workers.dev` até o domínio próprio entrar. O endereço
+antigo redireciona (`urlSite` em `docs/js/config.js`). Publicar à mão, na raiz:
+`npx wrangler deploy -c site/wrangler.toml`. O workflow `publicar.yml` faz isso a cada push em `docs/` ou
+`site/` e no fim da coleta diária, quando os secrets `CLOUDFLARE_API_TOKEN` (permissão Workers Scripts:
+Edit) e `CLOUDFLARE_ACCOUNT_ID` existem; sem eles, o passo é pulado.
+
+O script do site (`site/index.js`) só entra em três casos: `/api/uf` devolve a UF do visitante pela
+geolocalização de rede da Cloudflare (o celular carrega só esse estado na primeira visita, em vez dos 23 MB
+da base inteira); `/imovel.html?id=…&uf=…` recebe título, descrição e Open Graph do imóvel (mapa compacto
+`data/og_<UF>.json`, gerado na coleta), para o link colado no WhatsApp mostrar o que é; e `/` ou `pasta/`
+caem no `index.html`. Cabeçalhos de segurança vêm de `docs/_headers`.
+
+Ao ativar o domínio próprio: trocar `SITE`/`ORIGENS` em `worker/wrangler.toml`, `urlSite` em
+`docs/js/config.js`, `saida.url_site` em `collector/config.yaml`, os `canonical`/`og:url` dos HTML de `docs/`
+e o `Sitemap:` de `docs/robots.txt`; depois ligar o domínio ao Worker `aysha-leiloes` no painel da Cloudflare
+e configurar SPF/DKIM/DMARC do Brevo no DNS.
+
+## Páginas por estado e cidade (buscadores)
+
+`collector/paginas.py` roda no fim de cada coleta e gera `docs/leiloes/<UF>/index.html` e
+`docs/leiloes/<UF>/<cidade>.html` (cidades com 5 ou mais imóveis ativos; as outras ficam listadas na página
+da UF com link para a tabela filtrada), com título e descrição próprios, tabela dos maiores descontos e links
+para as fichas, mais `docs/sitemap.xml`. Páginas de cidades que caíram abaixo do mínimo são apagadas.
 
 ## Rodar localmente
 
@@ -278,4 +314,5 @@ o modelo, a taxa do Mercado Pago (~1 % Pix, ~5 % cartão) e as análises grátis
   `relatorio.yml` usa os dois). `ANTHROPIC_API_KEY` (`Settings → Secrets and variables → Actions` ou
   `gh secret set ANTHROPIC_API_KEY`). O workflow já repassa a variável; com `ia_habilitada: true` no
   config a etapa de IA roda. Sem o secret, a coleta continua normal e a IA fica inerte.
-- GitHub Pages: `Settings → Pages → Deploy from a branch → main / docs`.
+- `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID`: publicação automática do site (`publicar.yml`).
+- GitHub Pages continua ligado (`main / docs`) só para redirecionar o endereço antigo.
