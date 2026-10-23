@@ -173,7 +173,7 @@
     const custo = c.creditos > 0 ? `<b>1 crédito</b> (você tem ${c.creditos})` : "<b>1 crédito</b> (você não tem créditos)";
     corpo.innerHTML = DESCRICAO_ANALISE + semDoc + `<p>Custo desta análise: ${custo}. Conta: ${escapar(c.email || LT.emailSessao())} · <a href="conta.html">minha conta</a></p>
       <p>${(c.creditos > 0)
-        ? '<button type="button" class="btn primario" id="btn-gerar">Gerar análise com IA</button> <span class="muted" style="font-size:.8rem">leva de 2 a 5 minutos</span>'
+        ? '<button type="button" class="btn primario" id="btn-gerar">Gerar análise com IA</button>'
         : '<a class="btn primario" href="conta.html#creditos">Comprar créditos</a> <span class="muted" style="font-size:.8rem">Pix ou cartão, a partir de R$ 14,90</span>'}</p>`;
     const btn = document.getElementById("btn-gerar");
     if (btn) btn.addEventListener("click", async () => {
