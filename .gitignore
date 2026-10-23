@@ -16,3 +16,6 @@ coleta-local.log
 
 # texto dos pareceres gerados sem Worker configurado (nunca versionado)
 collector/cache/relatorios_local/
+
+# estado local do wrangler (raiz e worker/)
+.wrangler/
