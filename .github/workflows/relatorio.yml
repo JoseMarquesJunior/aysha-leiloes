@@ -37,7 +37,7 @@ jobs:
       - name: Gerar relatórios
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          WORKER_URL: https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev
+          WORKER_URL: https://aysha-leiloes-analise.leiloes.workers.dev
           INTERNO_SECRET: ${{ secrets.INTERNO_SECRET }}
           IDS_INPUT: ${{ inputs.ids }}
         run: |

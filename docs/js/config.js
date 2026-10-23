@@ -2,7 +2,7 @@
 window.LT_CONFIG = {
   // Endereço público do site. Quem abrir o endereço antigo (GitHub Pages) é redirecionado para cá.
   // Ao ativar o domínio próprio, troque aqui, no SITE/ORIGENS do Worker e nos <link rel="canonical">.
-  urlSite: "https://aysha-leiloes.aysha-leiloes-analise.workers.dev",
+  urlSite: "https://aysha.leiloes.workers.dev",
 
   // Link de apoio ao projeto (ex.: "https://buymeacoffee.com/seu-usuario" ou "https://ko-fi.com/seu-usuario").
   // Vazio = o botão "Apoie o projeto" não aparece.
@@ -17,5 +17,5 @@ window.LT_CONFIG = {
 
   // Serviço de contas, créditos e análises com IA (Cloudflare Worker, pasta worker/): login por link mágico,
   // saldo de créditos, entrega dos relatórios a quem tem acesso e checkout no Mercado Pago.
-  urlWorker: "https://aysha-leiloes-analise.aysha-leiloes-analise.workers.dev",
+  urlWorker: "https://aysha-leiloes-analise.leiloes.workers.dev",
 };

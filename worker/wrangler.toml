@@ -6,8 +6,8 @@ compatibility_date = "2026-10-01"
 REPO = "JoseMarquesJunior/aysha-leiloes"
 # Endereço público do site (links dos e-mails e retorno do checkout). Ao ativar o domínio próprio, troque aqui,
 # em ORIGENS, em docs/js/config.js (urlSite) e nos <link rel="canonical"> das páginas.
-SITE = "https://aysha-leiloes.aysha-leiloes-analise.workers.dev"
-ORIGENS = "https://aysha-leiloes.aysha-leiloes-analise.workers.dev,https://josemarquesjunior.github.io,http://localhost:8791"
+SITE = "https://aysha.leiloes.workers.dev"
+ORIGENS = "https://aysha.leiloes.workers.dev,https://josemarquesjunior.github.io,http://localhost:8791"
 # e-mail que recebe os alertas do robô (custo do dia acima do teto); vazio = EMAIL_REMETENTE
 ALERTA_EMAIL = ""
 LIMITE_DIA = "100"

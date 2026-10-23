@@ -56,7 +56,7 @@ Não há chaves no site. As chaves ficam em GitHub Secrets (coleta e relatórios
 
 O site saiu do GitHub Pages em 2026-10-23: os termos do Pages proíbem sites de comércio, e o site vende
 créditos. Hoje ele é um Worker da Cloudflare com arquivos estáticos (`site/wrangler.toml`, pasta `docs/`),
-em `https://aysha-leiloes.aysha-leiloes-analise.workers.dev` até o domínio próprio entrar. O endereço
+em `https://aysha.leiloes.workers.dev` até o domínio próprio entrar. O endereço
 antigo redireciona (`urlSite` em `docs/js/config.js`). Publicar à mão, na raiz:
 `npx wrangler deploy -c site/wrangler.toml`. O workflow `publicar.yml` faz isso a cada push em `docs/` ou
 `site/` e no fim da coleta diária, quando os secrets `CLOUDFLARE_API_TOKEN` (permissão Workers Scripts:
