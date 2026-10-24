@@ -1,26 +1,34 @@
 {
  "id": "caixa-10208367",
- "gerado_em": "2026-10-24T18:57:06",
+ "gerado_em": "2026-10-24T19:02:07",
  "modelo": "claude-opus-5",
  "documentos_lidos": 1,
+ "documentos": [
+  {
+   "url": "https://venda-imoveis.caixa.gov.br/editais/matricula/ES/0000010208367.pdf",
+   "paginas": 6,
+   "modo": "texto"
+  }
+ ],
  "uso": {
-  "entrada": 22269,
-  "saida": 2636,
+  "entrada": 21465,
+  "saida": 2268,
   "buscas": 1,
   "campos": {
-   "entrada": 5895,
-   "saida": 287
+   "entrada": 6017,
+   "saida": 289
   }
  },
- "custo_usd": 0.1879,
+ "custo_usd": 0.1747,
  "fontes": [],
  "campos": {
   "tipo": "comercial",
   "area_privativa_m2": 850.0,
   "area_terreno_m2": 384.0,
   "valor_avaliacao": 2312542.36,
-  "endereco": "Rua Marilândia, n. 00, QD 32, LT 36",
+  "endereco": "Rua Marilândia, nº 00, QD 32, LT 36",
   "cidade": "Vila Velha",
+  "matricula": "511529",
   "comitente": "Caixa Econômica Federal",
   "uf": "ES",
   "aceita_financiamento": false
