@@ -84,3 +84,24 @@ def test_aplicar_campos_so_preenche_vazios_e_reinicia_geo_de_baixa_precisao():
     r2 = novo_registro(id="x-2", fonte="caixa", lat=-20.3, lng=-40.3, geo_precisao="endereco")
     aplicar_campos(r2, {"bairro": "Centro"})
     assert r2["geo_precisao"] == "endereco"    # precisão de endereço não é descartada
+
+
+def test_documento_digitalizado_vai_como_pdf_e_texto_como_texto():
+    from collector.relatorio import _doc, montar_conteudo
+    r = {"id": "x", "numero_processo": None}
+    escaneado = _doc(texto="Cartório\n" * 10, pdf=b"%PDF-1.4 fake", paginas=6, url="u1")
+    textual = _doc(texto="MATRÍCULA " * 2000, pdf=b"%PDF-1.4 fake", paginas=3, url="u2")
+    assert escaneado["escaneado"] and not textual["escaneado"]
+    blocos = montar_conteudo(r, [escaneado, textual])
+    tipos = [b["type"] for b in blocos]
+    assert tipos == ["text", "text", "document", "text", "text"]
+    assert blocos[2]["source"]["media_type"] == "application/pdf"
+    assert blocos[-1].get("cache_control") == {"type": "ephemeral"}
+
+
+def test_anonimizar_preserva_nomes_protegidos():
+    from collector.relatorio import anonimizar
+    # bairro com cara de nome de pessoa: sem proteção cai no filtro, com proteção fica
+    linha = "- **Liquidez baixa**: comercial de 850 m² em Rosa Santos tem público comprador restrito."
+    assert "[nome]" in anonimizar(linha)
+    assert anonimizar(linha, protegidos=["Rosa Santos"]) == linha

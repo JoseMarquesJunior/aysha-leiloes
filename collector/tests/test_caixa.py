@@ -45,8 +45,10 @@ def test_registro_apartamento():
     assert r["valor_m2"] == round(168383.74 / 67.2, 2)
     assert r["url_anuncio"].endswith("hdnimovel=8787701324906")
     # campos que a Caixa (CSV) não fornece ficam null, nunca ausentes
-    for c in ("url_edital", "url_matricula", "leiloeiro", "data_leilao", "ocupado", "aceita_fgts", "lat", "lng"):
+    for c in ("url_edital", "leiloeiro", "data_leilao", "ocupado", "aceita_fgts", "lat", "lng"):
         assert c in r and r[c] is None
+    # a matrícula tem endereço previsível no site da Caixa (ver url_matricula_de)
+    assert r["url_matricula"] == "https://venda-imoveis.caixa.gov.br/editais/matricula/ES/8787701324906.pdf"
 
 
 def test_registro_terreno_usa_area_do_terreno_no_m2():

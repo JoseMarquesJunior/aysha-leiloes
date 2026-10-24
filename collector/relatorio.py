@@ -133,6 +133,78 @@ def montar_mensagem(r: dict, textos: list[str]) -> str:
             + "\n\nEscreva o parecer no formato pedido.")
 
 
+# ---------------------------------------------------------------- documentos (texto ou PDF) ----------
+# Matrículas costumam ser digitalizadas: o PDF tem imagem das páginas e quase nenhum texto. Nesses casos o
+# próprio PDF vai ao modelo como documento (ele lê as páginas como imagem); quando há texto, vai o texto.
+MAX_PAGINAS_PDF = 100
+MAX_BYTES_PDF = 25 * 1024 * 1024
+MIN_CHARS_POR_PAGINA = 500  # abaixo disso o PDF é tratado como digitalizado
+
+
+def _doc(texto: str = "", pdf: bytes | None = None, paginas: int = 0, url: str | None = None) -> dict:
+    escaneado = bool(pdf) and paginas > 0 and len(texto.strip()) / paginas < MIN_CHARS_POR_PAGINA
+    return {"url": url, "texto": texto, "pdf": pdf, "paginas": paginas, "escaneado": escaneado}
+
+
+def _normalizar_docs(docs) -> list[dict]:
+    return [d if isinstance(d, dict) else _doc(texto=str(d)) for d in (docs or [])]
+
+
+def documentos_do_imovel(r: dict, cliente, config: dict) -> list[dict]:
+    """Baixa edital e matrícula (PDF) do imóvel: texto extraído + bytes + número de páginas. Guarda o texto
+    no mesmo cache usado pela etapa em lote (collector/cache/pdf)."""
+    import hashlib
+    from .sources.jfes import _cache_dir, extrair_texto_pdf
+    docs = []
+    for url in (r.get("url_edital"), r.get("url_matricula")):
+        if not url or not (url.lower().split("?")[0].endswith(".pdf") or "/documentos/" in url or "/anexo/" in url):
+            continue
+        try:
+            conteudo = cliente.get(url).content
+            if not conteudo.lstrip().startswith(b"%PDF"):
+                log.warning("documento %s não é PDF (%d bytes)", url, len(conteudo))
+                continue
+            from pypdf import PdfReader
+            import io
+            paginas = len(PdfReader(io.BytesIO(conteudo)).pages)
+            texto = extrair_texto_pdf(conteudo)
+            pasta = _cache_dir(config)
+            pasta.mkdir(parents=True, exist_ok=True)
+            cache = pasta / f"{hashlib.sha256(url.encode()).hexdigest()[:20]}.txt"
+            if not cache.exists():
+                cache.write_text(f"# {url}\n" + texto, encoding="utf-8")
+        except Exception as e:  # noqa: BLE001
+            log.warning("documento %s não lido (%s)", url, e)
+            continue
+        d = _doc(texto=texto, pdf=conteudo, paginas=paginas, url=url)
+        log.info("documento %s: %d páginas, %d chars de texto, %s", url, paginas, len(texto), "digitalizado → vai como PDF" if d["escaneado"] else "texto")
+        docs.append(d)
+    return docs
+
+
+def _bloco_documento(i: int, d: dict, r: dict) -> list[dict]:
+    """Blocos de conteúdo de um documento: PDF (digitalizado) ou texto recortado."""
+    if d["escaneado"] and d["pdf"] and d["paginas"] <= MAX_PAGINAS_PDF and len(d["pdf"]) <= MAX_BYTES_PDF:
+        import base64
+        return [{"type": "text", "text": f"### Documento {i} (PDF digitalizado, {d['paginas']} páginas: leia as páginas como imagem)"},
+                {"type": "document", "source": {"type": "base64", "media_type": "application/pdf", "data": base64.b64encode(d["pdf"]).decode("ascii")}}]
+    t = re.sub(r"[ \t]+", " ", recortar_documento(d["texto"], r.get("numero_processo")))
+    if len(t) > MAX_CHARS_DOCUMENTO:
+        t = t[:MAX_CHARS_DOCUMENTO] + "\n[... documento cortado por tamanho ...]"
+    return [{"type": "text", "text": f"### Documento {i}\n{t}"}]
+
+
+def montar_conteudo(r: dict, docs: list[dict]) -> list[dict]:
+    blocos = [{"type": "text", "text": f"## Dados do anúncio\n{_campos_do_anuncio(r)}\n\n## Documentos (edital, matrícula)"}]
+    for i, d in enumerate(docs, 1):
+        blocos.extend(_bloco_documento(i, d, r))
+    if not docs:
+        blocos.append({"type": "text", "text": "(nenhum documento legível)"})
+    # o último bloco marca o cache: a busca na web roda em várias iterações e cada uma reenvia tudo isto
+    blocos.append({"type": "text", "text": "Escreva o parecer no formato pedido.", "cache_control": {"type": "ephemeral"}})
+    return blocos
+
+
 def custo_usd(modelo: str, tokens_in: int, tokens_out: int, buscas: int) -> float:
     pe, ps = PRECOS_USD_MTOK.get(modelo, (5.0, 25.0))
     return round((tokens_in * pe + tokens_out * ps) / 1e6 + buscas * PRECO_BUSCA_USD, 4)
@@ -142,16 +214,30 @@ _GATILHOS_PESSOA = re.compile(r"\b(executad[oa]s?|exequentes?|terceir[oa]s?|depo
 _CPF = re.compile(r"\b\d{3}\.\d{3}\.\d{3}-\d{2}\b")
 
 
-def anonimizar(markdown: str) -> str:
+def anonimizar(markdown: str, protegidos=()) -> str:
     """Segunda barreira contra nomes de pessoas (a primeira é a instrução ao modelo). Só mexe nas linhas que
     falam de partes (executado, terceiro, depositário, titular, CPF...): aplicar o filtro ao texto inteiro
-    mascarava condomínios, leiloeiros e varas ("Conj. Res. Mata da Praia III", "5º Juizado")."""
+    mascarava condomínios, leiloeiros e varas ("Conj. Res. Mata da Praia III", "5º Juizado").
+    `protegidos`: nomes do próprio registro (cidade, bairro, leiloeiro, comitente) que nunca devem ser
+    mascarados, mesmo numa linha que fala de "comprador" ou "vendedor"."""
+    prot = [p for p in protegidos if isinstance(p, str) and len(p) > 2]
+
+    def proteger(l):
+        for i, p in enumerate(prot):
+            l = l.replace(p, f"\x00{i}\x00")
+        return l
+
+    def restaurar(l):
+        for i, p in enumerate(prot):
+            l = l.replace(f"\x00{i}\x00", p)
+        return l
+
     saida = []
     for linha in markdown.splitlines():
         if "](http" in linha or linha.lstrip().startswith(("http", "Sources", "Fontes")):
             saida.append(linha)  # links e fontes ficam como estão
         elif _GATILHOS_PESSOA.search(linha):
-            saida.append(remover_nomes(linha) or "")
+            saida.append(restaurar(remover_nomes(proteger(linha)) or ""))
         else:
             saida.append(_CPF.sub("[CPF]", linha))
     return "\n".join(saida)
@@ -253,17 +339,16 @@ def limpar_campos(c: dict) -> dict:
     return out
 
 
-def extrair_campos(r: dict, textos: list[str], markdown: str, client) -> tuple[dict, dict]:
+def extrair_campos(r: dict, docs, markdown: str, client) -> tuple[dict, dict]:
     """Chamada barata ao Haiku (saída estruturada) para estruturar o que o parecer e os documentos dizem.
-    Devolve (campos limpos, uso)."""
-    partes = [f"## Parecer do analista\n{markdown}", f"## Dados do anúncio\n{_campos_do_anuncio(r)}"]
-    for i, t in enumerate(textos, 1):
-        t = re.sub(r"[ \t]+", " ", recortar_documento(t, r.get("numero_processo")))
-        partes.append(f"## Documento {i}\n{t[:MAX_CHARS_DOCUMENTO]}")
+    `docs`: lista de documentos (dicts de documentos_do_imovel) ou de textos. Devolve (campos limpos, uso)."""
+    blocos = [{"type": "text", "text": f"## Parecer do analista\n{markdown}\n\n## Dados do anúncio\n{_campos_do_anuncio(r)}"}]
+    for i, d in enumerate(_normalizar_docs(docs), 1):
+        blocos.extend(_bloco_documento(i, d, r))
     msg = client.messages.create(
         model=MODELO_CAMPOS, max_tokens=800, system=SISTEMA_CAMPOS,
         thinking={"type": "disabled"}, output_config={"effort": "low", "format": {"type": "json_schema", "schema": ESQUEMA_CAMPOS}},
-        messages=[{"role": "user", "content": "\n\n".join(partes)}],
+        messages=[{"role": "user", "content": blocos}],
     )
     texto = next((b.text for b in msg.content if b.type == "text"), "")
     try:
@@ -327,11 +412,12 @@ def _usage_total(msg, acumulado: dict) -> None:
     acumulado["buscas"] += (getattr(stu, "web_search_requests", 0) or 0) if stu else 0
 
 
-def gerar(r: dict, textos: list[str], client, modelo: str = MODELO) -> dict:
-    """Chama o modelo (com busca na web) e devolve {markdown, uso, custo_usd, fontes}."""
+def gerar(r: dict, docs, client, modelo: str = MODELO) -> dict:
+    """Chama o modelo (com busca na web) e devolve {markdown, uso, custo_usd, fontes}. `docs`: documentos
+    (dicts de documentos_do_imovel: texto ou PDF digitalizado) ou textos."""
     # o bloco com os documentos fica em cache: a busca na web roda em várias iterações servidoras e cada
     # continuação reenvia o contexto inteiro; com cache, as repetições custam 10 % do preço de entrada
-    mensagens = [{"role": "user", "content": [{"type": "text", "text": montar_mensagem(r, textos), "cache_control": {"type": "ephemeral"}}]}]
+    mensagens = [{"role": "user", "content": montar_conteudo(r, _normalizar_docs(docs))}]
     uso = {"entrada": 0, "saida": 0, "buscas": 0}
     fontes: list[dict] = []
     texto_final = ""
@@ -357,7 +443,7 @@ def gerar(r: dict, textos: list[str], client, modelo: str = MODELO) -> dict:
         if msg.stop_reason == "refusal":
             texto_final += "\n\n_O modelo recusou parte da análise (stop_reason=refusal)._"
         break
-    markdown = anonimizar(texto_final.strip())
+    markdown = anonimizar(texto_final.strip(), protegidos=[r.get("cidade"), r.get("bairro"), r.get("leiloeiro"), r.get("comitente"), r.get("endereco")])
     # o modelo às vezes emenda o texto no título ("## Referência de mercadoO preço..."): separa
     for titulo in ("Resumo do lote", "Conta no lance mínimo", "Referência de mercado", "Sinais vermelhos", "Veredito"):
         markdown = re.sub(rf"^(## {re.escape(titulo)})(?=\S)", r"\1\n", markdown, flags=re.M)
@@ -429,7 +515,7 @@ def completar_campos_faltantes(base: dict | None = None) -> int:
 
 
 def _metadados(item: dict) -> dict:
-    return {k: item.get(k) for k in ("id", "gerado_em", "modelo", "documentos_lidos", "uso", "custo_usd", "fontes", "campos")}
+    return {k: item.get(k) for k in ("id", "gerado_em", "modelo", "documentos_lidos", "documentos", "uso", "custo_usd", "fontes", "campos")}
 
 
 def _guardar(item: dict) -> None:
@@ -457,22 +543,23 @@ def gerar_e_gravar(id_: str, base: dict | None = None, forcar: bool = False) -> 
         return json.loads(meta_existente.read_text(encoding="utf-8"))
     config = yaml.safe_load((RAIZ / "collector" / "config.yaml").read_text(encoding="utf-8"))
     cliente = cliente_do_config(config)
-    textos = textos_dos_documentos(r, cliente, config)
+    docs = documentos_do_imovel(r, cliente, config)
     import anthropic
     client = anthropic.Anthropic()
-    res = gerar(r, textos, client)
+    res = gerar(r, docs, client)
     campos, uso_campos = {}, {"entrada": 0, "saida": 0}
     try:
-        campos, uso_campos = extrair_campos(r, textos, res["markdown"], client)
+        campos, uso_campos = extrair_campos(r, docs, res["markdown"], client)
     except Exception:
         log.exception("extração de campos estruturados de %s falhou (o parecer segue)", id_)
     custo = round(res["custo_usd"] + custo_usd(MODELO_CAMPOS, uso_campos["entrada"], uso_campos["saida"], 0), 4)
     item = {"id": id_, "gerado_em": datetime.now().isoformat(timespec="seconds"), "modelo": MODELO,
-            "documentos_lidos": len(textos), "uso": {**res["uso"], "campos": uso_campos}, "custo_usd": custo, "fontes": res["fontes"],
+            "documentos_lidos": len(docs), "documentos": [{"url": d["url"], "paginas": d["paginas"], "modo": "pdf" if d["escaneado"] else "texto"} for d in docs],
+            "uso": {**res["uso"], "campos": uso_campos}, "custo_usd": custo, "fontes": res["fontes"],
             "campos": campos, "markdown": res["markdown"]}
     _guardar(item)
     _registrar_custo(item)
-    log.info("relatório de %s gerado: %d docs, %d/%d tokens, %d buscas, %d campos estruturados, US$ %.4f", id_, len(textos),
+    log.info("relatório de %s gerado: %d docs, %d/%d tokens, %d buscas, %d campos estruturados, US$ %.4f", id_, len(docs),
              res["uso"]["entrada"], res["uso"]["saida"], res["uso"]["buscas"], len(campos), custo)
     return item
 
