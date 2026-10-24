@@ -16,7 +16,6 @@
     const meta = await carregarJson("meta.json").catch(() => null);
     if (meta) {
       document.getElementById("n-imoveis").textContent = (meta.ativos || 0).toLocaleString("pt-BR");
-      document.getElementById("n-fontes").textContent = Object.keys(meta.por_fonte || {}).length || "—";
     }
     if (LT.urlWorker()) {
       const r = await LT.api("/pacotes").catch(() => null);

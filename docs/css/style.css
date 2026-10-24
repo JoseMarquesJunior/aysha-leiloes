@@ -243,7 +243,7 @@ table.simples th, table.simples td { border-bottom: 1px solid var(--border); pad
 .vendas .cta .btn { padding: 10px 18px; font-size: 1rem; }
 .numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0 0; }
 .numeros div { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
-.numeros b { display: block; font-size: 1.4rem; font-variant-numeric: tabular-nums; }
+.numeros b { display: block; font-size: 1.4rem; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .numeros span { color: var(--muted); font-size: .8rem; }
 .grade3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .grade2 { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; align-items: start; }
