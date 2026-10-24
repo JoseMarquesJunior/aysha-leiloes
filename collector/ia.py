@@ -398,6 +398,11 @@ def executar(registros: list[dict], cfg_ia: dict, pasta_saida: Path, cliente=Non
         for r in registros:
             if not r.get("ativo", True) or not passa_filtro(r, filtro):
                 continue
+            # fontes com documentos pesados e numerosos (matrícula da Caixa, 1,4 MB cada, milhares de imóveis)
+            # ficam fora da etapa em lote; o parecer sob demanda (relatorio.py) lê o documento quando pedido
+            if r.get("fonte") in (cfg_ia.get("sem_documentos_de") or []):
+                sem_documento += 1
+                continue
             textos = textos_dos_documentos(r, cliente, config or {}) if cliente else []
             if not textos:
                 sem_documento += 1

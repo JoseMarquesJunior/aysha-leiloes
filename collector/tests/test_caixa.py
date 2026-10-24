@@ -78,3 +78,10 @@ def test_csv_sem_cabecalho_levanta_erro():
     import pytest
     with pytest.raises(ValueError):
         parsear_csv(b"a;b;c\n1;2;3\n")
+
+
+def test_url_da_matricula_previsivel():
+    from collector.sources.caixa import url_matricula_de
+    assert url_matricula_de("10208367", "es") == "https://venda-imoveis.caixa.gov.br/editais/matricula/ES/0000010208367.pdf"
+    assert url_matricula_de("8787701324906", "ES").endswith("/ES/8787701324906.pdf")
+    assert url_matricula_de("abc", "ES") is None and url_matricula_de("1", None) is None

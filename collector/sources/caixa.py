@@ -40,6 +40,19 @@ _COLUNAS = {
 }
 
 
+URL_MATRICULA = "https://venda-imoveis.caixa.gov.br/editais/matricula/{uf}/{numero:0>13}.pdf"
+
+
+def url_matricula_de(numero, uf: str | None) -> str | None:
+    """A página de detalhe da Caixa fica atrás de CAPTCHA, mas o PDF da matrícula tem endereço previsível
+    (UF + número do imóvel com 13 dígitos) e responde sem bloqueio, inclusive para o robô. Não há garantia de
+    que exista para todo imóvel; quem lê trata o 404."""
+    numero = str(numero or "").strip()
+    if not numero.isdigit() or not uf:
+        return None
+    return URL_MATRICULA.format(uf=uf.upper(), numero=numero)
+
+
 def _chave(cabecalho: str) -> str:
     from ..schema import sem_acentos
     c = sem_acentos(cabecalho).lower().strip()
@@ -95,12 +108,14 @@ def registro_de_linha(d: dict) -> dict:
     tipo_fonte = desc.split(",", 1)[0].strip() if desc else None
     tipo = normalizar_tipo(tipo_fonte)
     fin = (d.get("financiamento") or "").strip().lower()
+    uf = (d.get("uf") or "").upper() or None
     r = novo_registro(
         id=f"caixa-{d['numero']}",
         fonte=NOME,
         url_anuncio=d.get("link") or None,
+        url_matricula=url_matricula_de(d["numero"], uf),
         tipo=tipo,
-        uf=(d.get("uf") or "").upper() or None,
+        uf=uf,
         cidade=titulo(d.get("cidade")) or None,
         bairro=titulo(d.get("bairro")) or None,
         endereco=(d.get("endereco") or "").strip() or None,

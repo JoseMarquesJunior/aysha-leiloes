@@ -132,6 +132,9 @@ geocodificacao:
 # ia_habilitada: true; sem a chave, só aplica o que já está no cache e grava a estimativa.
 ia:
   ia_habilitada: true
+  # fontes cujos documentos não entram na etapa em lote (a matrícula da Caixa tem 1,4 MB e são milhares de
+  # imóveis); o parecer sob demanda (relatorio.py) lê o documento quando alguém pede a análise
+  sem_documentos_de: [caixa]
   modelo: "claude-haiku-5-5"   # o mais barato; nunca Sonnet/Opus neste projeto
   # Saída é JSON com até 7 trechos-fonte de 200 caracteres: 900 tokens cobrem com folga (pensamento desligado).
   max_tokens_saida: 900

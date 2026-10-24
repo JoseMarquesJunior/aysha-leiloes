@@ -47,6 +47,7 @@ jobs:
           echo "Ids: $IDS"
           case "$IDS" in
             --migrar|--campos) python -m collector.relatorio "$IDS" ;;
+            --refazer\ *) read -ra LISTA <<< "${IDS#--refazer }"; python -m collector.relatorio --refazer -- "${LISTA[@]}" ;;
             *) read -ra LISTA <<< "$IDS"; python -m collector.relatorio -- "${LISTA[@]}" ;;
           esac
 

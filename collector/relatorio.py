@@ -16,6 +16,7 @@ Uso:  python -m collector.relatorio <id> [<id> ...]   (precisa de ANTHROPIC_API_
       python -m collector.relatorio --migrar           (envia ao Worker os relatórios antigos de docs/data/relatorios,
                                                       extrai os campos deles e apaga os arquivos públicos)
       python -m collector.relatorio --campos           (extrai os campos dos relatórios em que a extração falhou)
+      python -m collector.relatorio --refazer -- <id>  (gera de novo, mesmo que já exista)
 """
 
 from __future__ import annotations
@@ -447,6 +448,9 @@ def gerar_e_gravar(id_: str, base: dict | None = None, forcar: bool = False) -> 
         raise KeyError(f"imóvel {id_} não está na base")
     r = base[id_]
     id_ = r["id"]  # id principal, quando o pedido veio com o id de uma fonte absorvida
+    if r.get("fonte") == "caixa" and not r.get("url_matricula"):  # bases anteriores a 2026-10-24 não traziam a URL
+        from .sources.caixa import url_matricula_de
+        r["url_matricula"] = url_matricula_de(id_.split("-", 1)[1], r.get("uf"))
     meta_existente = PASTA / f"{_nome_arquivo(id_)}.json"
     if meta_existente.exists() and not forcar:
         log.info("relatório de %s já foi gerado; nada a fazer", id_)
@@ -547,8 +551,12 @@ def main(argv=None) -> int:
         n = completar_campos_faltantes()
         log.info("campos estruturados completados em %d relatório(s)", n)
         return 0
+    # "--refazer" gera de novo mesmo que já exista (ex.: documento que antes não era lido);
     # "--" separa opções de ids: tudo depois dele é id, mesmo que comece com "-"
-    ids = argv[1:] if argv[0] == "--" else argv
+    forcar = argv[0] == "--refazer"
+    if forcar:
+        argv = argv[1:]
+    ids = argv[1:] if argv and argv[0] == "--" else argv
     ruins = [i for i in ids if i.startswith("-")]
     if ruins:
         log.error("ids inválidos (começam com '-'): %s", ruins)
@@ -565,7 +573,7 @@ def main(argv=None) -> int:
             log.warning("teto diário de %d relatórios atingido; %s fica para amanhã", teto, id_)
             break
         try:
-            gerar_e_gravar(id_, base)
+            gerar_e_gravar(id_, base, forcar=forcar)
             ok += 1
         except Exception:
             log.exception("relatório de %s falhou", id_)
