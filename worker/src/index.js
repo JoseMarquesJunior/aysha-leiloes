@@ -205,6 +205,20 @@ async function apagarConta(usuario, env, h) {
   return json({ ok: true }, 200, h);
 }
 
+/* Diagnóstico: o robô testa se uma URL de documento responde a partir da rede da Cloudflare (fontes que
+   bloqueiam datacenters, como a Caixa). Só com o segredo interno; devolve status, tipo e tamanho, nunca o conteúdo. */
+async function sondaInterna(request, env, h, url) {
+  if (request.headers.get("X-Interno") !== env.INTERNO_SECRET) return json({ erro: "não autorizado" }, 401, h);
+  const alvo = url.searchParams.get("url") || "";
+  if (!/^https:\/\/[\w.\-]+\.(gov\.br|com\.br|leilao\.br|org\.br|com)\//.test(alvo)) return json({ erro: "url inválida" }, 400, h);
+  try {
+    const r = await fetch(alvo, { headers: { "User-Agent": "aysha-leiloes/0.1 (+https://github.com/JoseMarquesJunior/aysha-leiloes)" }, redirect: "follow" });
+    const corpo = await r.arrayBuffer();
+    const inicio = new TextDecoder().decode(corpo.slice(0, 8));
+    return json({ status: r.status, tipo: r.headers.get("content-type"), bytes: corpo.byteLength, inicio }, 200, h);
+  } catch (e) { return json({ erro: String(e.message).slice(0, 200) }, 502, h); }
+}
+
 /* Aviso ao mantenedor (custo do dia acima do teto etc.), enviado pelo robô com o segredo interno. */
 async function alertaInterno(request, env, h) {
   if (request.headers.get("X-Interno") !== env.INTERNO_SECRET) return json({ erro: "não autorizado" }, 401, h);
@@ -491,6 +505,7 @@ export default {
       if (m === "POST" && rota === "/auth/entrar") return entrar(request, env, h);
       if (m === "POST" && rota === "/auth/sair") return sair(request, env, h);
       if (m === "POST" && rota === "/interno/alerta") return alertaInterno(request, env, h);
+      if (m === "GET" && rota === "/interno/sonda") return sondaInterna(request, env, h, url);
       if (m === "GET" && rota === "/pacotes") return json({ pacotes: pacotes(env) }, 200, h);
 
       const usuario = await usuarioDaSessao(request, env);

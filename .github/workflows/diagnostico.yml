@@ -1,0 +1,24 @@
+name: Diagnóstico de acesso a uma URL
+
+# Testa, a partir da rede do GitHub Actions, se uma URL de fonte responde (status, tipo, tamanho e início
+# do conteúdo). Serve para saber se um documento bloqueado para datacenters (ex.: Caixa) é alcançável pelo robô.
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "URL a testar"
+        required: true
+
+jobs:
+  sonda:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Testar
+        env:
+          URL: ${{ inputs.url }}
+        run: |
+          curl -s -A "aysha-leiloes/0.1 (+https://github.com/JoseMarquesJunior/aysha-leiloes)" -L --max-time 60 -o corpo.bin -w "status=%{http_code} tipo=%{content_type} bytes=%{size_download}\n" "$URL"
+          echo "inicio=$(head -c 12 corpo.bin | tr -d '\0' | tr '\n' ' ')"
+          grep -ioE "captcha|radware|validate" corpo.bin | sort | uniq -c | head -3 || true
