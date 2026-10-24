@@ -47,7 +47,7 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-24T13:41:35",
+  "ultima_execucao": "2026-10-24T14:30:11",
   "data_coleta": "2026-10-24"
  },
  "banestes": {
@@ -123,12 +123,12 @@
   }
  },
  "colodete": {
-  "ultima_coleta_ok": "2026-10-23",
+  "ultima_coleta_ok": "2026-10-24",
   "registros": 5,
-  "ultimo_erro": "bloqueia IPs de datacenter: coletada só localmente",
+  "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.colodeteleiloes.com.br/",
-  "duracao_s": 26.8,
+  "duracao_s": 26.9,
   "info": {
    "leiloes": 7,
    "lotes_vistos": 8
