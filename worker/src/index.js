@@ -94,17 +94,34 @@ async function tokenGmail(env) {
   await env.LIMITES.put("gmail:token", d.access_token, { expirationTtl: Math.max(60, (d.expires_in || 3600) - 300) });
   return d.access_token;
 }
+/* Versão em texto simples do HTML (os filtros de spam esperam multipart/alternative; um e-mail só-HTML
+   com um link é o perfil clássico de phishing). */
+function textoDoHtml(html) {
+  return html.replace(/<a [^>]*href="([^"]+)"[^>]*>[^<]*<\/a>/gi, "$1").replace(/<\/p>|<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/\n{3,}/g, "\n\n").trim();
+}
 async function enviarGmail(env, para, assunto, html) {
   const token = await tokenGmail(env);
+  const limite = "=_aysha_" + token.slice(-12).replace(/[^A-Za-z0-9]/g, "x");
   const mime = [
     `From: =?UTF-8?B?${b64utf8(env.NOME_REMETENTE || "Aysha Leilões")}?= <${env.EMAIL_REMETENTE}>`,
     `To: ${para}`,
+    `Reply-To: ${env.EMAIL_REMETENTE}`,
     `Subject: =?UTF-8?B?${b64utf8(assunto)}?=`,
     "MIME-Version: 1.0",
+    `Content-Type: multipart/alternative; boundary="${limite}"`,
+    "",
+    `--${limite}`,
+    "Content-Type: text/plain; charset=UTF-8",
+    "Content-Transfer-Encoding: base64",
+    "",
+    b64utf8(textoDoHtml(html)),
+    `--${limite}`,
     "Content-Type: text/html; charset=UTF-8",
     "Content-Transfer-Encoding: base64",
     "",
     b64utf8(html),
+    `--${limite}--`,
   ].join("\r\n");
   const raw = b64utf8(mime).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
   const r = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
@@ -120,7 +137,7 @@ async function enviarEmail(env, para, assunto, html) {
     method: "POST",
     headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "Accept": "application/json" },
     body: JSON.stringify({ sender: { email: env.EMAIL_REMETENTE, name: env.NOME_REMETENTE || "Aysha Leilões" },
-                           to: [{ email: para }], subject: assunto, htmlContent: html }),
+                           to: [{ email: para }], subject: assunto, htmlContent: html, textContent: textoDoHtml(html) }),
   });
   if (!r.ok) throw new Error(`e-mail não enviado (${r.status}): ${(await r.text()).slice(0, 200)}`);
 }
@@ -151,10 +168,17 @@ async function pedirLogin(request, env, h) {
   await env.DB.prepare("INSERT INTO links_login (token, email, expira_em) VALUES (?, ?, ?)").bind(t, e, maisMinutos(20)).run();
   // o token vai no fragmento (#): não é enviado ao servidor do site nem fica em logs de acesso
   const link = `${env.SITE.replace(/\/$/, "")}/conta.html#token=${t}`;
+  const site = env.SITE.replace(/\/$/, "");
   await enviarEmail(env, e, "Seu acesso ao Aysha Leilões",
-    `<p>Olá! Para entrar no Aysha Leilões, clique no link abaixo (vale por 20 minutos):</p>
-     <p><a href="${link}">${link}</a></p>
-     <p>Se você não pediu este acesso, ignore este e-mail.</p>`);
+    `<div style="font-family:system-ui,Segoe UI,Roboto,sans-serif;font-size:15px;line-height:1.5;color:#1b1f24;max-width:560px">
+     <p style="font-size:18px;font-weight:700;margin:0 0 12px">Aysha Leilões</p>
+     <p>Olá! Você pediu acesso ao Aysha Leilões, a tabela de imóveis em leilão, licitação e venda direta de todo o Brasil, com análise do edital e da matrícula por IA.</p>
+     <p>Para entrar, use o botão abaixo. O link vale por 20 minutos e só funciona uma vez.</p>
+     <p style="margin:18px 0"><a href="${link}" style="background:#0b5fff;color:#fff;text-decoration:none;padding:11px 20px;border-radius:6px;font-weight:600;display:inline-block">Entrar no Aysha Leilões</a></p>
+     <p style="font-size:13px;color:#5f6b76">Se o botão não abrir, copie este endereço no navegador:<br><a href="${link}" style="color:#0b5fff;word-break:break-all">${link}</a></p>
+     <p style="font-size:13px;color:#5f6b76">Se você não pediu este acesso, ignore esta mensagem: ninguém entra na sua conta sem o link. Dúvidas: responda a este e-mail.</p>
+     <p style="font-size:12px;color:#8a949e;margin-top:20px">Aysha Leilões · <a href="${site}" style="color:#8a949e">${site.replace(/^https?:\/\//, "")}</a> · <a href="${site}/sobre.html#contas" style="color:#8a949e">termos e privacidade</a></p>
+     </div>`);
   return json({ ok: true }, 200, h);
 }
 
