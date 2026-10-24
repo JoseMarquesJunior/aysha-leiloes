@@ -1,6 +1,6 @@
 {
  "id": "caixa-10208367",
- "gerado_em": "2026-10-24T19:04:04",
+ "gerado_em": "2026-10-24T19:06:02",
  "modelo": "claude-opus-5",
  "documentos_lidos": 1,
  "documentos": [
@@ -11,15 +11,15 @@
   }
  ],
  "uso": {
-  "entrada": 42365,
-  "saida": 2842,
-  "buscas": 2,
+  "entrada": 81638,
+  "saida": 2989,
+  "buscas": 3,
   "campos": {
-   "entrada": 15364,
+   "entrada": 15173,
    "saida": 292
   }
  },
- "custo_usd": 0.3046,
+ "custo_usd": 0.5146,
  "fontes": [],
  "campos": {
   "tipo": "comercial",
@@ -31,7 +31,6 @@
   "matricula": "40446",
   "comitente": "Caixa Econômica Federal",
   "uf": "ES",
-  "aceita_financiamento": false,
-  "aceita_fgts": false
+  "aceita_financiamento": false
  }
 }
