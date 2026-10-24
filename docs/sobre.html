@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sobre — Aysha Leilões</title>
-<meta name="description" content="De onde vêm os dados do Aysha Leilões, como a coleta funciona, estado das fontes, privacidade e termos das análises com IA.">
+<title>Como funciona e preços — Aysha Leilões</title>
+<meta name="description" content="Todos os imóveis em leilão do Brasil numa tabela, atualizada todo dia, e uma análise com IA que lê o edital e a matrícula por você. A primeira análise é grátis.">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://aysha.leiloes.workers.dev/sobre.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Aysha Leilões">
-<meta property="og:title" content="Sobre o Aysha Leilões: fontes, método e avisos">
-<meta property="og:description" content="De onde vêm os dados, como a coleta funciona, estado das fontes, privacidade e termos das análises com IA.">
+<meta property="og:title" content="Descubra se vale o lance antes de todo mundo — Aysha Leilões">
+<meta property="og:description" content="Todos os leilões de imóveis do Brasil numa tabela, atualizada todo dia, e uma análise com IA do edital e da matrícula. A primeira análise é grátis.">
 <meta property="og:url" content="https://aysha.leiloes.workers.dev/sobre.html">
 <meta property="og:image" content="https://aysha.leiloes.workers.dev/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,63 +26,100 @@
     <nav><a href="conta.html" id="nav-conta">Minha conta</a></nav>
   </div>
 </header>
-<main class="sobre" id="conteudo">
-  <h2>O que é</h2>
-  <p>O Aysha Leilões é um agregador <strong>independente</strong> de imóveis em leilão, licitação e venda direta em todos os estados do Brasil (com prioridade na Grande Vitória, de onde o projeto partiu). Cada imóvel vira uma linha estruturada, com filtros sobre campos extraídos (valor, desconto, R$/m², área, ocupação, débitos, FGTS) e não sobre texto solto. O site é estático: todos os filtros, ordenações, comparações e a exportação CSV acontecem no seu navegador.</p>
+<main class="sobre vendas" id="conteudo">
 
-  <div class="aviso">
-    <p><strong>Avisos importantes</strong></p>
-    <ul>
-      <li>Este site <strong>não tem vínculo</strong> com a Caixa Econômica Federal, o Banestes, o Bandes, a SPU, leiloeiros, tribunais ou qualquer outra fonte listada abaixo.</li>
-      <li>Os dados são <strong>extraídos automaticamente</strong> uma vez por dia e podem conter erros, omissões ou estar desatualizados. Confira sempre o anúncio e o edital no site original antes de qualquer decisão.</li>
-      <li>A extração por IA, quando existir, é um <strong>apoio à leitura</strong> e não substitui a leitura integral do edital e da matrícula.</li>
-      <li>Nada aqui é <strong>assessoria jurídica</strong> nem <strong>recomendação de investimento</strong>.</li>
-      <li>Não armazenamos nem exibimos nomes de pessoas físicas que apareçam em editais ou matrículas. Não copiamos fotos; apenas linkamos para o anúncio original.</li>
-    </ul>
-  </div>
+  <section class="hero">
+    <h2>Encontre o imóvel certo em leilão. E saiba se vale o lance antes de todo mundo.</h2>
+    <p>Todos os leilões, licitações e vendas diretas de imóveis do Brasil numa tabela só, atualizada todo dia. E, para cada imóvel, uma análise com IA que lê o edital e a matrícula por você.</p>
+    <p class="cta"><a class="btn primario btn-ia-grande" href="./">Ver os imóveis</a> <a class="btn" href="exemplo-analise.html">Ver um exemplo de análise</a></p>
+    <div class="numeros" id="numeros">
+      <div><b id="n-imoveis">—</b><span>imóveis à venda agora</span></div>
+      <div><b>27</b><span>estados cobertos</span></div>
+      <div><b id="n-fontes">—</b><span>fontes oficiais</span></div>
+      <div><b>6h</b><span>atualização diária</span></div>
+    </div>
+  </section>
 
-  <h2>Fontes e estado da última coleta</h2>
-  <table id="tabela-fontes">
-    <thead><tr><th>Fonte</th><th>Site original</th><th>Estado</th><th>Última coleta OK</th><th>Registros</th><th>Último erro</th></tr></thead>
-    <tbody><tr><td colspan="6" class="muted">carregando…</td></tr></tbody>
-  </table>
-  <p class="muted" id="coleta-geral"></p>
+  <section class="passos">
+    <h2>Como funciona</h2>
+    <div class="grade3">
+      <div class="passo"><span class="num">1</span><h3>Filtre</h3><p>Desconto sobre a avaliação, preço por m², cidade, bairro, ocupação, FGTS. Tudo em campos estruturados, não em texto solto.</p></div>
+      <div class="passo"><span class="num">2</span><h3>Compare</h3><p>Ficha completa, mapa, histórico de preço e os mesmos imóveis em outras fontes lado a lado. Exporte para planilha quando quiser.</p></div>
+      <div class="passo"><span class="num">3</span><h3>Decida</h3><p>Peça a análise com IA: ela lê o edital e a matrícula, pesquisa o mercado e entrega riscos, custos e um veredito em minutos.</p></div>
+    </div>
+  </section>
 
-  <h2>Editais e avisos recentes</h2>
-  <p>Avisos de leilão publicados pelas fontes que não trazem lotes estruturados (Banestes, Bandes, Justiça Federal). Os lotes do Banestes aparecem na tabela pelo site do leiloeiro que conduz cada leilão.</p>
-  <table id="tabela-editais">
-    <thead><tr><th>Fonte</th><th>Edital / aviso</th><th>Publicado</th><th>Leilão</th><th>2ª praça</th><th>Leiloeiro / site</th></tr></thead>
-    <tbody><tr><td colspan="6" class="muted">carregando…</td></tr></tbody>
-  </table>
+  <section class="analise-ia">
+    <h2>A análise com IA: o que um analista levaria uma tarde, em minutos</h2>
+    <div class="grade2">
+      <ul class="lista-check">
+        <li><b>Resumo do lote.</b> O que é, onde fica, quem vende e por quê, datas e valores que importam.</li>
+        <li><b>Conta no lance mínimo.</b> Comissão, ITBI, registro, reforma estimada e débitos que ficam com você.</li>
+        <li><b>Referência de mercado.</b> Preço do m² no bairro e anúncios comparáveis, pesquisados na web.</li>
+        <li><b>Sinais vermelhos.</b> Ocupação, ônus na matrícula, processo antigo, preço vil, documentos ausentes.</li>
+        <li><b>Veredito.</b> Entrar ou não, em qual praça, com qual teto, e as diligências antes do lance.</li>
+      </ul>
+      <div class="chamada-exemplo">
+        <p>Um parecer real, aberto, para você ver antes de criar conta:</p>
+        <p><a class="btn primario" href="exemplo-analise.html">Abrir o exemplo completo →</a></p>
+        <p class="muted">Parecer gerado por IA a partir dos documentos originais. Apoio à decisão, não assessoria jurídica.</p>
+      </div>
+    </div>
+  </section>
 
-  <h2>Campos: quanto cada um fica em branco</h2>
-  <p>Percentual de imóveis ativos em que o campo está vazio ("—") depois da extração pela fonte e por regras determinísticas. Mostra o que a fonte não informa e o que uma etapa de IA poderia preencher.</p>
-  <table id="tabela-nulos"><thead><tr><th>Campo</th><th>Em branco</th></tr></thead><tbody></tbody></table>
+  <section class="precos" id="precos">
+    <h2>Preços</h2>
+    <p class="destaque">A primeira análise é por nossa conta: toda conta nova ganha 1 crédito.</p>
+    <div class="grade3" id="pacotes">
+      <div class="preco"><div class="nome">1 análise</div><div class="valor">R$ 14,90</div><div class="muted">para decidir sobre um imóvel</div></div>
+      <div class="preco melhor"><div class="selo">mais escolhido</div><div class="nome">5 análises</div><div class="valor">R$ 59</div><div class="muted">R$ 11,80 por análise</div></div>
+      <div class="preco"><div class="nome">20 análises</div><div class="valor">R$ 199</div><div class="muted">R$ 9,95 por análise · para quem acompanha o mercado</div></div>
+    </div>
+    <p class="cta"><a class="btn primario btn-ia-grande" href="conta.html">Criar conta e ganhar a primeira análise</a></p>
+    <p class="muted">Pix ou cartão pelo Mercado Pago · créditos não expiram · sem assinatura · a tabela, os filtros e o mapa são gratuitos.</p>
+  </section>
 
+  <section class="confianca">
+    <h2>Por que confiar</h2>
+    <div class="grade3">
+      <div><h3>Fontes oficiais</h3><p>Caixa, bancos públicos, Secretaria do Patrimônio da União, Justiça Federal e leiloeiros oficiais, coletados direto da origem, com link para o anúncio e o edital.</p></div>
+      <div><h3>Independente</h3><p>Não vendemos imóveis nem recebemos comissão de leiloeiro. O único interesse é você decidir bem.</p></div>
+      <div><h3>Respeito aos dados</h3><p>Nenhum nome de pessoa física é guardado ou exibido. Navegar não pede cadastro nem usa cookies.</p></div>
+    </div>
+  </section>
 
-  <h2>Privacidade</h2>
-  <p>Navegar e filtrar não pede cadastro nem usa cookies. As preferências de visualização (modo, colunas) ficam só no seu navegador. Para saber quantas pessoas usam o site, contamos as visitas com o <a href="https://www.goatcounter.com/" rel="noopener">GoatCounter</a>, que registra apenas a página aberta, a data e a origem do acesso, sem cookies e sem identificador persistente; os filtros que você aplica não são enviados. Para medir se o site se sustenta, contamos também, sem dados pessoais, os eventos do funil: pedidos de acesso, contas criadas, análises pedidas e compras pagas.</p>
-  <p>Se você cria uma conta, guardamos o seu e-mail, as análises liberadas para você e o registro das compras (pacote, valor, identificador do pagamento no Mercado Pago). Não guardamos dados de cartão: o pagamento acontece nas páginas do Mercado Pago. Para apagar a conta, escreva para o e-mail do mantenedor no repositório.</p>
+  <section class="faq">
+    <h2>Perguntas frequentes</h2>
+    <details><summary>Preciso de conta para usar a tabela?</summary><p>Não. Filtros, mapa, comparação e exportação são gratuitos e não pedem cadastro. A conta só é necessária para a análise com IA, e a primeira é grátis.</p></details>
+    <details><summary>A análise substitui advogado ou corretor?</summary><p>Não. Ela organiza o que está no edital, na matrícula e no mercado para você decidir com mais segurança e saber o que perguntar a um profissional. Confira sempre os documentos originais.</p></details>
+    <details><summary>Quanto tempo leva?</summary><p>Alguns minutos. Você pode fechar a página e voltar depois: o parecer fica guardado na sua conta e reabrir não gasta crédito.</p></details>
+    <details><summary>E se a análise falhar?</summary><p>Se nenhum parecer for entregue em 24 horas, o crédito volta ao seu saldo. Créditos não usados podem ser reembolsados em até 7 dias da compra.</p></details>
+    <details><summary>Como entro na conta?</summary><p>Só com o seu e-mail: enviamos um link de acesso, sem senha. Confira a pasta de spam na primeira vez.</p></details>
+  </section>
 
-  <h2 id="contas">Contas, créditos e análises com IA (termos de uso)</h2>
-  <ul>
-    <li><strong>O que é vendido.</strong> Créditos para análises com IA: um parecer automático por imóvel (edital, matrícula, mercado, custos, riscos e veredito). 1 crédito = 1 análise. Toda conta nova ganha 1 crédito, ou seja, a primeira análise é grátis. Os créditos não expiram e não são transferíveis.</li>
-    <li><strong>Natureza do serviço.</strong> O parecer é gerado por inteligência artificial e pode conter erros ou omissões. Não é assessoria jurídica, avaliação profissional nem recomendação de investimento. Confira os documentos originais e consulte um profissional antes de dar lance.</li>
-    <li><strong>Quando o crédito é gasto.</strong> Ao pedir a análise de um imóvel (nova ou já existente na base). Reabrir uma análise que já é sua não gasta crédito. Se a geração falhar e nenhum parecer for entregue em 24 horas, o crédito volta ao saldo.</li>
-    <li><strong>Pagamento e reembolso.</strong> Pix e cartão pelo Mercado Pago. Créditos não usados podem ser reembolsados em até 7 dias da compra, a pedido, pelo e-mail do mantenedor (Código de Defesa do Consumidor, art. 49). Créditos já usados não são reembolsados.</li>
-    <li><strong>Conta.</strong> O acesso é por link enviado ao seu e-mail, sem senha. Você é responsável pelo acesso à sua caixa de e-mail. Contas usadas para automatizar pedidos ou redistribuir os pareceres podem ser encerradas.</li>
-  </ul>
+  <p id="apoio" class="hidden">O site é mantido por uma pessoa. Se ele te ajuda, <a id="apoio-link" href="#" rel="noopener" target="_blank"></a>.</p>
 
-  <h2>Como funciona</h2>
-  <ul>
-    <li>Um coletor em Python roda todo dia às 06:00 (Brasília) no GitHub Actions, baixa as listas das fontes, extrai campos com regras determinísticas, deduplica imóveis repetidos entre fontes, geocodifica endereços novos com o Nominatim (OpenStreetMap) e grava JSON neste site.</li>
-    <li>A cada coleta o histórico registra eventos por imóvel: novo, mudança de preço, de modalidade, de data do leilão e remoção. Imóveis removidos ficam 90 dias marcados como inativos.</li>
-    <li>Código aberto: <a href="https://github.com/JoseMarquesJunior/aysha-leiloes" rel="noopener">github.com/JoseMarquesJunior/aysha-leiloes</a>.</li>
-  </ul>
-  <p id="apoio" class="hidden">A tabela, os filtros e o mapa são gratuitos; as análises com IA são pagas por crédito. O site é mantido por uma pessoa. Se ele te ajuda, <a id="apoio-link" href="#" rel="noopener" target="_blank"></a>.</p>
+  <section class="legal" id="contas">
+    <details>
+      <summary>Termos de uso</summary>
+      <ul>
+        <li><strong>O que é vendido.</strong> Créditos para análises com IA: um parecer automático por imóvel. 1 crédito = 1 análise. Toda conta nova ganha 1 crédito. Os créditos não expiram e não são transferíveis.</li>
+        <li><strong>Natureza do serviço.</strong> O parecer é gerado por inteligência artificial e pode conter erros ou omissões. Não é assessoria jurídica, avaliação profissional nem recomendação de investimento. Confira os documentos originais e consulte um profissional antes de dar lance.</li>
+        <li><strong>Quando o crédito é gasto.</strong> Ao pedir a análise de um imóvel, nova ou já existente na base. Reabrir uma análise que já é sua não gasta crédito. Se a geração falhar e nenhum parecer for entregue em 24 horas, o crédito volta ao saldo.</li>
+        <li><strong>Pagamento e reembolso.</strong> Pix e cartão pelo Mercado Pago. Créditos não usados podem ser reembolsados em até 7 dias da compra, a pedido (Código de Defesa do Consumidor, art. 49). Créditos já usados não são reembolsados.</li>
+        <li><strong>Conta.</strong> O acesso é por link enviado ao seu e-mail, sem senha. Contas usadas para automatizar pedidos ou redistribuir os pareceres podem ser encerradas.</li>
+        <li><strong>Dados.</strong> Os dados dos imóveis são extraídos automaticamente das fontes e podem conter erros ou estar desatualizados. Este site não tem vínculo com a Caixa, bancos, leiloeiros, tribunais ou qualquer fonte listada.</li>
+      </ul>
+    </details>
+    <details>
+      <summary>Privacidade</summary>
+      <p>Navegar e filtrar não pede cadastro nem usa cookies. Contamos visitas com o <a href="https://www.goatcounter.com/" rel="noopener">GoatCounter</a>, sem cookies e sem identificador persistente; os filtros que você aplica não são enviados. Medimos também, sem dados pessoais, quantas contas são criadas, análises pedidas e compras pagas.</p>
+      <p>Com uma conta, guardamos o seu e-mail, as análises liberadas para você e o registro das compras (pacote, valor e identificador do pagamento). Não guardamos dados de cartão: o pagamento acontece nas páginas do Mercado Pago. Você pode apagar a conta a qualquer momento em "Minha conta".</p>
+    </details>
+  </section>
 </main>
 <footer>
-  <p>Mapa © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a>. Geocodificação por Nominatim.</p>
+  <p>Mapa © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a>. Código aberto em <a href="https://github.com/JoseMarquesJunior/aysha-leiloes" rel="noopener">GitHub</a>.</p>
 </footer>
 <script src="js/config.js"></script>
 <script src="js/common.js"></script>

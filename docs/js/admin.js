@@ -42,7 +42,15 @@
         <span id="c-msg" class="muted"></span>
       </form>
       <h2>Compras</h2><div id="lista-pedidos"><p class="muted">carregando…</p></div>
-      <h2>Relatórios</h2><div id="lista-relatorios"><p class="muted">carregando…</p></div>`;
+      <h2>Relatórios</h2><div id="lista-relatorios"><p class="muted">carregando…</p></div>
+      <h2>Fontes e estado da última coleta</h2>
+      <div id="fontes"><p class="muted">carregando…</p></div>
+      <h2>Editais e avisos recentes</h2>
+      <p class="muted">Avisos de leilão das fontes que não trazem lotes estruturados (Banestes, Bandes, Justiça Federal).</p>
+      <div id="editais"><p class="muted">carregando…</p></div>
+      <h2>Campos: quanto cada um fica em branco</h2>
+      <p class="muted">Percentual de imóveis ativos com o campo vazio depois da extração pela fonte, pelo regex e pela IA.</p>
+      <div id="nulos"><p class="muted">carregando…</p></div>`;
     document.getElementById("busca").addEventListener("submit", ev => { ev.preventDefault(); carregarUsuarios(document.getElementById("q").value.trim()); });
     document.getElementById("form-creditos").addEventListener("submit", async ev => {
       ev.preventDefault();
@@ -52,7 +60,38 @@
       msg.textContent = x.ok ? `ok: saldo agora ${x.dados.creditos}` : "falhou: " + (x.dados.erro || "?");
       if (x.ok) { carregarUsuarios(document.getElementById("q").value.trim()); carregarPedidos(); }
     });
-    carregarUsuarios(""); carregarPedidos(); carregarRelatorios();
+    carregarUsuarios(""); carregarPedidos(); carregarRelatorios(); carregarColeta();
+  }
+
+  /* Dados públicos da coleta (status_fontes.json, editais.json, meta.json), antes mostrados na página Sobre. */
+  async function carregarColeta() {
+    const { TRACO, nomeFonte, ROTULOS, carregarJson } = LT;
+    const [status, meta, editais] = await Promise.all([
+      carregarJson("status_fontes.json").catch(() => ({})),
+      carregarJson("meta.json").catch(() => null),
+      carregarJson("editais.json").catch(() => ({ editais: [] })),
+    ]);
+    const linhas = [];
+    for (const [nome, s] of Object.entries(status)) {
+      if (nome.startsWith("_")) continue;
+      const estado = !s.ativa ? "desativada" : (meta && s.ultima_coleta_ok === meta.data_coleta ? "ok" : "falhou na última coleta");
+      const cls = estado === "ok" ? "v-sim" : (estado === "desativada" ? "muted" : "v-nao");
+      linhas.push(`<tr><td>${escapar(nomeFonte(nome))}</td><td>${s.site ? `<a href="${escapar(s.site)}" rel="noopener" target="_blank">${escapar(s.site.replace(/^https?:\/\/(www\.)?/, ""))}</a>` : TRACO}</td>
+        <td class="${cls}">${estado}</td><td>${data(s.ultima_coleta_ok)}</td><td class="num">${s.registros ?? TRACO}</td><td class="muted">${escapar(s.ultimo_erro || TRACO)}</td></tr>`);
+    }
+    document.getElementById("fontes").innerHTML = tabela(["Fonte", "Site", "Estado", "Última coleta OK", "Registros", "Último erro"], linhas) +
+      (meta ? `<p class="muted">Última execução do coletor: ${dataHora(meta.gerado_em)} · ${meta.ativos} imóveis ativos (${Object.entries(meta.por_uf || {}).map(([u, n]) => `${u}: ${n}`).join(", ")}).</p>` : "");
+    const lista = (editais.editais || []).slice(0, 40);
+    document.getElementById("editais").innerHTML = tabela(["Fonte", "Edital / aviso", "Publicado", "Leilão", "2ª praça", "Leiloeiro / site"], lista.map(e => `<tr><td>${escapar(nomeFonte(e.fonte))}</td>
+      <td>${e.url ? `<a href="${escapar(e.url)}" rel="noopener" target="_blank">${escapar(e.titulo || e.url)}</a>` : escapar(e.titulo || TRACO)}${e.objeto ? `<div class="muted">${escapar(e.objeto)}</div>` : ""}</td>
+      <td>${data(e.publicado_em)}</td><td>${data(e.data_leilao)}</td><td>${data(e.data_segunda_praca)}</td>
+      <td>${escapar(e.leiloeiro || "")} ${(e.sites_leiloeiro || (e.site_leiloeiro ? [e.site_leiloeiro] : [])).map(s => `<a href="${escapar(s)}" rel="noopener" target="_blank">${escapar(s.replace(/^https?:\/\/(www\.)?/, ""))}</a>`).join(", ")}</td></tr>`));
+    if (meta && meta.percentual_nulos) {
+      document.getElementById("nulos").innerHTML = tabela(["Campo", "Em branco"], Object.entries(meta.percentual_nulos)
+        .filter(([c]) => !["id", "fonte", "url_anuncio", "primeira_vez_visto", "ultima_vez_visto", "ativo", "descricao_original"].includes(c))
+        .sort((a, b) => b[1] - a[1])
+        .map(([c, p]) => `<tr><td>${escapar(ROTULOS[c] || c)}</td><td class="num ${p >= 99 ? "v-nao" : p === 0 ? "v-sim" : ""}">${p.toLocaleString("pt-BR")}%</td></tr>`));
+    }
   }
 
   async function carregarUsuarios(q) {

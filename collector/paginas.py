@@ -96,7 +96,7 @@ def _pagina(titulo: str, descricao: str, corpo: str, prefixo: str, canonico: str
   <div class="linha1">
     <h1><a href="{prefixo}">Aysha Leilões</a></h1>
     <div class="resumo"><a href="{prefixo}">← tabela com filtros</a></div>
-    <nav><a href="{prefixo}conta.html">Minha conta</a><a href="{prefixo}sobre.html">Sobre, fontes e avisos</a></nav>
+    <nav><a href="{prefixo}conta.html">Minha conta</a><a href="{prefixo}sobre.html">Como funciona e preços</a></nav>
   </div>
 </header>
 <main class="sobre seo" id="conteudo">

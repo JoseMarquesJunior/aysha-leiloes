@@ -232,6 +232,48 @@ table.simples th, table.simples td { border-bottom: 1px solid var(--border); pad
 .btn.perigo { color: var(--bad); border-color: var(--bad); }
 .btn.perigo:hover { background: var(--bad); color: #fff; }
 
+/* ---------- página "como funciona e preços" ---------- */
+.vendas section { margin: 0 0 28px; }
+.vendas h2 { font-size: 1.45rem; margin: 0 0 10px; letter-spacing: -.01em; }
+.vendas h3 { margin: 6px 0 4px; font-size: 1rem; }
+.vendas .hero { padding: 22px 0 8px; }
+.vendas .hero h2 { font-size: 1.9rem; line-height: 1.15; max-width: 760px; }
+.vendas .hero > p { font-size: 1.08rem; max-width: 680px; color: var(--muted); }
+.vendas .cta { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
+.vendas .cta .btn { padding: 10px 18px; font-size: 1rem; }
+.numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0 0; }
+.numeros div { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+.numeros b { display: block; font-size: 1.4rem; font-variant-numeric: tabular-nums; }
+.numeros span { color: var(--muted); font-size: .8rem; }
+.grade3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.grade2 { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; align-items: start; }
+.passo, .confianca .grade3 > div { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.passo .num { display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; }
+.passo p, .confianca p { margin: 4px 0 0; color: var(--muted); }
+.lista-check { list-style: none; padding: 0; margin: 0; }
+.lista-check li { padding: 6px 0 6px 26px; position: relative; border-bottom: 1px solid var(--border); }
+.lista-check li::before { content: "✓"; position: absolute; left: 4px; color: var(--ok); font-weight: 700; }
+.chamada-exemplo { background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 8px; padding: 12px 14px; }
+.chamada-exemplo p { margin: 0 0 8px; }
+.precos .destaque { font-size: 1.05rem; font-weight: 600; }
+.preco { position: relative; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center; }
+.preco.melhor { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.preco .selo { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: .72rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+.preco .nome { font-weight: 700; }
+.preco .valor { font-size: 1.7rem; font-weight: 800; margin: 4px 0; font-variant-numeric: tabular-nums; }
+.faq details { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; margin: 6px 0; }
+.faq summary { cursor: pointer; font-weight: 600; }
+.faq details p { margin: 6px 0 2px; color: var(--muted); }
+.legal details { margin: 8px 0; font-size: .85rem; color: var(--muted); }
+.legal summary { cursor: pointer; color: var(--text); }
+.legal ul { padding-left: 18px; }
+@media (max-width: 760px) {
+  .numeros, .grade3, .grade2 { grid-template-columns: 1fr 1fr; }
+  .grade2 { grid-template-columns: 1fr; }
+  .vendas .hero h2 { font-size: 1.45rem; }
+}
+@media (prefers-color-scheme: dark) { .passo .num, .preco .selo { color: #0f1419; } }
+
 /* ---------- administração ---------- */
 .admin-busca { display: flex; gap: 8px; margin: 8px 0; max-width: 480px; }
 .admin-busca input { flex: 1; border: 1px solid var(--border-forte); border-radius: var(--raio); padding: 6px 9px; background: var(--panel); color: var(--text); }
