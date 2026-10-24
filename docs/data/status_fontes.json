@@ -1,39 +1,39 @@
 {
  "caixa": {
-  "ultima_coleta_ok": "2026-10-23",
-  "registros": 22868,
+  "ultima_coleta_ok": "2026-10-24",
+  "registros": 22890,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://venda-imoveis.caixa.gov.br/",
-  "duracao_s": 58.8,
+  "duracao_s": 58.1,
   "info": {
-   "data_geracao": "2026-10-22",
+   "data_geracao": "2026-10-23",
    "por_uf": {
-    "ES": 42,
-    "MG": 762,
-    "RJ": 8568,
-    "SP": 2694,
+    "ES": 43,
+    "MG": 820,
+    "RJ": 8249,
+    "SP": 2826,
     "GO": 3151,
-    "PE": 1130,
-    "RS": 849,
-    "PI": 765,
-    "BA": 707,
-    "PB": 701,
-    "RN": 670,
-    "CE": 612,
-    "PR": 434,
-    "SE": 406,
-    "PA": 228,
+    "PE": 1133,
+    "RS": 900,
+    "PI": 769,
+    "BA": 740,
+    "PB": 693,
+    "RN": 651,
+    "CE": 614,
+    "PR": 462,
+    "SE": 408,
+    "PA": 242,
     "MA": 212,
-    "AM": 216,
-    "MS": 183,
-    "MT": 160,
-    "SC": 147,
-    "AL": 89,
-    "DF": 70,
+    "AM": 217,
+    "MS": 192,
+    "MT": 164,
+    "SC": 163,
+    "AL": 88,
+    "DF": 76,
     "RO": 29,
-    "TO": 19,
-    "AC": 19,
+    "TO": 23,
+    "AC": 20,
     "AP": 3,
     "RR": 2
    }
@@ -47,11 +47,11 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-23T14:34:05",
-  "data_coleta": "2026-10-23"
+  "ultima_execucao": "2026-10-24T13:41:35",
+  "data_coleta": "2026-10-24"
  },
  "banestes": {
-  "ultima_coleta_ok": "2026-10-23",
+  "ultima_coleta_ok": "2026-10-24",
   "registros": 0,
   "ultimo_erro": null,
   "ativa": true,
@@ -62,30 +62,30 @@
   }
  },
  "bandes": {
-  "ultima_coleta_ok": "2026-10-23",
+  "ultima_coleta_ok": "2026-10-24",
   "registros": 8,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.bandes.com.br/Site/Dinamico/Show/978/Leilao-de-Imoveis",
-  "duracao_s": 31.6,
+  "duracao_s": 5.1,
   "info": {
    "arquivos_com_texto": 6
   }
  },
  "spu": {
-  "ultima_coleta_ok": "2026-10-23",
+  "ultima_coleta_ok": "2026-10-24",
   "registros": 4,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://imoveis.vendasgov.serpro.gov.br/",
-  "duracao_s": 10.6,
+  "duracao_s": 11.1,
   "info": {
    "venda": 1,
    "leilao": 3
   }
  },
  "jfes": {
-  "ultima_coleta_ok": "2026-10-23",
+  "ultima_coleta_ok": "2026-10-24",
   "registros": 44,
   "ultimo_erro": null,
   "ativa": true,
@@ -97,26 +97,26 @@
   "ultima_tentativa": "2026-10-21"
  },
  "suporteleiloes": {
-  "ultima_coleta_ok": "2026-10-23",
-  "registros": 530,
+  "ultima_coleta_ok": "2026-10-24",
+  "registros": 529,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.emleilao.com.br/",
-  "duracao_s": 1378.8,
+  "duracao_s": 1350.3,
   "info": {
    "emleilao": 493,
    "buaiz": 0,
    "esleiloes": 0,
-   "suedpeter": 37
+   "suedpeter": 36
   }
  },
  "vixleiloes": {
-  "ultima_coleta_ok": "2026-10-23",
+  "ultima_coleta_ok": "2026-10-24",
   "registros": 1,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.vixleiloes.com.br/",
-  "duracao_s": 82.5,
+  "duracao_s": 82.4,
   "info": {
    "leiloes_abertos": 34,
    "lotes_vistos": 1
@@ -137,17 +137,17 @@
   "bloqueado_no_ci": true
  },
  "hdleiloes": {
-  "ultima_coleta_ok": "2026-10-23",
+  "ultima_coleta_ok": "2026-10-24",
   "registros": 156,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.hdleiloes.com.br/",
-  "duracao_s": 60.2,
+  "duracao_s": 60.1,
   "info": {
-   "leiloes": 30,
-   "ES": 140,
+   "leiloes": 31,
+   "ES": 139,
    "MG": 0,
-   "RJ": 5,
+   "RJ": 6,
    "SP": 2,
    "GO": 0,
    "PE": 1,

@@ -1,0 +1,28 @@
+{
+ "hash": "c044b1a138bb2e430e0ac6ae",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-24T13:41:34",
+ "lote": "msgbatch_01FtVFATe8KY6YVLHSTEmgTw",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Imóvel contém casa de construção rústica, cafezal e área de preservação ambiental, avaliado apenas como terra nua.",
+   "Proposta de parcelamento sujeita à aprovação do juízo (art. 895 do CPC).",
+   "Lance inicial do 2º leilão de R$ 90.000,00; verificar regularidade da matrícula e eventuais ônus.",
+   "Edital não informa ocupação, débitos de IPTU/condomínio nem comissão do leiloeiro."
+  ],
+  "trechos_fonte": {}
+ },
+ "uso": {
+  "entrada": 531,
+  "saida": 375,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

@@ -1,0 +1,38 @@
+{
+ "hash": "ba244a769c99cdd21e0ec7d3",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-24T13:41:34",
+ "lote": "msgbatch_01FtVFATe8KY6YVLHSTEmgTw",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade"
+  ],
+  "alertas": [
+   "Imóvel em reforma de fachada há anos, com tela na fachada",
+   "Não possui vaga de garagem",
+   "Necessita de reparos e não está modernizado",
+   "Débitos municipais inscritos em dívida ativa de R$ 88.374,02 e do exercício 2026 de R$ 6.476,78",
+   "Penhoras e indisponibilidade na matrícula; edital afirma que o bem será leiloado livre de ônus até a expedição da carta de arrematação",
+   "Arrematante deve verificar todos os ônus, podendo haver novas inclusões após o edital",
+   "Pagamento de lance e comissão de 5% deve ser feito em até 24 horas para lances online"
+  ],
+  "trechos_fonte": {
+   "aceita_financiamento": "(O IMÓVEL PODE SER PARCELADO COM 25% DE ENTRADA E O RESTANTE EM ATÉ 30 MESES)",
+   "comissao_leiloeiro_pct": "e.2) Sobre o valor da arrematação, fica arbitrada a comissão da leiloeira, no percentual de 5% (cinco por cento), a ser paga pelo arrematante;",
+   "onus_na_matricula": "ÔNUS: consta penhora nos autos nº 0177256-83.2004.8.19.0001 (2004.120.021406-3) em favor do Município do Rio de Janeiro; indisponibilidade de bens sem número de processo informado;"
+  }
+ },
+ "uso": {
+  "entrada": 3146,
+  "saida": 646,
+  "cache_lido": 0,
+  "cache_criado": 1425
+ }
+}
