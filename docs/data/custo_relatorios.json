@@ -84,11 +84,26 @@
     }
    },
    "custo_usd": 0.1747
+  },
+  {
+   "id": "caixa-10208367",
+   "gerado_em": "2026-10-24T19:04:04",
+   "modelo": "claude-opus-5",
+   "uso": {
+    "entrada": 42365,
+    "saida": 2842,
+    "buscas": 2,
+    "campos": {
+     "entrada": 15364,
+     "saida": 292
+    }
+   },
+   "custo_usd": 0.3046
   }
  ],
- "total_usd": 2.0015,
+ "total_usd": 2.3061,
  "hoje": {
   "data": "2026-10-24",
-  "n": 2
+  "n": 3
  }
 }
