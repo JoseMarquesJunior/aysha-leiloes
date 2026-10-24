@@ -1,24 +1,40 @@
 {
  "id": "caixa-8787701324906",
- "gerado_em": "2026-10-22T21:39:08",
+ "gerado_em": "2026-10-24T19:10:24",
  "modelo": "claude-opus-5",
  "documentos_lidos": 2,
+ "documentos": [
+  {
+   "url": "https://static.suporteleiloes.com.br/emleilaocombr/leiloes/93/documentos/sl-doc-93-6ac79f97e2b1b-6ac79f97e47e7.pdf",
+   "paginas": 84,
+   "modo": "texto"
+  },
+  {
+   "url": "https://static.suporteleiloes.com.br/emleilaocombr/bens/7187/arquivos/sl-bem-7187-6ac7fa39ad757-6ac7fa39b0f80.pdf",
+   "paginas": 3,
+   "modo": "pdf"
+  }
+ ],
  "uso": {
-  "entrada": 75635,
-  "saida": 2347,
-  "buscas": 1
+  "entrada": 85607,
+  "saida": 2429,
+  "buscas": 1,
+  "campos": {
+   "entrada": 37637,
+   "saida": 300
+  }
  },
- "custo_usd": 0.4469,
+ "custo_usd": 0.5027,
  "fontes": [],
  "campos": {
   "tipo": "apartamento",
   "area_privativa_m2": 67.2,
-  "area_total_m2": 84.78,
+  "area_total_m2": 90.9,
   "quartos": 2,
   "vagas": 1,
-  "comissao_leiloeiro_pct": 5,
-  "valor_avaliacao": 275000,
-  "endereco": "Rua Monte Castelo, 140, Apto 502, Bloco A",
+  "comissao_leiloeiro_pct": 5.0,
+  "valor_avaliacao": 275000.0,
+  "endereco": "Rua Monte Castelo, 140, Apto 502, Torre A",
   "cidade": "Cariacica",
   "matricula": "70084",
   "comitente": "CAIXA ECONOMICA FEDERAL",
