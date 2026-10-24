@@ -31,7 +31,7 @@ collector/                 coletor em Python (roda no GitHub Actions todo dia à
 docs/                      site estático servido pela Cloudflare (HTML, CSS e JS puro; Leaflet + markercluster locais em vendor/)
   _headers                 cabeçalhos de segurança (CSP, nosniff, Referrer-Policy, Permissions-Policy)
   conta.html, js/conta.js  conta por link mágico: créditos, compra (Mercado Pago), histórico, sair, apagar conta
-  exemplo-analise.html     a ficha real de um imóvel com o parecer aberto (mesma página da ficha, com window.LT_EXEMPLO)
+  exemplo-analise.html     a ficha real de um imóvel com o parecer aberto (mesma página da ficha; o imóvel vai em data-exemplo-id)
   admin.html, js/admin.js  administração (só ADMIN_EMAILS do Worker): contas, créditos, compras, relatórios, ajuste de créditos
   leiloes/<UF>/*.html      páginas estáticas por estado e cidade (buscadores), geradas na coleta; sitemap.xml, robots.txt
   og.png                   imagem da pré-visualização de links (Open Graph)

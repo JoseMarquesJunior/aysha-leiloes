@@ -113,7 +113,7 @@
      crédito, link para comprar. Quem pede uma análise nova espera o robô (3 a 6 minutos). */
   async function carregarAnalise(r) {
     const corpo = document.getElementById("analise-corpo");
-    if (window.LT_EXEMPLO) {
+    if (document.getElementById("detalhe").dataset.exemploId) {
       // página de exemplo: o parecer é público (data/exemplo_analise.json), sem login nem crédito
       try {
         const d = await carregarJson("exemplo_analise.json");
@@ -179,7 +179,8 @@
   function diasAte(iso) { if (!iso) return null; const d = Math.round((new Date(iso + "T00:00:00") - new Date(LT.hojeIso() + "T00:00:00")) / 86400000); return d; }
 
   async function iniciar() {
-    const exemplo = window.LT_EXEMPLO || null;  // exemplo-analise.html: ficha real de um imóvel com o parecer aberto
+    const ds = document.getElementById("detalhe").dataset;  // exemplo-analise.html: ficha real de um imóvel com o parecer aberto
+    const exemplo = ds.exemploId ? { id: ds.exemploId, uf: ds.exemploUf } : null;
     const id = exemplo ? exemplo.id : lerQuery().id;
     const el = document.getElementById("detalhe");
     if (!id) { el.innerHTML = '<p>Informe um imóvel: <code>imovel.html?id=…</code></p>'; return; }
