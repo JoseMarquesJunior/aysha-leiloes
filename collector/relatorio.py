@@ -138,7 +138,7 @@ def montar_mensagem(r: dict, textos: list[str]) -> str:
 # próprio PDF vai ao modelo como documento (ele lê as páginas como imagem); quando há texto, vai o texto.
 MAX_PAGINAS_PDF = 100
 MAX_BYTES_PDF = 25 * 1024 * 1024
-MIN_CHARS_POR_PAGINA = 500  # abaixo disso o PDF é tratado como digitalizado
+MIN_CHARS_POR_PAGINA = 1200  # abaixo disso o PDF é tratado como digitalizado (uma página de matrícula com texto real tem 2 a 4 mil caracteres; só cabeçalho e selo dão ~600)
 
 
 def _doc(texto: str = "", pdf: bytes | None = None, paginas: int = 0, url: str | None = None) -> dict:
