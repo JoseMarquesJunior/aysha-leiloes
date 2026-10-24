@@ -181,6 +181,7 @@ table.comparacao { width: 100%; border-collapse: collapse; font-size: .84rem; }
 .bloco.largo { grid-column: 1 / -1; }
 dl.campos { display: grid; grid-template-columns: max-content 1fr; gap: 3px 12px; margin: 0; font-size: .85rem; }
 dl.campos dt { color: var(--muted); } dl.campos dd { margin: 0; }
+dl.campos ul.alertas { margin: 0; padding-left: 16px; } dl.campos ul.alertas li { margin: 2px 0; }
 .descricao { white-space: pre-wrap; font-size: .85rem; }
 .eventos { list-style: none; padding: 0; margin: 0; font-size: .85rem; }
 .eventos li { padding: 3px 0; border-bottom: 1px dashed var(--border); }

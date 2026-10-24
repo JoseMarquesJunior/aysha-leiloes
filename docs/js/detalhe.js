@@ -67,15 +67,16 @@
       <path d="${d}" fill="none" stroke="#0b5fff" stroke-width="2"/>${circulos}</svg>`;
   }
 
-  function extracaoIaHtml(ia) {
+  /* Condições do certame lidas do edital (só o que foi encontrado; alertas em lista). */
+  function detalhesCertameHtml(ia) {
     const linhas = [];
     for (const [k, v] of Object.entries(ia)) {
-      if (k === "trechos_fonte" || k === "modelo" || k === "processado_em" || k === "hash_documento") continue;
-      const trecho = ia.trechos_fonte && ia.trechos_fonte[k];
-      const valor = Array.isArray(v) ? (v.length ? v.join(", ") : TRACO) : formatarCampo(k, v);
-      linhas.push(`<dt>${escapar(ROTULOS[k] || k)}</dt><dd>${escapar(valor)}${trecho ? `<div class="ia-trecho">“${escapar(trecho)}”</div>` : ""}</dd>`);
+      if (["trechos_fonte", "modelo", "processado_em", "hash_documento"].includes(k)) continue;
+      if (v === null || v === undefined || v === "" || (Array.isArray(v) && !v.length)) continue;
+      if (k === "alertas") linhas.push(`<dt>${escapar(ROTULOS[k] || "Alertas")}</dt><dd><ul class="alertas">${v.map(a => `<li>${escapar(a)}</li>`).join("")}</ul></dd>`);
+      else linhas.push(`<dt>${escapar(ROTULOS[k] || k)}</dt><dd>${escapar(Array.isArray(v) ? v.join(", ") : formatarCampo(k, v))}</dd>`);
     }
-    return `<dl class="campos">${linhas.join("")}</dl><p class="muted" style="font-size:.78rem">Modelo: ${escapar(ia.modelo || TRACO)} · ${dataHora(ia.processado_em)}. Apoio à leitura; confira no edital.</p>`;
+    return linhas.length ? `<dl class="campos">${linhas.join("")}</dl>` : "";
   }
 
   function outrasFontesHtml(r) {
@@ -220,7 +221,8 @@
     for (const [t, lista] of GRUPOS) html += bloco(t, campos(r, lista));
     html += bloco("Onde fica", mapaHtml(r));
     html += bloco("Outras fontes com o mesmo imóvel", outrasFontesHtml(r));
-    if (r.extracao_ia) html += bloco("Extração por IA (com trechos-fonte)", extracaoIaHtml(r.extracao_ia));
+    const certame = r.extracao_ia ? detalhesCertameHtml(r.extracao_ia) : "";
+    if (certame) html += bloco("Detalhes do certame", certame);
     html += bloco("Descrição original (da fonte)", `<div class="descricao">${escapar(r.descricao_original || TRACO)}</div>`, "largo");
     html += bloco("Evolução do lance mínimo", `<div class="grafico">${graficoSvg(r, eventos)}</div>`);
     html += bloco("Histórico na base", eventos.length ? `<ul class="eventos">${eventos.map(eventoHtml).join("")}</ul>` : '<p class="muted">Sem eventos registrados.</p>');

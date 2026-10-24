@@ -95,6 +95,34 @@ def completar(r: dict, *, preencher_null_com: dict | None = None) -> dict:
     return r
 
 
+def normalizar_grafias(registros: list[dict], campo: str, chave_grupo) -> int:
+    """Unifica grafias do mesmo nome ("Vitoria" e "Vitória", "VILA VELHA" e "Vila Velha") dentro de cada grupo
+    (UF para cidade; UF + cidade para bairro). Entre as variantes, vence a que tem acento; empatando, a
+    mais frequente. Devolve quantos registros mudaram."""
+    variantes: dict[tuple, dict[str, int]] = {}
+    for r in registros:
+        v = r.get(campo)
+        if not v or not isinstance(v, str):
+            continue
+        chave = (*chave_grupo(r), sem_acentos(v).lower().strip())
+        grupo = variantes.setdefault(chave, {})
+        grupo[v.strip()] = grupo.get(v.strip(), 0) + 1
+    escolha = {}
+    for chave, grupo in variantes.items():
+        if len(grupo) > 1:
+            escolha[chave] = max(grupo.items(), key=lambda it: (any(ord(ch) > 127 for ch in it[0]), it[0] != it[0].upper(), it[1]))[0]
+    n = 0
+    for r in registros:
+        v = r.get(campo)
+        if not v or not isinstance(v, str):
+            continue
+        alvo = escolha.get((*chave_grupo(r), sem_acentos(v).lower().strip()))
+        if alvo and alvo != v:
+            r[campo] = alvo
+            n += 1
+    return n
+
+
 def titulo(s: str | None) -> str | None:
     """'VILA VELHA' -> 'Vila Velha' (mantém preposições minúsculas)."""
     if not s:

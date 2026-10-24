@@ -22,7 +22,7 @@ from .dedupe import deduplicar
 from .extract_regex import extrair_tudo
 from .geocode import Geocodificador
 from .http_client import cliente_do_config
-from .schema import CAMPOS, completar, preencher_derivados
+from .schema import CAMPOS, completar, normalizar_grafias, preencher_derivados, sem_acentos
 from .sources import REGISTRO
 
 log = logging.getLogger("coletor")
@@ -209,6 +209,11 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
             mantidos.append(velho)
     antes = len(registros) + len(mantidos)
     registros = deduplicar(registros + mantidos, config.get("prioridade_fontes", {}))
+    # grafias de cidade/bairro unificadas entre fontes ("Vitoria" da Caixa e "Vitória" dos leiloeiros)
+    n_cid = normalizar_grafias(registros, "cidade", lambda r: (r.get("uf"),))
+    n_bai = normalizar_grafias(registros, "bairro", lambda r: (r.get("uf"), sem_acentos(r.get("cidade") or "").lower()))
+    if n_cid or n_bai:
+        log.info("grafias unificadas: %d cidades, %d bairros", n_cid, n_bai)
     log.info("deduplicação: %d -> %d (%d mantidos de fontes não coletadas)", antes, len(registros), len(mantidos))
 
     # 4. histórico (compara com a base anterior); um registro absorvido como duplicata de outro

@@ -76,3 +76,12 @@ def test_titulo():
     assert titulo("VILA VELHA") == "Vila Velha"
     assert titulo("CACHOEIRO DE ITAPEMIRIM") == "Cachoeiro de Itapemirim"
     assert titulo("") == ""
+
+
+def test_normalizar_grafias_prefere_acento_e_unifica_por_uf():
+    from collector.schema import normalizar_grafias
+    regs = [{"uf": "ES", "cidade": "Vitoria"}, {"uf": "ES", "cidade": "Vitoria"}, {"uf": "ES", "cidade": "Vitória"},
+            {"uf": "ES", "cidade": "VILA VELHA"}, {"uf": "ES", "cidade": "Vila Velha"}, {"uf": "BA", "cidade": "Vitoria da Conquista"}]
+    n = normalizar_grafias(regs, "cidade", lambda r: (r.get("uf"),))
+    assert n == 3
+    assert [r["cidade"] for r in regs] == ["Vitória", "Vitória", "Vitória", "Vila Velha", "Vila Velha", "Vitoria da Conquista"]
