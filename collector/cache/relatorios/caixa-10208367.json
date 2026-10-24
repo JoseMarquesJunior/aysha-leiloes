@@ -1,21 +1,25 @@
 {
  "id": "caixa-10208367",
- "gerado_em": "2026-10-22T23:12:13",
+ "gerado_em": "2026-10-24T18:57:06",
  "modelo": "claude-opus-5",
- "documentos_lidos": 0,
+ "documentos_lidos": 1,
  "uso": {
-  "entrada": 33338,
-  "saida": 2554,
-  "buscas": 2
+  "entrada": 22269,
+  "saida": 2636,
+  "buscas": 1,
+  "campos": {
+   "entrada": 5895,
+   "saida": 287
+  }
  },
- "custo_usd": 0.2505,
+ "custo_usd": 0.1879,
  "fontes": [],
  "campos": {
   "tipo": "comercial",
-  "area_privativa_m2": 850,
-  "area_terreno_m2": 384,
+  "area_privativa_m2": 850.0,
+  "area_terreno_m2": 384.0,
   "valor_avaliacao": 2312542.36,
-  "endereco": "RUA MARILANDIA, N. 00, QD 32, LT 36",
+  "endereco": "Rua Marilândia, n. 00, QD 32, LT 36",
   "cidade": "Vila Velha",
   "comitente": "Caixa Econômica Federal",
   "uf": "ES",
