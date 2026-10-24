@@ -113,6 +113,14 @@
      crédito, link para comprar. Quem pede uma análise nova espera o robô (3 a 6 minutos). */
   async function carregarAnalise(r) {
     const corpo = document.getElementById("analise-corpo");
+    if (window.LT_EXEMPLO) {
+      // página de exemplo: o parecer é público (data/exemplo_analise.json), sem login nem crédito
+      try {
+        const d = await carregarJson("exemplo_analise.json");
+        corpo.innerHTML = renderRelatorio(d) + `<p class="chamada"><a class="btn primario btn-ia-grande" href="./">Escolher um imóvel na tabela</a> <span class="muted">Toda conta nova ganha 1 crédito: a primeira análise é grátis.</span></p>`;
+      } catch (e) { corpo.innerHTML = `<p class="muted">Exemplo indisponível (${escapar(e.message)}).</p>`; }
+      return;
+    }
     const temDoc = !!(r.url_edital || r.url_matricula);
     const semDoc = temDoc ? "" : '<p class="muted">Este imóvel não tem edital nem matrícula em PDF acessíveis; o parecer usa o anúncio e a pesquisa de mercado.</p>';
     if (!LT.urlWorker()) { corpo.innerHTML = '<p class="muted">Análise indisponível nesta instalação.</p>'; return; }
@@ -171,10 +179,11 @@
   function diasAte(iso) { if (!iso) return null; const d = Math.round((new Date(iso + "T00:00:00") - new Date(LT.hojeIso() + "T00:00:00")) / 86400000); return d; }
 
   async function iniciar() {
-    const id = lerQuery().id;
+    const exemplo = window.LT_EXEMPLO || null;  // exemplo-analise.html: ficha real de um imóvel com o parecer aberto
+    const id = exemplo ? exemplo.id : lerQuery().id;
     const el = document.getElementById("detalhe");
     if (!id) { el.innerHTML = '<p>Informe um imóvel: <code>imovel.html?id=…</code></p>'; return; }
-    const ufLink = lerQuery().uf;  // a tabela passa a UF no link: com a base dividida, carrega só esse arquivo
+    const ufLink = exemplo ? exemplo.uf : lerQuery().uf;  // a tabela passa a UF no link: com a base dividida, carrega só esse arquivo
     const [base, historico] = await Promise.all([carregarImoveis(ufLink ? [ufLink] : null), carregarJson("historico.json").catch(() => ({ eventos: [] }))]);
     let r = base.imoveis.find(x => x.id === id);
     if (!r && base.meta.dividido_por_uf) {
@@ -192,7 +201,8 @@
     const dias = diasAte(r.data_leilao);
     const area = areaRef(r);
 
-    let html = `<h2>${escapar(tipo)} em ${escapar([r.bairro, r.cidade].filter(Boolean).join(", ") || TRACO)}${r.uf ? "/" + escapar(r.uf) : ""}</h2>
+    let html = exemplo ? `<div class="aviso exemplo-aviso"><b>Exemplo público.</b> Esta é a ficha real de um imóvel da base, com a análise com IA aberta para você ver o que recebe ao pedir uma análise. Nos demais imóveis o parecer aparece na mesma seção depois do pedido. <a href="imovel.html?id=${encodeURIComponent(r.id)}&uf=${escapar(r.uf || "")}">Abrir a ficha normal deste imóvel →</a></div>` : "";
+    html += `<h2>${escapar(tipo)} em ${escapar([r.bairro, r.cidade].filter(Boolean).join(", ") || TRACO)}${r.uf ? "/" + escapar(r.uf) : ""}</h2>
       <div class="sub">${escapar(r.endereco || "endereço não informado")} · ${escapar(nomeFonte(r.fonte))}${r.leiloeiro ? " · " + escapar(r.leiloeiro) : ""}${r.ativo === false ? ' · <b class="v-nao">não aparece mais na fonte</b>' : ""}</div>`;
     if (r.ativo === false) html += '<div class="aviso">Este imóvel saiu da fonte (vendido, arrematado ou retirado). Fica aqui por até 90 dias para consulta do histórico.</div>';
     html += `<div class="kpis">

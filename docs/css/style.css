@@ -232,6 +232,15 @@ table.simples th, table.simples td { border-bottom: 1px solid var(--border); pad
 .btn.perigo { color: var(--bad); border-color: var(--bad); }
 .btn.perigo:hover { background: var(--bad); color: #fff; }
 
+/* ---------- administração ---------- */
+.admin-busca { display: flex; gap: 8px; margin: 8px 0; max-width: 480px; }
+.admin-busca input { flex: 1; border: 1px solid var(--border-forte); border-radius: var(--raio); padding: 6px 9px; background: var(--panel); color: var(--text); }
+.admin-creditos { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin: 8px 0 16px; }
+.admin-creditos label { display: flex; flex-direction: column; gap: 3px; font-size: .8rem; color: var(--muted); }
+.admin-creditos input { border: 1px solid var(--border-forte); border-radius: var(--raio); padding: 6px 9px; background: var(--panel); color: var(--text); }
+.admin table.simples td.num, .admin table.simples th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.exemplo-aviso { margin: 0 0 10px; }
+
 /* ---------- acessibilidade ---------- */
 .skip { position: absolute; left: -999px; top: 8px; z-index: 100; background: var(--accent); color: #fff; padding: 8px 12px; border-radius: var(--raio); }
 .skip:focus { left: 8px; }

@@ -4,40 +4,44 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Exemplo de análise com IA — Aysha Leilões</title>
-<meta name="description" content="Um parecer real gerado pela IA do Aysha Leilões para um imóvel em leilão: resumo do lote, conta no lance mínimo, referência de mercado, sinais vermelhos e veredito.">
+<meta name="description" content="Ficha real de um imóvel em leilão com o parecer da IA aberto: resumo do lote, conta no lance mínimo, referência de mercado, sinais vermelhos e veredito.">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://aysha.leiloes.workers.dev/exemplo-analise.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Aysha Leilões">
 <meta property="og:title" content="Exemplo de análise com IA de um imóvel em leilão">
-<meta property="og:description" content="Parecer real: resumo do lote, conta no lance mínimo, referência de mercado, sinais vermelhos e veredito. A primeira análise é grátis.">
+<meta property="og:description" content="Ficha real com o parecer aberto: resumo do lote, conta no lance mínimo, referência de mercado, sinais vermelhos e veredito. A primeira análise é grátis.">
 <meta property="og:url" content="https://aysha.leiloes.workers.dev/exemplo-analise.html">
 <meta property="og:image" content="https://aysha.leiloes.workers.dev/og.png">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Exemplo de análise com IA de um imóvel em leilão">
-<meta name="twitter:description" content="Parecer real: resumo do lote, conta no lance mínimo, referência de mercado, sinais vermelhos e veredito.">
+<meta name="twitter:description" content="Ficha real com o parecer aberto: resumo do lote, conta no lance mínimo, referência de mercado, sinais vermelhos e veredito.">
 <meta name="twitter:image" content="https://aysha.leiloes.workers.dev/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b5fff'/%3E%3Cpath d='M8 9h16v3H8zm0 5.5h16v3H8zM8 20h10v3H8z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<a class="skip" href="#exemplo">Ir para o conteúdo</a>
+<a class="skip" href="#detalhe">Ir para o conteúdo</a>
 <header class="topo">
   <div class="linha1">
     <h1><a href="./">Aysha Leilões</a></h1>
-    <div class="resumo"><a href="./">← voltar à tabela</a></div>
+    <div class="resumo"><a href="./" id="voltar">← voltar à tabela</a></div>
     <nav><a href="conta.html" id="nav-conta">Minha conta</a><a href="sobre.html">Sobre, fontes e avisos</a></nav>
   </div>
 </header>
-<main class="detalhe exemplo" id="exemplo">
+<main class="detalhe" id="detalhe">
   <p class="muted">carregando…</p>
 </main>
 <footer>
-  <p><strong>Aviso.</strong> Agregador independente, sem vínculo com a Caixa, o Banestes, leiloeiros, tribunais ou qualquer fonte listada. Nada aqui é assessoria jurídica ou recomendação de investimento.</p>
+  <p><strong>Aviso.</strong> Agregador independente, sem vínculo com a Caixa, o Banestes, leiloeiros, tribunais ou qualquer fonte listada. Dados extraídos automaticamente, sujeitos a erros e desatualização; confira o anúncio e o edital originais. A extração por IA é apoio e não substitui a leitura do edital. Nada aqui é assessoria jurídica ou recomendação de investimento.</p>
+  <p>Mapa © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a>.</p>
 </footer>
+<script>window.LT_EXEMPLO = { id: "suedpeter-3464", uf: "ES" };</script>
+<script src="vendor/leaflet/leaflet.js"></script>
 <script src="js/config.js"></script>
 <script src="js/common.js"></script>
-<script src="js/exemplo.js"></script>
+<script src="js/detalhe.js"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 
   function reais(centavos) { return "R$ " + (centavos / 100).toFixed(2).replace(".", ","); }
   const ORIGEM = { gratis: "1 crédito (grátis)", credito: "1 crédito", cortesia: "cortesia" };
-  const STATUS_PEDIDO = { criado: "aguardando pagamento", pago: "pago", cancelado: "cancelado" };
+  const STATUS_PEDIDO = { criado: "aguardando pagamento", pago: "pago", cancelado: "cancelado", cortesia: "ajuste pelo mantenedor" };
 
   async function entrarComToken(token) {
     el.innerHTML = '<p class="muted">entrando…</p>';

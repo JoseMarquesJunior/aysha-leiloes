@@ -10,6 +10,8 @@ SITE = "https://aysha.leiloes.workers.dev"
 ORIGENS = "https://aysha.leiloes.workers.dev,https://josemarquesjunior.github.io,http://localhost:8791"
 # e-mail que recebe os alertas do robô (custo do dia acima do teto); vazio = EMAIL_REMETENTE
 ALERTA_EMAIL = ""
+# contas (separadas por vírgula) que podem abrir admin.html: usuários, créditos, pedidos, relatórios
+ADMIN_EMAILS = "jmarques.oliveirajunior@gmail.com"
 LIMITE_DIA = "100"
 EMAIL_REMETENTE = "jmarques.oliveirajunior@gmail.com"
 NOME_REMETENTE = "Aysha Leilões"

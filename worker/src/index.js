@@ -11,6 +11,7 @@
  *   POST /auth/sair_todos                      -> encerra todas as sessões do usuário
  *   POST /conta/apagar                         -> apaga a conta (LGPD)
  *   POST /interno/alerta    {assunto, texto}   -> o robô avisa o mantenedor por e-mail (header X-Interno)
+ *   GET  /admin/resumo|usuarios|pedidos|relatorios, POST /admin/creditos -> só para ADMIN_EMAILS (sessão normal)
  *   GET  /conta                                -> saldo, análises liberadas, compras (autenticado)
  *   POST /analise           {id}               -> libera (grátis ou 1 crédito) e devolve o relatório, ou dispara a geração
  *   GET  /relatorio/:id                        -> relatório, se o usuário tem acesso
@@ -302,6 +303,65 @@ async function lerRelatorioInterno(request, id, env, h) {
   return r ? json(relatorioSaida(r), 200, h) : json({ erro: "não existe" }, 404, h);
 }
 
+// ---------------------------------------------------------------- administração -------
+function ehAdmin(usuario, env) {
+  return (env.ADMIN_EMAILS || "").split(",").map(s => s.trim().toLowerCase()).filter(Boolean).includes(usuario.email.toLowerCase());
+}
+async function adminResumo(env, h) {
+  const um = sql => env.DB.prepare(sql).first();
+  const semana = new Date(Date.now() - 7 * 86400000).toISOString();
+  const [u, u7, p, r, a, a7, pend] = await Promise.all([
+    um("SELECT COUNT(*) n, COALESCE(SUM(creditos), 0) c FROM usuarios"),
+    env.DB.prepare("SELECT COUNT(*) n FROM usuarios WHERE criado_em >= ?").bind(semana).first(),
+    um("SELECT COUNT(*) n, COALESCE(SUM(valor_centavos), 0) t FROM pedidos WHERE status = 'pago'"),
+    um("SELECT COUNT(*) n, COALESCE(SUM(custo_usd), 0) c FROM relatorios"),
+    um("SELECT COUNT(*) n FROM acessos"),
+    env.DB.prepare("SELECT COUNT(*) n FROM acessos WHERE liberado_em >= ?").bind(semana).first(),
+    um("SELECT COUNT(*) n FROM analises_pendentes"),
+  ]);
+  return json({ usuarios: u.n, usuarios_7d: u7.n, creditos_em_circulacao: u.c, pedidos_pagos: p.n, receita_centavos: p.t,
+                relatorios: r.n, custo_usd: r.c, acessos: a.n, acessos_7d: a7.n, pendentes: pend.n }, 200, h);
+}
+async function adminUsuarios(url, env, h) {
+  const q = (url.searchParams.get("q") || "").slice(0, 80);
+  const total = (await env.DB.prepare("SELECT COUNT(*) n FROM usuarios WHERE email LIKE ?").bind(`%${q}%`).first()).n;
+  const rows = (await env.DB.prepare(
+    `SELECT u.id, u.email, u.criado_em, u.ultimo_login, u.creditos,
+            (SELECT COUNT(*) FROM acessos a WHERE a.usuario_id = u.id) analises,
+            (SELECT COUNT(*) FROM pedidos p WHERE p.usuario_id = u.id AND p.status = 'pago') compras,
+            (SELECT COALESCE(SUM(valor_centavos), 0) FROM pedidos p WHERE p.usuario_id = u.id AND p.status = 'pago') pago
+     FROM usuarios u WHERE u.email LIKE ? ORDER BY u.criado_em DESC LIMIT 300`).bind(`%${q}%`).all()).results;
+  return json({ total, usuarios: rows }, 200, h);
+}
+async function adminPedidos(env, h) {
+  const rows = (await env.DB.prepare(
+    "SELECT p.id, p.pacote, p.creditos, p.valor_centavos, p.status, p.mp_payment_id, p.criado_em, p.pago_em, u.email FROM pedidos p LEFT JOIN usuarios u ON u.id = p.usuario_id ORDER BY p.criado_em DESC LIMIT 300").all()).results;
+  return json({ pedidos: rows }, 200, h);
+}
+async function adminRelatorios(env, h) {
+  const rows = (await env.DB.prepare(
+    "SELECT r.id_imovel, r.gerado_em, r.modelo, r.custo_usd, r.documentos_lidos, (SELECT COUNT(*) FROM acessos a WHERE a.id_imovel = r.id_imovel) acessos FROM relatorios r ORDER BY r.gerado_em DESC LIMIT 300").all()).results;
+  const pendentes = (await env.DB.prepare(
+    "SELECT p.id_imovel, p.pedido_em, u.email FROM analises_pendentes p LEFT JOIN usuarios u ON u.id = p.usuario_id ORDER BY p.pedido_em DESC").all()).results;
+  return json({ relatorios: rows, pendentes }, 200, h);
+}
+/* Ajuste manual de créditos (cortesia, reembolso, teste). Fica registrado como pedido com status 'cortesia'. */
+async function adminCreditos(request, admin, env, h) {
+  const d = await corpo(request);
+  const email = String(d.email || "").trim().toLowerCase();
+  const delta = Number.isInteger(d.delta) ? d.delta : parseInt(d.delta, 10);
+  if (!EMAIL_OK.test(email) || !Number.isInteger(delta) || delta === 0 || Math.abs(delta) > 1000) return json({ erro: "e-mail ou quantidade inválidos" }, 400, h);
+  const u = await env.DB.prepare("SELECT id, creditos FROM usuarios WHERE email = ?").bind(email).first();
+  if (!u) return json({ erro: "usuário não encontrado" }, 404, h);
+  await env.DB.batch([
+    env.DB.prepare("UPDATE usuarios SET creditos = MAX(0, creditos + ?) WHERE id = ?").bind(delta, u.id),
+    env.DB.prepare("INSERT INTO pedidos (id, usuario_id, pacote, creditos, valor_centavos, status, mp_preference_id, criado_em, pago_em) VALUES (?, ?, ?, ?, 0, 'cortesia', ?, ?, ?)")
+      .bind(crypto.randomUUID(), u.id, `ajuste: ${String(d.motivo || "").slice(0, 80) || "sem motivo"} (${admin.email})`, delta, null, agora(), agora()),
+  ]);
+  const novo = await env.DB.prepare("SELECT creditos FROM usuarios WHERE id = ?").bind(u.id).first();
+  return json({ ok: true, creditos: novo.creditos }, 200, h);
+}
+
 // ---------------------------------------------------------------- Mercado Pago --------
 async function criarPagamento(request, usuario, env, h) {
   if (!env.MP_ACCESS_TOKEN) return json({ erro: "pagamento ainda não configurado" }, 503, h);
@@ -441,6 +501,14 @@ export default {
       if (m === "POST" && rota === "/analise") return analisar(request, usuario, env, h);
       if (m === "GET" && rota.startsWith("/relatorio/")) return obterRelatorio(usuario, decodeURIComponent(rota.slice(11)), env, h);
       if (m === "POST" && rota === "/pagamento/criar") return criarPagamento(request, usuario, env, h);
+      if (rota.startsWith("/admin/")) {
+        if (!ehAdmin(usuario, env)) return json({ erro: "sem acesso" }, 403, h);
+        if (m === "GET" && rota === "/admin/resumo") return adminResumo(env, h);
+        if (m === "GET" && rota === "/admin/usuarios") return adminUsuarios(url, env, h);
+        if (m === "GET" && rota === "/admin/pedidos") return adminPedidos(env, h);
+        if (m === "GET" && rota === "/admin/relatorios") return adminRelatorios(env, h);
+        if (m === "POST" && rota === "/admin/creditos") return adminCreditos(request, usuario, env, h);
+      }
       if (m === "GET" && rota.startsWith("/pagamento/estado/")) return estadoPedido(usuario, rota.slice(18), env, h);
       return json({ erro: "rota desconhecida" }, 404, h);
     } catch (e) {
