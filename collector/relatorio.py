@@ -443,7 +443,11 @@ def gerar(r: dict, docs, client, modelo: str = MODELO) -> dict:
         if msg.stop_reason == "refusal":
             texto_final += "\n\n_O modelo recusou parte da análise (stop_reason=refusal)._"
         break
-    markdown = anonimizar(texto_final.strip(), protegidos=[r.get("cidade"), r.get("bairro"), r.get("leiloeiro"), r.get("comitente"), r.get("endereco")])
+    # nomes do próprio registro e termos do ramo que o filtro de nomes confundiria com pessoa
+    protegidos = [r.get("cidade"), r.get("bairro"), r.get("leiloeiro"), r.get("comitente"), r.get("endereco"), r.get("modalidade"), r.get("natureza"),
+                  "Venda Direta Online", "Venda Direta", "Venda Online", "Licitação Aberta", "Leilão SFI", "Leilão Online", "Primeira Praça", "Segunda Praça",
+                  "Caixa Econômica Federal", "Banco do Brasil", "Justiça Federal", "Vara Federal", "Vara Cível"]
+    markdown = anonimizar(texto_final.strip(), protegidos=protegidos)
     # o modelo às vezes emenda o texto no título ("## Referência de mercadoO preço..."): separa
     for titulo in ("Resumo do lote", "Conta no lance mínimo", "Referência de mercado", "Sinais vermelhos", "Veredito"):
         markdown = re.sub(rf"^(## {re.escape(titulo)})(?=\S)", r"\1\n", markdown, flags=re.M)
