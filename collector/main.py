@@ -22,7 +22,7 @@ from .dedupe import deduplicar
 from .extract_regex import extrair_tudo
 from .geocode import Geocodificador
 from .http_client import cliente_do_config
-from .schema import CAMPOS, completar, normalizar_grafias, preencher_derivados, sem_acentos
+from .schema import CAMPOS, canonizar_cidades, completar, normalizar_grafias, preencher_derivados, sem_acentos
 from .sources import REGISTRO
 
 log = logging.getLogger("coletor")
@@ -130,7 +130,12 @@ def _compacto(r: dict) -> dict:
     return {k: v for k, v in r.items() if v is not None and not (k == "outras_fontes" and not v)}
 
 
-def gravar_saida(pasta: Path, registros: list[dict], config: dict, status: dict, hoje: str) -> list[str]:
+def gravar_saida(pasta: Path, registros: list[dict], config: dict, status: dict, hoje: str, completa: bool = True) -> list[str]:
+    # uma execução parcial (--fontes, como a coleta local do Colodete) não avança a data da base: o site
+    # mostra "atualizado em <data da última coleta completa>"
+    if not completa:
+        anterior = _ler_json(pasta / "meta.json", {}).get("data_coleta")
+        hoje = anterior or hoje
     registros.sort(key=lambda r: (r.get("uf") or "", r.get("cidade") or "", r.get("id") or ""))
     limite = config["saida"].get("dividir_por_uf_acima_de_mb", 3) * 1024 * 1024
     conteudo = json.dumps([_compacto(r) for r in registros], ensure_ascii=False, separators=(",", ":"))
@@ -210,7 +215,8 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
     antes = len(registros) + len(mantidos)
     registros = deduplicar(registros + mantidos, config.get("prioridade_fontes", {}))
     # grafias de cidade/bairro unificadas entre fontes ("Vitoria" da Caixa e "Vitória" dos leiloeiros)
-    n_cid = normalizar_grafias(registros, "cidade", lambda r: (r.get("uf"),))
+    n_ibge = canonizar_cidades(registros)
+    n_cid = normalizar_grafias(registros, "cidade", lambda r: (r.get("uf"),)) + n_ibge
     n_bai = normalizar_grafias(registros, "bairro", lambda r: (r.get("uf"), sem_acentos(r.get("cidade") or "").lower()))
     if n_cid or n_bai:
         log.info("grafias unificadas: %d cidades, %d bairros", n_cid, n_bai)
@@ -271,7 +277,7 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
         log.exception("etapa de IA falhou")
 
     # 8. saída
-    gravar_saida(pasta, registros, config, status, hoje)
+    gravar_saida(pasta, registros, config, status, hoje, completa=apenas is None)
 
     # 9. páginas estáticas por UF/cidade, sitemap e mapas de pré-visualização de links
     try:

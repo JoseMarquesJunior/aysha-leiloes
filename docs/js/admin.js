@@ -74,7 +74,10 @@
     const linhas = [];
     for (const [nome, s] of Object.entries(status)) {
       if (nome.startsWith("_")) continue;
-      const estado = !s.ativa ? "desativada" : (meta && s.ultima_coleta_ok === meta.data_coleta ? "ok" : "falhou na última coleta");
+      // "ok" = coletou com sucesso nos últimos 2 dias (a coleta local parcial e os atrasos do agendamento
+      // não contam como falha); "sem coleta recente" = mais de 2 dias sem sucesso
+      const dias = s.ultima_coleta_ok ? Math.round((Date.now() - Date.parse(s.ultima_coleta_ok + "T12:00:00")) / 86400000) : null;
+      const estado = !s.ativa ? "desativada" : (dias !== null && dias <= 2 ? "ok" : `sem coleta recente${dias !== null ? ` (${dias} dias)` : ""}`);
       const cls = estado === "ok" ? "v-sim" : (estado === "desativada" ? "muted" : "v-nao");
       linhas.push(`<tr><td>${escapar(nomeFonte(nome))}</td><td>${s.site ? `<a href="${escapar(s.site)}" rel="noopener" target="_blank">${escapar(s.site.replace(/^https?:\/\/(www\.)?/, ""))}</a>` : TRACO}</td>
         <td class="${cls}">${estado}</td><td>${data(s.ultima_coleta_ok)}</td><td class="num">${s.registros ?? TRACO}</td><td class="muted">${escapar(s.ultimo_erro || TRACO)}</td></tr>`);

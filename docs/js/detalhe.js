@@ -8,17 +8,16 @@
     ["Imóvel", ["tipo", "area_privativa_m2", "area_terreno_m2", "area_total_m2", "quartos", "vagas", "matricula"]],
     ["Condições", ["ocupado", "aceita_financiamento", "aceita_fgts", "aceita_parcelamento", "debitos_iptu_por_conta_de", "debitos_condominio_por_conta_de"]],
     ["Leilão", ["natureza", "modalidade", "data_leilao", "data_segunda_praca", "leiloeiro", "comitente", "numero_processo"]],
-    ["Localização", ["endereco", "bairro", "cidade", "uf", "geo_precisao"]],
-    ["Registro na base", ["id", "fonte", "primeira_vez_visto", "ultima_vez_visto", "ativo", "lat", "lng"]],
+    ["Localização", ["endereco", "bairro", "cidade", "uf"]],
   ];
+  const TECNICOS = ["id", "fonte", "primeira_vez_visto", "ultima_vez_visto", "ativo", "lat", "lng", "geo_precisao"];
 
   function bloco(titulo, html, extra) { return `<div class="bloco ${extra || ""}"><h3>${escapar(titulo)}</h3>${html}</div>`; }
   function campos(r, lista) {
     return `<dl class="campos">${lista.map(c => `<dt>${escapar(ROTULOS[c] || c)}</dt><dd>${escapar(formatarCampo(c, r[c]))}</dd>`).join("")}</dl>`;
   }
   function link(url, rotulo, classe) {
-    return url ? `<a class="btn ${classe || ""}" href="${escapar(url)}" target="_blank" rel="noopener">${escapar(rotulo)} ↗</a>`
-      : `<span class="btn" style="opacity:.5;cursor:default" title="Não disponível nesta fonte">${escapar(rotulo)}: ${TRACO}</span>`;
+    return url ? `<a class="btn ${classe || ""}" href="${escapar(url)}" target="_blank" rel="noopener">${escapar(rotulo)} ↗</a>` : "";
   }
   function kpi(rotulo, valor, sub, classe) { return `<div class="kpi"><div class="r">${escapar(rotulo)}</div><div class="v ${classe || ""}">${valor}</div>${sub ? `<div class="s">${sub}</div>` : ""}</div>`; }
 
@@ -226,6 +225,7 @@
     html += bloco("Descrição original (da fonte)", `<div class="descricao">${escapar(r.descricao_original || TRACO)}</div>`, "largo");
     html += bloco("Evolução do lance mínimo", `<div class="grafico">${graficoSvg(r, eventos)}</div>`);
     html += bloco("Histórico na base", eventos.length ? `<ul class="eventos">${eventos.map(eventoHtml).join("")}</ul>` : '<p class="muted">Sem eventos registrados.</p>');
+    html += `<details class="tecnico"><summary>Dados técnicos do registro</summary>${campos(r, TECNICOS)}</details>`;
     html += "</div>";
     el.innerHTML = html;
     montarMapa(r);

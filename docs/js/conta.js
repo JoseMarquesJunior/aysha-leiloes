@@ -98,8 +98,18 @@
 
   function mostrarLogin() {
     el.innerHTML = `<h2>Minha conta</h2>
-      <p>Com uma conta você gera análises com IA dos imóveis, guarda os relatórios e compra créditos com Pix ou cartão. Toda conta nova ganha 1 crédito: a primeira análise é grátis.</p>
-      <div id="login"></div>`;
+      <div class="conta-intro">
+        <div>
+          <p><b>Entre com o seu e-mail.</b> Sem senha: enviamos um link de acesso. Toda conta nova ganha 1 crédito, e a primeira análise com IA é grátis.</p>
+          <div id="login"></div>
+        </div>
+        <ul class="beneficios">
+          <li><b>Análise do edital e da matrícula por IA</b><span>Resumo do lote, conta no lance mínimo, referência de mercado, sinais vermelhos e veredito, em minutos. <a href="exemplo-analise.html">Veja um exemplo →</a></span></li>
+          <li><b>Seus pareceres ficam guardados</b><span>Reabrir uma análise que já é sua não gasta crédito.</span></li>
+          <li><b>Créditos sem assinatura</b><span>Pacotes a partir de R$ 14,90, Pix ou cartão pelo Mercado Pago. Os créditos não expiram.</span></li>
+          <li><b>Tabela, mapa e filtros continuam gratuitos</b><span>A conta só é necessária para as análises.</span></li>
+        </ul>
+      </div>`;
     LT.formularioLogin(document.getElementById("login"), { voltarPara: location.origin + location.pathname });
   }
 

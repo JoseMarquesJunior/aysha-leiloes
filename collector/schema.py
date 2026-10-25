@@ -95,6 +95,42 @@ def completar(r: dict, *, preencher_null_com: dict | None = None) -> dict:
     return r
 
 
+_MUNICIPIOS: dict[tuple[str, str], str] | None = None
+
+
+def _municipios() -> dict[tuple[str, str], str]:
+    """{(UF, nome sem acento em minúsculas): nome oficial do IBGE} (collector/dados/municipios_ibge.json)."""
+    global _MUNICIPIOS
+    if _MUNICIPIOS is None:
+        import json
+        from pathlib import Path
+        p = Path(__file__).resolve().parent / "dados" / "municipios_ibge.json"
+        _MUNICIPIOS = {}
+        if p.exists():
+            for uf, nomes in json.loads(p.read_text(encoding="utf-8")).items():
+                for nome in nomes:
+                    _MUNICIPIOS[(uf, sem_acentos(nome).lower())] = nome
+    return _MUNICIPIOS
+
+
+def canonizar_cidades(registros: list[dict]) -> int:
+    """Troca a grafia da cidade pela oficial do IBGE ("Sao Goncalo" → "São Gonçalo", "VILA VELHA" → "Vila Velha").
+    Cidades que não casam com o IBGE ficam como estão. Devolve quantos registros mudaram."""
+    mapa = _municipios()
+    if not mapa:
+        return 0
+    n = 0
+    for r in registros:
+        c, uf = r.get("cidade"), r.get("uf")
+        if not c or not uf or not isinstance(c, str):
+            continue
+        oficial = mapa.get((uf, sem_acentos(c).lower().strip()))
+        if oficial and oficial != c:
+            r["cidade"] = oficial
+            n += 1
+    return n
+
+
 def normalizar_grafias(registros: list[dict], campo: str, chave_grupo) -> int:
     """Unifica grafias do mesmo nome ("Vitoria" e "Vitória", "VILA VELHA" e "Vila Velha") dentro de cada grupo
     (UF para cidade; UF + cidade para bairro). Entre as variantes, vence a que tem acento; empatando, a

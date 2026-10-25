@@ -352,7 +352,7 @@
       for (const c of cols) {
         if (c.id === "ia") { tr += `<td class="cel-ia"><a class="btn-ia" href="${urlDetalhe(r)}#analise" title="Parecer detalhado gerado por IA: edital, matrícula, mercado, riscos e veredito">IA ✦</a></td>`; continue; }
         if (c.id === "sel") { tr += `<td><input type="checkbox" class="sel" data-id="${escapar(r.id)}" ${sel ? "checked" : ""} title="Selecionar para comparar (até 3)" aria-label="Selecionar para comparar"></td>`; continue; }
-        if (c.id === "link") { tr += `<td class="cel-links"><a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener" title="Abrir o anúncio no site da fonte">fonte ↗</a></td>`; continue; }
+        if (c.id === "link") { tr += `<td class="cel-links"><a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener" title="Abrir o anúncio no site de origem">anúncio ↗</a></td>`; continue; }
         if (c.id === "cidade") { tr += `<td class="cel-cidade"><a href="${urlDetalhe(r)}">${escapar(r.cidade || TRACO)}</a>${r.uf ? `<span class="muted">/${escapar(r.uf)}</span>` : ""}${marcadores(r)}</td>`; continue; }
         const v = c.valor(r);
         const conteudo = c.html ? v : escapar(nulo(v) ? TRACO : v);
@@ -369,7 +369,28 @@
     $("btn-mais").textContent = `Mostrar mais ${Math.min(resta, LOTE_LINHAS).toLocaleString("pt-BR")}`;
   }
 
-  function iconeTipo(t) { return ({ apartamento: "AP", casa: "CA", terreno: "TE", comercial: "CO", rural: "RU" })[t] || "IM"; }
+  const ICONES = {
+    apartamento: '<svg viewBox="0 0 24 24"><path d="M5 21V4h10v17M15 9h4v12M8 8h1M8 12h1M8 16h1M11 8h1M11 12h1M11 16h1"/></svg>',
+    casa: '<svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5 10v10h14V10M10 20v-6h4v6"/></svg>',
+    terreno: '<svg viewBox="0 0 24 24"><path d="M3 18l6-9 4 6 3-4 5 7zM3 21h18"/></svg>',
+    comercial: '<svg viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5M4 9v11h16V9M4 9a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0M9 20v-6h6v6"/></svg>',
+    rural: '<svg viewBox="0 0 24 24"><path d="M3 20h18M6 20v-7l6-5 6 5v7M9 20v-4h6v4M12 8V4M10 6h4"/></svg>',
+  };
+  function iconeTipo(t) { return ICONES[t] || '<svg viewBox="0 0 24 24"><path d="M4 20V6l8-3 8 3v14M9 20v-5h6v5"/></svg>'; }
+
+  /* Colunas que ficam vazias em quase toda a base carregada (ex.: FGTS, Ocupação e Leilão para a Caixa) saem
+     da tabela por padrão; a pessoa pode religar em "Colunas". Só vale quando ela nunca salvou preferência. */
+  function ocultarColunasVazias() {
+    if (localStorage.getItem("lt.colunasOcultas")) return;
+    const ativos = estado.todos.filter(r => r.ativo !== false);
+    if (ativos.length < 50) return;
+    for (const c of COLUNAS) {
+      if (c.fixa || !c.chave || ["cidade", "bairro", "tipo", "valor_minimo", "desconto_pct", "fonte"].includes(c.id)) continue;
+      let vazios = 0;
+      for (const r of ativos) if (nulo(c.chave(r))) vazios++;
+      if (vazios / ativos.length >= 0.8) estado.ocultas.add(c.id);
+    }
+  }
   function tituloCurto(r) {
     const tipo = cap(r.tipo) === TRACO ? "Imóvel" : cap(r.tipo);
     const onde = [r.bairro, r.cidade].filter(Boolean).join(", ");
@@ -401,11 +422,11 @@
             <div class="fato">Leilão<b>${data(r.data_leilao)}</b></div>
             <div class="fato">Quartos<b>${numero(r.quartos, 0)}</b></div>
             <div class="fato">Ocupação<b>${ocupado(r.ocupado)}</b></div>
-            <div class="fato">FGTS / financ.<b>${simNao(r.aceita_fgts)} / ${simNao(r.aceita_financiamento)}</b></div>
+            <div class="fato">Pagamento<b>${[r.aceita_fgts === true ? "FGTS" : null, r.aceita_financiamento === true ? "financiamento" : null, r.aceita_parcelamento === true ? "parcelado" : null].filter(Boolean).join(", ") || (r.aceita_financiamento === false ? "à vista" : TRACO)}</b></div>
           </div>
           <div class="rodape">
-            <label><input type="checkbox" class="sel" data-id="${escapar(r.id)}" ${estado.selecionados.has(r.id) ? "checked" : ""}> comparar</label>
-            <a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener">anúncio na fonte ↗</a>
+            <label title="Marque até 3 imóveis para comparar lado a lado"><input type="checkbox" class="sel" data-id="${escapar(r.id)}" ${estado.selecionados.has(r.id) ? "checked" : ""}> comparar</label>
+            <a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener">ver anúncio ↗</a>
           </div>
         </div>
       </article>`);
@@ -436,7 +457,7 @@
         ${escapar(r.endereco || TRACO)}<br>
         ${escapar(r.modalidade || TRACO)} · ${nulo(areaRef(r)) ? TRACO : numero(areaRef(r)) + " m²"} · leilão ${data(r.data_leilao)}<br>
         <span class="muted">localização: ${escapar(r.geo_precisao === "endereco" ? "endereço" : r.geo_precisao || TRACO)}</span><br>
-        <a href="${urlDetalhe(r)}">ficha completa</a> · <a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener">fonte ↗</a>`);
+        <a href="${urlDetalhe(r)}">ficha completa</a> · <a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener">ver anúncio ↗</a>`);
       pontos.push(m);
     }
     estado.cluster.addLayers(pontos);
@@ -538,18 +559,14 @@
     if (!m) { $("contador").textContent = ""; return; }
     const todasUfs = m.ufs || Object.keys(m.por_uf || {});
     const carregadas = Array.from(estado.ufsCarregadas).sort();
+    const quando = m.data_coleta === LT.hojeIso() ? "atualizado hoje" : `atualizado em ${data(m.data_coleta)}`;
     if (estado.dividido && carregadas.length && carregadas.length < todasUfs.length) {
       const n = estado.todos.filter(r => r.ativo !== false).length;
-      $("contador").textContent = `${n.toLocaleString("pt-BR")} imóveis em ${carregadas.join(", ")} (base: ${m.ativos.toLocaleString("pt-BR")} em ${todasUfs.length} estados; escolha outros no filtro UF) · coleta de ${data(m.data_coleta)}`;
+      $("contador").textContent = `${n.toLocaleString("pt-BR")} imóveis em ${carregadas.join(", ")} · ${todasUfs.length} estados no filtro UF · ${quando}`;
     } else {
-      $("contador").textContent = `${m.ativos.toLocaleString("pt-BR")} imóveis em ${todasUfs.join(", ")} · coleta de ${data(m.data_coleta)}`;
+      $("contador").textContent = `${m.ativos.toLocaleString("pt-BR")} imóveis em ${todasUfs.length} estados · ${quando}`;
     }
     const ativas = Object.entries(st).filter(([n, s]) => !n.startsWith("_") && s.ativa);
-    const ok = ativas.filter(([, s]) => s.ultima_coleta_ok === (m && m.data_coleta));
-    const falhas = ativas.filter(([n]) => !ok.some(([k]) => k === n));
-    const el = $("fontes-status");
-    el.innerHTML = `<span class="dot ${falhas.length ? "falha" : "ok"}"></span>${ativas.length} fontes${falhas.length ? `, ${falhas.length} com falha` : " ok"}`;
-    el.title = ativas.map(([n, s]) => `${nomeFonte(n)}: ${ok.some(([k]) => k === n) ? "ok" : "falhou (" + (s.ultimo_erro || "?") + ")"}`).join("\n");
     $("rodape-fontes").innerHTML = ativas.filter(([, s]) => s.site).map(([n, s]) => `<a href="${escapar(s.site)}" rel="noopener" target="_blank">${escapar(nomeFonte(n))}</a>`).join(", ") || "Caixa";
     const cfg = window.LT_CONFIG || {};
     if (cfg.urlApoio) {
@@ -673,6 +690,7 @@
     }
     indexarHistorico();
     renderStatus();
+    ocultarColunasVazias();
     document.querySelectorAll(".ms").forEach(montarMs);
     montarOpcoes();
     if (ufInicial && estado.ufsCarregadas.has(ufInicial)) {

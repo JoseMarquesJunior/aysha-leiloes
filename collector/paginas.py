@@ -94,7 +94,7 @@ def _pagina(titulo: str, descricao: str, corpo: str, prefixo: str, canonico: str
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
 <header class="topo">
   <div class="linha1">
-    <h1><a href="{prefixo}">Aysha Leilões</a></h1>
+    <h1><a href="{prefixo}"><img class="logo" src="{prefixo}img/logo.svg" alt="">Aysha Leilões</a></h1>
     <div class="resumo"><a href="{prefixo}">← tabela com filtros</a></div>
     <nav><a href="{prefixo}conta.html">Minha conta</a><a href="{prefixo}sobre.html">Como funciona e preços</a></nav>
   </div>
