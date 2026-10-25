@@ -133,7 +133,7 @@
     try { r1 = await LT.api(`/relatorio/${encodeURIComponent(r.id)}`); }
     catch (e) { corpo.innerHTML = '<p class="muted">Serviço de análises fora do ar no momento. Tente de novo em alguns minutos.</p>'; return; }
     if (r1.status === 401) { carregarAnalise(r); return; }  // sessão expirada: volta ao login
-    if (r1.ok && r1.dados.status === "pronto") { corpo.innerHTML = renderRelatorio(r1.dados.relatorio); return; }
+    if (r1.ok && r1.dados.status === "pronto") { mostrarRelatorio(corpo, r1.dados.relatorio, r); return; }
     if (r1.status === 202 && r1.dados.status === "em_andamento") { esperarRelatorio(r, corpo, r1.dados.pedido_em); return; }
     // sem acesso ainda: mostra o que a análise vai custar
     const conta = await LT.api("/conta").catch(() => ({ ok: false, dados: {} }));
@@ -152,7 +152,7 @@
       if (r2.status === 402) { location.href = "conta.html#creditos"; return; }
       if (!r2.ok && r2.status !== 202) { btn.disabled = false; btn.textContent = "Tentar de novo"; alert("Não foi possível pedir a análise agora: " + (r2.dados.erro || `HTTP ${r2.status}`)); return; }
       LT.evento("analise-credito");
-      if (r2.dados.status === "pronto") { corpo.innerHTML = renderRelatorio(r2.dados.relatorio); return; }
+      if (r2.dados.status === "pronto") { mostrarRelatorio(corpo, r2.dados.relatorio, r); return; }
       if (r2.dados.status === "fila") { corpo.innerHTML = `<p class="aviso">${escapar(r2.dados.mensagem)}</p>`; return; }
       esperarRelatorio(r, corpo, null);
     });
@@ -168,7 +168,7 @@
       btn.textContent = `Gerando a análise… ${min}:${String(seg).padStart(2, "0")}`;
       await new Promise(res => setTimeout(res, 20000));
       const x = await LT.api(`/relatorio/${encodeURIComponent(r.id)}`).catch(() => null);
-      if (x && x.ok && x.dados.status === "pronto") { corpo.innerHTML = renderRelatorio(x.dados.relatorio); return; }
+      if (x && x.ok && x.dados.status === "pronto") { mostrarRelatorio(corpo, x.dados.relatorio, r); return; }
     }
     btn.disabled = false; btn.textContent = "Verificar de novo";
     btn.addEventListener("click", () => carregarAnalise(r));
@@ -199,6 +199,46 @@
   }
 
   function areaRef(r) { return r.tipo === "terreno" ? (r.area_terreno_m2 ?? r.area_privativa_m2) : (r.area_privativa_m2 ?? r.area_terreno_m2); }
+  function tipoDe(r) { return cap(r.tipo) === TRACO ? "Imóvel" : cap(r.tipo); }
+  function cabecalhoHtml(r) {
+    return `<h2>${escapar(tipoDe(r))} em ${escapar([r.bairro, r.cidade].filter(Boolean).join(", ") || TRACO)}${r.uf ? "/" + escapar(r.uf) : ""}</h2>
+      <div class="sub">${escapar(r.endereco || "endereço não informado")} · ${escapar(nomeFonte(r.fonte))}${r.leiloeiro ? " · " + escapar(r.leiloeiro) : ""}${r.ativo === false ? ' · <b class="v-nao">não aparece mais na fonte</b>' : ""}</div>`;
+  }
+  function kpisHtml(r) {
+    const dias = diasAte(r.data_leilao), area = areaRef(r);
+    return `${kpi("Lance mínimo / preço", moeda(r.valor_minimo), r.modalidade ? escapar(r.modalidade) : "")}
+      ${kpi("Avaliação", moeda(r.valor_avaliacao))}
+      ${kpi("Desconto", pct(r.desconto_pct), "", nulo(r.desconto_pct) ? "" : (r.desconto_pct >= 0 ? "ok" : "bad"))}
+      ${kpi("R$/m²", nulo(r.valor_m2) ? TRACO : numero(r.valor_m2, 0), nulo(area) ? "" : `${numero(area)} m² ${r.tipo === "terreno" ? "de terreno" : "privativos"}`)}
+      ${kpi("Leilão", data(r.data_leilao), dias === null ? "" : dias < 0 ? "já passou" : dias === 0 ? "hoje" : `em ${dias} dia${dias > 1 ? "s" : ""}`, dias !== null && dias >= 0 && dias <= 7 ? "bad" : "")}
+      ${kpi("Ocupação", LT.ocupado(r.ocupado), r.aceita_fgts === true ? "aceita FGTS" : r.aceita_financiamento === true ? "aceita financiamento" : "")}`;
+  }
+  /* Campos estruturados que vieram com o parecer: preenchem na hora o que estava vazio na ficha (a base do
+     site recebe os mesmos campos pelo robô minutos depois). Nunca sobrescreve o que a fonte informou. */
+  function aplicarCamposNaFicha(r, camposIa) {
+    if (!camposIa || typeof camposIa !== "object") return;
+    const preenchidos = [];
+    for (const [k, v] of Object.entries(camposIa)) {
+      if (!(k in r) || v === null || v === undefined || v === "") continue;
+      if (r[k] === null || r[k] === undefined) { r[k] = v; preenchidos.push(k); }
+    }
+    if (!preenchidos.length) return;
+    const area = r.tipo === "terreno" ? r.area_terreno_m2 : r.area_privativa_m2;
+    if (nulo(r.valor_m2) && r.valor_minimo && area) r.valor_m2 = Math.round(r.valor_minimo / area * 100) / 100;
+    if (nulo(r.desconto_pct) && r.valor_avaliacao && r.valor_minimo !== null) r.desconto_pct = Math.round((1 - r.valor_minimo / r.valor_avaliacao) * 10000) / 100;
+    const cab = document.getElementById("cabecalho-ficha"), kp = document.getElementById("kpis");
+    if (cab) cab.innerHTML = cabecalhoHtml(r);
+    if (kp) kp.innerHTML = kpisHtml(r);
+    GRUPOS.forEach(([t, lista], i) => {
+      const g = document.getElementById(`grupo-${i}`);
+      if (g && lista.some(c => preenchidos.includes(c))) g.innerHTML = `<h3>${escapar(t)}</h3>${campos(r, lista)}<p class="muted" style="font-size:.75rem;margin:6px 0 0">✦ ${lista.filter(c => preenchidos.includes(c)).map(c => ROTULOS[c] || c).join(", ")}: preenchido pela análise com IA</p>`;
+    });
+    document.title = `${tipoDe(r)} em ${r.bairro ? r.bairro + ", " : ""}${r.cidade || ""} · ${moeda(r.valor_minimo)} — Aysha Leilões`;
+  }
+  function mostrarRelatorio(corpo, rel, r) {
+    corpo.innerHTML = renderRelatorio(rel);
+    if (r) aplicarCamposNaFicha(r, rel.campos);
+  }
   function diasAte(iso) { if (!iso) return null; const d = Math.round((new Date(iso + "T00:00:00") - new Date(LT.hojeIso() + "T00:00:00")) / 86400000); return d; }
 
   async function iniciar() {
@@ -226,21 +266,13 @@
     const area = areaRef(r);
 
     let html = exemplo ? `<div class="aviso exemplo-aviso"><b>Exemplo público.</b> Esta é a ficha real de um imóvel da base, com a análise com IA aberta para você ver o que recebe ao pedir uma análise. Nos demais imóveis o parecer aparece na mesma seção depois do pedido. <a href="imovel.html?id=${encodeURIComponent(r.id)}&uf=${escapar(r.uf || "")}">Abrir a ficha normal deste imóvel →</a></div>` : "";
-    html += `<h2>${escapar(tipo)} em ${escapar([r.bairro, r.cidade].filter(Boolean).join(", ") || TRACO)}${r.uf ? "/" + escapar(r.uf) : ""}</h2>
-      <div class="sub">${escapar(r.endereco || "endereço não informado")} · ${escapar(nomeFonte(r.fonte))}${r.leiloeiro ? " · " + escapar(r.leiloeiro) : ""}${r.ativo === false ? ' · <b class="v-nao">não aparece mais na fonte</b>' : ""}</div>`;
+    html += `<div id="cabecalho-ficha">${cabecalhoHtml(r)}</div>`;
     if (r.ativo === false) html += '<div class="aviso">Este imóvel saiu da fonte (vendido, arrematado ou retirado). Fica aqui por até 90 dias para consulta do histórico.</div>';
-    html += `<div class="kpis">
-      ${kpi("Lance mínimo / preço", moeda(r.valor_minimo), r.modalidade ? escapar(r.modalidade) : "")}
-      ${kpi("Avaliação", moeda(r.valor_avaliacao))}
-      ${kpi("Desconto", pct(r.desconto_pct), "", nulo(r.desconto_pct) ? "" : (r.desconto_pct >= 0 ? "ok" : "bad"))}
-      ${kpi("R$/m²", nulo(r.valor_m2) ? TRACO : numero(r.valor_m2, 0), nulo(area) ? "" : `${numero(area)} m² ${r.tipo === "terreno" ? "de terreno" : "privativos"}`)}
-      ${kpi("Leilão", data(r.data_leilao), dias === null ? "" : dias < 0 ? "já passou" : dias === 0 ? "hoje" : `em ${dias} dia${dias > 1 ? "s" : ""}`, dias !== null && dias >= 0 && dias <= 7 ? "bad" : "")}
-      ${kpi("Ocupação", LT.ocupado(r.ocupado), r.aceita_fgts === true ? "aceita FGTS" : r.aceita_financiamento === true ? "aceita financiamento" : "")}
-    </div>
+    html += `<div class="kpis" id="kpis">${kpisHtml(r)}</div>
     <div class="links-principais"><a class="btn primario btn-ia-grande" href="#analise">✦ Análise com IA</a><button type="button" class="btn" id="btn-agenda" title="Guardar a data do leilão e receber lembretes por e-mail">📅 Salvar na agenda</button>${link(r.url_anuncio, "Anúncio original")}${link(r.url_edital, "Edital")}${link(r.url_matricula, "Matrícula")}<a class="btn" href="./">← voltar à tabela</a></div>`;
     html += '<div class="grade">';
     html += `<div class="bloco largo relatorio" id="analise"><h3>✦ Análise com IA</h3><div id="analise-corpo"><p class="muted">verificando se já existe um relatório…</p></div></div>`;
-    for (const [t, lista] of GRUPOS) html += bloco(t, campos(r, lista));
+    GRUPOS.forEach(([t, lista], i) => { html += `<div class="bloco" id="grupo-${i}"><h3>${escapar(t)}</h3>${campos(r, lista)}</div>`; });
     html += bloco("Onde fica", mapaHtml(r));
     html += bloco("Outras fontes com o mesmo imóvel", outrasFontesHtml(r));
     const certame = r.extracao_ia ? detalhesCertameHtml(r.extracao_ia) : "";

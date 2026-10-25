@@ -372,6 +372,34 @@ def aplicar_campos(r: dict, campos: dict) -> list[str]:
     return preenchidos
 
 
+def aplicar_na_base(id_: str, campos: dict, pasta: Path | None = None) -> list[str]:
+    """Aplica na hora os campos do parecer ao registro em docs/data/imoveis_<UF>.json (sem esperar a coleta
+    seguinte). Não mexe nas coordenadas: a geocodificação com o endereço novo fica para a coleta diária."""
+    if not campos:
+        return []
+    pasta = pasta or (RAIZ / "docs" / "data")
+    meta = json.loads((pasta / "meta.json").read_text(encoding="utf-8"))
+    for nome in meta.get("arquivos", ["imoveis.json"]):
+        p = pasta / nome
+        regs = json.loads(p.read_text(encoding="utf-8"))
+        for r in regs:
+            if r.get("id") != id_:
+                continue
+            geo = {k: r.get(k) for k in ("lat", "lng", "geo_precisao")}
+            # os arquivos são gravados sem campos null: garante as chaves antes de completar
+            for k in campos:
+                r.setdefault(k, None)
+            preenchidos = aplicar_campos(r, campos)
+            r.update({k: v for k, v in geo.items() if v is not None})
+            for k in [k for k, v in r.items() if v is None]:
+                del r[k]
+            if preenchidos:
+                p.write_text(json.dumps(regs, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+                log.info("campos aplicados na base para %s: %s", id_, ", ".join(preenchidos))
+            return preenchidos
+    return []
+
+
 def carregar_campos_guardados() -> dict[str, dict]:
     """{id: campos} de todos os relatórios já gerados (collector/cache/relatorios/*.json)."""
     saida: dict[str, dict] = {}
@@ -562,6 +590,10 @@ def gerar_e_gravar(id_: str, base: dict | None = None, forcar: bool = False) -> 
             "uso": {**res["uso"], "campos": uso_campos}, "custo_usd": custo, "fontes": res["fontes"],
             "campos": campos, "markdown": res["markdown"]}
     _guardar(item)
+    try:
+        aplicar_na_base(id_, campos)
+    except Exception:
+        log.exception("campos de %s não aplicados na base agora (a coleta diária aplica)", id_)
     _registrar_custo(item)
     log.info("relatório de %s gerado: %d docs, %d/%d tokens, %d buscas, %d campos estruturados, US$ %.4f", id_, len(docs),
              res["uso"]["entrada"], res["uso"]["saida"], res["uso"]["buscas"], len(campos), custo)

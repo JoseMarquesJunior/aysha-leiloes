@@ -105,3 +105,18 @@ def test_anonimizar_preserva_nomes_protegidos():
     linha = "- **Liquidez baixa**: comercial de 850 m² em Rosa Santos tem público comprador restrito."
     assert "[nome]" in anonimizar(linha)
     assert anonimizar(linha, protegidos=["Rosa Santos"]) == linha
+
+
+def test_aplicar_na_base_preenche_sem_mexer_nas_coordenadas(tmp_path):
+    import json
+    from collector.relatorio import aplicar_na_base
+    (tmp_path / "meta.json").write_text(json.dumps({"arquivos": ["imoveis_ES.json"]}), encoding="utf-8")
+    regs = [{"id": "x-1", "fonte": "hdleiloes", "uf": "ES", "cidade": "Vitória", "valor_minimo": 200000.0, "lat": -20.3, "lng": -40.3, "geo_precisao": "cidade"},
+            {"id": "x-2", "fonte": "caixa", "uf": "ES"}]
+    (tmp_path / "imoveis_ES.json").write_text(json.dumps(regs), encoding="utf-8")
+    preenchidos = aplicar_na_base("x-1", {"area_privativa_m2": 80.0, "bairro": "Mata da Praia", "cidade": "Serra"}, pasta=tmp_path)
+    assert set(preenchidos) == {"area_privativa_m2", "bairro"}
+    novo = json.loads((tmp_path / "imoveis_ES.json").read_text(encoding="utf-8"))[0]
+    assert novo["bairro"] == "Mata da Praia" and novo["cidade"] == "Vitória" and novo["valor_m2"] == 2500.0
+    assert novo["lat"] == -20.3 and novo["geo_precisao"] == "cidade"  # coordenadas ficam até a coleta
+    assert "quartos" not in novo  # nulls não são gravados
