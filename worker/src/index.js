@@ -495,7 +495,9 @@ async function criarPagamento(request, usuario, env, h) {
   const site = env.SITE.replace(/\/$/, "");
   const pref = {
     items: [{ id: p.id, title: `Aysha Leilões — ${p.nome}`, description: `${p.creditos} crédito(s) de análise com IA`, quantity: 1, currency_id: "BRL", unit_price: p.valor_centavos / 100 }],
-    payer: { email: usuario.email },
+    // sem payer.email: quando o e-mail pré-preenchido é o da própria conta vendedora (ou de uma conta
+    // Mercado Pago que não está logada), o checkout abre com os botões desabilitados. O Mercado Pago
+    // pede o e-mail na hora; o pedido é casado pelo external_reference, não pelo e-mail.
     external_reference: pedidoId,
     back_urls: { success: `${site}/conta.html?pedido=${pedidoId}`, pending: `${site}/conta.html?pedido=${pedidoId}`, failure: `${site}/conta.html?pedido=${pedidoId}&falha=1` },
     auto_return: "approved",
