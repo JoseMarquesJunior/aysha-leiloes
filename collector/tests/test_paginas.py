@@ -21,7 +21,8 @@ def test_gera_paginas_sitemap_e_og(tmp_path: Path):
     regs = [_reg(i) for i in range(6)] + [_reg(10, cidade="Anchieta"), _reg(11, uf="SP", cidade="Santos"), _reg(12, uf="SP", cidade="Santos", ativo=False)]
     cfg = {"saida": {"url_site": "https://exemplo.test"}}
     res = paginas.gerar(docs, regs, cfg, "2026-10-23")
-    assert res == {"ufs": 2, "cidades": 1, "urls": 3 + 2 + 1}
+    assert res == {"ufs": 2, "cidades": 1, "urls": 3 + 1 + 2 + 1, "exemplo": False}  # home, sobre, exemplo, índice, 2 UFs, 1 cidade
+    assert (docs / "leiloes" / "index.html").exists()
     assert (docs / "leiloes" / "ES" / "index.html").exists()
     assert (docs / "leiloes" / "ES" / "vila-velha.html").exists()       # 6 imóveis: ganha página
     assert not (docs / "leiloes" / "ES" / "anchieta.html").exists()      # 1 imóvel: só na lista da UF
