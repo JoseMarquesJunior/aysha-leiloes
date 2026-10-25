@@ -175,6 +175,29 @@
     msg.textContent = "Está demorando mais que o normal. Clique para verificar ou volte em alguns minutos; a análise aparece aqui quando ficar pronta.";
   }
 
+  /* Botão "Salvar na agenda": guarda o leilão na conta (Worker) e liga os lembretes por e-mail. */
+  async function montarAgenda(r, tipo) {
+    const btn = document.getElementById("btn-agenda");
+    if (!btn || !LT.urlWorker()) return;
+    const titulo = `${tipo} em ${[r.bairro, r.cidade].filter(Boolean).join(", ") || r.id}${r.uf ? "/" + r.uf : ""}`;
+    const dados = { id: r.id, uf: r.uf, titulo, data_leilao: r.data_leilao, data_segunda_praca: r.data_segunda_praca };
+    const marcarSalvo = () => { btn.textContent = "📅 Na agenda ✓"; btn.classList.add("ativo"); btn.title = "Abrir a agenda"; btn.onclick = () => { location.href = "agenda.html"; }; };
+    if (LT.sessao()) {
+      const a = await LT.api("/agenda").catch(() => null);
+      if (a && a.ok && a.dados.itens.some(i => i.id === r.id)) { marcarSalvo(); return; }
+    }
+    if (!r.data_leilao && !r.data_segunda_praca) btn.title = "Este anúncio não informa a data do leilão; você pode salvar e anotar a data na agenda.";
+    btn.onclick = async () => {
+      if (!LT.sessao()) { LT.guardarVoltar(location.href.split("#")[0]); location.href = "conta.html"; return; }
+      btn.disabled = true; btn.textContent = "Salvando…";
+      const x = await LT.api("/agenda", { body: dados }).catch(() => ({ ok: false, dados: {} }));
+      btn.disabled = false;
+      if (!x.ok) { btn.textContent = "📅 Salvar na agenda"; alert("Não foi possível salvar agora: " + (x.dados.erro || "tente de novo")); return; }
+      LT.evento("agenda-salva");
+      marcarSalvo();
+    };
+  }
+
   function areaRef(r) { return r.tipo === "terreno" ? (r.area_terreno_m2 ?? r.area_privativa_m2) : (r.area_privativa_m2 ?? r.area_terreno_m2); }
   function diasAte(iso) { if (!iso) return null; const d = Math.round((new Date(iso + "T00:00:00") - new Date(LT.hojeIso() + "T00:00:00")) / 86400000); return d; }
 
@@ -214,7 +237,7 @@
       ${kpi("Leilão", data(r.data_leilao), dias === null ? "" : dias < 0 ? "já passou" : dias === 0 ? "hoje" : `em ${dias} dia${dias > 1 ? "s" : ""}`, dias !== null && dias >= 0 && dias <= 7 ? "bad" : "")}
       ${kpi("Ocupação", LT.ocupado(r.ocupado), r.aceita_fgts === true ? "aceita FGTS" : r.aceita_financiamento === true ? "aceita financiamento" : "")}
     </div>
-    <div class="links-principais"><a class="btn primario btn-ia-grande" href="#analise">✦ Análise com IA</a>${link(r.url_anuncio, "Anúncio original")}${link(r.url_edital, "Edital")}${link(r.url_matricula, "Matrícula")}<a class="btn" href="./">← voltar à tabela</a></div>`;
+    <div class="links-principais"><a class="btn primario btn-ia-grande" href="#analise">✦ Análise com IA</a><button type="button" class="btn" id="btn-agenda" title="Guardar a data do leilão e receber lembretes por e-mail">📅 Salvar na agenda</button>${link(r.url_anuncio, "Anúncio original")}${link(r.url_edital, "Edital")}${link(r.url_matricula, "Matrícula")}<a class="btn" href="./">← voltar à tabela</a></div>`;
     html += '<div class="grade">';
     html += `<div class="bloco largo relatorio" id="analise"><h3>✦ Análise com IA</h3><div id="analise-corpo"><p class="muted">verificando se já existe um relatório…</p></div></div>`;
     for (const [t, lista] of GRUPOS) html += bloco(t, campos(r, lista));
@@ -229,6 +252,7 @@
     html += "</div>";
     el.innerHTML = html;
     montarMapa(r);
+    montarAgenda(r, tipo);
     carregarAnalise(r).then(() => { if (location.hash === "#analise") document.getElementById("analise").scrollIntoView({ behavior: "smooth" }); });
     const voltar = document.getElementById("voltar");
     if (voltar && document.referrer && document.referrer.includes(location.host) && document.referrer.includes("index")) voltar.href = document.referrer;

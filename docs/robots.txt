@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /conta.html
 Disallow: /admin.html
+Disallow: /agenda.html
 Disallow: /data/
 
 Sitemap: https://aysha.leiloes.workers.dev/sitemap.xml

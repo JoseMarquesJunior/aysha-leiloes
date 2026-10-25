@@ -12,6 +12,8 @@
  *   POST /conta/apagar                         -> apaga a conta (LGPD)
  *   POST /interno/alerta    {assunto, texto}   -> o robô avisa o mantenedor por e-mail (header X-Interno)
  *   GET  /admin/resumo|usuarios|pedidos|relatorios, POST /admin/creditos -> só para ADMIN_EMAILS (sessão normal)
+ *   GET  /agenda | POST /agenda {id, uf, titulo, datas, hora, lembretes} | POST /agenda/remover {id}
+ *   cron diário (08:00 Brasília): lembretes por e-mail dos leilões da agenda; POST /interno/lembretes força o envio
  *   GET  /conta                                -> saldo, análises liberadas, compras (autenticado)
  *   POST /analise           {id}               -> libera (grátis ou 1 crédito) e devolve o relatório, ou dispara a geração
  *   GET  /relatorio/:id                        -> relatório, se o usuário tem acesso
@@ -341,6 +343,89 @@ async function lerRelatorioInterno(request, id, env, h) {
   return r ? json(relatorioSaida(r), 200, h) : json({ erro: "não existe" }, 404, h);
 }
 
+// ---------------------------------------------------------------- agenda de leilões ---
+const DATA_OK = /^\d{4}-\d{2}-\d{2}$/;
+const HORA_OK = /^([01]\d|2[0-3]):[0-5]\d$/;
+function hojeBrasilia() { return new Date(Date.now() - 3 * 3600000).toISOString().slice(0, 10); }
+function somarDias(iso, dias) { const d = new Date(iso + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + dias); return d.toISOString().slice(0, 10); }
+function dataBr(iso) { return iso ? `${iso.slice(8, 10)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}` : ""; }
+function lembretesValidos(v) {
+  const lista = Array.isArray(v) ? v : [7, 1, 0];
+  return [...new Set(lista.filter(x => Number.isInteger(x) && x >= 0 && x <= 60))].sort((a, b) => b - a);
+}
+function itemAgenda(a) {
+  return { id: a.id_imovel, uf: a.uf, titulo: a.titulo, data_leilao: a.data_leilao, data_segunda_praca: a.data_segunda_praca, hora: a.hora,
+           lembretes: JSON.parse(a.lembretes || "[7,1,0]"), enviados: JSON.parse(a.enviados || "[]"), criado_em: a.criado_em, atualizado_em: a.atualizado_em };
+}
+async function agendaListar(usuario, env, h) {
+  const rows = (await env.DB.prepare("SELECT * FROM agenda WHERE usuario_id = ? ORDER BY COALESCE(data_leilao, data_segunda_praca, '9999') ASC").bind(usuario.id).all()).results;
+  return json({ itens: rows.map(itemAgenda) }, 200, h);
+}
+/* Cria ou atualiza um item. Os dados do imóvel (título, datas) vêm do site, que tem a base; a página da
+   agenda reenvia quando a coleta muda as datas. */
+async function agendaSalvar(request, usuario, env, h) {
+  const d = await corpo(request);
+  const id = String(d.id || "");
+  if (!ID_OK.test(id)) return json({ erro: "id inválido" }, 400, h);
+  const dl = DATA_OK.test(d.data_leilao || "") ? d.data_leilao : null;
+  const d2 = DATA_OK.test(d.data_segunda_praca || "") ? d.data_segunda_praca : null;
+  const hora = HORA_OK.test(d.hora || "") ? d.hora : null;
+  const uf = /^[A-Z]{2}$/.test(d.uf || "") ? d.uf : null;
+  const titulo = String(d.titulo || id).slice(0, 160);
+  const atual = await env.DB.prepare("SELECT lembretes, hora FROM agenda WHERE usuario_id = ? AND id_imovel = ?").bind(usuario.id, id).first();
+  const lembretes = JSON.stringify(d.lembretes !== undefined ? lembretesValidos(d.lembretes) : (atual ? JSON.parse(atual.lembretes) : [7, 1, 0]));
+  const horaFinal = d.hora !== undefined ? hora : (atual ? atual.hora : null);
+  await env.DB.prepare(
+    `INSERT INTO agenda (usuario_id, id_imovel, uf, titulo, data_leilao, data_segunda_praca, hora, lembretes, criado_em, atualizado_em)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(usuario_id, id_imovel) DO UPDATE SET uf = excluded.uf, titulo = excluded.titulo, data_leilao = excluded.data_leilao,
+       data_segunda_praca = excluded.data_segunda_praca, hora = excluded.hora, lembretes = excluded.lembretes, atualizado_em = excluded.atualizado_em`)
+    .bind(usuario.id, id, uf, titulo, dl, d2, horaFinal, lembretes, agora(), agora()).run();
+  const row = await env.DB.prepare("SELECT * FROM agenda WHERE usuario_id = ? AND id_imovel = ?").bind(usuario.id, id).first();
+  return json({ ok: true, item: itemAgenda(row) }, 200, h);
+}
+async function agendaRemover(request, usuario, env, h) {
+  const d = await corpo(request);
+  if (!ID_OK.test(String(d.id || ""))) return json({ erro: "id inválido" }, 400, h);
+  await env.DB.prepare("DELETE FROM agenda WHERE usuario_id = ? AND id_imovel = ?").bind(usuario.id, d.id).run();
+  return json({ ok: true }, 200, h);
+}
+/* Gatilho diário (cron em wrangler.toml, 08:00 de Brasília): envia por e-mail os lembretes do dia.
+   Para cada item e cada praça, um lembrete N dias antes quando N está em `lembretes` e ainda não foi enviado. */
+async function enviarLembretes(env) {
+  const hoje = hojeBrasilia();
+  const rows = (await env.DB.prepare(
+    `SELECT a.*, u.email FROM agenda a JOIN usuarios u ON u.id = a.usuario_id
+     WHERE (a.data_leilao IS NOT NULL AND a.data_leilao >= ?) OR (a.data_segunda_praca IS NOT NULL AND a.data_segunda_praca >= ?)`).bind(hoje, hoje).all()).results;
+  let enviados = 0;
+  const site = (env.SITE || "").replace(/\/$/, "");
+  for (const a of rows) {
+    const lembretes = JSON.parse(a.lembretes || "[]"), feitos = JSON.parse(a.enviados || "[]");
+    const novos = [];
+    for (const [rotulo, data] of [["1ª praça", a.data_leilao], ["2ª praça", a.data_segunda_praca]]) {
+      if (!data || data < hoje) continue;
+      for (const n of lembretes) {
+        const chave = `${data}:${n}`;
+        if (somarDias(data, -n) !== hoje || feitos.includes(chave)) continue;
+        const quando = n === 0 ? "é hoje" : n === 1 ? "é amanhã" : `é em ${n} dias`;
+        const hora = a.hora ? ` às ${a.hora}` : "";
+        try {
+          await enviarEmail(env, a.email, `Leilão ${quando}: ${a.titulo}`,
+            `<div style="font-family:system-ui,Segoe UI,Roboto,sans-serif;font-size:15px;line-height:1.5;color:#1b1f24;max-width:560px">
+             <p style="font-size:18px;font-weight:700;margin:0 0 12px">Aysha Leilões · lembrete</p>
+             <p>O leilão de <b>${a.titulo.replace(/</g, "&lt;")}</b> (${rotulo}) ${quando}: <b>${dataBr(data)}${hora}</b>.</p>
+             <p style="margin:18px 0"><a href="${site}/imovel.html?id=${encodeURIComponent(a.id_imovel)}&uf=${a.uf || ""}" style="background:#0b5fff;color:#fff;text-decoration:none;padding:11px 20px;border-radius:6px;font-weight:600;display:inline-block">Abrir a ficha do imóvel</a></p>
+             <p style="font-size:13px;color:#5f6b76">Confira a data e o horário no edital: a fonte pode alterar o leilão. Para parar os lembretes, remova o imóvel da sua <a href="${site}/agenda.html">agenda</a>.</p>
+             </div>`);
+          novos.push(chave); enviados++;
+        } catch (e) { /* tenta de novo amanhã se ainda couber */ }
+      }
+    }
+    if (novos.length) await env.DB.prepare("UPDATE agenda SET enviados = ? WHERE usuario_id = ? AND id_imovel = ?").bind(JSON.stringify(feitos.concat(novos)), a.usuario_id, a.id_imovel).run();
+  }
+  return enviados;
+}
+
 // ---------------------------------------------------------------- administração -------
 function ehAdmin(usuario, env) {
   return (env.ADMIN_EMAILS || "").split(",").map(s => s.trim().toLowerCase()).filter(Boolean).includes(usuario.email.toLowerCase());
@@ -514,6 +599,9 @@ async function estadoPedido(usuario, pedidoId, env, h) {
 
 // ---------------------------------------------------------------- roteamento ----------
 export default {
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(enviarLembretes(env));
+  },
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
     const h = cors(env, origin);
@@ -530,12 +618,19 @@ export default {
       if (m === "POST" && rota === "/auth/sair") return sair(request, env, h);
       if (m === "POST" && rota === "/interno/alerta") return alertaInterno(request, env, h);
       if (m === "GET" && rota === "/interno/sonda") return sondaInterna(request, env, h, url);
+      if (m === "POST" && rota === "/interno/lembretes") {
+        if (request.headers.get("X-Interno") !== env.INTERNO_SECRET) return json({ erro: "não autorizado" }, 401, h);
+        return json({ enviados: await enviarLembretes(env) }, 200, h);
+      }
       if (m === "GET" && rota === "/pacotes") return json({ pacotes: pacotes(env) }, 200, h);
 
       const usuario = await usuarioDaSessao(request, env);
       if (!usuario) return json({ erro: "faça login", precisa_login: true }, 401, h);
       if (m === "GET" && rota === "/conta") return conta(usuario, env, h);
       if (m === "POST" && rota === "/auth/sair_todos") return sairDeTodos(usuario, env, h);
+      if (m === "GET" && rota === "/agenda") return agendaListar(usuario, env, h);
+      if (m === "POST" && rota === "/agenda") return agendaSalvar(request, usuario, env, h);
+      if (m === "POST" && rota === "/agenda/remover") return agendaRemover(request, usuario, env, h);
       if (m === "POST" && rota === "/conta/apagar") return apagarConta(usuario, env, h);
       if (m === "POST" && rota === "/analise") return analisar(request, usuario, env, h);
       if (m === "GET" && rota.startsWith("/relatorio/")) return obterRelatorio(usuario, decodeURIComponent(rota.slice(11)), env, h);

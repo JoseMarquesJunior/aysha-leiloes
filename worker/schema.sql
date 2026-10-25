@@ -71,3 +71,20 @@ CREATE TABLE IF NOT EXISTS pedidos (
 CREATE INDEX IF NOT EXISTS idx_sessoes_usuario ON sessoes(usuario_id);
 CREATE INDEX IF NOT EXISTS idx_acessos_imovel ON acessos(id_imovel);
 CREATE INDEX IF NOT EXISTS idx_pedidos_usuario ON pedidos(usuario_id);
+
+-- agenda: leilões que o usuário quer acompanhar, com lembretes por e-mail (dias antes: ex. [7,1,0])
+CREATE TABLE IF NOT EXISTS agenda (
+  usuario_id INTEGER NOT NULL,
+  id_imovel TEXT NOT NULL,
+  uf TEXT,
+  titulo TEXT,
+  data_leilao TEXT,
+  data_segunda_praca TEXT,
+  hora TEXT,                                -- opcional, "HH:MM", informada pelo usuário
+  lembretes TEXT NOT NULL DEFAULT '[7,1,0]',
+  enviados TEXT NOT NULL DEFAULT '[]',      -- lembretes já enviados: ["2026-12-10:7", ...]
+  criado_em TEXT NOT NULL,
+  atualizado_em TEXT,
+  PRIMARY KEY (usuario_id, id_imovel)
+);
+CREATE INDEX IF NOT EXISTS idx_agenda_datas ON agenda(data_leilao, data_segunda_praca);

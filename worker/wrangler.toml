@@ -28,3 +28,7 @@ id = "e90cfdcd18a64c00866feec94a4b3464"
 binding = "DB"
 database_name = "aysha-contas"
 database_id = "8c3f8ce1-79eb-4fbb-b20c-ba9baa160e82"
+
+# lembretes da agenda: todo dia às 11:00 UTC (08:00 em Brasília)
+[triggers]
+crons = ["0 11 * * *"]
