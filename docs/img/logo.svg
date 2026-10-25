@@ -1,5 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Aysha Leilões">
-  <rect width="32" height="32" rx="7" fill="#0b5fff"/>
-  <path d="M8 9h16v3.2H8zM8 14.4h16v3.2H8zM8 19.8h9.5V23H8z" fill="#fff"/>
-  <circle cx="22.5" cy="21.4" r="2.6" fill="#47e0a0"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Aysha Leilões">
+  <!-- olho de lince: pálpebras pretas, íris âmbar, pupila vertical -->
+  <rect width="64" height="64" rx="14" fill="#0b5fff"/>
+  <path d="M7 33 C18 13, 46 11, 58 31 C46 53, 18 53, 7 33 Z" fill="#1b1f24"/>
+  <path d="M49 21 L60 15 L55 26 Z" fill="#1b1f24"/>
+  <path d="M8 33 L2 36 L9 37 Z" fill="#1b1f24"/>
+  <clipPath id="olho"><path d="M11.5 33 C21 18, 43 17, 53 32 C43 48, 21 48, 11.5 33 Z"/></clipPath>
+  <g clip-path="url(#olho)">
+    <rect x="0" y="0" width="64" height="64" fill="#f2b134"/>
+    <circle cx="32" cy="32.5" r="14" fill="#f7c24a"/>
+    <ellipse cx="32" cy="32.5" rx="3.6" ry="12" fill="#1b1f24"/>
+    <ellipse cx="26.5" cy="26" rx="2.3" ry="3.6" fill="#fff" transform="rotate(-25 26.5 26)"/>
+  </g>
 </svg>

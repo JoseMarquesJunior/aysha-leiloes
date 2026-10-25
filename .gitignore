@@ -19,3 +19,7 @@ collector/cache/relatorios_local/
 
 # estado local do wrangler (raiz e worker/)
 .wrangler/
+
+# rascunhos de logotipo (não versionados)
+logo-opcoes.html
+logo-lince/

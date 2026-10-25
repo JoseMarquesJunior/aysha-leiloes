@@ -87,7 +87,7 @@ def _pagina(titulo: str, descricao: str, corpo: str, prefixo: str, canonico: str
 <meta property="og:description" content="{_esc(descricao)}">
 <meta name="twitter:card" content="summary_large_image">
 {meta_url}
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b5fff'/%3E%3Cpath d='M8 9h16v3H8zm0 5.5h16v3H8zM8 20h10v3H8z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="{prefixo}img/logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="{prefixo}css/style.css">
 </head>
 <body>
