@@ -385,7 +385,7 @@
     const ativos = estado.todos.filter(r => r.ativo !== false);
     if (ativos.length < 50) return;
     for (const c of COLUNAS) {
-      if (c.fixa || !c.chave || ["cidade", "bairro", "tipo", "valor_minimo", "desconto_pct", "fonte"].includes(c.id)) continue;
+      if (c.fixa || !c.chave || ["cidade", "bairro", "tipo", "valor_minimo", "desconto_pct", "fonte", "ocupado"].includes(c.id)) continue;
       let vazios = 0;
       for (const r of ativos) if (nulo(c.chave(r))) vazios++;
       if (vazios / ativos.length >= 0.8) estado.ocultas.add(c.id);
