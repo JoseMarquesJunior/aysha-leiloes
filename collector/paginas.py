@@ -54,6 +54,19 @@ def _ordem(r):
     return (0 if d is not None else 1, -(d or 0), r.get("valor_minimo") or 0)
 
 
+def _encerrado(r: dict, hoje: str) -> bool:
+    datas = [d for d in (r.get("data_leilao"), r.get("data_segunda_praca")) if d]
+    return bool(datas) and max(datas) < hoje
+
+
+def _para_tabela(lista: list[dict], hoje: str) -> list[dict]:
+    """Só imóveis com leilão ainda aberto e desconto positivo (uma tabela "maiores descontos" não pode
+    começar com 0 % ou desconto negativo). Se sobrar pouco, completa com os demais abertos."""
+    abertos = [r for r in lista if not _encerrado(r, hoje)]
+    com_desconto = [r for r in abertos if (r.get("desconto_pct") or 0) > 0]
+    return com_desconto if len(com_desconto) >= 5 else abertos
+
+
 def _esc(s) -> str:
     return html.escape(str(s if s is not None else "—"), quote=True)
 
@@ -104,6 +117,7 @@ def _pagina(titulo: str, descricao: str, corpo: str, prefixo: str, canonico: str
 </main>
 <footer>
   <p><strong>Aviso.</strong> Agregador independente, sem vínculo com a Caixa, o Banestes, leiloeiros, tribunais ou qualquer fonte listada. Dados extraídos automaticamente, sujeitos a erros e desatualização; confira o anúncio e o edital originais. Nada aqui é assessoria jurídica ou recomendação de investimento.</p>
+  <p>Contato: <a href="mailto:jmarques.oliveirajunior@gmail.com">jmarques.oliveirajunior@gmail.com</a> · <a href="{prefixo}sobre.html#contas">termos de uso e privacidade</a>.</p>
 </footer>
 <script src="{prefixo}js/config.js"></script>
 <script src="{prefixo}js/common.js"></script>
@@ -112,10 +126,10 @@ def _pagina(titulo: str, descricao: str, corpo: str, prefixo: str, canonico: str
 """
 
 
-def _tabela(lista: list[dict], prefixo: str, com_cidade: bool) -> str:
+def _tabela(lista: list[dict], prefixo: str, com_cidade: bool, hoje: str) -> str:
     cab = "<th>Tipo</th><th>Bairro</th>" + ("<th>Cidade</th>" if com_cidade else "") + \
           "<th class=\"num\">Lance mínimo</th><th class=\"num\">Desconto</th><th class=\"num\">m²</th><th class=\"num\">R$/m²</th><th>Leilão</th><th></th>"
-    linhas = "\n".join(_linha(r, prefixo, com_cidade) for r in sorted(lista, key=_ordem)[:MAX_LINHAS])
+    linhas = "\n".join(_linha(r, prefixo, com_cidade) for r in sorted(_para_tabela(lista, hoje), key=_ordem)[:MAX_LINHAS])
     return f"<div class=\"tabela-wrap\"><table class=\"tabela seo\"><thead><tr>{cab}</tr></thead><tbody>\n{linhas}\n</tbody></table></div>"
 
 
@@ -168,7 +182,7 @@ def gerar(docs: Path, registros: list[dict], config: dict, hoje: str) -> dict:
         corpo = (f"<h2>{_esc(titulo)}</h2>\n<p>{_esc(_resumo(lista))} Dados da coleta de {_data(hoje)}, reunidos de bancos, leiloeiros e tribunais. "
                  f"<a href=\"{prefixo}?uf={uf}\">Abrir {uf} na tabela com filtros, mapa e comparação →</a></p>\n"
                  f"<h3>Cidades</h3>\n<ul class=\"cidades\">{''.join(itens)}</ul>\n"
-                 f"<h3>Maiores descontos em {_esc(nome_uf)}</h3>\n{_tabela(lista, prefixo, True)}\n"
+                 f"<h3>Maiores descontos em {_esc(nome_uf)}</h3>\n{_tabela(lista, prefixo, True, hoje)}\n"
                  f"<p class=\"muted\">Mostrando até {MAX_LINHAS} de {len(lista)} imóveis, ordenados pelo desconto sobre a avaliação. "
                  f"Quer um parecer sobre um imóvel? Abra a ficha e peça a <a href=\"{prefixo}exemplo-analise.html\">análise com IA (veja um exemplo)</a>.</p>")
         canon = f"{base}/leiloes/{uf}/" if base else None
@@ -184,7 +198,7 @@ def gerar(docs: Path, registros: list[dict], config: dict, hoje: str) -> dict:
             corpo_c = (f"<h2>{_esc(titulo_c)}</h2>\n<p>{_esc(_resumo(lc))} Dados da coleta de {_data(hoje)}. "
                        f"<a href=\"{prefixo}?uf={uf}&cidade={urllib.parse.quote(cidade)}\">Abrir {_esc(cidade)} na tabela com filtros, mapa e comparação →</a> · "
                        f"<a href=\"index.html\">todas as cidades de {uf}</a></p>\n"
-                       f"<h3>Maiores descontos em {_esc(cidade)}</h3>\n{_tabela(lc, prefixo, False)}\n"
+                       f"<h3>Maiores descontos em {_esc(cidade)}</h3>\n{_tabela(lc, prefixo, False, hoje)}\n"
                        f"<p class=\"muted\">Mostrando até {MAX_LINHAS} de {len(lc)} imóveis, ordenados pelo desconto sobre a avaliação. "
                        f"Quer um parecer sobre um imóvel? Abra a ficha e peça a <a href=\"{prefixo}exemplo-analise.html\">análise com IA (veja um exemplo)</a>.</p>")
             nome = f"{slug(cidade)}.html"
@@ -198,6 +212,16 @@ def gerar(docs: Path, registros: list[dict], config: dict, hoje: str) -> dict:
                                           "d": r.get("desconto_pct"), "a": _area(r), "q": r.get("quartos"), "n": r.get("natureza")}.items() if v is not None}
               for r in lista}
         (docs / "data" / f"og_{uf}.json").write_text(json.dumps(og, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    # índice dos estados (docs/leiloes/index.html)
+    itens_uf = "".join(f"<li><a href=\"{uf}/\">{_esc(UFS[uf])}</a> <span class=\"muted\">({len(por_uf[uf])})</span></li>" for uf in sorted(por_uf, key=lambda u: UFS[u]))
+    corpo_idx = (f"<h2>Imóveis em leilão por estado</h2>\n<p>{len(ativos)} imóveis ativos em {len(por_uf)} estados, de bancos, leiloeiros e tribunais, "
+                 f"coletados em {_data(hoje)}. Escolha o estado para ver as cidades e os maiores descontos, ou "
+                 f"<a href=\"../\">abra a tabela com filtros</a>.</p>\n<ul class=\"cidades\">{itens_uf}</ul>")
+    alvo_idx = pasta / "index.html"
+    alvo_idx.write_text(_pagina("Imóveis em leilão por estado", f"Leilões, licitações e vendas diretas de imóveis em {len(por_uf)} estados: escolha o estado e veja cidades e maiores descontos.",
+                                corpo_idx, "../", f"{base}/leiloes/" if base else None), encoding="utf-8")
+    gerados.add(alvo_idx)
+    urls.insert(3, ("leiloes/", hoje))
     # páginas de coletas anteriores que não existem mais (cidade que ficou abaixo do mínimo etc.)
     for p in pasta.rglob("*.html"):
         if p not in gerados:
@@ -208,4 +232,106 @@ def gerar(docs: Path, registros: list[dict], config: dict, hoje: str) -> dict:
     if base:
         itens_xml = "\n".join(f"  <url><loc>{_esc(base + '/' + u)}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
         (docs / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{itens_xml}\n</urlset>\n', encoding="utf-8")
-    return {"ufs": len(por_uf), "cidades": n_cidades, "urls": len(urls)}
+    exemplo = gerar_exemplo(docs)
+    return {"ufs": len(por_uf), "cidades": n_cidades, "urls": len(urls), "exemplo": exemplo}
+
+
+# ---------------------------------------------------------------- exemplo de análise (HTML estático) ----
+def _inline(s: str) -> str:
+    s = html.escape(s, quote=False)
+    s = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r'<a href="\2" target="_blank" rel="noopener">\1</a>', s)
+    s = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", s)
+    s = re.sub(r"(^|[^*])\*([^*\n]+)\*(?!\*)", r"\1<i>\2</i>", s)
+    s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
+    return s
+
+
+def markdown_para_html(md: str) -> str:
+    """Mesmo subconjunto que docs/js/common.js (títulos, parágrafos, listas, tabelas, negrito, itálico, links)."""
+    out: list[str] = []
+    estado = {"lista": None, "tabela": None, "par": []}
+
+    def fechar_par():
+        if estado["par"]:
+            out.append("<p>" + " ".join(_inline(x) for x in estado["par"]) + "</p>")
+            estado["par"] = []
+
+    def fechar_lista():
+        if estado["lista"]:
+            out.append(f"</{estado['lista']}>")
+            estado["lista"] = None
+
+    def fechar_tabela():
+        t = estado["tabela"]
+        if not t:
+            return
+        cab, corpo = t[0], t[1:]
+        out.append("<table><thead><tr>" + "".join(f"<th>{_inline(c)}</th>" for c in cab) + "</tr></thead><tbody>"
+                   + "".join("<tr>" + "".join(f"<td>{_inline(c)}</td>" for c in l) + "</tr>" for l in corpo) + "</tbody></table>")
+        estado["tabela"] = None
+
+    for raw in md.replace("\r", "").split("\n"):
+        l = raw.rstrip()
+        if re.match(r"^\s*\|.*\|\s*$", l):
+            fechar_par(); fechar_lista()
+            celulas = [c.strip() for c in l.strip()[1:-1].split("|")]
+            if all(re.fullmatch(r":?-{2,}:?", c) for c in celulas):
+                continue
+            (estado["tabela"] or estado.__setitem__("tabela", []) or estado["tabela"]).append(celulas)
+            continue
+        fechar_tabela()
+        m = re.match(r"^(#{1,4})\s+(.*)", l)
+        if m:
+            fechar_par(); fechar_lista()
+            n = len(m.group(1)) + 2
+            out.append(f"<h{n}>{_inline(m.group(2))}</h{n}>")
+            continue
+        m = re.match(r"^\s*[-*]\s+(.*)", l)
+        if m:
+            fechar_par()
+            if estado["lista"] != "ul":
+                fechar_lista(); out.append("<ul>"); estado["lista"] = "ul"
+            out.append(f"<li>{_inline(m.group(1))}</li>")
+            continue
+        m = re.match(r"^\s*\d+[.)]\s+(.*)", l)
+        if m:
+            fechar_par()
+            if estado["lista"] != "ol":
+                fechar_lista(); out.append("<ol>"); estado["lista"] = "ol"
+            out.append(f"<li>{_inline(m.group(1))}</li>")
+            continue
+        if not l.strip():
+            fechar_par(); fechar_lista()
+            continue
+        estado["par"].append(l.strip())
+    fechar_par(); fechar_lista(); fechar_tabela()
+    return "\n".join(out)
+
+
+def gerar_exemplo(docs: Path) -> bool:
+    """Pré-renderiza o exemplo público de análise em docs/exemplo-analise.html (dentro de <main>), para
+    buscadores e prévias de link verem o conteúdo sem JavaScript. O script da ficha substitui o conteúdo
+    pela versão completa quando a página abre no navegador."""
+    dados = docs / "data" / "exemplo_analise.json"
+    pagina = docs / "exemplo-analise.html"
+    if not dados.exists() or not pagina.exists():
+        return False
+    d = json.loads(dados.read_text(encoding="utf-8"))
+    tipo = TIPOS.get(d.get("tipo"), "Imóvel")
+    onde = ", ".join(x for x in (d.get("bairro"), d.get("cidade")) if x) + (f"/{d['uf']}" if d.get("uf") else "")
+    kpis = [("Lance mínimo", _moeda(d.get("valor_minimo"))), ("Avaliação", _moeda(d.get("valor_avaliacao"))),
+            ("Área privativa", f"{_num(d.get('area_privativa_m2'))} m²" if d.get("area_privativa_m2") else "—"),
+            ("Quartos", _num(d.get("quartos")) if d.get("quartos") else "—")]
+    corpo = (f'<div class="aviso exemplo-aviso"><b>Exemplo público.</b> Ficha real de um imóvel da base com a análise com IA aberta, para você ver o que recebe ao pedir uma análise. '
+             f'<a href="imovel.html?id={html.escape(d["id"])}&amp;uf={html.escape(d.get("uf") or "")}">Abrir a ficha normal deste imóvel →</a></div>\n'
+             f"<h2>{_esc(tipo)} em {_esc(onde)}</h2>\n<div class=\"kpis\">"
+             + "".join(f'<div class="kpi"><div class="r">{_esc(r)}</div><div class="v">{_esc(v)}</div></div>' for r, v in kpis)
+             + '</div>\n<div class="grade"><div class="bloco largo relatorio" id="analise"><h3>✦ Análise com IA</h3><div class="relatorio-texto">'
+             + markdown_para_html(d.get("markdown") or "")
+             + '</div><p class="aviso">Parecer automático, gerado por IA a partir do edital, da matrícula e de buscas na web. Pode conter erros. Não é assessoria jurídica nem recomendação de investimento: confira os documentos e consulte um profissional antes de dar lance.</p>'
+             + '<p class="chamada"><a class="btn primario btn-ia-grande" href="./">Escolher um imóvel na tabela</a> <span class="muted">Toda conta nova ganha 1 crédito: a primeira análise é grátis.</span></p></div></div>')
+    original = pagina.read_text(encoding="utf-8")
+    novo = re.sub(r'(<main class="detalhe"[^>]*id="detalhe"[^>]*>).*?(</main>)', lambda m: m.group(1) + "\n" + corpo + "\n" + m.group(2), original, count=1, flags=re.S)
+    if novo != original:
+        pagina.write_text(novo, encoding="utf-8")
+    return True

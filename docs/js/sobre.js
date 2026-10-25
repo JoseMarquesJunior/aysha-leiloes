@@ -8,10 +8,10 @@
 
   async function iniciar() {
     const cfg = window.LT_CONFIG || {};
-    if (cfg.urlApoio) {
-      const a = document.getElementById("apoio-link");
-      a.href = cfg.urlApoio; a.textContent = cfg.textoApoio || "apoie o projeto";
-      document.getElementById("apoio").classList.remove("hidden");
+    const apoio = document.getElementById("apoio");
+    if (cfg.urlApoio && apoio) {
+      apoio.innerHTML = `O site é mantido por uma pessoa. Se ele te ajuda, <a href="${escapar(cfg.urlApoio)}" rel="noopener" target="_blank">${escapar(cfg.textoApoio || "apoie o projeto")}</a>.`;
+      apoio.classList.remove("hidden");
     }
     const meta = await carregarJson("meta.json").catch(() => null);
     if (meta) {

@@ -124,9 +124,12 @@ def canonizar_cidades(registros: list[dict]) -> int:
         c, uf = r.get("cidade"), r.get("uf")
         if not c or not uf or not isinstance(c, str):
             continue
-        oficial = mapa.get((uf, sem_acentos(c).lower().strip()))
-        if oficial and oficial != c:
-            r["cidade"] = oficial
+        # editais escrevem "Município de Serra", "Comarca de Colatina", "Urbano de X": fica só o nome
+        limpo = re.sub(r"(?i)^(munic[ií]pio|cidade|comarca|distrito|urbano|zona urbana|perímetro urbano|per[ií]metro urbano)\s+d[eao]s?\s+", "", c).strip()
+        oficial = mapa.get((uf, sem_acentos(limpo).lower()))
+        novo = oficial or (limpo if limpo != c else c)
+        if novo != c:
+            r["cidade"] = novo
             n += 1
     return n
 

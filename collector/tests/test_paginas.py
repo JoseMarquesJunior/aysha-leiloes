@@ -36,3 +36,19 @@ def test_gera_paginas_sitemap_e_og(tmp_path: Path):
     # segunda geração com a cidade abaixo do mínimo: a página antiga some
     res2 = paginas.gerar(docs, regs[:3] + regs[6:], cfg, "2026-10-24")
     assert res2["cidades"] == 0 and not (docs / "leiloes" / "ES" / "vila-velha.html").exists()
+
+
+def test_markdown_para_html_basico():
+    from collector.paginas import markdown_para_html
+    h = markdown_para_html("## Resumo\nTexto **forte** e [link](https://x.y/z).\n\n| a | b |\n|---|---|\n| 1 | 2 |\n\n- um\n- dois\n")
+    assert "<h4>Resumo</h4>" in h and "<b>forte</b>" in h and 'href="https://x.y/z"' in h
+    assert "<table><thead><tr><th>a</th><th>b</th>" in h and "<ul>\n<li>um</li>\n<li>dois</li>\n</ul>" in h
+
+
+def test_tabela_estatica_ignora_encerrados_e_sem_desconto():
+    from collector.paginas import _para_tabela
+    hoje = "2026-10-25"
+    lista = [{"id": "a", "desconto_pct": 30.0, "data_leilao": "2026-12-01"}, {"id": "b", "desconto_pct": -5.0, "data_leilao": "2026-12-01"},
+             {"id": "c", "desconto_pct": 40.0, "data_leilao": "2025-11-11"}] + [{"id": f"d{i}", "desconto_pct": 10.0 + i} for i in range(5)]
+    ids = [r["id"] for r in _para_tabela(lista, hoje)]
+    assert "a" in ids and "b" not in ids and "c" not in ids and len(ids) == 6

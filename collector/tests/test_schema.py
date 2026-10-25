@@ -89,6 +89,7 @@ def test_normalizar_grafias_prefere_acento_e_unifica_por_uf():
 
 def test_canonizar_cidades_pelo_ibge():
     from collector.schema import canonizar_cidades
-    regs = [{"uf": "RJ", "cidade": "Sao Goncalo"}, {"uf": "ES", "cidade": "VILA VELHA"}, {"uf": "ES", "cidade": "Lugar Inexistente"}, {"uf": "SP", "cidade": "Sao Paulo"}]
-    assert canonizar_cidades(regs) == 3
-    assert [r["cidade"] for r in regs] == ["São Gonçalo", "Vila Velha", "Lugar Inexistente", "São Paulo"]
+    regs = [{"uf": "RJ", "cidade": "Sao Goncalo"}, {"uf": "ES", "cidade": "VILA VELHA"}, {"uf": "ES", "cidade": "Lugar Inexistente"}, {"uf": "SP", "cidade": "Sao Paulo"},
+            {"uf": "ES", "cidade": "Município de Serra"}, {"uf": "ES", "cidade": "Comarca de Barra de São Francisco"}, {"uf": "ES", "cidade": "Urbano de Colatina"}]
+    assert canonizar_cidades(regs) == 6
+    assert [r["cidade"] for r in regs] == ["São Gonçalo", "Vila Velha", "Lugar Inexistente", "São Paulo", "Serra", "Barra de São Francisco", "Colatina"]

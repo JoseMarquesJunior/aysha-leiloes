@@ -57,6 +57,10 @@ export default {
       url.pathname += "index.html";
       return env.ASSETS.fetch(new Request(url.toString(), request));
     }
+    if (/^\/leiloes(\/[A-Z]{2})?$/.test(url.pathname)) {  // "/leiloes/ES" → "/leiloes/ES/"
+      url.pathname += "/";
+      return Response.redirect(url.toString(), 301);
+    }
     return env.ASSETS.fetch(request);
   },
 };

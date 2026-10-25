@@ -14,4 +14,4 @@ binding = "ASSETS"
 # em index.html: o script faz isso para "/" e "/leiloes/*".
 html_handling = "none"
 not_found_handling = "404-page"
-run_worker_first = ["/", "/leiloes/*", "/api/*", "/imovel.html"]
+run_worker_first = ["/", "/leiloes", "/leiloes/*", "/api/*", "/imovel.html"]

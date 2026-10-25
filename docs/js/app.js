@@ -43,6 +43,12 @@
   };
 
   // ---------- auxiliares ----------
+  /* Leilão cuja última data (1ª ou 2ª praça) já passou: a fonte às vezes mantém o anúncio no ar, mas não há
+     mais lance a dar. Fica fora da lista, salvo com "incluir removidos e encerrados". */
+  function encerrado(r) {
+    const ultima = [r.data_leilao, r.data_segunda_praca].filter(Boolean).sort().pop();
+    return !!ultima && ultima < LT.hojeIso();
+  }
   function areaRef(r) { return r.tipo === "terreno" ? (r.area_terreno_m2 ?? r.area_privativa_m2) : (r.area_privativa_m2 ?? r.area_terreno_m2); }
   function debitos(r) {
     const a = r.debitos_iptu_por_conta_de, b = r.debitos_condominio_por_conta_de;
@@ -185,7 +191,7 @@
     const busca = semAcentos(f.busca).toLowerCase();
     const dentro = (v, min, max) => !(min !== null && (nulo(v) || v < min)) && !(max !== null && (nulo(v) || v > max));
     estado.filtrados = estado.todos.filter(r => {
-      if (!f.inativos && r.ativo === false) return false;
+      if (!f.inativos && (r.ativo === false || encerrado(r))) return false;
       if (f.uf.length && !f.uf.includes(r.uf)) return false;
       if (f.cidade.length && !f.cidade.includes(r.cidade)) return false;
       if (f.bairro.length && !f.bairro.includes(r.bairro)) return false;
@@ -571,6 +577,7 @@
     const cfg = window.LT_CONFIG || {};
     if (cfg.urlApoio) {
       const a = $("apoio-link");
+      if (!a) return;
       a.href = cfg.urlApoio; a.textContent = cfg.textoApoio || "Apoie o projeto"; a.classList.remove("hidden");
     }
   }
