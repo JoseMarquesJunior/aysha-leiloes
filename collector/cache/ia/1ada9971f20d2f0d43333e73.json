@@ -1,0 +1,40 @@
+{
+ "hash": "1ada9971f20d2f0d43333e73",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-26T16:13:24",
+ "lote": "msgbatch_01KJ9Vw5LjhWjQUkZbEYaZZf",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora",
+   "arresto",
+   "indisponibilidade",
+   "hipoteca"
+  ],
+  "alertas": [
+   "Imóvel ocupado: desocupação depende de [nome] na Posse, expedido pelo Juízo.",
+   "Não constam nos autos informações sobre o Registro Imobiliário competente; regularização fica a cargo do arrematante.",
+   "Débitos de IPTU são sub-rogados no valor da arrematação (art. 130 CTN), recaindo sobre o arrematante.",
+   "Comissão da leiloeira de 5% deve ser paga em 24 horas; não pagamento pode gerar cobrança judicial e penalidades.",
+   "Possível direito de preferência de coproprietário ou cônjuge (meação) na arrematação.",
+   "Lance mínimo do 2º leilão é R$ 60.000,00; verifique a matrícula atualizada antes de ofertar."
+  ],
+  "trechos_fonte": {
+   "ocupado": "IMÓVEL OCUPADO: A desocupação do imóvel será realizada mediante expedição de [nome] na Posse que será expedido pelo M.M. Juízo Comitente.",
+   "debitos_iptu_por_conta_de": "Débitos de IPTU, serão sub-rogados no valor da arrematação nos termos do art. 130, “caput” e parágrafo único, do C.T.N.",
+   "comissao_leiloeiro_pct": "A comissão devida à Leiloeira será de 5% (cinco por cento) sobre o valor da arrematação",
+   "onus_na_matricula": "ÔNUS: Eventuais constantes na Matrícula Imobiliária. BAIXA PENHORAS, DEMAIS ÔNUS E TRIBUTOS: Com a venda no leilão, caso haja penhoras, arrestos, indisponibilidades"
+  }
+ },
+ "uso": {
+  "entrada": 2938,
+  "saida": 750,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}
