@@ -74,10 +74,13 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A docs/data docs/leiloes docs/sitemap.xml collector/cache
           git commit -m "dados: coleta de $(date -u +'%Y-%m-%d %H:%M UTC')"
-          for tentativa in 1 2 3; do
+          # Se alguém fez push durante a coleta (33 min), o rebase pode conflitar em arquivos gerados
+          # (sitemap.xml, páginas por cidade, dados). Nesses arquivos a versão desta execução é a certa:
+          # -X theirs resolve o conflito a favor do commit da coleta. Este commit só toca arquivos gerados.
+          for tentativa in 1 2 3 4 5; do
             if git push; then exit 0; fi
-            echo "push rejeitado (tentativa $tentativa); tentando rebase"
-            git pull --rebase origin main || exit 1
+            echo "push rejeitado (tentativa $tentativa); rebase sobre a main atual"
+            git pull --rebase -X theirs origin main || { git rebase --abort; sleep $((RANDOM % 20 + 5)); }
           done
           exit 1
 

@@ -58,9 +58,10 @@ jobs:
           git add -A collector/cache/relatorios docs/data/custo_relatorios.json docs/data/imoveis*.json collector/cache/pdf
           [ -d docs/data/relatorios ] && git add -A docs/data/relatorios || true
           git commit -m "relatórios: ${{ inputs.ids }}" || { echo "nada novo"; exit 0; }
+          # arquivos gerados: em conflito, vale a versão desta execução (-X theirs no rebase)
           for tentativa in 1 2 3 4 5; do
             if git push; then exit 0; fi
             sleep $((RANDOM % 10 + 3))
-            git pull --rebase origin main || exit 1
+            git pull --rebase -X theirs origin main || { git rebase --abort; sleep 5; }
           done
           exit 1
