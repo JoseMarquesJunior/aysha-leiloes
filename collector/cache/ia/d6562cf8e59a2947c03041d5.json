@@ -1,0 +1,38 @@
+{
+ "hash": "d6562cf8e59a2947c03041d5",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-26T12:32:07",
+ "lote": "msgbatch_01QyA69Fe1dmKosR9AmzjQFc",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora",
+   "arresto",
+   "indisponibilidade",
+   "hipoteca"
+  ],
+  "alertas": [
+   "Não constam nos autos informações sobre o Registro Imobiliário competente; regularização a cargo do arrematante",
+   "Imóvel será leiloado livre de ônus até a expedição da carta de arrematação, mas débitos de IPTU são sub-rogados no valor da arrematação",
+   "Desocupação somente via [nome] na Posse expedido pelo juízo comitente",
+   "Comissão da leiloeira de 5% devida pelo arrematante em 24 horas, não incluída no lance",
+   "Possível direito de preferência e meação do coproprietário ou cônjuge, conforme edital"
+  ],
+  "trechos_fonte": {
+   "debitos_iptu_por_conta_de": "Débitos de IPTU, serão sub-rogados no valor da arrematação nos termos do art. 130, “caput” e parágrafo único, do C.T.N.",
+   "comissao_leiloeiro_pct": "A comissão devida à Leiloeira será de 5% (cinco por cento) sobre o valor da arrematação, não se incluindo no valor do lanço",
+   "onus_na_matricula": "Com a venda no leilão, caso haja penhoras, arrestos, indisponibilidades, e/ou outros ônus que gravem a matrícula, o bem será leiloado livre e desembaraçado"
+  }
+ },
+ "uso": {
+  "entrada": 2938,
+  "saida": 608,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

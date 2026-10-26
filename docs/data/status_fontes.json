@@ -1,11 +1,11 @@
 {
  "caixa": {
-  "ultima_coleta_ok": "2026-10-24",
+  "ultima_coleta_ok": "2026-10-26",
   "registros": 22890,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://venda-imoveis.caixa.gov.br/",
-  "duracao_s": 58.1,
+  "duracao_s": 65.5,
   "info": {
    "data_geracao": "2026-10-23",
    "por_uf": {
@@ -47,45 +47,45 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-26T08:05:53",
-  "data_coleta": "2026-10-24"
+  "ultima_execucao": "2026-10-26T12:32:08",
+  "data_coleta": "2026-10-26"
  },
  "banestes": {
-  "ultima_coleta_ok": "2026-10-24",
+  "ultima_coleta_ok": "2026-10-26",
   "registros": 0,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.banestes.com.br/publicacoes_legais/leilao-bem-imovel.html",
-  "duracao_s": 2.3,
+  "duracao_s": 3.5,
   "info": {
    "total_editais_imoveis": 9
   }
  },
  "bandes": {
-  "ultima_coleta_ok": "2026-10-24",
+  "ultima_coleta_ok": "2026-10-26",
   "registros": 8,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.bandes.com.br/Site/Dinamico/Show/978/Leilao-de-Imoveis",
-  "duracao_s": 5.1,
+  "duracao_s": 4.1,
   "info": {
    "arquivos_com_texto": 6
   }
  },
  "spu": {
-  "ultima_coleta_ok": "2026-10-24",
+  "ultima_coleta_ok": "2026-10-26",
   "registros": 4,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://imoveis.vendasgov.serpro.gov.br/",
-  "duracao_s": 11.1,
+  "duracao_s": 10.7,
   "info": {
    "venda": 1,
    "leilao": 3
   }
  },
  "jfes": {
-  "ultima_coleta_ok": "2026-10-24",
+  "ultima_coleta_ok": "2026-10-26",
   "registros": 44,
   "ultimo_erro": null,
   "ativa": true,
@@ -97,12 +97,12 @@
   "ultima_tentativa": "2026-10-21"
  },
  "suporteleiloes": {
-  "ultima_coleta_ok": "2026-10-24",
+  "ultima_coleta_ok": "2026-10-26",
   "registros": 529,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.emleilao.com.br/",
-  "duracao_s": 1350.3,
+  "duracao_s": 1352.1,
   "info": {
    "emleilao": 493,
    "buaiz": 0,
@@ -111,12 +111,12 @@
   }
  },
  "vixleiloes": {
-  "ultima_coleta_ok": "2026-10-24",
+  "ultima_coleta_ok": "2026-10-26",
   "registros": 1,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.vixleiloes.com.br/",
-  "duracao_s": 82.4,
+  "duracao_s": 82.5,
   "info": {
    "leiloes_abertos": 34,
    "lotes_vistos": 1
@@ -125,7 +125,7 @@
  "colodete": {
   "ultima_coleta_ok": "2026-10-26",
   "registros": 5,
-  "ultimo_erro": null,
+  "ultimo_erro": "bloqueia IPs de datacenter: coletada só localmente",
   "ativa": true,
   "site": "https://www.colodeteleiloes.com.br/",
   "duracao_s": 26.9,
@@ -137,21 +137,21 @@
   "bloqueado_no_ci": true
  },
  "hdleiloes": {
-  "ultima_coleta_ok": "2026-10-24",
-  "registros": 156,
+  "ultima_coleta_ok": "2026-10-26",
+  "registros": 160,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.hdleiloes.com.br/",
-  "duracao_s": 60.1,
+  "duracao_s": 60.2,
   "info": {
-   "leiloes": 31,
-   "ES": 139,
+   "leiloes": 30,
+   "ES": 144,
    "MG": 0,
    "RJ": 6,
    "SP": 2,
    "GO": 0,
    "PE": 1,
-   "RS": 1,
+   "RS": 0,
    "PI": 0,
    "BA": 1,
    "PB": 0,

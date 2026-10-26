@@ -2079,6 +2079,12 @@
 "avenida jk, plano diretor expansao sul, palmas, to, brasil": null,
 "avenida joao argenton, 2985, vila yolanda costa e silva, sumare, sp, brasil": null,
 "avenida joao batista da rocha, 2031, diva, barretos, sp, brasil": null,
+"avenida joao bley, 433, nossa senhora aparecida, castelo, es, brasil": {
+"lat": -20.6062598,
+"lng": -41.2044849,
+"nome": "Avenida João Bley, Centro, Castelo, Espírito Santo, Região Sudeste, 29360-000, Brasil",
+"tipo": "residential"
+},
 "avenida joao castelo, 134, pequia, ., acailandia, ma, brasil": null,
 "avenida joao valerio, 1511, araujo costa, itacoatiara, am, brasil": null,
 "avenida joaquim bernardino de souza, 320, bairro do colonia, jacarei, sp, brasil": null,
@@ -11026,6 +11032,12 @@
 "tipo": "residential"
 },
 "gameleira, horizonte, ce, brasil": null,
+"garage, castelo, es, brasil": {
+"lat": -20.5957987,
+"lng": -41.2150298,
+"nome": "Garage, Castelo, Espírito Santo, Região Sudeste, 29360-000, Brasil",
+"tipo": "suburb"
+},
 "garanhuns, pe, brasil": {
 "lat": -8.8905889,
 "lng": -36.4930896,
@@ -18761,6 +18773,12 @@
 "nome": "Condomínio Ninho Verde II, Pardinho, São Paulo, Região Sudeste, 18645-053, Brasil",
 "tipo": "suburb"
 },
+"niteroi, castelo, es, brasil": {
+"lat": -20.607208,
+"lng": -41.1976926,
+"nome": "Niterói, Castelo, Espírito Santo, Região Sudeste, 29360-000, Brasil",
+"tipo": "suburb"
+},
 "niteroi, rj, brasil": {
 "lat": -22.8884,
 "lng": -43.1147,
@@ -26162,6 +26180,7 @@
 "rua c, 42, complexo jardim, nossa senhora do socorro, se, brasil": null,
 "rua c, conjunto residencial fechado portal dos, rio verde, go, brasil": null,
 "rua c, pedro patricio, timon, ma, brasil": null,
+"rua cabo antonio fereguete, 43, niteroi, castelo, es, brasil": null,
 "rua cabo benedito alves, 1470, bairro cotia, jardim paraiso, tres coracoes, mg, brasil": null,
 "rua cabreuva, 316, flor de liz, campo grande, ms, brasil": null,
 "rua cabriole, 76, lot novo horizonte, ceara-mirim, rn, brasil": null,
@@ -26901,6 +26920,12 @@
 "rua dr juvencio soares da silva, 770, jd leonidas baumel, contenda, pr, brasil": null,
 "rua dr orlando zancaner, 419, vila nossa senhora aparecida, igaracu do tiete, sp, brasil": null,
 "rua dr pedrosa c/rua maria do carmo melo aguiar, 30, loteamento nice, santa rita, pb, brasil": null,
+"rua dr. adalton santos, 929, niteroi, castelo, es, brasil": {
+"lat": -20.606368,
+"lng": -41.1982509,
+"nome": "Rua Doutor Adalton Santos, Niterói, Castelo, Espírito Santo, Região Sudeste, 29360-000, Brasil",
+"tipo": "secondary"
+},
 "rua dr. deolindo, bairro baiminas, cachoeiro de itapemirim/es (entre a, baiminas, cachoeiro de itapemirim, es, brasil": null,
 "rua dr. deolindo, bairro baiminas, cachoeiro de itapemirim/es (entre a, cachoeiro de itapemirim, es, brasil": null,
 "rua dr. emilio de maia, res eraldo cavalcant, rio largo, al, brasil": null,
@@ -27356,6 +27381,7 @@
 "rua helio nunes de melo, 38, jardim columbia, campo grande, ms, brasil": null,
 "rua helio venancio rodrigues, 793, bairro planalto, ceara-mirim, rn, brasil": null,
 "rua helson benevolo xavier, 695, st antonio do poteng, sao goncalo do amarante, rn, brasil": null,
+"rua hemilio perciliano, 20, garage, castelo, es, brasil": null,
 "rua henrique carrara amaral rogick, 795, terra vermelha, sorocaba, sp, brasil": null,
 "rua henrique de figueiredo dobermann, 225, residencial e comercial figueiredo felip, altinopolis, sp, brasil": null,
 "rua henrique de figueiredo dobermann, 75, 1466, residencial e comercial figueiredo felip, altinopolis, sp, brasil": null,
@@ -27531,6 +27557,7 @@
 "tipo": "secondary"
 },
 "rua joana darc de queiroz, 248, centro, rodolfo fernandes, rn, brasil": null,
+"rua joao adriano, 41, garage, castelo, es, brasil": null,
 "rua joao baptista de andrade, 00, residencial bordon, sumare, sp, brasil": null,
 "rua joao baptista deminicis, 0, lot jd miramar, marica, rj, brasil": null,
 "rua joao barbosa de oliveira, 1420, boa vista, ribas do rio pardo, ms, brasil": null,
