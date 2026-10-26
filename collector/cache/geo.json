@@ -8449,6 +8449,12 @@
 "complexp jardim, nossa senhora do socorro, se, brasil": null,
 "comum, tutoia, ma, brasil": null,
 "con lar est unidos i, ribeirao preto, sp, brasil": null,
+"conceicao da barra, es, brasil": {
+"lat": -18.4500463,
+"lng": -39.8675773,
+"nome": "Conceição da Barra, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "conceicao da feira, ba, brasil": {
 "lat": -12.5013001,
 "lng": -39.0002166,
@@ -8516,10 +8522,15 @@
 "condominio walter possos, brodowski, sp, brasil": null,
 "conforme a descricao acima, itapemirim, es, brasil": null,
 "conforme descricao acima, cidade de conceicao da barra, es, brasil": null,
+"conforme descricao acima, colatina, es, brasil": null,
+"conforme descricao acima, conceicao da barra, es, brasil": null,
+"conforme descricao acima, itapicuru, ba, brasil": null,
 "conforme descricao acima, municipio de itapicuru, ba, brasil": null,
 "conforme descricao acima, municipio de vila velha, es, brasil": null,
 "conforme descricao acima, urbano de colatina, es, brasil": null,
+"conforme descricao acima, vila velha, es, brasil": null,
 "conforme descricoes acima, municipio de serra, es, brasil": null,
+"conforme descricoes acima, serra, es, brasil": null,
 "confresa, confresa, mt, brasil": {
 "lat": -10.6334442,
 "lng": -51.5653349,
@@ -12516,6 +12527,12 @@
 "lng": -47.4491542,
 "nome": "Itapeva, Votorantim, São Paulo, Região Sudeste, 18115-803, Brasil",
 "tipo": "suburb"
+},
+"itapicuru, ba, brasil": {
+"lat": -11.1921853,
+"lng": -38.2157013,
+"nome": "Itapicuru, Bahia, Região Nordeste, 48475-000, Brasil",
+"tipo": "municipality"
 },
 "itapira, sp, brasil": {
 "lat": -22.436111,
@@ -25980,6 +25997,7 @@
 "rua baianopolis, centro, itapissuma, pe, brasil": null,
 "rua baianopolis, cid ind itapissuma, itapissuma, pe, brasil": null,
 "rua baltazar da silveira, 832, vila guanabara, duque de caxias, rj, brasil": null,
+"rua barao de itapemirim, s/no., nova valverde, cari - acica/es, cariacica, es, brasil": null,
 "rua barao de itapemirim, s/no., nova valverde, cari - acica/es, municipio de cariacica, es, brasil": null,
 "rua barao de maua, 899, fazenda santa rita, goiania, go, brasil": null,
 "rua barao de sao goncalo, 100, neves, sao goncalo, rj, brasil": {
