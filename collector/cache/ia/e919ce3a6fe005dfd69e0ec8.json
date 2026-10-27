@@ -1,0 +1,27 @@
+{
+ "hash": "e919ce3a6fe005dfd69e0ec8",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-27T15:21:38",
+ "lote": "msgbatch_01JMaVMyErzPVsKJBZWauGyz",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Parte do valor (cota-parte/meação de R$ 23.750,00) deve ser quitada integralmente, sem parcelamento.",
+   "Lotes não estão individualmente demarcados e terreno está coberto por vegetação alta.",
+   "Terreno sem benfeitorias; confirmar situação registral e de posse antes de dar lance."
+  ],
+  "trechos_fonte": {}
+ },
+ "uso": {
+  "entrada": 493,
+  "saida": 324,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

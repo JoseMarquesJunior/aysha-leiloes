@@ -1,0 +1,33 @@
+{
+ "hash": "4ded4c49e5169fea2ac3cac0",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-27T15:21:38",
+ "lote": "msgbatch_01JMaVMyErzPVsKJBZWauGyz",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora"
+  ],
+  "alertas": [
+   "Venda de fração de 50% do imóvel, com direito de preferência dos coproprietários (art. 504 CC).",
+   "Registro de penhoras anteriores conforme certidão de matrícula.",
+   "Bem avaliado em R$ 2.500.000,00; lance mínimo informado de R$ 1.250.000,00.",
+   "Leilão eletrônico, com sinal de 20% do valor do lance."
+  ],
+  "trechos_fonte": {
+   "aceita_financiamento": "Caso queira adquirir o(s) bem(ns) penhorado(s) em prestações poderá apresentar a proposta de aquisição por escrito, na forma do art. 895, incisos I e II, e parágrafos do atual CPC.",
+   "onus_na_matricula": "Bem penhorado: 1 - 50% do Imóvel registrado sob nº de Matrícula nº 13.572 do Cartório de Registro Geral de Imóveis da 2ª Zona de Vitória"
+  }
+ },
+ "uso": {
+  "entrada": 1142,
+  "saida": 500,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

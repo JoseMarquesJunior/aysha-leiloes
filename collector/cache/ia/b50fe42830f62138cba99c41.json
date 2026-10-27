@@ -1,0 +1,39 @@
+{
+ "hash": "b50fe42830f62138cba99c41",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-27T15:21:38",
+ "lote": "msgbatch_01JMaVMyErzPVsKJBZWauGyz",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": "comprador",
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "hipoteca",
+   "averbação premonitória"
+  ],
+  "alertas": [
+   "Imóvel pode estar ocupado; desocupação por [nome] na Posse",
+   "Débitos de IPTU sub-rogados no valor da arrematação",
+   "Comissão da leiloeira de 5% sobre o valor da arrematação paga pelo arrematante em 24 horas",
+   "Hipoteca se extingue com a arrematação, mas averbações premonitórias constam na matrícula",
+   "Débitos de condomínio não informados no trecho",
+   "Área privativa divergente: anúncio 77,75m² e auto de avaliação 77m²",
+   "Parcelamento com 25% de entrada e saldo corrigido pela Selic exige caução por hipoteca sobre o próprio imóvel"
+  ],
+  "trechos_fonte": {
+   "ocupado": "IMÓVEL OCUPADO: A desocupação do imóvel será realizada mediante expedição de [nome] na Posse que será expedido pelo M.M. Juízo Comitente.",
+   "debitos_iptu_por_conta_de": "Débitos de IPTU, serão sub-rogados no valor da arrematação nos termos do art. 130, caput e parágrafo único, do C.T.N.",
+   "comissao_leiloeiro_pct": "A comissão devida à Leiloeira será de 5% (cinco por cento) sobre o valor da arrematação, não se incluindo no valor do lanço",
+   "onus_na_matricula": "Consta R.7 – Hipoteca em favor de [nome]; AV.9 – [nome] nos autos nº. 0000391-59.2019.8.08.0011"
+  }
+ },
+ "uso": {
+  "entrada": 3191,
+  "saida": 698,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

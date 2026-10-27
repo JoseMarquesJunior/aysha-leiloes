@@ -1,0 +1,31 @@
+{
+ "hash": "a3701d6263a5a355c53d0580",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-27T15:21:38",
+ "lote": "msgbatch_01JMaVMyErzPVsKJBZWauGyz",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Matrículas disponíveis apenas no site oficial do leilão; verificar ônus antes do lance.",
+   "Cabe ao licitante verificar débitos junto a prefeitura e condomínio.",
+   "Imóvel vendido no estado em que se encontra, sem garantias quanto a reparos.",
+   "Se ocupado, imissão na posse depende de mandado e pode exigir mais de uma diligência."
+  ],
+  "trechos_fonte": {
+   "comissao_leiloeiro_pct": "PAGAMENTO DO LEILOEIRO : O arrematante pagará à vista, em até 24 horas a partir da data do encerramento do leilão por meio de depósito bancário, a comissão de 5% sobre o valor da arrematação, ao leilo",
+   "onus_na_matricula": "ÔNUS: As matriculas dos imóveis serão disponibilizadas no site oficial do leilão.  Débitos anteriores à arrematação, bem como o valor da execução acima descrito, não são responsabilidade do arrematant"
+  }
+ },
+ "uso": {
+  "entrada": 2765,
+  "saida": 516,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

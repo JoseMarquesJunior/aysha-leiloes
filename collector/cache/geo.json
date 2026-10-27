@@ -334,6 +334,12 @@
 "nome": "Água Fria, João Pessoa, Paraíba, Região Nordeste, Brasil",
 "tipo": "suburb"
 },
+"agua limpa park, campo grande, ms, brasil": {
+"lat": -20.4124218,
+"lng": -54.6231143,
+"nome": "Água Limpa Park, Nasser, Campo Grande, Mato Grosso do Sul, Região Centro-Oeste, Brasil",
+"tipo": "neighbourhood"
+},
 "agua limpa, volta redonda, rj, brasil": {
 "lat": -22.5088317,
 "lng": -44.0663372,
@@ -1504,6 +1510,7 @@
 "nome": "Armação dos Búzios, Rio de Janeiro, Região Sudeste, Brasil",
 "tipo": "municipality"
 },
+"armando marinho, 1370, bairro sao jorge, xanxere, sc, brasil": null,
 "armando santos, araxa, mg, brasil": {
 "lat": -19.577484,
 "lng": -46.9511143,
@@ -1838,6 +1845,12 @@
 "avenida belvedere, 120, belvedere ii, montes claros, mg, brasil": null,
 "avenida brasil, 00, jardim das flores, cruzeiro do oeste, pr, brasil": null,
 "avenida brasil, 120, jardim america, campo belo, mg, brasil": null,
+"avenida brasil, 16701, barbosa lage, juiz de fora, mg, brasil": {
+"lat": -21.7113783,
+"lng": -43.4093769,
+"nome": "Avenida Garcia Rodrigues Paes, Jockey Club II, Recanto da Mata, Barbosa Lage, Juiz de Fora, Minas Gerais, Região Sudeste, 36081-000, Brasil",
+"tipo": "secondary"
+},
 "avenida brigadeiro eduardo gomes, 408, balneario abc, praia grande, sp, brasil": null,
 "avenida c, jardim das palmeiras, planaltina, go, brasil": null,
 "avenida c, residencial alfa, goiania, go, brasil": null,
@@ -1902,6 +1915,7 @@
 "avenida des jose miguel feu rosa, 395, praia da baleia, serra, es, brasil": null,
 "avenida desembargador antonio jose migue, 395, praia da baleia, serra, es, brasil": null,
 "avenida desembargador antonio jose miguel feu rosa, 395, praia da baleia, serra, es, brasil": null,
+"avenida divino marques guimaraes, 2249, bonsucesso, vespasiano, mg, brasil": null,
 "avenida do cafe, 2361, vila amelia, ribeirao preto, sp, brasil": null,
 "avenida do contorno, 9215, prado, belo horizonte, mg, brasil": {
 "lat": -19.9206196,
@@ -2436,6 +2450,7 @@
 "avenida professor djalma guimaraes, 1663, chacara santa ines, santa luzia, mg, brasil": null,
 "avenida professor djalma guimaraes, 1862, chacaras santa ines (sao benedito), santa luzia, mg, brasil": null,
 "avenida professor gustavo fleury charmil, 372, jardim residencial paraiso, araraquara, sp, brasil": null,
+"avenida professor gustavo fleury charmil, 381, jardim residencial paraiso, araraquara, sp, brasil": null,
 "avenida professor gustavo fleury charmil, 604, jardim residencial paraiso, araraquara, sp, brasil": null,
 "avenida professor gustavo fleury charmillot, 381, jardim residencial paraiso, araraquara, sp, brasil": null,
 "avenida professor magalhaes neto, 192, bairro da boiadeira, iacu, ba, brasil": null,
@@ -2603,6 +2618,12 @@
 },
 "avenida wilson gomes coelho, aurelio caixeta, patos de minas, mg, brasil": null,
 "avenida wilson rodrigues da silva, 2532, loteamento residencial pequis, uberlandia, mg, brasil": null,
+"aviacao, praia grande, sp, brasil": {
+"lat": -24.0168756,
+"lng": -46.4446113,
+"nome": "Aviação, Praia Grande, São Paulo, Região Sudeste, 11702-480, Brasil",
+"tipo": "suburb"
+},
 "aviario, feira de santana, ba, brasil": {
 "lat": -12.3091445,
 "lng": -38.9331412,
@@ -2793,6 +2814,7 @@
 "bairro santa rosa, iturama, mg, brasil": null,
 "bairro sao cristovao, serafina correa, rs, brasil": null,
 "bairro sao joao, augusto correa, pa, brasil": null,
+"bairro sao jorge, xanxere, sc, brasil": null,
 "bairro sao miguel, matozinhos, mg, brasil": null,
 "bairro sao pedro, demerval lobao, pi, brasil": null,
 "bairro sao pedro, uniao, pi, brasil": null,
@@ -7460,6 +7482,12 @@
 "nome": "Centro Comunitário Érico Veríssimo, Rua Érico Veríssimo, Vale do Sol, Rivera, Jaguari, Rio Grande do Sul, Região Sul, 97760-000, Brasil",
 "tipo": "amenity"
 },
+"centro, viamao, rs, brasil": {
+"lat": -30.0816418,
+"lng": -51.0276318,
+"nome": "Centro, Sede, Viamão, Rio Grande do Sul, Região Sul, Brasil",
+"tipo": "suburb"
+},
 "centro, vigia, pa, brasil": null,
 "centro, vitorino, pr, brasil": {
 "lat": -30.0302132,
@@ -8651,6 +8679,7 @@
 "conjunto habitacional silvia covas, penapolis, sp, brasil": null,
 "conjunto habitacional silvio passalacqua, ribeirao preto, sp, brasil": null,
 "conjunto habitacional solo sagrado, apucarana, pr, brasil": null,
+"conjunto habitacional vereador flavio ma, birigui, sp, brasil": null,
 "conjunto habitacional violim, londrina, pr, brasil": null,
 "conjunto manoel mendes, uberaba, mg, brasil": null,
 "conjunto napoleao alves ferreira, maracaju, ms, brasil": null,
@@ -9046,6 +9075,12 @@
 "lng": -49.3186402,
 "nome": "Cristo Rei, Içara, Santa Catarina, Região Sul, Brasil",
 "tipo": "suburb"
+},
+"cristo rei, simoes filho, ba, brasil": {
+"lat": -12.7763099,
+"lng": -38.3972964,
+"nome": "Escola Municipal Centro Comunitário Cristo Rei, Rua Almirante Barroso, Loteamento Major Tapioca, Simões Filho, Bahia, Região Nordeste, 43700-000, Brasil",
+"tipo": "amenity"
 },
 "cristo rei, varzea grande, mt, brasil": {
 "lat": -15.6494288,
@@ -9620,6 +9655,12 @@
 "nome": "Estrada Pacajus-Dourado, Dourados, Justiniano de Serpa, Horizonte, Ceará, Região Nordeste, 62880-255, Brasil",
 "tipo": "residential"
 },
+"dourados, ms, brasil": {
+"lat": -22.2206145,
+"lng": -54.812208,
+"nome": "Dourados, Mato Grosso do Sul, Região Centro-Oeste, Brasil",
+"tipo": "city"
+},
 "doutor tancredo de almeida neves, araraquara, sp, brasil": null,
 "dr jose bezerra, currais novos, rn, brasil": {
 "lat": -6.2503364,
@@ -9814,6 +9855,12 @@
 "tipo": "suburb"
 },
 "encanto do una, sao bento do una, pe, brasil": null,
+"encosta do sol, estancia velha, rs, brasil": {
+"lat": -29.6695716,
+"lng": -51.179357,
+"nome": "Encosta do Sol, Estância Velha, Rio Grande do Sul, Região Sul, Brasil",
+"tipo": "suburb"
+},
 "encruzilhada de sao joao, bezerros, pe, brasil": {
 "lat": -8.2975585,
 "lng": -35.8422122,
@@ -9963,6 +10010,12 @@
 "tipo": "town"
 },
 "esp rosapolis, parnaiba, pi, brasil": null,
+"espaco tropical, barra dos coqueiros, se, brasil": {
+"lat": -10.9122833,
+"lng": -37.0207582,
+"nome": "Espaço Tropical, Barra dos Coqueiros, Sergipe, Região Nordeste, 49142-438, Brasil",
+"tipo": "suburb"
+},
 "espera feliz, espera feliz, mg, brasil": {
 "lat": -20.6519879,
 "lng": -41.9091171,
@@ -10257,6 +10310,7 @@
 "estrada municipal, recanto verde, juquitiba, sp, brasil": null,
 "estrada normandia, 1097, jardim pioneiro, cotia, sp, brasil": null,
 "estrada pastor antonio martins, 1050, ant estr. olaria 957, queimados, queimados, rj, brasil": null,
+"estrada prefeito bento rotger domingues, 2030, jardim elisa, itapecerica da serra, sp, brasil": null,
 "estrada queimados-cabucu, 943, cidade jardim cabucu, nova iguacu, rj, brasil": null,
 "estrada queimadoscabucu, 995, vila bonanza, queimados, rj, brasil": null,
 "estrada real de maua 107 qd221 lt36b rua 94 atua, 107, qd221 lt36b, bairro maua praia ca, mage, rj, brasil": null,
@@ -12504,6 +12558,12 @@
 "nome": "Itapeba, Maricá, Rio de Janeiro, Região Sudeste, Brasil",
 "tipo": "suburb"
 },
+"itapecerica da serra, sp, brasil": {
+"lat": -23.7364708,
+"lng": -46.8646452,
+"nome": "Itapecerica da Serra, São Paulo, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "itapemirim, es, brasil": {
 "lat": -20.9879766,
 "lng": -40.9598975,
@@ -13533,6 +13593,7 @@
 "jardim boa esperanca, sertaozinho, sp, brasil": null,
 "jardim boa vista (zona oeste), sao paulo, sp, brasil": null,
 "jardim bom retiro (nova veneza), sumare, sp, brasil": null,
+"jardim bom viver iv, lins, sp, brasil": null,
 "jardim bonfiglioli, sao paulo, sp, brasil": {
 "lat": -23.207902,
 "lng": -46.8875032,
@@ -13957,6 +14018,8 @@
 "nome": "Jardim de Bortole, Votuporanga, São Paulo, Região Sudeste, 15507-082, Brasil",
 "tipo": "suburb"
 },
+"jardim deoclecio artuzzi ii, dourados, ms, brasil": null,
+"jardim deoclecio artuzzi, dourados, ms, brasil": null,
 "jardim diamantina, sao sebastiao do paraiso, mg, brasil": null,
 "jardim diva tarla de carvalho, ribeirao preto, sp, brasil": null,
 "jardim do bosque 2, palestina, sp, brasil": {
@@ -14090,6 +14153,7 @@
 "nome": "Jardim Elisa Volpi, Angatuba, São Paulo, Região Sudeste, 18240-000, Brasil",
 "tipo": "suburb"
 },
+"jardim elisa, itapecerica da serra, sp, brasil": null,
 "jardim empyreo, leme, sp, brasil": {
 "lat": -22.2072875,
 "lng": -47.3734127,
@@ -14347,6 +14411,12 @@
 "lng": -54.7386422,
 "nome": "Inápolis, Núcleo Industrial, Campo Grande, Mato Grosso do Sul, Região Centro-Oeste, 79104-710, Brasil",
 "tipo": "neighbourhood"
+},
+"jardim independencia, embu das artes, sp, brasil": {
+"lat": -23.6527382,
+"lng": -46.7948433,
+"nome": "Unidade Básica de Saúde Jardim Independência, 1200, Estrada de Itapecerica-Campo Limpo, Vila Regina, Embu das Artes, São Paulo, Região Sudeste, 06826-065, Brasil",
+"tipo": "amenity"
 },
 "jardim independencia, pereira barreto, sp, brasil": null,
 "jardim independencia, sao goncalo, rj, brasil": null,
@@ -14808,6 +14878,12 @@
 "nome": "Jardim Morada do Sol, Votuporanga, São Paulo, Região Sudeste, Brasil",
 "tipo": "suburb"
 },
+"jardim natal, picos, pi, brasil": {
+"lat": -7.0758598,
+"lng": -41.4160898,
+"nome": "Jardim Natal, Picos, Morrinhos, Piauí, Região Nordeste, Brasil",
+"tipo": "suburb"
+},
 "jardim nobre, rolandia, pr, brasil": {
 "lat": -23.3035407,
 "lng": -51.3966504,
@@ -15021,6 +15097,12 @@
 },
 "jardim palma travassos, ribeirao preto, sp, brasil": null,
 "jardim palmares, nova iguacu, rj, brasil": null,
+"jardim palmira, guarulhos, sp, brasil": {
+"lat": -23.4356285,
+"lng": -46.5582899,
+"nome": "Vila Jardim Palmira, Parque Continental I, Cabuçu, Guarulhos, São Paulo, Região Sudeste, Brasil",
+"tipo": "residential"
+},
 "jardim palmira, tatui, sp, brasil": {
 "lat": -23.3490456,
 "lng": -47.8239891,
@@ -15269,6 +15351,7 @@
 "tipo": "suburb"
 },
 "jardim quitandinha ii, araraquara, sp, brasil": null,
+"jardim rasslem, dourados, ms, brasil": null,
 "jardim real park, botucatu, sp, brasil": null,
 "jardim recanto da vila mineira, rondonopolis, mt, brasil": null,
 "jardim recanto das aguas, nova odessa, sp, brasil": null,
@@ -16309,6 +16392,7 @@
 "tipo": "town"
 },
 "lado sul, lucelia, sp, brasil": null,
+"lady laura, parintins, am, brasil": null,
 "lageado, cotia, sp, brasil": {
 "lat": -23.5876891,
 "lng": -46.9259228,
@@ -16839,6 +16923,7 @@
 "lot n cha alegria 3, cha de alegria, pe, brasil": null,
 "lot nova amazonas i, iranduba, am, brasil": null,
 "lot nova cha de aleg, cha de alegria, pe, brasil": null,
+"lot nova conquista, santa rita, ma, brasil": null,
 "lot nova esperanca, rio branco, ac, brasil": null,
 "lot nova itaberaba, itaberaba, ba, brasil": null,
 "lot nova macarani i, macarani, ba, brasil": null,
@@ -17471,6 +17556,12 @@
 "lng": -48.3353131,
 "nome": "Mansour, Setor Oeste, Uberlândia, Minas Gerais, Região Sudeste, 38414-466, Brasil",
 "tipo": "suburb"
+},
+"mantena, mg, brasil": {
+"lat": -18.7809937,
+"lng": -40.9808279,
+"nome": "Mantena, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "town"
 },
 "mantiba, feira de santana, ba, brasil": {
 "lat": -12.1814714,
@@ -18891,6 +18982,12 @@
 "tipo": "suburb"
 },
 "nossa senhora de fat, salgueiro, pe, brasil": null,
+"nossa senhora de fatima, caxias do sul, rs, brasil": {
+"lat": -29.1412735,
+"lng": -51.1764493,
+"nome": "Nossa Senhora de Fátima, Primeiro Distrito, Caxias do Sul, Rio Grande do Sul, Região Sul, Brasil",
+"tipo": "suburb"
+},
 "nossa senhora de fatima, itabuna, ba, brasil": {
 "lat": -14.8516321,
 "lng": -39.3492707,
@@ -19756,6 +19853,12 @@
 "lng": -38.464988,
 "nome": "Pacajus, Ceará, Região Nordeste, 62870-000, Brasil",
 "tipo": "municipality"
+},
+"pacas, pinheiro, ma, brasil": {
+"lat": -2.5498198,
+"lng": -45.1441296,
+"nome": "Pacas, Pinheiro, Maranhão, Região Nordeste, 65200-000, Brasil",
+"tipo": "suburb"
 },
 "pacatuba, ce, brasil": {
 "lat": -3.9841,
@@ -21618,6 +21721,12 @@
 "nome": "Pau da Lima, Jardim Cajazeiras, Salvador, Bahia, Região Nordeste, Brasil",
 "tipo": "residential"
 },
+"pau pombo, aquiraz, ce, brasil": {
+"lat": -3.9618342,
+"lng": -38.3441905,
+"nome": "Pau Pombo, Jussara, Tapera, Aquiraz, Ceará, Região Nordeste, 61758-000, Brasil",
+"tipo": "suburb"
+},
 "paudalho, paudalho, pe, brasil": {
 "lat": -7.8844886,
 "lng": -35.15684,
@@ -23041,6 +23150,12 @@
 "nome": "Praia de Fora, Enseada de Brito, Palhoça, Santa Catarina, Região Sul, Brasil",
 "tipo": "suburb"
 },
+"praia de itaipava, itapemirim, es, brasil": {
+"lat": -20.8977236,
+"lng": -40.775826,
+"nome": "Praia de Itaipava, Itaipava, Itapemirim, Espírito Santo, Região Sudeste, Brasil",
+"tipo": "beach"
+},
 "praia de itaipuacu (itaipuacu), marica, rj, brasil": {
 "lat": -22.9623547,
 "lng": -42.9940643,
@@ -23445,6 +23560,7 @@
 "r jose soares do nascimento, 273, pedra branca, pacajus, ce, brasil": null,
 "r jose walter gomes (ant r prefeito antonio lula, centro, tangara, rn, brasil": null,
 "r juvenal semeao, 579, planalto da galileia, horizonte, ce, brasil": null,
+"r juvenal semeao, 591a, terreno 12, planalto da galileia, horizonte, ce, brasil": null,
 "r malgaxe, 758, outeiro de passargada, cotia, sp, brasil": null,
 "r manoela fernandes mazzo, 260, jardim continental, guararapes, sp, brasil": null,
 "r marciano pinto, 1635, morada alegre, juiz de fora, mg, brasil": null,
@@ -23607,6 +23723,12 @@
 "tipo": "suburb"
 },
 "recanto das torres, uberaba, mg, brasil": null,
+"recanto do lago, teixeira de freitas, ba, brasil": {
+"lat": -17.5355164,
+"lng": -39.7314314,
+"nome": "Recanto do Lago, Teixeira de Freitas, Bahia, Região Nordeste, Brasil",
+"tipo": "suburb"
+},
 "recanto do sol i, campinas, sp, brasil": {
 "lat": -22.9600243,
 "lng": -47.145964,
@@ -24034,6 +24156,7 @@
 "nome": "Residencial Green Ville, Presidente Prudente, São Paulo, Região Sudeste, 19066-030, Brasil",
 "tipo": "suburb"
 },
+"residencial greenville, dourados, ms, brasil": null,
 "residencial guaira, sumare, sp, brasil": null,
 "residencial gumercin, sao jose do rio preto, sp, brasil": null,
 "residencial gumercindo de seta, sao jose do rio preto, sp, brasil": {
@@ -25061,6 +25184,7 @@
 "rua 02, 207, chacaras coimbra, aguas lindas de goias, go, brasil": null,
 "rua 02, 32, santo antonio, carpina, pe, brasil": null,
 "rua 02, chacaras saia velha, valparaiso de goias, go, brasil": null,
+"rua 02, lot nova conquista, santa rita, ma, brasil": null,
 "rua 02, lot vila divineia, padre bernardo, go, brasil": null,
 "rua 02, loteamento lunabel 3, novo gama, go, brasil": null,
 "rua 02, nova acorizal, acorizal, mt, brasil": null,
@@ -25395,6 +25519,7 @@
 "rua 5 de fevereiro, 228, complexo jardim, nossa senhora do socorro, se, brasil": null,
 "rua 5 de janeiro, 12, complexo jardim, nossa senhora do socorro, se, brasil": null,
 "rua 5 de marco, 188, complexo jardim, nossa senhora do socorro, se, brasil": null,
+"rua 5, parque nova friburgo b, cidade ocidental, go, brasil": null,
 "rua 5, parque santa rita de cassia, valparaiso de goias, go, brasil": null,
 "rua 5-c, 31, c2, complexo jardim, nossa senhora do socorro, se, brasil": null,
 "rua 51, jardim lago azul, novo gama, go, brasil": null,
@@ -25776,6 +25901,7 @@
 "rua anna aparecida nicolella marques, 350, jardim lavinia, marilia, sp, brasil": null,
 "rua annita moren leite, 651, jardim da paz (guia de pacobaiba), mage, rj, brasil": null,
 "rua antenor de souza, 605, reserva real, ribeirao preto, sp, brasil": null,
+"rua antonia chimenes maffeis, 1134, conjunto habitacional vereador flavio ma, birigui, sp, brasil": null,
 "rua antonia dulcineide da costa, 350, alto sao francisco, santa maria, rn, brasil": null,
 "rua antonia mugnato marincek, 2255, jardim florestan fernandes, ribeirao preto, sp, brasil": null,
 "rua antonia rodrigues aranda, 113, jardim moema, londrina, pr, brasil": null,
@@ -25854,6 +25980,8 @@
 "rua antonio rossanese, 220, chacaras bonacorsi, ribeirao preto, sp, brasil": null,
 "rua antonio saturno bezerra, 231, jd boa vista, monteiro, pb, brasil": null,
 "rua antonio teixeira leite, 79, jardim de ala (justinopolis), ribeirao das neves, mg, brasil": null,
+"rua antonio vieira lima (antiga rua da11), 1485, jardim deoclecio artuzzi, dourados, ms, brasil": null,
+"rua antonio vieira lima (antiga rua da11), 1505, jardim deoclecio artuzzi, dourados, ms, brasil": null,
 "rua antonio wilson pinheiro reginaldo, 90, gameleira, horizonte, ce, brasil": null,
 "rua antonio zilli, 151, conjunto habitacional santo antonio, guaracai, sp, brasil": null,
 "rua apolo 5, jardim balneario, cabo frio, rj, brasil": null,
@@ -26434,6 +26562,8 @@
 "rua clenio wanderley, 80, distrito de itaquera, sao paulo, sp, brasil": null,
 "rua cleusa aparecida da cunha januario, 180, reserva sao jose, ribeirao preto, sp, brasil": null,
 "rua clodion rezende, 363, jardim do lago, uberaba, mg, brasil": null,
+"rua clotilde holidio pedroso (antiga rua da18), 1725, jardim deoclecio artuzzi, dourados, ms, brasil": null,
+"rua clotilde holidio pedroso (antiga rua da18), 1735, residencial greenville, dourados, ms, brasil": null,
 "rua clotildes aguiar de castro, jardim tupi, tupa, sp, brasil": null,
 "rua coimbra, vila ibirapitanga, itaguai, rj, brasil": null,
 "rua coletora um, 348, esmeraldas, mg, brasil": null,
@@ -26657,6 +26787,7 @@
 "nome": "Rua Deodoro da Fonseca, Chácaras Ipanema, Jardim Flamboyant, Luziânia, Goiás, Região Centro-Oeste, 72875-000, Brasil",
 "tipo": "residential"
 },
+"rua deozalina viana de aguiar, 181, praia de itaipava, itapemirim, es, brasil": null,
 "rua dep clodomir leite (antiga r projetada), 1011b, lot plan tibiri i, santa rita, pb, brasil": null,
 "rua deputado antonio calixto, 630, santa iria, ribeirao preto, sp, brasil": null,
 "rua deputado antonio calixto, 730, santa iria, ribeirao preto, sp, brasil": null,
@@ -26908,6 +27039,7 @@
 "rua doze, 88, jardim dos bandeirantes (melo viana), esmeraldas, mg, brasil": null,
 "rua doze, loteamento lunabel 3, novo gama, go, brasil": null,
 "rua dr antonio x de araujo, 22, lot santa maria, paramirim, ba, brasil": null,
+"rua dr armando aoki genshiro, 11, jardim bom viver iv, lins, sp, brasil": null,
 "rua dr joao dultra de almeida, 190, lot res ruy pereira, ceara-mirim, rn, brasil": null,
 "rua dr joao dultra de almeida, 247, lot res ruy pereira, ceara-mirim, rn, brasil": null,
 "rua dr joao dutra de almeida, 70, zona urbana, ceara-mirim, rn, brasil": null,
@@ -27248,6 +27380,7 @@
 "rua frei paulo, 311, bonsucesso, vespasiano, mg, brasil": null,
 "rua frei vicente pinilla, 141, residencial alto dos lagos, taiuva, sp, brasil": null,
 "rua futura, 30, sagrado coracao, varginha, mg, brasil": null,
+"rua g (antiga rua da10), 1685, jardim rasslem, dourados, ms, brasil": null,
 "rua g, 00, centro dist. dourado, horizonte, ce, brasil": null,
 "rua g, 130, jardim tupi, tupa, sp, brasil": null,
 "rua g, 189, lot porto feliz, alagoinhas, ba, brasil": null,
@@ -27293,6 +27426,7 @@
 "rua geraldo rinhel sobrinho, 400, reserva macauba, ribeirao preto, sp, brasil": null,
 "rua geraldo vitorino, 57, jardim maria luiza, santa cruz do rio pardo, sp, brasil": null,
 "rua geraldo vitorino, 87, jardim maria luiza, santa cruz do rio pardo, sp, brasil": null,
+"rua gesse da silva alencar (antiga rua da21), 1400, jardim deoclecio artuzzi, dourados, ms, brasil": null,
 "rua getulio marques garcia, jardim alvorada, tres lagoas, ms, brasil": null,
 "rua getulio vargas, cenro, alianca, pe, brasil": null,
 "rua getulio vargas, desm. granja santo, alianca, pe, brasil": null,
@@ -27320,6 +27454,12 @@
 "rua goias, jardim dos estados, ribas do rio pardo, ms, brasil": null,
 "rua goiatuba, dist nova veneza, sumare, sp, brasil": null,
 "rua gonroku yoshimoto, 600, chacara faggion, suzano, sp, brasil": null,
+"rua gonzaga, sevilha 2a secao, ribeirao das neves, mg, brasil": {
+"lat": -19.7493751,
+"lng": -44.0799771,
+"nome": "Rua Gonzaga, Sevilha 2ª Seção, Ribeirão das Neves, Minas Gerais, Região Sudeste, 33840-230, Brasil",
+"tipo": "residential"
+},
 "rua governador helvidio nunes, 231, centro, sao joao da serra, pi, brasil": null,
 "rua governador mario covas junior, 81, lotes 25,26 e 27, cid. baln. peruibe, peruibe, sp, brasil": null,
 "rua governador venancio neiva, 22, lot solar do tibiri, santa rita, pb, brasil": null,
@@ -27351,6 +27491,12 @@
 "rua guilherme gimenes, 380, residencial gimenez, canitar, sp, brasil": null,
 "rua guilherme grandizo, 74, centro, lupercio, sp, brasil": null,
 "rua guilherme telo, 0, qd184, bairro farroupilha, soledade, rs, brasil": null,
+"rua guimaraes junior, 735, nova era, juiz de fora, mg, brasil": {
+"lat": -21.7069186,
+"lng": -43.4250722,
+"nome": "Rua Guimarães Júnior, Nova Era II, Nova Era, Juiz de Fora, Minas Gerais, Região Sudeste, 36087-000, Brasil",
+"tipo": "residential"
+},
 "rua guiomar pitta trevizan, 690, antonio abouj, guara, sp, brasil": null,
 "rua gumercindo pereira, 437, residencial alfredo benedetti, morro agudo, sp, brasil": null,
 "rua gurinhata, 175, satelite andradina, ituiutaba, mg, brasil": {
@@ -27360,6 +27506,7 @@
 "tipo": "residential"
 },
 "rua gustavo de matos, 97, 3o distrito, sao goncalo, rj, brasil": null,
+"rua h, 09, vl de porto de sauip, entre rios, ba, brasil": null,
 "rua h, 135, 0, residencial el shaday, matinhos, pr, brasil": null,
 "rua h, 14 b, romualdo prado, sao cristovao, se, brasil": null,
 "rua h, 140, acacias, montes claros, mg, brasil": {
@@ -28485,6 +28632,7 @@
 "rua nc 14, 130, residencial nova canaa, trindade, go, brasil": null,
 "rua neci maria ferreira, 44, euno andrade da silva, belo jardim, pe, brasil": null,
 "rua neire reijane dos santos guimaraes, 222, nova esperanca, mae do rio, pa, brasil": null,
+"rua nelson augusto de melo, 23, lot moinho, extremoz, rn, brasil": null,
 "rua nelson bernardi, 345, jardim novo mundo, matao, sp, brasil": null,
 "rua nelson cavaquinho, 588, massaraduba, ceara-mirim, rn, brasil": null,
 "rua nelson do carmo, 65, vereador eduardo andrade reis, marilia, sp, brasil": null,
@@ -28833,6 +28981,7 @@
 "nome": "Rua Dom Pedro II, Chácaras Ipanema, Chácaras Marambaia, Valparaíso de Goiás, Goiás, Região Centro-Oeste, 72875-000, Brasil",
 "tipo": "residential"
 },
+"rua pedro ii, 312, tres lagoas, piracuruca, pi, brasil": null,
 "rua pedro ii, chacaras ipanema, valparaiso de goias, go, brasil": {
 "lat": -16.1245957,
 "lng": -47.9824747,
@@ -28957,6 +29106,12 @@
 "nome": "Rua Professor Aylton Ricoy de Oliveira, Jardim Iara, Ribeirão Preto, São Paulo, Região Sudeste, 14078-400, Brasil",
 "tipo": "unclassified"
 },
+"rua professor domingos, independencia, cachoeiro de itapemirim, es, brasil": {
+"lat": -20.8515649,
+"lng": -41.107998,
+"nome": "Rua Professor Domingos, Independência, Cachoeiro de Itapemirim, Espírito Santo, Região Sudeste, 29306-470, Brasil",
+"tipo": "residential"
+},
 "rua professor emerson aparecido carandina, 95, parque residencial jose gomes, porto ferreira, sp, brasil": null,
 "rua professor irineu jose de paula, 20, previdenciarios, juiz de fora, mg, brasil": null,
 "rua professor jaime de sa menezes, 50, cajazeiras vii, salvador, ba, brasil": null,
@@ -28998,6 +29153,7 @@
 "rua professora zuleide bezerra de carval, 610 t, diadema, horizonte, ce, brasil": null,
 "rua professora zuleide bezerra de carval, diadema, horizonte, ce, brasil": null,
 "rua proj rildo de melo cerqueira, 30, olho dagua, piracuruca, pi, brasil": null,
+"rua projeta, 4782, lady laura, parintins, am, brasil": null,
 "rua projetada (av silverio nery), ipiranga, borba, am, brasil": null,
 "rua projetada (rua 22), 10, lot nova cha de aleg, cha de alegria, pe, brasil": null,
 "rua projetada 01 (atual joaquim ribeiro torres), formigueiro, batalha, pi, brasil": null,
@@ -29363,6 +29519,7 @@
 },
 "rua reinaldo alves da rocha rua 08, 850, portal do vale, uberlandia, mg, brasil": null,
 "rua renato bitencourt, 94, terezopolis, alagoinhas, ba, brasil": null,
+"rua rene miguel (antiga rua da1), 1820, jardim deoclecio artuzzi ii, dourados, ms, brasil": null,
 "rua renovacao, chacaras quedas do descoberto, aguas lindas de goias, go, brasil": null,
 "rua renovo, 130, cidade nova, demerval lobao, pi, brasil": null,
 "rua renovo, 80, cidade nova, demerval lobao, pi, brasil": null,
@@ -29493,6 +29650,7 @@
 "rua rua 03, n, parque nova friburgo a, cidade ocidental, go, brasil": null,
 "rua rua 11, 0, parque napolis a, cidade ocidental, go, brasil": null,
 "rua rua 12, parque napolis a, cidade ocidental, go, brasil": null,
+"rua rua cinco, 236, pedra branca, pacajus, ce, brasil": null,
 "rua rua laura emilia costa dona, eldorado, carangola, mg, brasil": null,
 "rua rua sdo 01, 245, vertente, horizonte, ce, brasil": null,
 "rua rubens coutinho romano, 2250, vila camarim, queimados, rj, brasil": null,
@@ -30019,6 +30177,7 @@
 "rua vicente de carvalho, 42, jardins de campos, campos dos goytacazes, rj, brasil": null,
 "rua vicente de carvalho, 42/68, jardins de campos, campos dos goytacazes, rj, brasil": null,
 "rua vicente de carvalho, jardins de campos, campos dos goytacazes, rj, brasil": null,
+"rua vicente golfeto, 251, campos eliseos, ribeirao preto, sp, brasil": null,
 "rua vicente paschoal, 310, jardim dos manacas, santa barbara d'oeste, sp, brasil": null,
 "rua vicente paschoal, 310, santa barbara d'oeste, sp, brasil": null,
 "rua vicente pedro da silva, cohab-i, belo jardim, pe, brasil": null,
@@ -30584,6 +30743,12 @@
 "nome": "Santa Isabel do Ivaí, Paraná, Região Sul, 87910-000, Brasil",
 "tipo": "village"
 },
+"santa isabel do para, santa isabel do para, pa, brasil": {
+"lat": -1.278808,
+"lng": -48.160363,
+"nome": "Santa Izabel do Pará, Pará, Região Norte, 68790-000, Brasil",
+"tipo": "city_district"
+},
 "santa isabel, eunapolis, ba, brasil": {
 "lat": -16.3653439,
 "lng": -39.5572117,
@@ -30802,6 +30967,12 @@
 "lng": -35.2974905,
 "nome": "Santa Rita, Glória do Goitá, Pernambuco, Região Nordeste, 55620-970, Brasil",
 "tipo": "suburb"
+},
+"santa rita, ma, brasil": {
+"lat": -3.1411146,
+"lng": -44.3270285,
+"nome": "Santa Rita, Maranhão, Região Nordeste, 65145-000, Brasil",
+"tipo": "municipality"
 },
 "santa rita, nova iguacu, rj, brasil": {
 "lat": -22.6915017,
@@ -31510,6 +31681,12 @@
 "lat": -2.511897,
 "lng": -44.3040792,
 "nome": "São Francisco, São Luís, Maranhão, Região Nordeste, 65076-408, Brasil",
+"tipo": "suburb"
+},
+"sao francisco, serra, es, brasil": {
+"lat": -20.118991,
+"lng": -40.1807942,
+"nome": "São Francisco, Serra, Espírito Santo, Região Sudeste, Brasil",
 "tipo": "suburb"
 },
 "sao francisco, timon, ma, brasil": {
@@ -33946,6 +34123,7 @@
 "nome": "Três Lagoas, Mato Grosso do Sul, Região Centro-Oeste, Brasil",
 "tipo": "city"
 },
+"tres lagoas, piracuruca, pi, brasil": null,
 "tres marias, esteio, rs, brasil": {
 "lat": -29.8654681,
 "lng": -51.1142452,
@@ -36266,6 +36444,7 @@
 "nome": "Viviam Parque, Anápolis, Goiás, Região Centro-Oeste, Brasil",
 "tipo": "suburb"
 },
+"vl de porto de sauip, entre rios, ba, brasil": null,
 "vl oceanica amabile, praia grande, sp, brasil": {
 "lat": -24.0283577,
 "lng": -46.4763388,
