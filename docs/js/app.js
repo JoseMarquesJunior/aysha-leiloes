@@ -449,7 +449,9 @@
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap" }).addTo(estado.mapa);
       estado.cluster = L.markerClusterGroup({ chunkedLoading: true, maxClusterRadius: 45 });
       estado.mapa.addLayer(estado.cluster);
+      criarFiltrosMapa();
     }
+    sincronizarFiltrosMapa();
     estado.cluster.clearLayers();
     const pontos = [];
     for (const r of estado.filtrados) {
@@ -471,6 +473,65 @@
       estado.mapa.invalidateSize();
       if (pontos.length) estado.mapa.fitBounds(estado.cluster.getBounds().pad(0.1));
     }, 50);
+  }
+
+  // ---------- filtros rápidos sobre o mapa ----------
+  // Espelham campos do formulário principal: mudar aqui muda lá (e vice-versa via sincronizar).
+  const FILTROS_MAPA = [["mf-dmin", "f-dmin"], ["mf-vmax", "f-vmax"], ["mf-desocupados", "f-desocupados"], ["mf-financiamento", "f-financiamento"], ["mf-leilao", "f-leilao-prox"], ["mf-dias", "f-leilao-dias"]];
+  function criarFiltrosMapa() {
+    const Painel = L.Control.extend({
+      options: { position: "topright" },
+      onAdd() {
+        const div = L.DomUtil.create("div", "mapa-filtros");
+        div.innerHTML = `
+          <button type="button" class="mf-titulo" aria-expanded="true">Filtros rápidos <span aria-hidden="true">▾</span></button>
+          <div class="mf-corpo">
+            <label>Desconto mín. % <input type="number" id="mf-dmin" min="0" step="5" placeholder="ex.: 30"></label>
+            <label>Lance até R$ <input type="number" id="mf-vmax" min="0" step="10000" placeholder="ex.: 200000"></label>
+            <label class="mf-cb"><input type="checkbox" id="mf-desocupados"> só desocupados</label>
+            <label class="mf-cb"><input type="checkbox" id="mf-financiamento"> aceita financiamento</label>
+            <span class="mf-cb"><label><input type="checkbox" id="mf-leilao"> leilão em até</label> <input type="number" id="mf-dias" value="30" min="1" class="mf-dias" aria-label="Quantidade de dias"> dias</span>
+            <button type="button" class="btn pequeno" id="mf-limpar">Limpar estes filtros</button>
+          </div>`;
+        L.DomEvent.disableClickPropagation(div);
+        L.DomEvent.disableScrollPropagation(div);
+        return div;
+      },
+    });
+    estado.mapa.addControl(new Painel());
+    let t;
+    for (const [de, para] of FILTROS_MAPA) {
+      $(de).addEventListener("input", () => {
+        const a = $(de), b = $(para);
+        if (a.type === "checkbox") b.checked = a.checked; else b.value = a.value;
+        clearTimeout(t); t = setTimeout(aplicarFiltros, 350);
+      });
+    }
+    $("mf-limpar").addEventListener("click", () => {
+      for (const [de, para] of FILTROS_MAPA) {
+        const a = $(de), b = $(para);
+        if (a.type === "checkbox") { a.checked = false; b.checked = false; }
+        else if (de === "mf-dias") { a.value = "30"; b.value = "30"; }
+        else { a.value = ""; b.value = ""; }
+      }
+      aplicarFiltros();
+    });
+    const btn = document.querySelector(".mapa-filtros .mf-titulo");
+    btn.addEventListener("click", () => {
+      const corpo = document.querySelector(".mapa-filtros .mf-corpo");
+      const aberto = corpo.classList.toggle("hidden");
+      btn.setAttribute("aria-expanded", String(!aberto));
+      btn.querySelector("span").textContent = aberto ? "▸" : "▾";
+    });
+    // celular: começa recolhido para não cobrir o mapa
+    if (window.matchMedia("(max-width: 700px)").matches) btn.click();
+  }
+  function sincronizarFiltrosMapa() {
+    for (const [de, para] of FILTROS_MAPA) {
+      const a = $(de), b = $(para);
+      if (!a) continue;
+      if (a.type === "checkbox") a.checked = b.checked; else a.value = b.value;
+    }
   }
 
   // ---------- colunas ----------
