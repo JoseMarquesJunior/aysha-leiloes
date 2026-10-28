@@ -5,4 +5,5 @@ Disallow: /admin.html
 Disallow: /agenda.html
 Disallow: /data/
 
-Sitemap: https://aysha.leiloes.workers.dev/sitemap.xml
+Sitemap: https://ayshaleiloes.com.br/sitemap.xml
+Sitemap: https://ayshaleiloes.com.br/sitemap-imoveis.xml

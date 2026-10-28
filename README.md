@@ -5,7 +5,7 @@ Espírito Santo (prioridade na Grande Vitória), em Minas Gerais e, desde 2026-1
 os filtros trabalham sobre campos extraídos (valor, desconto, R$/m², área, ocupação, débitos, FGTS),
 não sobre texto solto.
 
-Site: https://josemarquesjunior.github.io/aysha-leiloes/
+Site: https://ayshaleiloes.com.br
 
 > O site não tem vínculo com Caixa, Banestes, Bandes, SPU, leiloeiros ou tribunais. Os dados são
 > extraídos automaticamente e podem conter erros ou estar desatualizados. Nada aqui é assessoria
@@ -33,7 +33,9 @@ docs/                      site estático servido pela Cloudflare (HTML, CSS e J
   conta.html, js/conta.js  conta por link mágico: créditos, compra (Mercado Pago), histórico, sair, apagar conta
   exemplo-analise.html     a ficha real de um imóvel com o parecer aberto (mesma página da ficha; o imóvel vai em data-exemplo-id)
   admin.html, js/admin.js  administração (só ADMIN_EMAILS do Worker): contas, créditos, compras, relatórios, ajuste de créditos
-  leiloes/<UF>/*.html      páginas estáticas por estado e cidade (buscadores), geradas na coleta; sitemap.xml, robots.txt
+  leiloes/<UF>/*.html      páginas estáticas por estado e cidade (buscadores), geradas na coleta, com JSON-LD;
+                           sitemap.xml, sitemap-imoveis.xml (fichas ativas), robots.txt
+  estatisticas.html        números do mercado (por estado, por tipo, maiores descontos), gerada na coleta
   og.png                   imagem da pré-visualização de links (Open Graph)
 site/                      Worker que serve docs/ na Cloudflare: /api/uf (UF do visitante) e prévia de link por imóvel
 worker/                    Worker da API: contas, créditos, relatórios (D1), Mercado Pago, e-mail (Brevo)
@@ -57,22 +59,25 @@ Não há chaves no site. As chaves ficam em GitHub Secrets (coleta e relatórios
 
 O site saiu do GitHub Pages em 2026-10-23: os termos do Pages proíbem sites de comércio, e o site vende
 créditos. Hoje ele é um Worker da Cloudflare com arquivos estáticos (`site/wrangler.toml`, pasta `docs/`),
-em `https://aysha.leiloes.workers.dev` até o domínio próprio entrar. O endereço
-antigo redireciona (`urlSite` em `docs/js/config.js`). Publicar à mão, na raiz:
-`npx wrangler deploy -c site/wrangler.toml`. O workflow `publicar.yml` faz isso a cada push em `docs/` ou
-`site/` e no fim da coleta diária, quando os secrets `CLOUDFLARE_API_TOKEN` (permissão Workers Scripts:
-Edit) e `CLOUDFLARE_ACCOUNT_ID` existem; sem eles, o passo é pulado.
+no domínio próprio `https://ayshaleiloes.com.br` (registrado em 2026-10-28; `www` e
+`aysha.leiloes.workers.dev` respondem 301 no próprio Worker, e o endereço antigo do GitHub redireciona via
+`urlSite` em `docs/js/config.js`). Os domínios são ligados ao Worker `aysha` no painel da Cloudflare
+(Settings → Domains & Routes), não no `wrangler.toml`, para o deploy do CI não precisar de permissão de DNS.
+Publicar à mão, na raiz: `npx wrangler deploy -c site/wrangler.toml`. O workflow `publicar.yml` faz isso a
+cada push em `docs/` ou `site/` e no fim da coleta diária, quando os secrets `CLOUDFLARE_API_TOKEN`
+(permissão Workers Scripts: Edit) e `CLOUDFLARE_ACCOUNT_ID` existem; sem eles, o passo é pulado.
 
-O script do site (`site/index.js`) só entra em três casos: `/api/uf` devolve a UF do visitante pela
-geolocalização de rede da Cloudflare (o celular carrega só esse estado na primeira visita, em vez dos 23 MB
-da base inteira); `/imovel.html?id=…&uf=…` recebe título, descrição e Open Graph do imóvel (mapa compacto
-`data/og_<UF>.json`, gerado na coleta), para o link colado no WhatsApp mostrar o que é; e `/` ou `pasta/`
-caem no `index.html`. Cabeçalhos de segurança vêm de `docs/_headers`.
+O script do site (`site/index.js`) roda em todas as rotas (301 dos hosts antigos) e faz: `/api/uf` devolve a
+UF do visitante pela geolocalização de rede da Cloudflare (o celular carrega só esse estado na primeira
+visita, em vez dos 23 MB da base inteira); `/imovel.html?id=…&uf=…` recebe título, descrição, Open Graph,
+um resumo do imóvel renderizado no servidor (visível a buscadores sem JavaScript; o JS da ficha o substitui)
+e JSON-LD (RealEstateListing + BreadcrumbList), tudo do mapa compacto `data/og_<UF>.json` gerado na coleta;
+e `/` ou `pasta/` caem no `index.html`. Cabeçalhos de segurança vêm de `docs/_headers`.
 
-Ao ativar o domínio próprio: trocar `SITE`/`ORIGENS` em `worker/wrangler.toml`, `urlSite` em
-`docs/js/config.js`, `saida.url_site` em `collector/config.yaml`, os `canonical`/`og:url` dos HTML de `docs/`
-e o `Sitemap:` de `docs/robots.txt`; depois ligar o domínio ao Worker `aysha-leiloes` no painel da Cloudflare
-e configurar SPF/DKIM/DMARC do Brevo no DNS.
+Se o domínio mudar: trocar `SITE`/`ORIGENS` em `worker/wrangler.toml`, `urlSite` em `docs/js/config.js`,
+`saida.url_site` em `collector/config.yaml`, `CANONICO`/`HOSTS_ANTIGOS` em `site/index.js`, os
+`canonical`/`og:url` dos HTML fixos de `docs/` e o `Sitemap:` de `docs/robots.txt`; depois ligar o domínio ao
+Worker `aysha` no painel da Cloudflare e configurar SPF/DKIM/DMARC do Brevo no DNS.
 
 ## Páginas por estado e cidade (buscadores)
 
@@ -144,7 +149,10 @@ as que não foram encontradas estão marcadas.
 | Luiz Lessa | não encontrado | O domínio luizlessa.lel.br, citado na página do Banestes, não resolve no DNS (2026-10-21). |
 | TJES (Justiça Estadual) | sem página central | Os editais de leilão judicial saem só no Ediário (diário oficial, que não raspamos) e cada um indica o leiloeiro. Leiloeiros vistos em editais do TJES: Colodete, Buaiz, VIX, Sued Peter e HD, todos cobertos. |
 | JUCEES (lista de leiloeiros) | não encontrada | `leiloeiros.jucees.es.gov.br/leiloeiros` devolve 404; a lista oficial de 2024 tinha 42 leiloeiros. |
-| Leiloeiros nacionais (Zuk, Mega, Sodré Santoro, Superbid, Leilão Vip, Frazão) | não iniciadas | Só depois de tudo acima estável, no máximo dois. |
+| Mega Leilões (`sources/megaleiloes.py`) | **ativa** (nacional) | Inspeção em 2026-10-28: robots.txt permite tudo exceto /login; não há página de termos de uso (só Política de Privacidade em PDF). Listagem renderizada no servidor (`GET /imoveis?pagina=N`, 48 cards/página, ~815 imóveis em todas as UFs, judiciais e extrajudiciais de bancos). O card traz código, título (tipo, área, cidade-UF, endereço - bairro), preço, natureza, datas/valores das praças e o banco vendedor. A página do lote (edital e matrícula em PDF, comitente, descrição completa) só é buscada para as UFs em `fontes.megaleiloes.detalhe_ufs` (ES, MG), pelo ritmo de 2 s/requisição. Leiloeiro oficial: Fernando José Cerello Gonçalves Pereira (JUCESP 844). |
+| Frazão Leilões (`sources/frazao.py`) | **ativa** (nacional) | Inspeção em 2026-10-28: robots.txt permite tudo exceto /Auction/Index/ e /Comitente/Dashboard e aponta `sitemap-lotes.xml` (um URL por lote ativo, ~360; imóveis em dezenas de UFs, bancos Santander/Itaú/Inter e judiciais). A página "Termos de Uso" não renderiza texto sem JS; nada visível proíbe coleta e o sitemap de lotes é convite explícito à indexação. Cada lote é uma página renderizada no servidor com campos rotulados (tipo, ocupação, áreas, matrícula, Valor Avaliado, lance inicial, data). Bens diversos (sem "Tipo do Imóvel") são descartados; número de contribuinte em formato de CPF é removido. O edital carrega por JS (sem URL estática). Leiloeiros oficiais: família Frazão (JUCESP 203, 751 e 836). |
+| Zuk (portalzuk.com.br) | não viável | Inspeção em 2026-10-28: os termos de uso não proíbem coleta e as páginas de lote são abertas, mas o robots.txt bloqueia `/ajax-lote*`, justamente o endpoint que pagina a listagem (o `?pagina=N` por GET é ignorado; sempre voltam os mesmos 30 cards de ~1.100 imóveis). O sitemap só tem páginas institucionais e a agenda lista ~14 leilões (fração do estoque, que é majoritariamente venda direta). Sem caminho de enumeração permitido pelo robots. |
+| Sodré Santoro, Superbid, Leilão Vip | não iniciadas | Sodré Santoro é SPA (Nuxt) que consome API própria (`prd-api.sodresantoro.com.br`) sem renderização no servidor — exigiria a API não documentada. Superbid devolve 403 ao robô já no robots.txt. Leilão Vip (vipleiloes.com.br) bloqueia agentes de IA no robots (Content-Signal `ai-train=no`) e é majoritariamente veículos. |
 
 Nome de pessoa física nunca entra na base: os módulos guardam só o nome profissional do leiloeiro oficial
 (informação pública da JUCEES) e descartam exequentes, executados e depositários.

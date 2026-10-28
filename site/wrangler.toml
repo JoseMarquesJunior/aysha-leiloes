@@ -14,4 +14,6 @@ binding = "ASSETS"
 # em index.html: o script faz isso para "/" e "/leiloes/*".
 html_handling = "none"
 not_found_handling = "404-page"
-run_worker_first = ["/", "/leiloes", "/leiloes/*", "/api/*", "/imovel.html"]
+# o script roda em todas as rotas para o 301 dos hosts antigos (workers.dev, www) valer em qualquer caminho;
+# os domínios ayshaleiloes.com.br e www.ayshaleiloes.com.br são adicionados no painel (Settings → Domains & Routes)
+run_worker_first = true
