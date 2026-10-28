@@ -370,12 +370,34 @@
    "custo_previsto": true,
    "lote_id": "msgbatch_01KJ9Vw5LjhWjQUkZbEYaZZf",
    "lotes_pendentes": []
+  },
+  {
+   "tipo": "execucao",
+   "data": "2026-10-28",
+   "chamadas": 0,
+   "cache_hits": 145,
+   "tokens_entrada": 0,
+   "tokens_saida": 0,
+   "custo_usd": 0.0,
+   "pendentes": 0,
+   "sem_documento": 24041
+  },
+  {
+   "tipo": "execucao",
+   "data": "2026-10-28",
+   "chamadas": 0,
+   "cache_hits": 145,
+   "tokens_entrada": 0,
+   "tokens_saida": 0,
+   "custo_usd": 0.0,
+   "pendentes": 0,
+   "sem_documento": 24041
   }
  ],
  "estimativa_atual": {
-  "gerado_em": "2026-10-26T16:03:18",
+  "gerado_em": "2026-10-28T11:20:22",
   "modelo": "claude-haiku-5-5",
-  "candidatos_hoje": 23176,
+  "candidatos_hoje": 24186,
   "chamadas_por_execucao_max": 1000,
   "tokens_sistema_cacheados": 420,
   "tokens_entrada_por_imovel": 2385,
@@ -387,7 +409,7 @@
   "custo_usd_mes_batch_30_execucoes": 10.32,
   "observacao": "Teto, com entrada no máximo permitido; na prática só imóveis novos ou com edital alterado entram, e imóveis sem PDF legível não são enviados."
  },
- "habilitada": true,
- "aviso": null,
+ "habilitada": false,
+ "aviso": "ia_habilitada=true mas ANTHROPIC_API_KEY ausente: etapa pulada",
  "lotes_pendentes": []
 }

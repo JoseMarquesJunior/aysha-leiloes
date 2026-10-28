@@ -47,7 +47,7 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-26T16:13:25",
+  "ultima_execucao": "2026-10-28T11:24:23",
   "data_coleta": "2026-10-26"
  },
  "banestes": {
@@ -172,6 +172,56 @@
    "AC": 2,
    "AP": 1,
    "RR": 0
+  }
+ },
+ "megaleiloes": {
+  "ultima_coleta_ok": "2026-10-28",
+  "registros": 816,
+  "ultimo_erro": null,
+  "ativa": true,
+  "site": "https://www.megaleiloes.com.br/",
+  "duracao_s": 82.3,
+  "info": {
+   "paginas": 17,
+   "cards_vistos": 816,
+   "detalhes_buscados": 24,
+   "CE": 19,
+   "ES": 2,
+   "RJ": 78,
+   "SP": 429,
+   "RS": 50,
+   "AL": 4,
+   "GO": 34,
+   "SC": 20,
+   "MT": 14,
+   "TO": 8,
+   "PR": 63,
+   "MA": 10,
+   "MG": 22,
+   "PE": 13,
+   "PB": 3,
+   "BA": 12,
+   "PI": 2,
+   "RN": 5,
+   "PA": 9,
+   "MS": 10,
+   "SE": 2,
+   "AM": 4,
+   "DF": 3
+  }
+ },
+ "frazao": {
+  "ultima_coleta_ok": "2026-10-28",
+  "registros": 194,
+  "ultimo_erro": null,
+  "ativa": true,
+  "site": "https://www.frazaoleiloes.com.br/",
+  "duracao_s": 731.6,
+  "info": {
+   "lotes_no_sitemap": 363,
+   "imoveis": 194,
+   "pulados": 169,
+   "erros": 0
   }
  }
 }
