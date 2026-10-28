@@ -40,7 +40,9 @@
     "leiloeiro-emleilao": "Em Leilão (Ayrton Porto Filho)", "leiloeiro-buaiz": "Buaiz Leilões", "leiloeiro-esleiloes": "ES Leilões (Sérgio de Paula)",
     "leiloeiro-vix": "VIX Leilões (Gabriel Fardin)", "leiloeiro-colodete": "Colodete Leilões (Mauro Colodete)", "leiloeiro-hd": "HD Leilões (Hidirlene Duszeiko)",
     "leiloeiro-suedpeter": "Sued Peter Leilões",
+    "leiloeiro-mega": "Mega Leilões (Fernando Cerello)", "leiloeiro-frazao": "Frazão Leilões",
     suporteleiloes: "Leiloeiros (Em Leilão, Buaiz, ES Leilões, Sued Peter)", vixleiloes: "VIX Leilões", colodete: "Colodete Leilões", hdleiloes: "HD Leilões",
+    megaleiloes: "Mega Leilões", frazao: "Frazão Leilões",
   };
   function nomeFonte(f) { return NOMES_FONTES[f] || (f ? f.replace(/^leiloeiro-/, "Leiloeiro: ") : TRACO); }
 

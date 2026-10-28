@@ -195,6 +195,76 @@ def test_hdleiloes_lote():
         assert rj["data_segunda_praca"] and "Lance inicial 2º leilão" in rj["descricao_original"]
 
 
+def test_megaleiloes_cards_da_lista():
+    from collector.sources import megaleiloes
+    html = _ler("mega_lista.html")
+    assert megaleiloes.total_paginas(html) == 17
+    cards = megaleiloes.cards_da_lista(html)
+    regs = [megaleiloes.registro_de_card(c) for c in cards]
+    assert len(regs) == 2 and all(regs)
+    r = regs[0]
+    assert r["id"] == "mega-X129992" and r["fonte"] == "leiloeiro-mega"
+    assert r["url_anuncio"].endswith("-x129992")  # sem utm_*
+    assert r["tipo"] == "casa" and r["uf"] == "CE" and r["cidade"] == "Paraipaba"
+    assert r["bairro"] == "Nossa Senhora da Saúde"
+    assert r["endereco"] == "Rua Otacílio de Souza Moreira, 38"
+    assert r["area_total_m2"] == 205.0
+    assert r["valor_minimo"] == 162000.0 and r["valor_avaliacao"] is None  # praça única: sem avaliação
+    assert r["natureza"] == "leilão extrajudicial"
+    assert r["modalidade"] == "Praça única (Mega)"
+    assert r["data_leilao"] == "2026-10-28" and r["data_segunda_praca"] is None
+    assert r["comitente"] == "Banco Bradesco"
+    assert r["leiloeiro"].startswith("Fernando José Cerello")
+    r2 = regs[1]  # card com 1ª e 2ª praças
+    assert r2["id"] == "mega-X130456"
+    assert r2["valor_avaliacao"] == 862000.0 and r2["valor_minimo"] == 862000.0
+    assert r2["modalidade"] == "1ª praça (Mega)"
+    assert (r2["data_leilao"], r2["data_segunda_praca"]) == ("2026-10-28", "2026-10-30")
+    assert r2["bairro"] == "Jatiúca"
+
+
+def test_megaleiloes_detalhe():
+    from collector.sources import megaleiloes
+    html = _ler("mega_lista.html")
+    r = megaleiloes.registro_de_card(megaleiloes.cards_da_lista(html)[0])
+    megaleiloes.aplicar_detalhe(r, _ler("mega_lote.html"))
+    assert r["url_edital"] and "megaleiloes_edital_ML34920" in r["url_edital"]
+    assert r["url_matricula"] and "megaleiloes_matricula_X129992" in r["url_matricula"]
+    assert r["comitente"] == "BANCO BRADESCO S.A."
+    assert r["descricao_original"].startswith("Paraipaba-CE.")
+    assert r["ocupado"] is True  # "Ocupada (AF)" na descrição
+    assert r["matricula"] == "2.794" or "2.794" in r["descricao_original"]
+    assert "<" not in r["descricao_original"]
+
+
+def test_frazao_lote():
+    from collector.sources import frazao
+    r = frazao.parsear_lote("https://www.frazaoleiloes.com.br/lote/43475-apartamento-padrao-1-vagas-de-garagem",
+                            _ler("frazao_lote.html"))
+    assert r["id"] == "frazao-43475" and r["fonte"] == "leiloeiro-frazao"
+    assert r["tipo"] == "apartamento"
+    assert r["uf"] == "DF" and r["cidade"] == "Brasília" and r["bairro"] == "Norte"
+    assert r["endereco"].startswith("RUA 5, S/N, APTO 1012")
+    assert r["valor_avaliacao"] == 563000.0 and r["valor_minimo"] == 450400.0
+    assert r["desconto_pct"] == 20.0
+    assert r["area_privativa_m2"] == 73.2
+    assert r["data_leilao"] == "2026-11-03"
+    assert r["ocupado"] is True
+    assert r["matricula"] == "250699"
+    assert r["natureza"] == "leilão extrajudicial"
+    assert r["comitente"].startswith("Esquenta Black Santander")
+    assert r["aceita_parcelamento"] is True  # "Em 420 parcelas mensais"
+    assert r["debitos_iptu_por_conta_de"] == "vendedor"
+    assert r["url_foto"].startswith("https://cdn.frazaoleiloes.com.br/")
+    # número de contribuinte no formato de CPF não entra na base
+    assert "096.623.401-49" not in r["descricao_original"] and "Contribuinte" not in r["descricao_original"]
+
+
+def test_frazao_descarta_bens_diversos():
+    from collector.sources import frazao
+    assert frazao.parsear_lote("https://x/lote/1-capas", "<html><body><h1>Capas</h1></body></html>") is None
+
+
 def test_geocodificador_ordem_de_tentativas(monkeypatch):
     """Sem rede: registra as consultas feitas e simula respostas, para conferir a ordem das tentativas."""
     from collector import geocode

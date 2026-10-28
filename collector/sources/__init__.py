@@ -6,7 +6,7 @@ Para adicionar uma fonte: criar `collector/sources/<nome>.py` com a função `co
 registrar o nome em `REGISTRO` abaixo e acrescentar `fontes.<nome>.ativa` no config.yaml.
 """
 
-from . import bandes, banestes, caixa, colodete, hdleiloes, jfes, resale, spu, suporteleiloes, vixleiloes
+from . import bandes, banestes, caixa, colodete, frazao, hdleiloes, jfes, megaleiloes, resale, spu, suporteleiloes, vixleiloes
 
 REGISTRO = {
     "caixa": caixa,
@@ -18,5 +18,7 @@ REGISTRO = {
     "vixleiloes": vixleiloes,
     "colodete": colodete,
     "hdleiloes": hdleiloes,
+    "megaleiloes": megaleiloes,
+    "frazao": frazao,
     "resale": resale,
 }
