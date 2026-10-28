@@ -1,0 +1,31 @@
+{
+ "hash": "ec59e9ca862e86884d2cbc0c",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-28T15:59:24",
+ "lote": "msgbatch_01QeecRdeHGVx6QUBycYXdjC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Valor de R$ 23.750,00 referente à cota-parte/meação deve ser quitado integralmente, sem parcelamento.",
+   "Restante pode ser pago com 25% de entrada e saldo em até 30 meses.",
+   "Terreno sem benfeitorias, com vegetação alta e desordenada.",
+   "Lotes não se encontram individualmente demarcados.",
+   "Lance mínimo calculado reservando a cota-parte do coproprietário ou cônjuge alheio à execução (Art. 843, CPC/2015)."
+  ],
+  "trechos_fonte": {
+   "aceita_financiamento": "O MONTANTE RESTANTE PODE SER COM 25% DE ENTRADA E O RESTANTE EM ATÉ 30 MESES"
+  }
+ },
+ "uso": {
+  "entrada": 493,
+  "saida": 438,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

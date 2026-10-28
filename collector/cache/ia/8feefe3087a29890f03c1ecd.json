@@ -1,0 +1,35 @@
+{
+ "hash": "8feefe3087a29890f03c1ecd",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-28T15:59:24",
+ "lote": "msgbatch_01QeecRdeHGVx6QUBycYXdjC",
+ "resultado": {
+  "ocupado": true,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "usufruto"
+  ],
+  "alertas": [
+   "Imóvel alugado, com ocupação por locatário",
+   "Eventuais débitos de laudêmio por se tratar de terreno de marinha",
+   "Consta averbação de ação de usucapião",
+   "Ônus e penhoras constantes na matrícula imobiliária"
+  ],
+  "trechos_fonte": {
+   "ocupado": "Considerando as condições do imóvel, que se encontra alugado, reformado com piso porcelanato, boa pintura, instalação de split",
+   "onus_na_matricula": "ÔNUS: 01) [nome] / [nome] nos autos nº. 05002.000380/2001-75; Indisponibilidade nos autos nº. 00007201620144025001; Penhora nos autos nº. 0011121-08.2010.808.0024"
+  }
+ },
+ "uso": {
+  "entrada": 3660,
+  "saida": 453,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

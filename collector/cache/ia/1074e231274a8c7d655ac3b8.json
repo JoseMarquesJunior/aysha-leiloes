@@ -1,0 +1,32 @@
+{
+ "hash": "1074e231274a8c7d655ac3b8",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-28T15:59:24",
+ "lote": "msgbatch_01QeecRdeHGVx6QUBycYXdjC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": "vendedor",
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Lance mínimo elevado frente à avaliação de R$ 100.000,00",
+   "Verificar débitos de IPTU e condomínio junto à prefeitura e órgãos competentes, cabendo ao licitante",
+   "Comissão do leiloeiro de 5% paga pelo arrematante em até 24 horas",
+   "Matrículas disponíveis apenas no site oficial do leilão",
+   "Imóvel vendido no estado em que se encontra, sem garantias quanto a reparos"
+  ],
+  "trechos_fonte": {
+   "debitos_condominio_por_conta_de": "Débitos anteriores à arrematação, bem como o valor da execução acima descrito, não são responsabilidade do arrematante",
+   "comissao_leiloeiro_pct": "a comissão de 5% sobre o valor da arrematação, ao leiloeiro"
+  }
+ },
+ "uso": {
+  "entrada": 2765,
+  "saida": 441,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

@@ -1,0 +1,32 @@
+{
+ "hash": "e3693b4e8c9320e40bd205a4",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-28T15:59:24",
+ "lote": "msgbatch_01QeecRdeHGVx6QUBycYXdjC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": 5.0,
+  "onus_na_matricula": [
+   "penhora"
+  ],
+  "alertas": [
+   "Comissão do leiloeiro de 5% sobre o valor da arrematação, paga pelo arrematante em até 24 horas.",
+   "Averbação de penhora referente a estes autos na matrícula do imóvel (AV nº 08/9.108).",
+   "Executado não pode impedir vistoria; obstrução constitui crime (art. 330 do [nome])."
+  ],
+  "trechos_fonte": {
+   "comissao_leiloeiro_pct": "O arrematante pagará à vista, em até 24 horas a partir da data do encerramento do leilão, comissão de 5% (cinco por cento) sobre o valor da arrematação, ao leiloeiro.",
+   "onus_na_matricula": "Consta-se, na matrícula do imóvel, a averbação de penhora referente a estes autos (AV nº 08/9.108)."
+  }
+ },
+ "uso": {
+  "entrada": 810,
+  "saida": 450,
+  "cache_lido": 0,
+  "cache_criado": 1425
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "hash": "abcbd18ce1e7c6cadfb2f7da",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-28T15:59:24",
+ "lote": "msgbatch_01QeecRdeHGVx6QUBycYXdjC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": true,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Terreno sem benfeitorias, com vegetação alta e lote não demarcado individualmente",
+   "Localização a cerca de 40 km da sede, com comércio local limitado",
+   "Prefeitura não possui registros sobre restrições ambientais; verificar com órgão ambiental",
+   "Anúncio indica possibilidade de entrada de 25% com saldo em até 30 meses"
+  ],
+  "trechos_fonte": {
+   "aceita_financiamento": "(O IMÓVEL PODE SER COM 25% DE ENTRADA E O RESTANTE EM ATÉ 30 MESES)"
+  }
+ },
+ "uso": {
+  "entrada": 447,
+  "saida": 384,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

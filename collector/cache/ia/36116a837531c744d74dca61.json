@@ -1,0 +1,27 @@
+{
+ "hash": "36116a837531c744d74dca61",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-28T15:59:24",
+ "lote": "msgbatch_01QeecRdeHGVx6QUBycYXdjC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Posto de combustíveis desativado e em estado de abandono, sem manutenções",
+   "Imóvel rural com restaurante e borracharia locados e em operação; verificar contratos de locação",
+   "Processo judicial 0000969-50.2017.4.02.5004 (3ª VFEF); verificar matrícula nº 603 quanto a ônus"
+  ],
+  "trechos_fonte": {}
+ },
+ "uso": {
+  "entrada": 456,
+  "saida": 326,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

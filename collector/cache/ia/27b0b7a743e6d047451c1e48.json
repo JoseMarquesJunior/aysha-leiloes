@@ -1,0 +1,30 @@
+{
+ "hash": "27b0b7a743e6d047451c1e48",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-28T15:59:24",
+ "lote": "msgbatch_01QeecRdeHGVx6QUBycYXdjC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": true,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Terreno sem benfeitorias, coberto por vegetação alta; lotes não demarcados individualmente",
+   "Localizado a cerca de 40 km da sede do município, com comércio local limitado",
+   "Prefeitura não possui registros sobre restrições ambientais; órgão agropecuário com possível restrição",
+   "Leilão judicial: verificar processo 0002745-70.2012.4.02.5001 antes de dar lance"
+  ],
+  "trechos_fonte": {
+   "aceita_financiamento": "(O IMÓVEL PODE SER COM 25% DE ENTRADA E O RESTANTE EM ATÉ 30 MESES)"
+  }
+ },
+ "uso": {
+  "entrada": 447,
+  "saida": 400,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}
