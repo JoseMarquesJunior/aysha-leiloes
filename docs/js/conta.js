@@ -52,6 +52,9 @@
       <div class="pacotes" id="pacotes">${pacotes || '<p class="muted">Compra ainda não disponível.</p>'}</div>
       <p class="muted" style="font-size:.8rem">Abrir de novo uma análise que você já tem não gasta crédito. Uma análise já gerada por outra pessoa também custa 1 crédito, porque a entrega é por conta. <a href="sobre.html#contas">Termos, reembolso e privacidade</a>.</p>
       <h2>Minhas análises</h2>${analises}
+      <h2 id="alertas">Alertas de imóveis</h2>
+      <p>Receba por e-mail, uma vez por dia, os imóveis que entram no site com o filtro que você escolher: estado, cidade, tipo, desconto e preço. Grátis; todo e-mail tem o link para cancelar.</p>
+      <div id="alertas-box"><p class="muted">carregando…</p></div>
       <h2>Compras</h2>${compras}
       <h2>Segurança e privacidade</h2>
       <p>A sessão expira após 30 dias sem uso. <button type="button" class="btn pequeno" id="sair-todos">Sair de todos os dispositivos</button></p>
@@ -65,8 +68,59 @@
       LT.limparSessao(); el.innerHTML = '<h2>Minha conta</h2><p class="aviso ok">Conta apagada.</p><p><a href="./">← voltar à tabela</a></p>';
     });
     for (const b of el.querySelectorAll("button[data-pacote]")) b.addEventListener("click", () => comprar(b.dataset.pacote, b));
+    montarAlertas();
     if (q.pedido) acompanharPedido(q.pedido);
     if (location.hash === "#creditos") document.getElementById("creditos").scrollIntoView({ behavior: "smooth" });
+    if (location.hash === "#alertas") document.getElementById("alertas").scrollIntoView({ behavior: "smooth" });
+  }
+
+  /* Alertas de imóveis: lista, criação (com pré-preenchimento vindo da ficha: ?alerta_uf=&alerta_cidade=)
+     e remoção. O envio é o cron diário do Worker; o site só gerencia os filtros. */
+  const UFS = "AC AL AM AP BA CE DF ES GO MA MG MS MT PA PB PE PI PR RJ RN RO RR RS SC SE SP TO".split(" ");
+  const TIPOS_ALERTA = ["apartamento", "casa", "terreno", "comercial", "rural", "outro"];
+  function cap1(s) { return s ? s[0].toUpperCase() + s.slice(1) : s; }
+  function descreverAlerta(a) {
+    const partes = [`${a.tipo ? cap1(a.tipo) + "s" : "Imóveis"} em ${a.cidade ? a.cidade + "/" : ""}${a.uf}`];
+    if (a.desconto_min) partes.push(`desconto ≥ ${a.desconto_min}%`);
+    if (a.valor_max) partes.push(`até R$ ${a.valor_max.toLocaleString("pt-BR")}`);
+    return partes.join(" · ");
+  }
+  async function montarAlertas() {
+    const box = document.getElementById("alertas-box");
+    if (!box) return;
+    const r = await LT.api("/alertas").catch(() => null);
+    if (!r || !r.ok) { box.innerHTML = '<p class="muted">Não foi possível carregar os alertas agora.</p>'; return; }
+    const { alertas, maximo } = r.dados;
+    const lista = alertas.length
+      ? `<ul class="eventos">${alertas.map(a => `<li>🔔 ${escapar(descreverAlerta(a))} <button type="button" class="btn pequeno" data-remover-alerta="${a.id}">remover</button></li>`).join("")}</ul>`
+      : "";
+    const form = alertas.length >= maximo ? `<p class="muted">Máximo de ${maximo} alertas; remova um para criar outro.</p>` : `
+      <form id="form-alerta" class="form-alerta">
+        <select name="uf" required aria-label="Estado"><option value="">Estado…</option>${UFS.map(u => `<option${(q.alerta_uf || "").toUpperCase() === u ? " selected" : ""}>${u}</option>`).join("")}</select>
+        <input name="cidade" maxlength="80" placeholder="Cidade (opcional)" value="${escapar(q.alerta_cidade || "")}">
+        <select name="tipo" aria-label="Tipo"><option value="">Todo tipo</option>${TIPOS_ALERTA.map(t => `<option value="${t}">${cap1(t)}</option>`).join("")}</select>
+        <select name="desconto_min" aria-label="Desconto mínimo"><option value="">Qualquer desconto</option>${[30, 40, 50, 60, 70].map(dd => `<option value="${dd}">${dd}% ou mais</option>`).join("")}</select>
+        <input name="valor_max" type="number" min="10000" step="10000" placeholder="Preço máx. R$ (opcional)" aria-label="Preço máximo em reais">
+        <button type="submit" class="btn primario">Criar alerta</button>
+      </form>`;
+    box.innerHTML = lista + form;
+    for (const b of box.querySelectorAll("button[data-remover-alerta]")) b.addEventListener("click", async () => {
+      b.disabled = true;
+      await LT.api("/alertas/remover", { body: { id: parseInt(b.dataset.removerAlerta, 10) } }).catch(() => null);
+      montarAlertas();
+    });
+    const f = document.getElementById("form-alerta");
+    if (f) f.addEventListener("submit", async ev => {
+      ev.preventDefault();
+      const fd = new FormData(f);
+      const dados = { uf: fd.get("uf"), cidade: (fd.get("cidade") || "").trim(), tipo: fd.get("tipo") || null,
+                      desconto_min: fd.get("desconto_min") ? parseInt(fd.get("desconto_min"), 10) : null,
+                      valor_max: fd.get("valor_max") ? parseInt(fd.get("valor_max"), 10) : null };
+      const x = await LT.api("/alertas", { body: dados }).catch(() => ({ ok: false, dados: {} }));
+      if (!x.ok) { alert("Não foi possível criar o alerta: " + (x.dados.erro || "tente de novo")); return; }
+      LT.evento("alerta-criado");
+      montarAlertas();
+    });
   }
 
   async function comprar(pacote, btn) {
@@ -106,6 +160,7 @@
         <ul class="beneficios">
           <li><b>Análise do edital e da matrícula por IA</b><span>Resumo do lote, conta no lance mínimo, referência de mercado, sinais vermelhos e veredito, em minutos. <a href="exemplo-analise.html">Veja um exemplo →</a></span></li>
           <li><b>Seus pareceres ficam guardados</b><span>Reabrir uma análise que já é sua não gasta crédito.</span></li>
+          <li><b>Alertas de imóveis novos</b><span>Um e-mail por dia com o que entrou na sua cidade, com o desconto e o preço que você escolher. Grátis.</span></li>
           <li><b>Créditos sem assinatura</b><span>Pacotes a partir de R$ 14,90, Pix ou cartão pelo Mercado Pago. Os créditos não expiram.</span></li>
           <li><b>Tabela, mapa e filtros continuam gratuitos</b><span>A conta só é necessária para as análises.</span></li>
         </ul>

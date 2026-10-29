@@ -273,6 +273,18 @@ imóvel como `/imovel/<id>` (mostra os imóveis mais abertos). Acessos em `local
 CSP em `docs/_headers` permite só `cloud.umami.is` (script) e `cloud.umami.is`/`api-gateway.umami.dev`
 (envio). O painel pode ser compartilhado por link em "Settings → Websites → Share URL".
 
+## Alertas de imóveis por e-mail
+
+Quem tem conta cria até 5 alertas ("imóveis em [UF/cidade], tipo X, desconto ≥ Y%, até R$ Z") em
+`conta.html#alertas`; a ficha tem o atalho "🔔 Alertas em <cidade>". O cron diário do Worker (11:00 UTC,
+o mesmo dos lembretes da agenda) cruza os eventos `novo` e `mudou_preco` (só quedas) de
+`docs/data/historico.json` com os `og_<UF>.json` e envia um resumo com até 12 imóveis por alerta
+(`enviarAlertasImoveis` em `worker/src/index.js`; `POST /interno/alertas` com `X-Interno` força o envio).
+`alertas.ultimo_envio` guarda a última data de evento coberta, então nada sai duas vezes; o primeiro envio
+cobre só o último dia. Todo e-mail tem descadastro de 1 clique sem login
+(`GET /alertas/descadastrar?chave=...` — a chave é um token por alerta). Tabela `alertas` no
+`worker/schema.sql`; funil: evento `alerta-criado` no Umami.
+
 ## Análise detalhada com IA (relatório por imóvel)
 
 Diferente da extração de campos (Haiku, acima), o botão "IA ✦" de cada linha abre a ficha do imóvel na

@@ -8,6 +8,8 @@ REPO = "JoseMarquesJunior/aysha-leiloes"
 # em ORIGENS, em docs/js/config.js (urlSite) e nos <link rel="canonical"> das páginas.
 SITE = "https://ayshaleiloes.com.br"
 ORIGENS = "https://ayshaleiloes.com.br,https://www.ayshaleiloes.com.br,https://aysha.leiloes.workers.dev,https://josemarquesjunior.github.io,http://localhost:8791"
+# Endereço público deste Worker (links de descadastro dos alertas nos e-mails do cron, que não tem request)
+URL_API = "https://aysha-leiloes-analise.leiloes.workers.dev"
 # e-mail que recebe os alertas do robô (custo do dia acima do teto); vazio = EMAIL_REMETENTE
 ALERTA_EMAIL = ""
 # contas (separadas por vírgula) que podem abrir admin.html: usuários, créditos, pedidos, relatórios

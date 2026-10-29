@@ -13,7 +13,10 @@
  *   POST /interno/alerta    {assunto, texto}   -> o robô avisa o mantenedor por e-mail (header X-Interno)
  *   GET  /admin/resumo|usuarios|pedidos|relatorios, POST /admin/creditos -> só para ADMIN_EMAILS (sessão normal)
  *   GET  /agenda | POST /agenda {id, uf, titulo, datas, hora, lembretes} | POST /agenda/remover {id}
- *   cron diário (08:00 Brasília): lembretes por e-mail dos leilões da agenda; POST /interno/lembretes força o envio
+ *   GET  /alertas | POST /alertas {uf, cidade, tipo, desconto_min, valor_max} | POST /alertas/remover {id}
+ *   GET  /alertas/descadastrar?chave=...        -> remove o alerta pelo link do e-mail (sem login)
+ *   cron diário (08:00 Brasília): lembretes por e-mail dos leilões da agenda e alertas de imóveis novos;
+ *     POST /interno/lembretes e POST /interno/alertas forçam o envio
  *   GET  /conta                                -> saldo, análises liberadas, compras (autenticado)
  *   POST /analise           {id}               -> libera (grátis ou 1 crédito) e devolve o relatório, ou dispara a geração
  *   GET  /relatorio/:id                        -> relatório, se o usuário tem acesso
@@ -426,6 +429,134 @@ async function enviarLembretes(env) {
   return enviados;
 }
 
+// ---------------------------------------------------------------- alertas de imóveis --
+/* "Me avise de imóveis novos em [UF/cidade] com desconto acima de X%". O cron diário cruza os eventos
+   `novo` e `mudou_preco` (só quedas) que o site publica em data/historico.json com os filtros de cada
+   alerta, busca os detalhes em data/og_<UF>.json e envia um resumo por e-mail. A base continua no site:
+   o Worker não guarda imóveis, só os filtros. */
+const UFS = new Set("AC AL AM AP BA CE DF ES GO MA MG MS MT PA PB PE PI PR RJ RN RO RR RS SC SE SP TO".split(" "));
+const TIPOS_IMOVEL = new Set(["apartamento", "casa", "terreno", "comercial", "rural", "outro"]);
+const MAX_ALERTAS = 5;
+function semAcento(s) { return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim(); }
+function capitalizar(s) { return s ? s[0].toUpperCase() + s.slice(1) : ""; }
+function escHtml(s) { return String(s ?? "").replace(/</g, "&lt;"); }
+function reaisInteiro(v) { return "R$ " + Math.round(v).toLocaleString("pt-BR"); }
+function itemAlerta(a) {
+  return { id: a.id, uf: a.uf, cidade: a.cidade, tipo: a.tipo, desconto_min: a.desconto_min, valor_max: a.valor_max, criado_em: a.criado_em };
+}
+async function alertasListar(usuario, env, h) {
+  const rows = (await env.DB.prepare("SELECT * FROM alertas WHERE usuario_id = ? ORDER BY id").bind(usuario.id).all()).results;
+  return json({ alertas: rows.map(itemAlerta), maximo: MAX_ALERTAS }, 200, h);
+}
+async function alertaCriar(request, usuario, env, h) {
+  const d = await corpo(request);
+  const uf = String(d.uf || "").toUpperCase();
+  if (!UFS.has(uf)) return json({ erro: "escolha o estado" }, 400, h);
+  const cidade = String(d.cidade || "").trim().slice(0, 80) || null;
+  const tipo = TIPOS_IMOVEL.has(String(d.tipo || "")) ? String(d.tipo) : null;
+  const descontoMin = Number.isInteger(d.desconto_min) && d.desconto_min >= 1 && d.desconto_min <= 95 ? d.desconto_min : null;
+  const valorMax = Number.isInteger(d.valor_max) && d.valor_max >= 10000 && d.valor_max <= 100000000 ? d.valor_max : null;
+  const n = (await env.DB.prepare("SELECT COUNT(*) n FROM alertas WHERE usuario_id = ?").bind(usuario.id).first()).n;
+  if (n >= MAX_ALERTAS) return json({ erro: `máximo de ${MAX_ALERTAS} alertas por conta; remova um para criar outro` }, 400, h);
+  await env.DB.prepare("INSERT INTO alertas (usuario_id, uf, cidade, tipo, desconto_min, valor_max, chave, criado_em) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
+    .bind(usuario.id, uf, cidade, tipo, descontoMin, valorMax, token(16), agora()).run();
+  return alertasListar(usuario, env, h);
+}
+async function alertaRemover(request, usuario, env, h) {
+  const d = await corpo(request);
+  await env.DB.prepare("DELETE FROM alertas WHERE usuario_id = ? AND id = ?").bind(usuario.id, parseInt(d.id, 10) || 0).run();
+  return alertasListar(usuario, env, h);
+}
+/* Descadastro de 1 clique (LGPD): o link do e-mail remove o alerta sem exigir login. */
+async function alertaDescadastrar(url, env) {
+  const chave = url.searchParams.get("chave") || "";
+  const site = (env.SITE || "").replace(/\/$/, "");
+  const pagina = (msg) => new Response(
+    `<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Aysha Leilões</title>
+     <body style="font-family:system-ui,Segoe UI,Roboto,sans-serif;max-width:480px;margin:80px auto;padding:0 16px;text-align:center;color:#1b1f24">
+     <p style="font-size:18px;font-weight:700">Aysha Leilões</p><p>${msg}</p>
+     <p><a href="${site}/conta.html#alertas" style="color:#0b5fff">gerenciar meus alertas</a> · <a href="${site}" style="color:#0b5fff">voltar ao site</a></p></body></html>`,
+    { headers: { "Content-Type": "text/html; charset=utf-8" } });
+  if (!/^[0-9a-f]{32}$/.test(chave)) return pagina("Link de descadastro inválido.");
+  const res = await env.DB.prepare("DELETE FROM alertas WHERE chave = ?").bind(chave).run();
+  return pagina(res.meta && res.meta.changes ? "Pronto: você não vai mais receber este alerta." : "Este alerta já tinha sido removido.");
+}
+/* Gatilho diário: para cada alerta, os eventos ainda não cobertos (data > ultimo_envio) que casam com os
+   filtros viram um e-mail com até 12 imóveis, ordenados por desconto. `ultimo_envio` guarda a última data
+   de evento processada, então nada sai duas vezes mesmo se o cron rodar de novo. */
+async function enviarAlertasImoveis(env) {
+  const alertas = (await env.DB.prepare("SELECT a.*, u.email FROM alertas a JOIN usuarios u ON u.id = a.usuario_id ORDER BY a.id").all()).results;
+  if (!alertas.length) return 0;
+  const site = (env.SITE || "").replace(/\/$/, "");
+  const api = (env.URL_API || "").replace(/\/$/, "");
+  let eventos;
+  try {
+    const r = await fetch(`${site}/data/historico.json`);
+    if (!r.ok) return 0;
+    eventos = (await r.json()).eventos || [];
+  } catch { return 0; }
+  const maxData = eventos.reduce((m, e) => (e.data > m ? e.data : m), "");
+  if (!maxData) return 0;
+  const ogPorUf = {};
+  const og = async (uf) => {
+    if (!(uf in ogPorUf)) {
+      try { const r = await fetch(`${site}/data/og_${uf}.json`); ogPorUf[uf] = r.ok ? await r.json() : {}; }
+      catch { ogPorUf[uf] = {}; }
+    }
+    return ogPorUf[uf];
+  };
+  let enviados = 0;
+  for (const a of alertas) {
+    // primeiro envio cobre só o último dia de eventos, para não despejar o histórico inteiro
+    const desde = a.ultimo_envio || somarDias(maxData, -1);
+    if (maxData <= desde) continue;
+    const mapa = await og(a.uf);
+    const vistos = new Set(), itens = [];
+    for (const e of eventos) {
+      if (e.data <= desde || vistos.has(e.id)) continue;
+      const queda = e.tipo === "mudou_preco" && e.de > 0 && e.para > 0 && e.para < e.de;
+      if (e.tipo !== "novo" && !queda) continue;
+      const r = mapa[e.id];
+      if (!r) continue;  // de outra UF, ou já inativo
+      if (a.cidade && semAcento(r.c) !== semAcento(a.cidade)) continue;
+      if (a.tipo && (r.t || "") !== a.tipo) continue;
+      if (a.desconto_min != null && !(r.d >= a.desconto_min)) continue;
+      if (a.valor_max != null && !(r.v > 0 && r.v <= a.valor_max)) continue;
+      vistos.add(e.id);
+      itens.push({ id: e.id, r, queda, de: e.de });
+    }
+    const cobrir = () => env.DB.prepare("UPDATE alertas SET ultimo_envio = ? WHERE id = ?").bind(maxData, a.id).run();
+    if (!itens.length) { await cobrir(); continue; }
+    if (enviados >= 40) continue;  // teto por execução (o plano gratuito limita os fetch()); sem cobrir(): sai amanhã
+    itens.sort((x, y) => (y.r.d || 0) - (x.r.d || 0));
+    const onde = a.cidade ? `${a.cidade}/${a.uf}` : a.uf;
+    const filtros = [a.tipo ? `${capitalizar(a.tipo)}s` : "Imóveis", `em ${onde}`];
+    if (a.desconto_min) filtros.push(`desconto de ${a.desconto_min}% ou mais`);
+    if (a.valor_max) filtros.push(`até ${reaisInteiro(a.valor_max)}`);
+    const linhas = itens.slice(0, 12).map(({ id, r, queda, de }) => {
+      const nome = [capitalizar(r.t) || "Imóvel", r.b, a.cidade ? "" : r.c].filter(Boolean).join(" · ");
+      const detalhes = [r.v > 0 ? reaisInteiro(r.v) : "", r.d > 0 ? `${Math.round(r.d)}% abaixo da avaliação` : "",
+                        queda ? `baixou de ${reaisInteiro(de)}` : "novo no site", r.dl ? `leilão ${dataBr(r.dl)}` : ""].filter(Boolean).join(" · ");
+      return `<li style="margin:0 0 10px"><a href="${site}/imovel.html?id=${encodeURIComponent(id)}&uf=${a.uf}" style="color:#0b5fff;font-weight:600">${escHtml(nome)}</a><br><span style="color:#5f6b76">${escHtml(detalhes)}</span></li>`;
+    }).join("");
+    const mais = itens.length > 12 ? `<p>…e mais ${itens.length - 12}. <a href="${site}/leiloes/${a.uf}/" style="color:#0b5fff">Veja todos em ${a.uf}</a>.</p>` : "";
+    try {
+      await enviarEmail(env, a.email, `${itens.length} novidade${itens.length > 1 ? "s" : ""} em ${onde} — imóveis em leilão`,
+        `<div style="font-family:system-ui,Segoe UI,Roboto,sans-serif;font-size:15px;line-height:1.5;color:#1b1f24;max-width:560px">
+         <p style="font-size:18px;font-weight:700;margin:0 0 12px">Aysha Leilões · seu alerta</p>
+         <p>${escHtml(filtros.join(", "))}:</p>
+         <ul style="padding-left:18px;margin:14px 0">${linhas}</ul>${mais}
+         <p style="font-size:13px;color:#5f6b76;margin-top:20px">Confira sempre o edital: a fonte pode alterar valores e datas.
+         <a href="${site}/conta.html#alertas" style="color:#5f6b76">Gerenciar meus alertas</a> ·
+         <a href="${api}/alertas/descadastrar?chave=${a.chave}" style="color:#5f6b76">não quero mais este alerta</a></p>
+         </div>`);
+      enviados++;
+      await cobrir();
+    } catch (e) { /* envio falhou e ultimo_envio não avançou: os mesmos itens tentam de novo amanhã */ }
+  }
+  return enviados;
+}
+
 // ---------------------------------------------------------------- administração -------
 function ehAdmin(usuario, env) {
   return (env.ADMIN_EMAILS || "").split(",").map(s => s.trim().toLowerCase()).filter(Boolean).includes(usuario.email.toLowerCase());
@@ -602,7 +733,7 @@ async function estadoPedido(usuario, pedidoId, env, h) {
 // ---------------------------------------------------------------- roteamento ----------
 export default {
   async scheduled(event, env, ctx) {
-    ctx.waitUntil(enviarLembretes(env));
+    ctx.waitUntil((async () => { await enviarLembretes(env); await enviarAlertasImoveis(env); })());
   },
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
@@ -624,6 +755,11 @@ export default {
         if (request.headers.get("X-Interno") !== env.INTERNO_SECRET) return json({ erro: "não autorizado" }, 401, h);
         return json({ enviados: await enviarLembretes(env) }, 200, h);
       }
+      if (m === "POST" && rota === "/interno/alertas") {
+        if (request.headers.get("X-Interno") !== env.INTERNO_SECRET) return json({ erro: "não autorizado" }, 401, h);
+        return json({ enviados: await enviarAlertasImoveis(env) }, 200, h);
+      }
+      if (m === "GET" && rota === "/alertas/descadastrar") return alertaDescadastrar(url, env);
       if (m === "GET" && rota === "/pacotes") return json({ pacotes: pacotes(env) }, 200, h);
 
       const usuario = await usuarioDaSessao(request, env);
@@ -633,6 +769,9 @@ export default {
       if (m === "GET" && rota === "/agenda") return agendaListar(usuario, env, h);
       if (m === "POST" && rota === "/agenda") return agendaSalvar(request, usuario, env, h);
       if (m === "POST" && rota === "/agenda/remover") return agendaRemover(request, usuario, env, h);
+      if (m === "GET" && rota === "/alertas") return alertasListar(usuario, env, h);
+      if (m === "POST" && rota === "/alertas") return alertaCriar(request, usuario, env, h);
+      if (m === "POST" && rota === "/alertas/remover") return alertaRemover(request, usuario, env, h);
       if (m === "POST" && rota === "/conta/apagar") return apagarConta(usuario, env, h);
       if (m === "POST" && rota === "/analise") return analisar(request, usuario, env, h);
       if (m === "GET" && rota.startsWith("/relatorio/")) return obterRelatorio(usuario, decodeURIComponent(rota.slice(11)), env, h);

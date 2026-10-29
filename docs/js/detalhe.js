@@ -269,7 +269,7 @@
     html += `<div id="cabecalho-ficha">${cabecalhoHtml(r)}</div>`;
     if (r.ativo === false) html += '<div class="aviso">Este imóvel saiu da fonte (vendido, arrematado ou retirado). Fica aqui por até 90 dias para consulta do histórico.</div>';
     html += `<div class="kpis" id="kpis">${kpisHtml(r)}</div>
-    <div class="links-principais"><a class="btn primario btn-ia-grande" href="#analise">✦ Análise com IA</a><button type="button" class="btn" id="btn-agenda" title="Guardar a data do leilão e receber lembretes por e-mail">📅 Salvar na agenda</button>${link(r.url_anuncio, "Anúncio original")}${link(r.url_edital, "Edital")}${link(r.url_matricula, "Matrícula")}<a class="btn" href="./">← voltar à tabela</a></div>`;
+    <div class="links-principais"><a class="btn primario btn-ia-grande" href="#analise">✦ Análise com IA</a><button type="button" class="btn" id="btn-agenda" title="Guardar a data do leilão e receber lembretes por e-mail">📅 Salvar na agenda</button>${r.uf && r.cidade ? `<a class="btn" href="conta.html?alerta_uf=${encodeURIComponent(r.uf)}&alerta_cidade=${encodeURIComponent(r.cidade)}#alertas" title="Receber por e-mail os imóveis que entrarem em ${escapar(r.cidade)}">🔔 Alertas em ${escapar(r.cidade)}</a>` : ""}${link(r.url_anuncio, "Anúncio original")}${link(r.url_edital, "Edital")}${link(r.url_matricula, "Matrícula")}<a class="btn" href="./">← voltar à tabela</a></div>`;
     html += '<div class="grade">';
     html += `<div class="bloco largo relatorio" id="analise"><h3>✦ Análise com IA</h3><div id="analise-corpo"><p class="muted">verificando se já existe um relatório…</p></div></div>`;
     GRUPOS.forEach(([t, lista], i) => { html += `<div class="bloco" id="grupo-${i}"><h3>${escapar(t)}</h3>${campos(r, lista)}</div>`; });

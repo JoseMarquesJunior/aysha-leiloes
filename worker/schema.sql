@@ -72,6 +72,21 @@ CREATE INDEX IF NOT EXISTS idx_sessoes_usuario ON sessoes(usuario_id);
 CREATE INDEX IF NOT EXISTS idx_acessos_imovel ON acessos(id_imovel);
 CREATE INDEX IF NOT EXISTS idx_pedidos_usuario ON pedidos(usuario_id);
 
+-- alertas de imóveis: "me avise de imóveis novos em [UF/cidade] com desconto acima de X%" (e-mail diário)
+CREATE TABLE IF NOT EXISTS alertas (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  usuario_id INTEGER NOT NULL,
+  uf TEXT NOT NULL,
+  cidade TEXT,                -- NULL = todas as cidades da UF
+  tipo TEXT,                  -- apartamento | casa | terreno | comercial | rural | outro; NULL = todos
+  desconto_min INTEGER,       -- % mínimo sobre a avaliação; NULL = qualquer
+  valor_max INTEGER,          -- lance máximo em reais; NULL = qualquer
+  chave TEXT NOT NULL UNIQUE, -- token do link de descadastro de 1 clique (sem login)
+  criado_em TEXT NOT NULL,
+  ultimo_envio TEXT           -- última data de evento já coberta por um envio (nada sai duas vezes)
+);
+CREATE INDEX IF NOT EXISTS idx_alertas_usuario ON alertas(usuario_id);
+
 -- agenda: leilões que o usuário quer acompanhar, com lembretes por e-mail (dias antes: ex. [7,1,0])
 CREATE TABLE IF NOT EXISTS agenda (
   usuario_id INTEGER NOT NULL,

@@ -242,6 +242,8 @@ footer p { margin: 4px 0; max-width: 1100px; }
 .pacote .nome { font-weight: 700; }
 .pacote .preco { font-size: 1.3rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 .pacote .btn { margin-top: 6px; }
+.form-alerta { display: flex; flex-wrap: wrap; gap: 8px; max-width: 640px; margin: 8px 0; }
+.form-alerta input, .form-alerta select { flex: 1 1 150px; min-width: 0; padding: 7px 9px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: inherit; font: inherit; }
 .aviso.ok { background: #e8f5ec; border-color: #9fd3ad; }
 table.simples { border-collapse: collapse; font-size: .9rem; }
 table.simples th, table.simples td { border-bottom: 1px solid var(--border); padding: 4px 10px 4px 0; text-align: left; }
