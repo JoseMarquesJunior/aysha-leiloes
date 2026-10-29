@@ -146,11 +146,22 @@
     }
     return caminho;
   }
+  /* Exclusão do mantenedor: abrir o site uma vez com #nao-contar grava a chave oficial do Umami
+     (umami.disabled) no localStorage daquele navegador e nada mais é enviado (pageviews nem eventos);
+     #contar desfaz. Vale por navegador/perfil — repetir em cada Chrome usado para testes. */
+  function contagemDesligada() {
+    try {
+      if (location.hash === "#nao-contar") localStorage.setItem("umami.disabled", "1");
+      else if (location.hash === "#contar") localStorage.removeItem("umami.disabled");
+      return localStorage.getItem("umami.disabled") === "1";
+    } catch (e) { return false; /* navegação privada sem localStorage */ }
+  }
   function iniciarContagem() {
     const cfg = global.LT_CONFIG || {};
     const id = (cfg.umami || "").trim();
     if (/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id) === false) return;
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
+    if (contagemDesligada()) return;
     const s = document.createElement("script");
     s.defer = true;
     s.src = "https://cloud.umami.is/script.js";
@@ -222,6 +233,7 @@
     const cfg = global.LT_CONFIG || {};
     if (!cfg.umami) return;
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
+    if (contagemDesligada()) return;
     filaEventos.push(nome);
     enviarEventos();
   }
