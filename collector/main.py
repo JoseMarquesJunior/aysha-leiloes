@@ -264,6 +264,15 @@ def executar(config: dict, apenas: set[str] | None = None, sem_geo: bool = False
         com_geo = sum(1 for r in registros if r.get("lat") is not None)
         log.info("geocodificação: %d consultas novas; %d/%d com coordenadas", geo.consultas, com_geo, len(registros))
 
+    # 5b. localizações precisas descobertas nas visitas às fichas (Worker POST /geo -> D1 -> aqui)
+    try:
+        from .geo_worker import aplicar_geo_worker
+        n_geo = aplicar_geo_worker(registros)
+        if n_geo:
+            log.info("localizações das visitas aplicadas a %d registro(s)", n_geo)
+    except Exception:
+        log.exception("aplicação das localizações das visitas falhou")
+
     # 6. snapshots (delta diário; completo no dia configurado do mês ou quando não há base anterior)
     snap_dir = pasta / "snapshots"
     completo = (not anteriores) or date.today().day == config["saida"].get("snapshot_completo_dia", 1)

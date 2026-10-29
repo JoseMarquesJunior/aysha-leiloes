@@ -15,6 +15,8 @@
  *   GET  /agenda | POST /agenda {id, uf, titulo, datas, hora, lembretes} | POST /agenda/remover {id}
  *   GET  /alertas | POST /alertas {uf, cidade, tipo, desconto_min, valor_max} | POST /alertas/remover {id}
  *   GET  /alertas/descadastrar?chave=...        -> remove o alerta pelo link do e-mail (sem login)
+ *   POST /geo               {id, uf}           -> geocodifica o endereço na 1ª visita à ficha (guarda no D1)
+ *   GET  /interno/geo                          -> a coleta puxa as localizações descobertas (header X-Interno)
  *   cron diário (08:00 Brasília): lembretes por e-mail dos leilões da agenda e alertas de imóveis novos;
  *     POST /interno/lembretes e POST /interno/alertas forçam o envio
  *   GET  /conta                                -> saldo, análises liberadas, compras (autenticado)
@@ -558,6 +560,82 @@ async function enviarAlertasImoveis(env) {
   return enviados;
 }
 
+// ---------------------------------------------------------------- geocodificação sob demanda --
+/* A ficha chama POST /geo na primeira visita de um imóvel com endereço e localização aproximada.
+   O Worker lê o endereço na base publicada do site (nunca no corpo do pedido, para ninguém envenenar o
+   mapa), geocodifica no Nominatim com as mesmas validações do coletor (collector/geocode.py) e guarda o
+   ponto no D1; a coleta diária incorpora os pontos à base (GET /interno/geo). Falhas definitivas também
+   ficam guardadas, para não repetir a consulta a cada visita. */
+const GEO_TIPOS_LARGOS = new Set([  // resultado que é só o bairro/cidade: não vale como precisão "endereco"
+  "suburb", "neighbourhood", "quarter", "hamlet", "village", "locality", "borough", "city_district",
+  "city", "town", "municipality", "administrative", "county",
+]);
+const GEO_PALAVRAS_VIA = new Set(["rua", "avenida", "av", "r", "alameda", "travessa", "praca", "estrada", "rodovia", "ladeira", "beco", "largo"]);
+/* Mantém logradouro e número; descarta lote/quadra/bloco/apto, que o Nominatim não entende. */
+function limparEndereco(endereco) {
+  if (!endereco) return null;
+  let t = String(endereco).trim();
+  t = t.replace(/\b(n|nº|n°|num|numero)\.?\s*(sn|s\/n)\b.*$/i, "");
+  t = t.replace(/,?\s*\b(lt|lote|qd|quadra|bl|bloco|ap|apto|apt|apartamento|cs|casa|sl|sala|lj|loja|cj|conj|conjunto|ed|edif|edificio)\b.*$/i, "");
+  t = t.replace(/\b(n|nº|n°|num|numero)\.?\s*(\d+)/gi, "$2");
+  t = t.replace(/\s+/g, " ").replace(/^[\s,.\-]+|[\s,.\-]+$/g, "");
+  return t || null;
+}
+/* Confere se alguma palavra significativa do logradouro aparece no resultado (evita rua trocada). */
+function ruaBate(endereco, nomeResultado) {
+  const palavras = (semAcento(endereco).match(/[a-z]{3,}/g) || []).filter(p => !GEO_PALAVRAS_VIA.has(p));
+  const alvo = semAcento(nomeResultado);
+  return palavras.length ? palavras.some(p => alvo.includes(p)) : true;
+}
+function guardarGeo(env, id, lat, lng, consulta, precisao) {
+  return env.DB.prepare("INSERT OR REPLACE INTO geo_imovel (id, lat, lng, precisao, consulta, criado_em) VALUES (?, ?, ?, ?, ?, ?)")
+    .bind(id, lat, lng, precisao || null, consulta || null, agora()).run();
+}
+async function geoDescobrir(request, env, h) {
+  const d = await corpo(request);
+  const id = String(d.id || ""), uf = String(d.uf || "").toUpperCase();
+  if (!ID_OK.test(id) || !UFS.has(uf)) return json({ erro: "id ou uf inválidos" }, 400, h);
+  const guardado = await env.DB.prepare("SELECT lat, lng, precisao FROM geo_imovel WHERE id = ?").bind(id).first();
+  if (guardado) return json({ lat: guardado.lat, lng: guardado.lng, precisao: guardado.precisao }, 200, h);
+  // tetos diários: por IP (abuso) e global (a política do Nominatim pede uso leve)
+  const dia = agora().slice(0, 10);
+  const ip = await hashIp(request.headers.get("CF-Connecting-IP") || "");
+  if ((await contar(env, `geo:${ip}:${dia}`, 86400)) > 20) return json({ erro: "limite diário" }, 429, h);
+  if ((await contar(env, `geo:dia:${dia}`, 86400)) > 200) return json({ precisao: null, tentar_depois: true }, 200, h);
+  const site = (env.SITE || "").replace(/\/$/, "");
+  let r = null;
+  try {
+    const resp = await fetch(`${site}/data/imoveis_${uf}.json`, { cf: { cacheEverything: true, cacheTtl: 3600 } });
+    if (resp.ok) r = ((await resp.json()) || []).find(x => x.id === id);
+  } catch { /* site fora do ar: tenta na próxima visita */ }
+  if (!r || !r.endereco || !r.cidade) return json({ precisao: null }, 200, h);
+  if (r.geo_precisao === "endereco") return json({ lat: r.lat, lng: r.lng, precisao: "endereco" }, 200, h);
+  const endereco = limparEndereco(r.endereco);
+  if (!endereco) { await guardarGeo(env, id, null, null, null); return json({ precisao: null }, 200, h); }
+  const consulta = [endereco, r.bairro, r.cidade, uf, "Brasil"].filter(Boolean).join(", ");
+  let dados;
+  try {
+    const n = await fetch(`https://nominatim.openstreetmap.org/search?${new URLSearchParams({ q: consulta, format: "jsonv2", limit: "1", countrycodes: "br" })}`,
+      { headers: { "User-Agent": "aysha-leiloes/1.0 (https://ayshaleiloes.com.br; contato@ayshaleiloes.com.br)" } });
+    if (!n.ok) return json({ precisao: null, tentar_depois: true }, 200, h);  // 429/5xx: nada guardado, tenta depois
+    dados = await n.json();
+  } catch { return json({ precisao: null, tentar_depois: true }, 200, h); }
+  const res = Array.isArray(dados) ? dados[0] : null;
+  const tipo = res ? String(res.addresstype || res.type || "") : "";
+  if (!res || GEO_TIPOS_LARGOS.has(tipo) || !ruaBate(endereco, res.display_name || "")) {
+    await guardarGeo(env, id, null, null, consulta);  // sem resultado confiável: não repete a consulta
+    return json({ precisao: null }, 200, h);
+  }
+  const lat = parseFloat(res.lat), lng = parseFloat(res.lon);
+  await guardarGeo(env, id, lat, lng, consulta, "endereco");
+  return json({ lat, lng, precisao: "endereco" }, 200, h);
+}
+async function geoInterno(request, env, h) {
+  if (request.headers.get("X-Interno") !== env.INTERNO_SECRET) return json({ erro: "não autorizado" }, 401, h);
+  const rows = (await env.DB.prepare("SELECT id, lat, lng, precisao, criado_em FROM geo_imovel WHERE precisao = 'endereco' ORDER BY criado_em").all()).results;
+  return json({ pontos: rows }, 200, h);
+}
+
 // ---------------------------------------------------------------- administração -------
 function ehAdmin(usuario, env) {
   return (env.ADMIN_EMAILS || "").split(",").map(s => s.trim().toLowerCase()).filter(Boolean).includes(usuario.email.toLowerCase());
@@ -761,6 +839,8 @@ export default {
         return json({ enviados: await enviarAlertasImoveis(env) }, 200, h);
       }
       if (m === "GET" && rota === "/alertas/descadastrar") return alertaDescadastrar(url, env);
+      if (m === "POST" && rota === "/geo") return geoDescobrir(request, env, h);
+      if (m === "GET" && rota === "/interno/geo") return geoInterno(request, env, h);
       if (m === "GET" && rota === "/pacotes") return json({ pacotes: pacotes(env) }, 200, h);
 
       const usuario = await usuarioDaSessao(request, env);

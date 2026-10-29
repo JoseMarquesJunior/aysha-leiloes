@@ -285,6 +285,20 @@ cobre só o último dia. Todo e-mail tem descadastro de 1 clique sem login
 (`GET /alertas/descadastrar?chave=...` — a chave é um token por alerta). Tabela `alertas` no
 `worker/schema.sql`; funil: evento `alerta-criado` no Umami.
 
+## Geocodificação sob demanda (primeira visita à ficha)
+
+Geocodificar os ~24 mil endereços da base estoura qualquer cota gratuita, então a coleta limita a precisão
+(`geocodificacao.precisao_maxima_por_uf`) e muitos imóveis ficam com a localização aproximada (bairro ou
+cidade). A visita resolve isso sob demanda: quando a ficha de um imóvel com `endereco` e localização
+aproximada é aberta, ela chama `POST /geo {id, uf}` no Worker, que lê o endereço **na base publicada do
+site** (nunca no corpo do pedido, para ninguém envenenar o mapa), geocodifica no Nominatim com as mesmas
+validações de `collector/geocode.py` (limpeza do endereço, rejeição de resultado que é só bairro/cidade,
+conferência do nome da rua) e guarda o ponto na tabela `geo_imovel` do D1 — a ficha já redesenha o mapa
+na hora. Falhas definitivas também ficam guardadas para não repetir a consulta; tetos diários por IP e
+global protegem a cota do Nominatim. A coleta diária puxa os pontos (`GET /interno/geo`, com `WORKER_URL`
+e `INTERNO_SECRET` no `coletar.yml`) e grava `lat/lng/geo_precisao="endereco"` na base
+(`collector/geo_worker.py`), tornando a localização precisa permanente.
+
 ## Análise detalhada com IA (relatório por imóvel)
 
 Diferente da extração de campos (Haiku, acima), o botão "IA ✦" de cada linha abre a ficha do imóvel na

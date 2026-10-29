@@ -52,6 +52,9 @@ jobs:
         if: inputs.diagnostico_ia == ''
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # localizações precisas descobertas nas visitas às fichas (GET /interno/geo do Worker)
+          WORKER_URL: https://aysha-leiloes-analise.leiloes.workers.dev
+          INTERNO_SECRET: ${{ secrets.INTERNO_SECRET }}
           FONTES: ${{ inputs.fontes }}
         run: |
           if [ -n "$FONTES" ]; then

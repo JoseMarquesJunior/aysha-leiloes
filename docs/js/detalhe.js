@@ -99,6 +99,19 @@
     const aprox = r.geo_precisao !== "endereco";
     (aprox ? L.circle([r.lat, r.lng], { radius: r.geo_precisao === "bairro" ? 600 : 2500, color: "#777", fillOpacity: .15 }) : L.circleMarker([r.lat, r.lng], { radius: 8, color: "#0b5fff", fillColor: "#0b5fff", fillOpacity: .9 })).addTo(m);
   }
+  /* Imóvel com endereço mas localização aproximada: pede ao Worker a geocodificação precisa. O resultado
+     fica guardado lá e entra na base na coleta seguinte; aqui, o mapa já é redesenhado nesta visita. */
+  async function melhorarLocalizacao(r) {
+    if (!r.id || !r.uf || !r.endereco || !r.cidade || r.geo_precisao === "endereco") return;
+    try {
+      const resp = await LT.api("/geo", { body: { id: r.id, uf: r.uf } });
+      const d = (resp && resp.dados) || {};
+      if (!resp.ok || d.precisao !== "endereco" || typeof d.lat !== "number" || typeof d.lng !== "number") return;
+      r.lat = d.lat; r.lng = d.lng; r.geo_precisao = "endereco";
+      const alvo = document.getElementById("bloco-mapa");
+      if (alvo) { alvo.innerHTML = `<h3>Onde fica</h3>${mapaHtml(r)}`; montarMapa(r); }
+    } catch (e) { /* sem rede ou Worker fora do ar: o mapa aproximado continua valendo */ }
+  }
 
   /* ---------- análise com IA (relatório gerado uma vez e guardado em data/relatorios/<id>.json) ---------- */
   const { markdownParaHtml } = LT;
@@ -278,7 +291,7 @@
     html += '<div class="grade">';
     html += `<div class="bloco largo relatorio" id="analise"><h3>✦ Análise com IA</h3><div id="analise-corpo"><p class="muted">verificando se já existe um relatório…</p></div></div>`;
     GRUPOS.forEach(([t, lista], i) => { html += `<div class="bloco" id="grupo-${i}"><h3>${escapar(t)}</h3>${campos(r, lista)}</div>`; });
-    html += bloco("Onde fica", mapaHtml(r));
+    html += `<div class="bloco" id="bloco-mapa"><h3>Onde fica</h3>${mapaHtml(r)}</div>`;
     html += bloco("Outras fontes com o mesmo imóvel", outrasFontesHtml(r));
     const certame = r.extracao_ia ? detalhesCertameHtml(r.extracao_ia) : "";
     if (certame) html += bloco("Detalhes do certame", certame);
@@ -289,6 +302,7 @@
     html += "</div>";
     el.innerHTML = html;
     montarMapa(r);
+    melhorarLocalizacao(r);
     montarAgenda(r, tipo);
     carregarAnalise(r).then(() => { if (location.hash === "#analise") document.getElementById("analise").scrollIntoView({ behavior: "smooth" }); });
     const voltar = document.getElementById("voltar");

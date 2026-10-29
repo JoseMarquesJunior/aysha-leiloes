@@ -23,6 +23,8 @@ recibo por e-mail. Não guarda a chave da Anthropic: para gerar um parecer novo,
 | `GET /pagamento/estado/:pedido` | sessão | situação do pedido (a página de retorno consulta até o webhook chegar) |
 | `POST /pagamento/webhook` | — | notificação do Mercado Pago; consulta o pagamento e credita uma única vez |
 | `POST /interno/relatorio` | `X-Interno` | o robô do GitHub grava o parecer gerado (texto, custo, campos estruturados) |
+| `POST /geo {id, uf}` | — | geocodifica o endereço na 1ª visita à ficha (endereço lido na base do site; resultado no D1; tetos por IP e global) |
+| `GET /interno/geo` | `X-Interno` | a coleta puxa as localizações descobertas e as grava na base |
 
 Regras de cobrança: toda conta nova nasce com 1 crédito (a primeira análise é grátis); 1 crédito por imóvel, inclusive quando o
 parecer já existia (a entrega é por conta). Reabrir um parecer já liberado não custa nada. Novas gerações têm

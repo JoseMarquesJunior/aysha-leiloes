@@ -87,6 +87,18 @@ CREATE TABLE IF NOT EXISTS alertas (
 );
 CREATE INDEX IF NOT EXISTS idx_alertas_usuario ON alertas(usuario_id);
 
+-- geocodificação sob demanda: na primeira visita a uma ficha com endereço e localização aproximada,
+-- o Worker geocodifica o endereço e guarda o ponto aqui; a coleta diária incorpora à base (GET /interno/geo).
+-- Falhas definitivas (precisao NULL) também ficam guardadas para não repetir a consulta a cada visita.
+CREATE TABLE IF NOT EXISTS geo_imovel (
+  id TEXT PRIMARY KEY,   -- id do imóvel na base
+  lat REAL,
+  lng REAL,
+  precisao TEXT,         -- 'endereco' ou NULL (consulta sem resultado confiável)
+  consulta TEXT,         -- o que foi perguntado ao geocodificador (depuração)
+  criado_em TEXT NOT NULL
+);
+
 -- agenda: leilões que o usuário quer acompanhar, com lembretes por e-mail (dias antes: ex. [7,1,0])
 CREATE TABLE IF NOT EXISTS agenda (
   usuario_id INTEGER NOT NULL,
