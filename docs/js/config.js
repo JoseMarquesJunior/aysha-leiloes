@@ -12,7 +12,7 @@ window.LT_CONFIG = {
   // Contagem de visitas com Umami (https://cloud.umami.is): sem cookies, sem banner de consentimento,
   // com eventos do funil. Crie a conta, adicione o site e informe aqui o "Website ID" (um UUID, em
   // Settings → Websites → Edit). Vazio = nada é carregado nem enviado.
-  umami: "",
+  umami: "f466d47b-d42f-419e-9e2b-7072083a2dff",
 
   // Serviço de contas, créditos e análises com IA (Cloudflare Worker, pasta worker/): login por link mágico,
   // saldo de créditos, entrega dos relatórios a quem tem acesso e checkout no Mercado Pago.
