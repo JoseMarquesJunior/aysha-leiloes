@@ -1850,6 +1850,7 @@
 "nome": "Avenida Albert Scharlé, Paciência, Sabará, Minas Gerais, Região Sudeste, 34525-485, Brasil",
 "tipo": "secondary"
 },
+"avenida alberto lamego, 928 / 1.060- entre o sitio sao domingos e sao manoel e o loteamento moradas de donana, campos dos goytacazes, rj, brasil": null,
 "avenida alem paraiba, 835, parque diamante, mar de espanha, mg, brasil": null,
 "avenida alexios jafet, 555, jardim ipanema (zona oeste), sao paulo, sp, brasil": null,
 "avenida alfa, lot cidade de deus, itaberaba, ba, brasil": null,
@@ -4876,6 +4877,12 @@
 "lng": -34.8266404,
 "nome": "Camboinha, Cabedelo, Paraíba, Região Nordeste, Brasil",
 "tipo": "suburb"
+},
+"cambuci, rj, brasil": {
+"lat": -21.4835902,
+"lng": -41.907113,
+"nome": "Cambuci, Rio de Janeiro, Região Sudeste, Brasil",
+"tipo": "municipality"
 },
 "cambuci, sao paulo, sp, brasil": {
 "lat": -23.5659114,
@@ -9188,6 +9195,7 @@
 "nome": "Conventos, Lajeado, Rio Grande do Sul, Região Sul, Brasil",
 "tipo": "suburb"
 },
+"cooperativa, cambuci, rj, brasil": null,
 "cooperativa, sao bernardo do campo, sp, brasil": {
 "lat": -23.7263478,
 "lng": -46.5966838,
@@ -10972,6 +10980,7 @@
 },
 "fazenda boa vista, japaratuba, se, brasil": null,
 "fazenda bom jesus, contagem, mg, brasil": null,
+"fazenda cabo frio- zona rural, natividade, rj, brasil": null,
 "fazenda capoeirinha, santo antonio do descoberto, go, brasil": null,
 "fazenda caveiras, goiania, go, brasil": null,
 "fazenda caxias, itaguai, rj, brasil": null,
@@ -19776,6 +19785,12 @@
 "nome": "Natal, Rio Grande do Norte, Região Nordeste, Brasil",
 "tipo": "city"
 },
+"natividade, rj, brasil": {
+"lat": -21.0426488,
+"lng": -41.9409815,
+"nome": "Natividade, Rio de Janeiro, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "navegantes, porto alegre, rs, brasil": {
 "lat": -29.9936324,
 "lng": -51.2007684,
@@ -26552,6 +26567,7 @@
 "rodovia pa-124, vila kennedy, capitao poco, pa, brasil": null,
 "rodovia pontal buerarema, ed praia do sol, ilheus, ba, brasil": null,
 "rodovia rj-104, apolo ii (manilha), itaborai, rj, brasil": null,
+"rodovia rj-194, estrada cambuci portela, s/n- a margem da linha ferrea da rede ferroviaria federal s/a, cooperativa, cambuci, rj, brasil": null,
 "rodovia tomar do geru, caraibas, itabaianinha, se, brasil": null,
 "rodoviario, curuca, pa, brasil": {
 "lat": -0.7305308,
