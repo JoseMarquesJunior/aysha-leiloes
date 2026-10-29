@@ -17,6 +17,7 @@
  *   GET  /alertas/descadastrar?chave=...        -> remove o alerta pelo link do e-mail (sem login)
  *   POST /geo               {id, uf}           -> geocodifica o endereço na 1ª visita à ficha (guarda no D1)
  *   GET  /interno/geo                          -> a coleta puxa as localizações descobertas (header X-Interno)
+ *   GET  /interno/metricas?desde=&ate=         -> agregados da leitura L0/L1 do baseline, sem dados pessoais (header X-Interno)
  *   cron diário (08:00 Brasília): lembretes por e-mail dos leilões da agenda e alertas de imóveis novos;
  *     POST /interno/lembretes e POST /interno/alertas forçam o envio
  *   GET  /conta                                -> saldo, análises liberadas, compras (autenticado)
@@ -695,6 +696,77 @@ async function adminCreditos(request, admin, env, h) {
   return json({ ok: true, creditos: novo.creditos }, 200, h);
 }
 
+// ---------------------------------------------------------------- métricas internas ---
+/* GET /interno/metricas?desde=ISO&ate=ISO (header X-Interno): os agregados que a leitura L0/L1 do
+   baseline pede (docs/business/baseline-ciclo-01.md, seção 2), consumidos por scripts/coleta_metricas.py.
+   Devolve só contagens e valores — nenhum e-mail ou nome. As contas de ADMIN_EMAILS e EMAILS_TESTE
+   (contas do mantenedor só para testar o funil, sem acesso de admin) saem das contagens — as compras
+   delas viram "teste_do_mantenedor"; pedidos 'cortesia' nunca entram. A taxa real de cada
+   compra vem da consulta ao pagamento no Mercado Pago (bruto − net_received_amount), com o token que já
+   é segredo do Worker — nenhum segredo novo fora daqui. */
+async function metricasInternas(request, url, env, h) {
+  if (request.headers.get("X-Interno") !== env.INTERNO_SECRET) return json({ erro: "não autorizado" }, 401, h);
+  const desde = url.searchParams.get("desde") || "1970-01-01T00:00:00.000Z";
+  const ate = url.searchParams.get("ate") || agora();
+  const admins = `${env.ADMIN_EMAILS || ""},${env.EMAILS_TESTE || ""}`.split(",").map(s => s.trim().toLowerCase()).filter(Boolean);
+  const marcas = admins.length ? admins.map(() => "?").join(", ") : "''";
+  const naoAdmin = `LOWER(u.email) NOT IN (${marcas})`;
+  const um = (sql, ...binds) => env.DB.prepare(sql).bind(...binds).first();
+
+  const [contasTotal, contasNovas, gratisConsumidos, gratisEmAberto, analisesPeriodo, custo, alertas, agendas, pendentes] = await Promise.all([
+    um(`SELECT COUNT(*) n FROM usuarios u WHERE ${naoAdmin}`, ...admins),
+    um(`SELECT COUNT(*) n FROM usuarios u WHERE ${naoAdmin} AND u.criado_em >= ? AND u.criado_em <= ?`, ...admins, desde, ate),
+    // limitação 1 do baseline: acessos.origem é sempre 'credito', então "crédito grátis consumido" =
+    // conta nova do período (nasce com 1 crédito) com pelo menos 1 análise liberada
+    um(`SELECT COUNT(*) n FROM usuarios u WHERE ${naoAdmin} AND u.criado_em >= ? AND u.criado_em <= ?
+        AND EXISTS (SELECT 1 FROM acessos a WHERE a.usuario_id = u.id)`, ...admins, desde, ate),
+    um(`SELECT COUNT(*) n FROM usuarios u WHERE ${naoAdmin} AND u.criado_em >= ? AND u.criado_em <= ? AND u.creditos = 1
+        AND NOT EXISTS (SELECT 1 FROM pedidos p WHERE p.usuario_id = u.id AND p.status = 'pago')`, ...admins, desde, ate),
+    um(`SELECT COUNT(*) n FROM acessos a JOIN usuarios u ON u.id = a.usuario_id
+        WHERE ${naoAdmin} AND a.liberado_em >= ? AND a.liberado_em <= ?`, ...admins, desde, ate),
+    um("SELECT COUNT(*) n, COALESCE(SUM(custo_usd), 0) usd FROM relatorios WHERE gerado_em >= ? AND gerado_em <= ?", desde, ate),
+    um(`SELECT COUNT(*) n FROM alertas al JOIN usuarios u ON u.id = al.usuario_id
+        WHERE ${naoAdmin} AND al.criado_em >= ? AND al.criado_em <= ?`, ...admins, desde, ate),
+    um(`SELECT COUNT(*) n FROM agenda ag JOIN usuarios u ON u.id = ag.usuario_id
+        WHERE ${naoAdmin} AND ag.criado_em >= ? AND ag.criado_em <= ?`, ...admins, desde, ate),
+    um("SELECT COUNT(*) n FROM analises_pendentes"),
+  ]);
+
+  const pagos = (await env.DB.prepare(
+    `SELECT p.pacote, p.creditos, p.valor_centavos, p.pago_em, p.mp_payment_id, (LOWER(u.email) IN (${marcas})) teste_do_mantenedor
+     FROM pedidos p JOIN usuarios u ON u.id = p.usuario_id
+     WHERE p.status = 'pago' AND p.pago_em >= ? AND p.pago_em <= ? ORDER BY p.pago_em LIMIT 100`)
+    .bind(...admins, desde, ate).all()).results;
+  if (env.MP_ACCESS_TOKEN) {
+    for (const c of pagos) {
+      if (!c.mp_payment_id) continue;
+      const r = await fetch(`https://api.mercadopago.com/v1/payments/${c.mp_payment_id}`, { headers: { "Authorization": `Bearer ${env.MP_ACCESS_TOKEN}` } });
+      if (!r.ok) continue;
+      const pg = await r.json();
+      c.meio = pg.payment_type_id || null;  // ex.: bank_transfer (Pix), credit_card, account_money
+      const liquido = pg.transaction_details && pg.transaction_details.net_received_amount;
+      if (typeof liquido === "number") c.taxa_mp_centavos = Math.round((pg.transaction_amount - liquido) * 100);
+    }
+  }
+  const clientes = pagos.filter(p => !p.teste_do_mantenedor);
+  return json({
+    periodo: { desde, ate },
+    contas: { total: contasTotal.n, novas_no_periodo: contasNovas.n },
+    creditos_gratis: { consumidos: gratisConsumidos.n, em_aberto: gratisEmAberto.n },
+    analises_liberadas_no_periodo: analisesPeriodo.n,
+    compras_pagas: {
+      de_clientes: clientes.length,
+      valor_bruto_centavos: clientes.reduce((s, c) => s + c.valor_centavos, 0),
+      de_teste_do_mantenedor: pagos.length - clientes.length,
+      itens: pagos.map(c => ({ ...c, teste_do_mantenedor: !!c.teste_do_mantenedor })),
+    },
+    relatorios: { n: custo.n, custo_usd: custo.usd },
+    alertas_criados: alertas.n,
+    agendas_salvas: agendas.n,
+    analises_pendentes: pendentes.n,
+  }, 200, h);
+}
+
 // ---------------------------------------------------------------- Mercado Pago --------
 async function criarPagamento(request, usuario, env, h) {
   if (!env.MP_ACCESS_TOKEN) return json({ erro: "pagamento ainda não configurado" }, 503, h);
@@ -841,6 +913,7 @@ export default {
       if (m === "GET" && rota === "/alertas/descadastrar") return alertaDescadastrar(url, env);
       if (m === "POST" && rota === "/geo") return geoDescobrir(request, env, h);
       if (m === "GET" && rota === "/interno/geo") return geoInterno(request, env, h);
+      if (m === "GET" && rota === "/interno/metricas") return metricasInternas(request, url, env, h);
       if (m === "GET" && rota === "/pacotes") return json({ pacotes: pacotes(env) }, 200, h);
 
       const usuario = await usuarioDaSessao(request, env);

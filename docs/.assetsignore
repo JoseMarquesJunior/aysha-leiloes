@@ -1,0 +1,3 @@
+# Arquivos dentro de docs/ que NÃO devem ser publicados no site (wrangler assets).
+# docs/business/ é documentação interna de negócio (experimentos, decisões, métricas).
+business/

@@ -14,6 +14,9 @@ Thumbs.db
 # log da coleta local agendada
 coleta-local.log
 
+# link de compartilhamento do Umami (dá leitura pública das estatísticas; fica só na máquina)
+scripts/.umami_share_url
+
 # texto dos pareceres gerados sem Worker configurado (nunca versionado)
 collector/cache/relatorios_local/
 

@@ -1,0 +1,66 @@
+{
+ "rotulo": "L0-previa",
+ "periodo_brt": [
+  "2026-10-29T09:33:00-03:00",
+  "2026-10-29T16:01:14.309236-03:00"
+ ],
+ "cambio_fixo": 5.0,
+ "umami": {
+  "visitantes": 2,
+  "pageviews": 2,
+  "referrers": [],
+  "paises": [
+   [
+    "BR",
+    2
+   ]
+  ],
+  "eventos": {
+   "login-pedido": 0,
+   "conta-nova": 0,
+   "login-ok": 0,
+   "analise-credito": 0,
+   "compra-iniciada": 0,
+   "compra-paga": 0,
+   "agenda-salva": 0,
+   "agenda-ics": 0,
+   "alerta-criado": 0
+  },
+  "eventos_inesperados": {}
+ },
+ "worker": {
+  "via": "wrangler d1 (sem a taxa real do MP; para a taxa, rode com INTERNO_SECRET)",
+  "contas": {
+   "total": 1,
+   "novas_no_periodo": 1
+  },
+  "creditos_gratis": {
+   "consumidos": 1,
+   "em_aberto": 0
+  },
+  "analises_liberadas_no_periodo": 1,
+  "compras_pagas": {
+   "de_clientes": 0,
+   "valor_bruto_centavos": 0,
+   "de_teste_do_mantenedor": 1,
+   "itens": [
+    {
+     "pacote": "1",
+     "creditos": 1,
+     "valor_centavos": 1490,
+     "pago_em": "2026-10-29T12:55:04.931Z",
+     "mp_payment_id": "185611840685",
+     "teste_do_mantenedor": true
+    }
+   ]
+  },
+  "relatorios": {
+   "n": 1,
+   "custo_usd": 0.3909
+  },
+  "alertas_criados": 0,
+  "agendas_salvas": 0,
+  "analises_pendentes": 0
+ },
+ "erros": []
+}

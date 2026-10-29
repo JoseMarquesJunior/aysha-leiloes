@@ -14,6 +14,9 @@ URL_API = "https://aysha-leiloes-analise.leiloes.workers.dev"
 ALERTA_EMAIL = ""
 # contas (separadas por vírgula) que podem abrir admin.html: usuários, créditos, pedidos, relatórios
 ADMIN_EMAILS = "jmarques.oliveirajunior@gmail.com"
+# outras contas do mantenedor usadas só para testar o funil (SEM acesso de admin): saem das contagens
+# de /interno/metricas e as compras delas contam como teste (limitação 3 do baseline)
+EMAILS_TESTE = "jm_junior1234@hotmail.com"
 LIMITE_DIA = "100"
 # Canal de envio: "brevo" (remetente no domínio, autenticado no Brevo em 2026-10-29) ou "gmail"
 # (secrets GMAIL_*). O remetente deve combinar com o canal: pelo Gmail, o From precisa ser a conta Gmail.
