@@ -1,0 +1,39 @@
+{
+ "id": "caixa-8444401780792",
+ "gerado_em": "2026-10-29T12:20:32",
+ "modelo": "claude-opus-5",
+ "documentos_lidos": 1,
+ "documentos": [
+  {
+   "url": "https://venda-imoveis.caixa.gov.br/editais/matricula/RJ/8444401780792.pdf",
+   "paginas": 4,
+   "modo": "pdf"
+  }
+ ],
+ "uso": {
+  "entrada": 64207,
+  "saida": 2727,
+  "buscas": 3,
+  "campos": {
+   "entrada": 11096,
+   "saida": 301
+  }
+ },
+ "custo_usd": 0.4205,
+ "fontes": [],
+ "campos": {
+  "tipo": "casa",
+  "area_privativa_m2": 49.91,
+  "area_terreno_m2": 1080.0,
+  "area_total_m2": 49.91,
+  "quartos": 2,
+  "valor_avaliacao": 136000.0,
+  "endereco": "Avenida Barão do Rio Branco, 14, Casa 08, Lote 14, Quadra 115",
+  "bairro": "Engenho",
+  "cidade": "Itaguaí",
+  "matricula": "47330",
+  "comitente": "Caixa Econômica Federal",
+  "uf": "RJ",
+  "aceita_financiamento": false
+ }
+}
