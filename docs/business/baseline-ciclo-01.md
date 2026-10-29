@@ -51,27 +51,32 @@ Regra: copiar número absoluto, com o período e a data/hora da leitura. Não ar
 
 **Coleta automatizada (2026-10-29):** `python scripts/coleta_metricas.py --rotulo L0` (e `--rotulo L1 --ate 2026-11-10`) preenche tudo abaixo — Umami pelo link de compartilhamento (Settings → Share; o plano grátis não tem chave de API), admin e taxa real do Mercado Pago via `GET /interno/metricas` do Worker (ou D1 direto pelo wrangler autenticado, sem a taxa) — e grava a leitura em `docs/business/leituras/`. Só o Google Search Console continua manual (copiar do painel). Configuração: `UMAMI_SHARE_URL` (ou `--share-url`) e, opcional, `INTERNO_SECRET` (cabeçalho do script explica). Não existe semana fechada com Umami ainda (ligado em 2026-10-29 09:33); a primeira semana cheia é 2026-10-30 a 2026-11-05, que atravessa o início do experimento, então o baseline útil é a janela D1–D4.
 
+**A coluna L0 abaixo está preenchida com a leitura prévia de 2026-10-29 17:34** ([leituras/leitura-L0-previa-2026-10-29-1734.md](leituras/leitura-L0-previa-2026-10-29-1734.md)); a leitura L0 oficial (rodar até 2026-11-01) substitui esses valores. Avisos que valem para a leitura do Umami:
+- O CSP do site bloqueava o envio ao `gateway.umami.is` até 29/10 15:39 (commit `b8d5a41`): eventos do funil anteriores a isso (inclusive a compra de teste de 12:55) não foram registrados no Umami.
+- Entre 16:01 e 17:33 de 29/10 **as estatísticas do site no Umami foram zeradas** (às 16:01 a leitura mostrava 2 visitantes / 2 pageviews, BR; às 17:33 a API retorna 0 para qualquer janela, inclusive o mês inteiro — provável reset de dados no painel). A contagem válida do Umami começa, na prática, nesse zeramento.
+- Desde 29/10 (commit `5469e94`) os navegadores do mantenedor se autoexcluem do Umami abrindo o site com `#nao-contar`; o tráfego do Umami posterior à ativação é só externo.
+
 | Campo | Valor L0 (até 2026-11-01) | Valor L1 (D13) | Instrução |
 |---|---|---|---|
 | Câmbio R$/US$ | **R$ 5,00 — FIXADO pelo mantenedor em 2026-10-29**, vale para o ciclo todo | R$ 5,00 (fixo) | decisão do mantenedor (decision-log); não consultar cotação |
-| Visitantes únicos desde 2026-10-29 09:33 | PENDENTE — mantenedor: copiar do painel Umami (cloud.umami.is → site → Overview, período "Custom" 29/10 a hoje) | PENDENTE — mantenedor: idem | |
-| Pageviews desde 2026-10-29 09:33 | PENDENTE — mantenedor: copiar do painel Umami (Overview) | PENDENTE — mantenedor: idem | |
-| Visitantes e pageviews da última semana fechada | PENDENTE — mantenedor: copiar do painel Umami (Overview, semana fechada; só existirá a partir de 2026-11-06 para 30/10–05/11) | PENDENTE — mantenedor: idem | |
-| Top origens de tráfego (Referrers) e países | PENDENTE — mantenedor: copiar do painel Umami (Overview → Referrers) | PENDENTE — mantenedor: idem | para atribuir ao EXP |
-| Evento `login-pedido` (contagem) | PENDENTE — mantenedor: copiar do painel Umami (Events) | PENDENTE | |
-| Evento `conta-nova` | PENDENTE — mantenedor: copiar do painel Umami (Events) | PENDENTE | |
-| Evento `login-ok` | PENDENTE — mantenedor: copiar do painel Umami (Events) | PENDENTE | |
-| Evento `analise-credito` | PENDENTE — mantenedor: copiar do painel Umami (Events) | PENDENTE | |
-| Evento `compra-iniciada` | PENDENTE — mantenedor: copiar do painel Umami (Events) | PENDENTE | |
-| Evento `compra-paga` | PENDENTE — mantenedor: copiar do painel Umami (Events) | PENDENTE | atenção: a compra de teste do mantenedor, se ocorreu após ligar o Umami, entra aqui; informar |
-| Contas totais e contas novas no período, sem as do mantenedor | PENDENTE — mantenedor: copiar do admin (`docs/admin.html`, contas) | PENDENTE | `usuarios.criado_em` |
-| Contas que consumiram o crédito grátis (≥ 1 análise), sem as do mantenedor | PENDENTE — mantenedor: copiar do admin (contas/créditos; ver limitação 1) | PENDENTE | |
-| Créditos grátis ainda não usados (contas novas com `creditos` = 1 e sem compra) | PENDENTE — mantenedor: copiar do admin (contas) | PENDENTE | exposição de custo em aberto |
-| Compras `pago` sem teste/cortesia: nº, valor bruto, pacote de cada uma | PENDENTE — mantenedor: copiar do admin (compras) | PENDENTE | |
-| Custo real das análises do período no servidor (`relatorios.custo_usd`) | PENDENTE — mantenedor: copiar do admin (relatórios) | PENDENTE | |
-| Pagamentos aprovados no Mercado Pago (nº e valor bruto) e taxa real cobrada por transação (R$ e meio: Pix/cartão) | PENDENTE — mantenedor: copiar do painel do Mercado Pago (Atividade/Vendas → detalhe do pagamento → "Tarifa"; caminho exato pode variar, confirmar na tela) | PENDENTE | confirmar a taxa de ~1 % Pix e ~5 % cartão; não registrar dados de cartão nem do pagador |
-| Impressões e cliques no Google Search Console (propriedade ayshaleiloes.com.br, desde 28/10) | PENDENTE — mantenedor: copiar do Google Search Console (Desempenho → Resultados da pesquisa → período personalizado; cliques totais e impressões totais) | PENDENTE | domínio verificado em 2026-10-29 |
-| Alertas criados (`alertas`) e agendas salvas | PENDENTE — mantenedor: copiar do admin | PENDENTE | secundárias |
+| Visitantes únicos desde 2026-10-29 09:33 | 0 (leitura 29/10 17:34; às 16:01 eram 2 — dados do Umami zerados entre as leituras, ver avisos acima) | PENDENTE — leitura em 2026-11-10 | coleta automática (Umami share) |
+| Pageviews desde 2026-10-29 09:33 | 0 (16:01: 2) | PENDENTE | coleta automática (Umami share) |
+| Visitantes e pageviews da última semana fechada | ainda não existe (30/10–05/11 só fecha em 2026-11-06) | PENDENTE | coleta automática |
+| Top origens de tráfego (Referrers) e países | nenhum referrer; países: nenhum na leitura 17:34 (16:01: BR: 2) | PENDENTE | para atribuir ao EXP |
+| Evento `login-pedido` (contagem) | 0 | PENDENTE | coleta automática (Umami share) |
+| Evento `conta-nova` | 0 | PENDENTE | idem |
+| Evento `login-ok` | 0 | PENDENTE | idem |
+| Evento `analise-credito` | 0 | PENDENTE | idem |
+| Evento `compra-iniciada` | 0 | PENDENTE | idem |
+| Evento `compra-paga` | 0 — a compra de teste do mantenedor (12:55) não aparece: o CSP bloqueava o envio até 15:39 | PENDENTE | atenção à exclusão do teste do mantenedor |
+| Contas totais e contas novas no período, sem as do mantenedor | 1 / 1 (D1 via wrangler, 29/10 17:34) | PENDENTE | `usuarios.criado_em`; exclui ADMIN_EMAILS + EMAILS_TESTE |
+| Contas que consumiram o crédito grátis (≥ 1 análise), sem as do mantenedor | 1 (a única conta nova já usou o grátis — 1 análise liberada no período) | PENDENTE | contorno da limitação 1 |
+| Créditos grátis ainda não usados (contas novas com `creditos` = 1 e sem compra) | 0 | PENDENTE | exposição de custo em aberto |
+| Compras `pago` sem teste/cortesia: nº, valor bruto, pacote de cada uma | **0 / R$ 0,00** — a única compra `pago` (pacote 1, R$ 14,90, 29/10 12:55) é teste do mantenedor (`EMAILS_TESTE`) | PENDENTE | coleta automática (D1/Worker) |
+| Custo real das análises do período no servidor (`relatorios.custo_usd`) | US$ 0,3909 = R$ 1,95 (1 relatório) | PENDENTE | câmbio fixo R$ 5,00 |
+| Pagamentos aprovados no Mercado Pago (nº e valor bruto) e taxa real cobrada por transação (R$ e meio: Pix/cartão) | 1 aprovado (o teste do mantenedor, R$ 14,90); **taxa real PENDENTE** — rodar a coleta com `INTERNO_SECRET` ou copiar a "Tarifa" do painel do MP | PENDENTE | confirmar a taxa de ~1 % Pix e ~5 % cartão; não registrar dados de cartão nem do pagador |
+| Impressões e cliques no Google Search Console (propriedade ayshaleiloes.com.br, desde 28/10) | PENDENTE — **único campo manual**: copiar do Google Search Console (Desempenho → Resultados da pesquisa → período personalizado; cliques totais e impressões totais) | PENDENTE | domínio verificado em 2026-10-29 |
+| Alertas criados (`alertas`) e agendas salvas | 0 / 0 | PENDENTE | secundárias |
 
 **Câmbio: o mantenedor fixou R$ 5,00 por US$ 1,00 em 2026-10-29** (vale para todo o ciclo; sem consulta de cotação). As seções 3 em diante foram calculadas **antes** disso, com a premissa antiga de R$ 5,40: os valores em R$ ali estão ~7–8 % acima do que dá com 5,00 (a direção das conclusões não muda — margens ficam ligeiramente maiores, custos menores). Recalcular com 5,00 na tarefa 1b (recalcular o baseline com a leitura L0).
 
