@@ -255,21 +255,23 @@ brasileira. Alternativas sem taxa própria: um link Pix/QR ou o Ko-fi. O site j�
 preencha `urlApoio` em `docs/js/config.js` (ex.: `https://buymeacoffee.com/<usuario>`) e ele aparece no
 rodapé da tabela e na página Sobre; vazio, não aparece. Criar a conta é um passo manual do mantenedor.
 
-## Contagem de visitas (GoatCounter)
+## Contagem de visitas (Umami)
 
-O site conta visitas com o [GoatCounter](https://www.goatcounter.com/): gratuito para uso não comercial,
-sem cookies, sem banner de consentimento, com painel de visitas por dia, visitantes únicos, páginas mais
-vistas e origem do tráfego. Para ligar:
+O site conta visitas com o [Umami Cloud](https://cloud.umami.is): sem cookies, sem banner de consentimento,
+com painel de visitas por dia, visitantes únicos, páginas mais vistas, origem do tráfego e eventos
+customizados (o funil). O plano gratuito (na faixa de 100 mil eventos/mês) cobre o tráfego atual.
+Antes era o GoatCounter, cujo serviço hospedado é voltado a sites não comerciais — com a venda de
+análises o site deixou de se encaixar. Para ligar:
 
-1. Crie a conta em https://www.goatcounter.com/signup escolhendo um código (ex.: `leiloes-em-tabela`);
-   o painel fica em `https://<código>.goatcounter.com`.
-2. Em `docs/js/config.js`, preencha `goatcounter: "<código>"` e publique.
-3. Em "Settings → Sites", confira que o domínio `josemarquesjunior.github.io` está permitido (o
-   GoatCounter aceita qualquer origem por padrão).
+1. Crie a conta em https://cloud.umami.is/signup e adicione o site `ayshaleiloes.com.br`.
+2. Copie o "Website ID" (um UUID, em Settings → Websites → Edit) para `umami: "<uuid>"` em
+   `docs/js/config.js` e publique. Vazio = nada é carregado nem enviado.
 
-O que é enviado: o caminho da página (sem a query string, ou seja, sem os filtros da busca), a ficha do
-imóvel como `/imovel/<id>` (mostra os imóveis mais abertos), referência (de onde veio) e tamanho da tela.
-Acessos em `localhost` não são contados. O painel pode ser tornado público em "Settings → Public".
+O rastreio automático fica desligado (`data-auto-track="false"`): `docs/js/common.js` conta a página
+manualmente com o caminho **sem a query string** (os filtros da busca não saem do navegador), e a ficha do
+imóvel como `/imovel/<id>` (mostra os imóveis mais abertos). Acessos em `localhost` não são contados. O
+CSP em `docs/_headers` permite só `cloud.umami.is` (script) e `cloud.umami.is`/`api-gateway.umami.dev`
+(envio). O painel pode ser compartilhado por link em "Settings → Websites → Share URL".
 
 ## Análise detalhada com IA (relatório por imóvel)
 
@@ -301,8 +303,8 @@ buscas na web, bloco de documentos em cache) lendo edital, matrícula e laudo in
   `relatorios.maximo_por_dia` no config.
 - **Sem nomes de pessoas**: o prompt proíbe, `anonimizar()` passa um segundo filtro no parecer e
   `limpar_campos()` descarta campos estruturados com nomes.
-- **Funil no GoatCounter**: além das visitas, eventos sem dados pessoais (`evento/login-pedido`,
-  `conta-nova`, `login-ok`, `analise-credito`, `compra-iniciada`, `compra-paga`) mostram
+- **Funil no Umami**: além das visitas, eventos sem dados pessoais (`login-pedido`, `conta-nova`,
+  `login-ok`, `analise-credito`, `compra-iniciada`, `compra-paga`, `agenda-salva`, `agenda-ics`) mostram
   no painel quantos visitantes viram conta, pedem análise e compram.
 - **Migração dos pareceres antigos** (gerados quando ainda eram servidos pelo site):
   `python -m collector.relatorio --migrar` (ou o workflow com `ids = --migrar`) envia o texto ao Worker,

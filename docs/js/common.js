@@ -134,24 +134,32 @@
     return o;
   }
 
-  /* Contagem de visitas (GoatCounter), só quando configurada. Envia o caminho sem a query string
-     (os filtros da busca não saem do navegador); a ficha do imóvel conta como /imovel/<id>, o que
-     mostra no painel quais imóveis são mais abertos. Sem cookies e sem identificador persistente. */
-  function iniciarContagem() {
-    const cfg = global.LT_CONFIG || {};
-    const codigo = (cfg.goatcounter || "").trim();
-    if (!codigo || /^[a-z0-9-]+$/i.test(codigo) === false) return;
-    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
+  /* Contagem de visitas (Umami), só quando configurada. O rastreio automático fica desligado e a página
+     é contada manualmente com o caminho sem a query string (os filtros da busca não saem do navegador);
+     a ficha do imóvel conta como /imovel/<id>, o que mostra no painel quais imóveis são mais abertos.
+     Sem cookies e sem identificador persistente. */
+  function caminhoContagem() {
     let caminho = location.pathname.replace(/^\/aysha-leiloes/, "").replace(/index\.html$/, "") || "/";
     if (/imovel\.html$/.test(location.pathname)) {
       const id = new URLSearchParams(location.search).get("id");
       caminho = "/imovel/" + (id ? id.replace(/[^\w.-]/g, "_") : "sem-id");
     }
-    global.goatcounter = { path: caminho, no_onload: false, allow_local: false };
+    return caminho;
+  }
+  function iniciarContagem() {
+    const cfg = global.LT_CONFIG || {};
+    const id = (cfg.umami || "").trim();
+    if (/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id) === false) return;
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
     const s = document.createElement("script");
-    s.async = true;
-    s.src = "https://gc.zgo.at/count.js";
-    s.setAttribute("data-goatcounter", `https://${codigo}.goatcounter.com/count`);
+    s.defer = true;
+    s.src = "https://cloud.umami.is/script.js";
+    s.setAttribute("data-website-id", id);
+    s.setAttribute("data-auto-track", "false");
+    s.onload = () => {
+      try { global.umami.track((p) => ({ ...p, url: caminhoContagem() })); } catch (e) { /* bloqueador */ }
+      enviarEventos();
+    };
     document.head.appendChild(s);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", iniciarContagem);
@@ -206,23 +214,23 @@
     location.replace(alvo + caminho + location.search + location.hash);
   })();
 
-  /* Eventos do funil (GoatCounter): visitante → conta criada → análise pedida → compra paga. Cada evento é
-     um "path" próprio no painel (evento/conta-nova, evento/analise-gratis, evento/compra-paga...). Sem
-     dados pessoais: só o nome do evento. O script carrega assíncrono; antes disso os eventos esperam. */
+  /* Eventos do funil (Umami): visitante → conta criada → análise pedida → compra paga. Cada evento aparece
+     por nome no painel (conta-nova, analise-credito, compra-paga...). Sem dados pessoais: só o nome do
+     evento e o caminho sem a query string. O script carrega assíncrono; antes disso os eventos esperam. */
   const filaEventos = [];
   function evento(nome) {
     const cfg = global.LT_CONFIG || {};
-    if (!cfg.goatcounter) return;
+    if (!cfg.umami) return;
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
     filaEventos.push(nome);
     enviarEventos();
   }
   function enviarEventos() {
-    const gc = global.goatcounter;
-    if (!gc || typeof gc.count !== "function") { if (filaEventos.length) setTimeout(enviarEventos, 1000); return; }
+    const u = global.umami;
+    if (!u || typeof u.track !== "function") { if (filaEventos.length) setTimeout(enviarEventos, 1000); return; }
     while (filaEventos.length) {
       const nome = filaEventos.shift();
-      try { gc.count({ path: "evento/" + nome, title: nome, event: true }); } catch (e) { /* bloqueador */ }
+      try { u.track((p) => ({ ...p, url: caminhoContagem(), name: nome })); } catch (e) { /* bloqueador */ }
     }
   }
 

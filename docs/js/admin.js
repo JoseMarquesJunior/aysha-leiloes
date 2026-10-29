@@ -22,7 +22,7 @@
     if (r.status === 403) { el.innerHTML = `<h2>Administração</h2><p class="aviso">Esta conta (${escapar(LT.emailSessao())}) não é administradora. <a href="conta.html">Minha conta</a></p>`; return; }
     const m = r.dados;
     el.innerHTML = `<h2>Administração</h2>
-      <p>${escapar(LT.emailSessao())} · <a href="conta.html">minha conta</a> · <a href="https://leiloes-em-tabela.goatcounter.com" target="_blank" rel="noopener">GoatCounter ↗</a> · <a href="https://github.com/JoseMarquesJunior/aysha-leiloes/actions" target="_blank" rel="noopener">Actions ↗</a></p>
+      <p>${escapar(LT.emailSessao())} · <a href="conta.html">minha conta</a> · <a href="https://cloud.umami.is" target="_blank" rel="noopener">Umami ↗</a> · <a href="https://github.com/JoseMarquesJunior/aysha-leiloes/actions" target="_blank" rel="noopener">Actions ↗</a></p>
       <div class="kpis">
         ${kpi("Contas", m.usuarios, `${m.usuarios_7d} nos últimos 7 dias`)}
         ${kpi("Créditos em circulação", m.creditos_em_circulacao, "saldo somado das contas")}

@@ -114,7 +114,7 @@
   }
 
   if (!LT.urlWorker()) { el.innerHTML = '<h2>Minha conta</h2><p class="muted">Contas indisponíveis nesta instalação.</p>'; return; }
-  // o token do link mágico vem no fragmento (#token=...), que não vai ao servidor nem para o GoatCounter
+  // o token do link mágico vem no fragmento (#token=...), que não vai ao servidor nem para a contagem de visitas
   const tokenHash = (location.hash.match(/token=([0-9a-f]+)/) || [])[1];
   if (tokenHash || q.token) entrarComToken(tokenHash || q.token);
   else if (LT.sessao()) mostrarConta();

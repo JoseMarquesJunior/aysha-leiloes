@@ -9,11 +9,10 @@ window.LT_CONFIG = {
   urlApoio: "",
   textoApoio: "Apoie o projeto ☕",
 
-  // Contagem de visitas com GoatCounter (gratuito para sites sem fins comerciais, sem cookies).
-  // Crie a conta em https://www.goatcounter.com/signup e informe aqui só o código escolhido
-  // (ex.: "leiloes-em-tabela" para o painel https://leiloes-em-tabela.goatcounter.com).
-  // Vazio = nada é carregado nem enviado.
-  goatcounter: "leiloes-em-tabela",
+  // Contagem de visitas com Umami (https://cloud.umami.is): sem cookies, sem banner de consentimento,
+  // com eventos do funil. Crie a conta, adicione o site e informe aqui o "Website ID" (um UUID, em
+  // Settings → Websites → Edit). Vazio = nada é carregado nem enviado.
+  umami: "",
 
   // Serviço de contas, créditos e análises com IA (Cloudflare Worker, pasta worker/): login por link mágico,
   // saldo de créditos, entrega dos relatórios a quem tem acesso e checkout no Mercado Pago.
