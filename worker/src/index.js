@@ -28,7 +28,7 @@
  *   GET  /interno/relatorio/:id                -> o robô relê um relatório guardado (header X-Interno)
  *
  * Segredos (wrangler secret put): GITHUB_TOKEN, INTERNO_SECRET, MP_ACCESS_TOKEN, MP_WEBHOOK_SECRET,
- *   e-mail: GMAIL_CLIENT_ID + GMAIL_CLIENT_SECRET + GMAIL_REFRESH_TOKEN (preferido) ou BREVO_API_KEY
+ *   e-mail: BREVO_API_KEY (quando EMAIL_VIA = "brevo") ou GMAIL_CLIENT_ID + GMAIL_CLIENT_SECRET + GMAIL_REFRESH_TOKEN
  * Variáveis (wrangler.toml): REPO, SITE, ORIGENS, LIMITE_IP, LIMITE_DIA, EMAIL_REMETENTE, NOME_REMETENTE, PACOTES
  * Bindings: DB (D1), LIMITES (KV)
  */
@@ -136,7 +136,8 @@ async function enviarGmail(env, para, assunto, html) {
 }
 async function enviarEmail(env, para, assunto, html) {
   if (!env.EMAIL_REMETENTE) throw new Error("EMAIL_REMETENTE não configurado");
-  if (env.GMAIL_CLIENT_ID && env.GMAIL_CLIENT_SECRET && env.GMAIL_REFRESH_TOKEN) return enviarGmail(env, para, assunto, html);
+  // EMAIL_VIA = "brevo" força o Brevo mesmo com os secrets do Gmail presentes (remetente no domínio próprio)
+  if (env.EMAIL_VIA !== "brevo" && env.GMAIL_CLIENT_ID && env.GMAIL_CLIENT_SECRET && env.GMAIL_REFRESH_TOKEN) return enviarGmail(env, para, assunto, html);
   if (!env.BREVO_API_KEY) throw new Error("envio de e-mail não configurado (Gmail ou BREVO_API_KEY)");
   const r = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",

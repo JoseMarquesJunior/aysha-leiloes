@@ -15,7 +15,10 @@ ALERTA_EMAIL = ""
 # contas (separadas por vírgula) que podem abrir admin.html: usuários, créditos, pedidos, relatórios
 ADMIN_EMAILS = "jmarques.oliveirajunior@gmail.com"
 LIMITE_DIA = "100"
-EMAIL_REMETENTE = "jmarques.oliveirajunior@gmail.com"
+# Canal de envio: "brevo" (remetente no domínio, autenticado no Brevo em 2026-10-29) ou "gmail"
+# (secrets GMAIL_*). O remetente deve combinar com o canal: pelo Gmail, o From precisa ser a conta Gmail.
+EMAIL_VIA = "brevo"
+EMAIL_REMETENTE = "contato@ayshaleiloes.com.br"
 NOME_REMETENTE = "Aysha Leilões"
 # Tabela de créditos (valores em centavos). Edite e rode `npx wrangler deploy`.
 PACOTES = '[{"id":"1","nome":"1 análise","creditos":1,"valor_centavos":1490},{"id":"5","nome":"5 análises","creditos":5,"valor_centavos":5900},{"id":"20","nome":"20 análises","creditos":20,"valor_centavos":19900}]'
