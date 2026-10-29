@@ -56,7 +56,7 @@ header.topo { background: var(--panel); border-bottom: 1px solid var(--border); 
 .filtros-linha { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .filtros-linha.secundaria { padding: 10px 12px; border: 1px dashed var(--border-forte); border-radius: var(--raio); background: var(--bg); gap: 10px 18px; }
 .busca-wrap { flex: 1 1 260px; min-width: 200px; }
-.busca-wrap input { width: 100%; border: 1px solid var(--border-forte); border-radius: var(--raio); padding: 7px 10px 7px 32px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%235f6b76' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") 10px center no-repeat; font-size: .92rem; }
+.busca-wrap input { width: 100%; border: 1px solid var(--border-forte); border-radius: var(--raio); padding: 7px 10px 7px 32px; color: var(--text); background: var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%235f6b76' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") 10px center no-repeat; font-size: .92rem; }
 .ms-grupo { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; flex: 1 1 auto; }
 .ms { position: relative; }
 .ms-botao { border: 1px solid var(--border-forte); background: #fff; border-radius: 999px; padding: 5px 12px; font-size: .86rem; display: inline-flex; gap: 6px; align-items: center; white-space: nowrap; }

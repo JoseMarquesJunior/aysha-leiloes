@@ -55,7 +55,7 @@
     return `<li class="agenda-item" data-id="${escapar(i.id)}">
       <div class="ai-topo">
         <div><a class="ai-titulo" href="imovel.html?id=${encodeURIComponent(i.id)}&uf=${escapar(i.uf || "")}">${escapar(i.titulo)}</a>
-          <div class="muted">${datasDe(i).map(([rot, d]) => `${rot}: <b>${data(d)}</b>`).join(" · ") || "sem data informada pela fonte"}${i.hora ? ` · ${escapar(i.hora)}` : ""}${r && r.valor_minimo ? ` · lance mínimo ${moeda(r.valor_minimo)}` : ""}${i.atualizada ? ' · <span class="v-sim">data atualizada pela coleta</span>' : ""}</div></div>
+          <div class="muted">${datasDe(i).map(([rot, d]) => `${rot}: <b>${data(d)}</b>`).join(" · ") || "sem data informada pela fonte"}${i.hora ? ` · ${escapar(i.hora)}` : ""}${r && r.valor_minimo ? ` · lance mínimo ${moeda(r.valor_minimo)}` : ""}${i.atualizada ? ' · <span class="v-sim">data atualizada</span>' : ""}</div></div>
         <span class="ai-quando ${dias !== null && dias <= 7 ? "perto" : ""}">${quando}</span>
       </div>
       <div class="ai-opcoes">
@@ -135,7 +135,7 @@
           <li><b>Calendário dos seus leilões</b><span>1ª e 2ª praça de cada imóvel salvo, mês a mês.</span></li>
           <li><b>Lembretes por e-mail</b><span>7 dias antes, 1 dia antes e no dia, às 8h. Você escolhe quais.</span></li>
           <li><b>No calendário do celular</b><span>Exporte tudo em .ics para Google Agenda, iPhone ou Outlook.</span></li>
-          <li><b>Datas sempre atuais</b><span>Se a fonte mudar a data, a agenda acompanha na coleta seguinte.</span></li>
+          <li><b>Datas sempre atuais</b><span>Se a fonte mudar a data do leilão, a agenda acompanha sozinha.</span></li>
         </ul></div>`;
       LT.formularioLogin(document.getElementById("login"), { voltarPara: location.origin + location.pathname });
       return;

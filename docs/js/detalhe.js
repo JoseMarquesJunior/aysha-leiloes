@@ -42,7 +42,7 @@
     pontos.sort((a, b) => a[0].localeCompare(b[0]));
     const valores = new Set(pontos.map(p => p[1]));
     if (pontos.length < 2 || valores.size < 2) {
-      return `<p class="muted" style="margin:4px 0">Sem variação de preço registrada desde ${data(r.primeira_vez_visto)}: ${moeda(r.valor_minimo)}. O gráfico aparece quando o lance mínimo mudar entre coletas.</p>`;
+      return `<p class="muted" style="margin:4px 0">Sem variação de preço registrada desde ${data(r.primeira_vez_visto)}: ${moeda(r.valor_minimo)}. O gráfico aparece se o lance mínimo mudar.</p>`;
     }
     const W = 600, H = 160, mL = 70, mR = 10, mT = 12, mB = 24;
     const xs = pontos.map(p => new Date(p[0] + "T00:00:00").getTime());
@@ -106,7 +106,7 @@
     return `<div class="relatorio-texto">${markdownParaHtml(rel.markdown || "")}</div>
       <p class="aviso">Parecer automático, gerado por IA a partir do edital, da matrícula e de buscas na web. Pode conter erros. Não é assessoria jurídica nem recomendação de investimento: confira os documentos e consulte um profissional antes de dar lance.</p>`;
   }
-  const DESCRICAO_ANALISE = '<p>Parecer para quem vai dar lance: leitura do edital e da matrícula, preço de mercado do bairro, custos no lance, sinais vermelhos, veredito e diligências. Os dados estruturados que a análise encontrar (área, endereço, bairro, quartos…) também passam a preencher esta ficha na coleta seguinte. <a href="exemplo-analise.html" target="_blank" rel="noopener">Veja um exemplo de análise completa ↗</a></p>';
+  const DESCRICAO_ANALISE = '<p>Parecer para quem vai dar lance: leitura do edital e da matrícula, preço de mercado do bairro, custos no lance, sinais vermelhos, veredito e diligências. <a href="exemplo-analise.html" target="_blank" rel="noopener">Veja um exemplo de análise completa ↗</a></p>';
 
   /* Fluxo: sem conta → formulário de login; com conta → pergunta ao Worker se já tem acesso ao relatório
      (pronto / em andamento / sem acesso). Sem acesso: botão que usa a análise grátis ou 1 crédito; sem
@@ -163,13 +163,18 @@
     corpo.innerHTML = `<p><button type="button" class="btn primario" disabled id="btn-espera">Gerando a análise…</button></p>
       <p class="muted" id="espera-msg">A IA está lendo o edital e a matrícula e pesquisando o mercado. Pode fechar esta página e voltar depois: o resultado fica guardado na sua conta.</p>`;
     const btn = document.getElementById("btn-espera"), msg = document.getElementById("espera-msg");
-    while (Date.now() - inicio < 15 * 60 * 1000) {
+    // o relógio anda a cada segundo; a consulta ao serviço continua a cada 20 s
+    const relogio = setInterval(() => {
+      if (!document.getElementById("btn-espera") || !btn.disabled) { clearInterval(relogio); return; }
       const dec = Date.now() - inicio, min = Math.floor(dec / 60000), seg = Math.floor((dec % 60000) / 1000);
       btn.textContent = `Gerando a análise… ${min}:${String(seg).padStart(2, "0")}`;
+    }, 1000);
+    while (Date.now() - inicio < 15 * 60 * 1000) {
       await new Promise(res => setTimeout(res, 20000));
       const x = await LT.api(`/relatorio/${encodeURIComponent(r.id)}`).catch(() => null);
-      if (x && x.ok && x.dados.status === "pronto") { mostrarRelatorio(corpo, x.dados.relatorio, r); return; }
+      if (x && x.ok && x.dados.status === "pronto") { clearInterval(relogio); mostrarRelatorio(corpo, x.dados.relatorio, r); return; }
     }
+    clearInterval(relogio);
     btn.disabled = false; btn.textContent = "Verificar de novo";
     btn.addEventListener("click", () => carregarAnalise(r));
     msg.textContent = "Está demorando mais que o normal. Clique para verificar ou volte em alguns minutos; a análise aparece aqui quando ficar pronta.";

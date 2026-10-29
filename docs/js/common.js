@@ -273,7 +273,7 @@
       const r = await api("/auth/pedir", { body: { email } }).catch(() => ({ ok: false, dados: { erro: "sem conexão com o serviço" } }));
       if (r.ok) {
         evento("login-pedido");
-        msg.innerHTML = `<b>Link enviado para ${escapar(email)}.</b> Abra o e-mail e clique no link para continuar (confira o spam).`;
+        msg.innerHTML = `<b>Link enviado para ${escapar(email)}.</b> Abra o e-mail e clique no link para continuar — ele vale por 20 minutos (confira o spam).`;
         form.querySelector("label").classList.add("hidden"); btn.classList.add("hidden");
       } else { btn.disabled = false; msg.textContent = "Não deu certo: " + (r.dados.erro || "tente de novo"); }
     });

@@ -148,8 +148,14 @@
     for (const r of base) { const v = r[campo]; if (!nulo(v)) m.set(v, (m.get(v) || 0) + 1); }
     return Array.from(m.entries()).sort((a, b) => String(a[0]).localeCompare(String(b[0]), "pt-BR"));
   }
+  /* Base das contagens dos seletores: a mesma regra da tabela (sem removidos nem leilões já encerrados,
+     salvo com "incluir removidos e encerrados" marcado) — senão o seletor promete imóveis que o filtro não mostra. */
+  function baseContagem() {
+    const tudo = $("f-inativos") && $("f-inativos").checked;
+    return tudo ? estado.todos : estado.todos.filter(r => r.ativo !== false && !encerrado(r));
+  }
   function montarOpcoes() {
-    const ativos = estado.todos.filter(r => r.ativo !== false);
+    const ativos = baseContagem();
     if (estado.todasUfs) {
       const n = Object.fromEntries(contagem("uf", ativos));
       preencherSelect("f-uf", estado.todasUfs.map(u => [u, estado.ufsCarregadas.has(u) ? (n[u] || 0) : "carregar"]));
@@ -163,7 +169,7 @@
   }
   function atualizarCidadesBairros() {
     const ufs = valoresSel("f-uf");
-    const ativos = estado.todos.filter(r => r.ativo !== false);
+    const ativos = baseContagem();
     const base = ufs.length ? ativos.filter(r => ufs.includes(r.uf)) : ativos;
     preencherSelect("f-cidade", contagem("cidade", base));
     const cidades = valoresSel("f-cidade");
@@ -703,7 +709,7 @@
     $("bv-uf").innerHTML = '<option value="">Todo o Brasil</option>' + ufs.map(u => `<option value="${u}"${u === ufInicial ? " selected" : ""}>${u}</option>`).join("");
     const encherCidades = () => {
       const uf = $("bv-uf").value;
-      const cid = contagem("cidade", estado.todos.filter(r => r.ativo !== false && (!uf || r.uf === uf)));
+      const cid = contagem("cidade", baseContagem().filter(r => !uf || r.uf === uf));
       $("bv-cidade").innerHTML = '<option value="">Todas as cidades</option>' + cid.map(([c, n]) => `<option value="${escapar(c)}">${escapar(c)} (${n})</option>`).join("");
     };
     encherCidades();
@@ -774,6 +780,7 @@
     $("filtros").addEventListener("change", async e => {
       if (e.target.id === "f-uf") { await garantirUfs(); montarOpcoes(); const sel = valoresSel("f-uf"); if (sel.length === 1) gravarLocal("lt.ufInicial", sel[0]); }
       if (e.target.id === "f-cidade") atualizarCidadesBairros();
+      if (e.target.id === "f-inativos") montarOpcoes();  // as contagens seguem a mesma regra da tabela
       if (e.target.tagName === "SELECT" || e.target.type === "checkbox" || e.target.type === "number") aplicarFiltros();
     });
     let timer;
