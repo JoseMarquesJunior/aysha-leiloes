@@ -1,0 +1,37 @@
+{
+ "id": "caixa-8444416916504",
+ "gerado_em": "2026-10-29T13:59:23",
+ "modelo": "claude-opus-5",
+ "documentos_lidos": 1,
+ "documentos": [
+  {
+   "url": "https://venda-imoveis.caixa.gov.br/editais/matricula/MG/8444416916504.pdf",
+   "paginas": 6,
+   "modo": "pdf"
+  }
+ ],
+ "uso": {
+  "entrada": 57580,
+  "saida": 3256,
+  "buscas": 2,
+  "campos": {
+   "entrada": 14905,
+   "saida": 281
+  }
+ },
+ "custo_usd": 0.3909,
+ "fontes": [],
+ "campos": {
+  "tipo": "terreno",
+  "area_terreno_m2": 270.0,
+  "area_total_m2": 270.0,
+  "valor_avaliacao": 143000.0,
+  "endereco": "Rua 2, s/n, lote 11 da quadra 11",
+  "bairro": "Portões",
+  "cidade": "Itabirito",
+  "matricula": "24314",
+  "comitente": "Caixa Econômica Federal",
+  "uf": "MG",
+  "aceita_financiamento": false
+ }
+}
