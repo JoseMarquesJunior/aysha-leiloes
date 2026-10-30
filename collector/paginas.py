@@ -378,6 +378,12 @@ def gerar_estatisticas(docs: Path, ativos: list[dict], por_uf: dict[str, list[di
     if base:
         extra = _jsonld({"@context": "https://schema.org", "@type": "Dataset", "name": titulo, "description": descricao,
                          "url": url_pagina, "dateModified": hoje, "inLanguage": "pt-BR", "spatialCoverage": "Brasil",
+                         "license": "https://creativecommons.org/licenses/by-nc/4.0/", "isAccessibleForFree": True,
+                         "keywords": ["leilão de imóveis", "venda direta Caixa", "desconto sobre avaliação", "imóveis em leilão por estado", "estatísticas imobiliárias Brasil"],
+                         "variableMeasured": [{"@type": "PropertyValue", "name": "Imóveis em leilão", "unitText": "imóveis"},
+                                              {"@type": "PropertyValue", "name": "Desconto médio sobre a avaliação", "unitText": "%"},
+                                              {"@type": "PropertyValue", "name": "Leilões nos próximos 30 dias", "unitText": "leilões"}],
+                         "temporalCoverage": f"{hoje[:7]}/..",
                          "creator": {"@type": "Organization", "name": "Aysha Leilões", "url": f"{base}/"}},
                         _breadcrumb_jsonld(("Aysha Leilões", f"{base}/"), ("Estatísticas", None)))
     (docs / "estatisticas.html").write_text(_pagina(titulo, descricao, "\n".join(corpo), "./", url_pagina, extra), encoding="utf-8")
