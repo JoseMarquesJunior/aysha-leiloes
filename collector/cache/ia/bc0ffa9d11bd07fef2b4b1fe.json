@@ -1,0 +1,29 @@
+{
+ "hash": "bc0ffa9d11bd07fef2b4b1fe",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-30T16:02:36",
+ "lote": "msgbatch_01U1XSD2CLB5VwqYkCzqoRoC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Parte do valor (cota-parte/meação de R$ 23.750,00) deve ser quitada integralmente, sem parcelamento.",
+   "Terreno sem benfeitorias, com vegetação alta e lotes não demarcados individualmente.",
+   "Leilão judicial com possível compartilhamento de propriedade com coproprietário ou cônjuge alheio à execução."
+  ],
+  "trechos_fonte": {
+   "aceita_financiamento": "O MONTANTE RESTANTE PODE SER COM 25% DE ENTRADA E O RESTANTE EM ATÉ 30 MESES"
+  }
+ },
+ "uso": {
+  "entrada": 492,
+  "saida": 386,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

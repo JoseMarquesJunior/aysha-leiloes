@@ -1,0 +1,28 @@
+{
+ "hash": "fe5187c5f6bd0dc253a73f1d",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-30T16:02:36",
+ "lote": "msgbatch_01U1XSD2CLB5VwqYkCzqoRoC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Parte do imóvel (cota-parte/meação de R$ 23.750,00) deve ser quitada integralmente à vista, sem parcelamento.",
+   "Terreno sem benfeitorias, com vegetação alta e lotes não demarcados individualmente.",
+   "Leilão judicial: verificar a situação registral na matrícula (CRI nº 8491) antes de dar lance.",
+   "Anúncio truncado: informações sobre débitos, ocupação e comissão podem estar incompletas."
+  ],
+  "trechos_fonte": {}
+ },
+ "uso": {
+  "entrada": 492,
+  "saida": 374,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "hash": "56c81f9d858ffb3d66f3c6a9",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-30T16:02:36",
+ "lote": "msgbatch_01U1XSD2CLB5VwqYkCzqoRoC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Terreno sem benfeitorias, com vegetação alta e desordenada.",
+   "Lotes não demarcados individualmente no local.",
+   "Localização a cerca de 40 km da sede do município, com comércio limitado.",
+   "Anúncio cita pagamento com 25% de entrada e restante em até 30 meses, sem detalhamento das condições no trecho disponível.",
+   "Prefeitura informou não possuir registros sobre restrições ambientais; órgão agropecuário mencionado no anúncio pode trazer restrições adicionais (texto truncado)."
+  ],
+  "trechos_fonte": {}
+ },
+ "uso": {
+  "entrada": 447,
+  "saida": 394,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

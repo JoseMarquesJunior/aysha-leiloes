@@ -1,0 +1,40 @@
+{
+ "hash": "9a8e14808701557d88deb6f4",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-30T16:02:36",
+ "lote": "msgbatch_01U1XSD2CLB5VwqYkCzqoRoC",
+ "resultado": {
+  "ocupado": true,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora",
+   "indisponibilidade",
+   "hipoteca",
+   "inalienabilidade",
+   "usufruto",
+   "alienação fiduciária"
+  ],
+  "alertas": [
+   "Imóvel alugado (ocupado por locatário)",
+   "Matrícula com diversos ônus: penhoras, indisponibilidades e inalienabilidades",
+   "Eventuais débitos de laudêmio por se tratar de terreno de marinha",
+   "Averbação de ação de usucapião no processo 5009305-49.2026.4.02.5001/ES",
+   "Existência de aforamento/domínio útil na SPU-ES",
+   "Débitos de IPTU e condomínio não informados no documento"
+  ],
+  "trechos_fonte": {
+   "ocupado": "Considerando as condições do imóvel, que se encontra alugado, reformado com piso porcelanato",
+   "onus_na_matricula": "ÔNUS: 01) [nome] / [nome] nos autos nº. 05002.000380/2001-75, em trâmite na SPU-ES; [nome] / Fraude à Execução e Penhora nos presentes autos; Indisponibilidade nos autos nº."
+  }
+ },
+ "uso": {
+  "entrada": 3660,
+  "saida": 550,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

@@ -1,0 +1,32 @@
+{
+ "hash": "97dc95bdfe8aea40369a4467",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-30T16:02:36",
+ "lote": "msgbatch_01U1XSD2CLB5VwqYkCzqoRoC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [
+   "penhora"
+  ],
+  "alertas": [
+   "Penhora recai sobre apenas 50% do imóvel; coproprietário tem direito de preferência (art. 504 CC).",
+   "Registro de penhoras anteriores, conforme certidão de matrícula.",
+   "Executada não pode impedir vistoria; obstrução sujeita a multa.",
+   "Lance exige sinal de 20% do valor; pagamento parcelado depende de proposta por escrito (art. 895 CPC)."
+  ],
+  "trechos_fonte": {
+   "onus_na_matricula": "Bem penhorado: 1 - 50% do Imóvel registrado sob nº de Matrícula nº 13.572 do Cartório de Registro Geral de Imóveis da 2ª Zona de Vitória"
+  }
+ },
+ "uso": {
+  "entrada": 1142,
+  "saida": 431,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

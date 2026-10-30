@@ -32,6 +32,12 @@
 },
 "2 et itamar nob ii, cocalzinho de goias, go, brasil": null,
 "2 travessa eulino pessoa de luna, 32a, lot nova cha de aleg, cha de alegria, pe, brasil": null,
+"21o subdistrito, sao paulo, sp, brasil": {
+"lat": -23.6160756,
+"lng": -46.6388524,
+"nome": "Cartório Saúde - RCPN - 21º Subdistrito, 1336, Avenida Jabaquara, Saúde, São Paulo, Região Sudeste, 04046-200, Brasil",
+"tipo": "office"
+},
 "2a etapa, cocalzinho de goias, go, brasil": null,
 "2a travessa eulino de luna, vila do campo, cha de alegria, pe, brasil": null,
 "2o travessa, 22, lot mirante, ipira, ba, brasil": null,
@@ -2223,6 +2229,7 @@
 "avenida dr fernando mendes garcia, 2720, jardim diva tarla de carvalho, ribeirao preto, sp, brasil": null,
 "avenida dr marcos antonio macario dos santos, 780, residencial parque dos servidores, ribeirao preto, sp, brasil": null,
 "avenida dr. adao manoel pereira nunes, parque maciel, campos dos goytacazes, rj, brasil": null,
+"avenida dr. marco paulo simon jardim, 980, vila da serra, nova lima, mg, brasil": null,
 "avenida edmeia mattos lazzarotti, 3895, inga, betim, mg, brasil": null,
 "avenida edson gallana, 590, jardim canaa, uberlandia, mg, brasil": null,
 "avenida eduardo andrea matarazzo, 4635, valentina figueiredo, ribeirao preto, sp, brasil": null,
@@ -2759,6 +2766,12 @@
 "nome": "Avenida Retiro dos Imigrantes, Retiro, Regional Vargem das Flores, Contagem, Minas Gerais, Região Sudeste, 32050-710, Brasil",
 "tipo": "residential"
 },
+"avenida rio branco, 156, centro, rio de janeiro, rj, brasil": {
+"lat": -22.9069333,
+"lng": -43.1775309,
+"nome": "Edifício Avenida Central, 156, Avenida Rio Branco, Castelo, Centro, Rio de Janeiro, Região Sudeste, 20043-900, Brasil",
+"tipo": "shop"
+},
 "avenida rio branco, 410, zona armazem, cianorte, pr, brasil": null,
 "avenida rocha pita, 392, jardim aclimacao, praia grande, sp, brasil": null,
 "avenida rogassiano francisco coelho, 1485, nova varginha, varginha, mg, brasil": {
@@ -2888,6 +2901,12 @@
 "avenida tiradentes, setor sul, araguapaz, go, brasil": null,
 "avenida tomaz alcantara de souza, 765, lot morada do sol, passo de torres, sc, brasil": null,
 "avenida tonico lenci, 2140, chacara sao luiz, franco da rocha, sp, brasil": null,
+"avenida treze de maio, 13, centro, rio de janeiro, rj, brasil": {
+"lat": -22.9094865,
+"lng": -43.1770257,
+"nome": "Edifício Municipal, 13, Avenida Treze de Maio, Castelo, Centro, Rio de Janeiro, Região Sudeste, 20031-007, Brasil",
+"tipo": "building"
+},
 "avenida um, 1700, dumaville, esmeraldas, mg, brasil": null,
 "avenida vale albino, 356, parte do, caponga da roseira, pindoretama, ce, brasil": null,
 "avenida veiga vale, aparecida de goiania, go, brasil": {
@@ -3558,6 +3577,12 @@
 "lng": -43.9771259,
 "nome": "Barroso, Minas Gerais, Região Sudeste, Brasil",
 "tipo": "municipality"
+},
+"barueri, sp, brasil": {
+"lat": -23.5112184,
+"lng": -46.8764612,
+"nome": "Barueri, São Paulo, Região Sudeste, Brasil",
+"tipo": "city"
 },
 "batalha, batalha, pi, brasil": {
 "lat": -4.0239169,
@@ -10171,6 +10196,7 @@
 "nome": "Bairro do Curral, Chácaras Raposo Tavares I, Granja Santa Adélia, Ibiúna, São Paulo, Região Sudeste, 18150-000, Brasil",
 "tipo": "neighbourhood"
 },
+"curty em guriri, sao mateus, es, brasil": null,
 "cururupu, ma, brasil": {
 "lat": -1.824255,
 "lng": -44.872996,
@@ -10610,6 +10636,12 @@
 "lng": -36.5242785,
 "nome": "José Bezerra, Currais Novos, Rio Grande do Norte, Região Nordeste, Brasil",
 "tipo": "neighbourhood"
+},
+"dracena, sp, brasil": {
+"lat": -21.4835523,
+"lng": -51.5334408,
+"nome": "Dracena, São Paulo, Região Sudeste, Brasil",
+"tipo": "town"
 },
 "dsitrito de ibiranga, itambe, pe, brasil": null,
 "dt coxipo da ponte, cuiaba, mt, brasil": null,
@@ -12382,6 +12414,12 @@
 "nome": "Glória, Porto Alegre, Rio Grande do Sul, Região Sul, Brasil",
 "tipo": "suburb"
 },
+"gloria, rio de janeiro, rj, brasil": {
+"lat": -22.9183225,
+"lng": -43.1739232,
+"nome": "Glória, Rio de Janeiro, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
 "gloria, varzea grande, mt, brasil": {
 "lat": -15.6263565,
 "lng": -56.134778,
@@ -12735,6 +12773,12 @@
 "nome": "Praça do guarani, Piracuruca, Piauí, Região Nordeste, Brasil",
 "tipo": "park"
 },
+"guaranta do norte, mt, brasil": {
+"lat": -9.9517992,
+"lng": -54.9098178,
+"nome": "Guarantã do Norte, Mato Grosso, Região Centro-Oeste, 78520-000, Brasil",
+"tipo": "town"
+},
 "guarapari, es, brasil": {
 "lat": -20.6116873,
 "lng": -40.5304338,
@@ -12843,6 +12887,12 @@
 "lng": -42.00021,
 "nome": "Lagoa do Guriri, Cajueiro, Cabo Frio, Rio de Janeiro, Região Sudeste, Brasil",
 "tipo": "pond"
+},
+"guriri, sao mateus, es, brasil": {
+"lat": -18.7384943,
+"lng": -39.750913,
+"nome": "Guriri, Avenida Governador Eurico Vieira de Rezende, Guriri Norte, Barra Nova, São Mateus, Espírito Santo, Região Sudeste, 29946-100, Brasil",
+"tipo": "highway"
 },
 "gurjao, pb, brasil": {
 "lat": -7.2470565,
@@ -13404,6 +13454,12 @@
 "lng": -51.2243699,
 "nome": "Ipanema, Porto Alegre, Rio Grande do Sul, Região Sul, Brasil",
 "tipo": "suburb"
+},
+"ipanguacu, rn, brasil": {
+"lat": -5.5090713,
+"lng": -36.8594421,
+"nome": "Ipanguaçu, Rio Grande do Norte, Região Nordeste, 59508-000, Brasil",
+"tipo": "municipality"
 },
 "ipase, crateus, ce, brasil": {
 "lat": -5.1864406,
@@ -15049,6 +15105,7 @@
 "nome": "Jardim Paineiras, Centro, Ibitinga, São Paulo, Região Sudeste, 14940-000, Brasil",
 "tipo": "neighbourhood"
 },
+"jardim brasilandia, dracena, sp, brasil": null,
 "jardim brasilia (vila xavier), araraquara, sp, brasil": {
 "lat": -21.7670565,
 "lng": -48.1564677,
@@ -15813,6 +15870,12 @@
 "tipo": "suburb"
 },
 "jardim guaira ii, aguas lindas de goias, go, brasil": null,
+"jardim guanabara, rio de janeiro, rj, brasil": {
+"lat": -22.8128362,
+"lng": -43.2007792,
+"nome": "Jardim Guanabara, Rio de Janeiro, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
 "jardim guandu, nova iguacu, rj, brasil": {
 "lat": -22.8284652,
 "lng": -43.6085091,
@@ -17927,6 +17990,12 @@
 "lat": -7.2153453,
 "lng": -39.3153336,
 "nome": "Juazeiro do Norte, Ceará, Região Nordeste, Brasil",
+"tipo": "municipality"
+},
+"juina, mt, brasil": {
+"lat": -11.4222942,
+"lng": -58.7569676,
+"nome": "Juína, Mato Grosso, Região Centro-Oeste, 78320-000, Brasil",
 "tipo": "municipality"
 },
 "juiz de fora, mg, brasil": {
@@ -20724,6 +20793,12 @@
 "nome": "Nair Araujo, Feijó, Acre, Região Norte, 69960-970, Brasil",
 "tipo": "suburb"
 },
+"nanuque, mg, brasil": {
+"lat": -17.7355985,
+"lng": -40.4514834,
+"nome": "Nanuque, Minas Gerais, Região Sudeste, Brasil",
+"tipo": "municipality"
+},
 "nanuque, teixeira de freitas, ba, brasil": {
 "lat": -17.5466046,
 "lng": -39.705108,
@@ -21814,6 +21889,7 @@
 "tipo": "suburb"
 },
 "olho dagua, piracuruca, pi, brasil": null,
+"olho dagua, sao goncalo do amarante, rn, brasil": null,
 "olhos d agua, ribeirao das neves, mg, brasil": {
 "lat": -19.7489927,
 "lng": -44.1567693,
@@ -25548,6 +25624,7 @@
 "praca unica, balneario pinhal, rs, brasil": null,
 "praca unica, barra do pirai, rj, brasil": null,
 "praca unica, barro duro, pi, brasil": null,
+"praca unica, barueri, sp, brasil": null,
 "praca unica, bauru, sp, brasil": null,
 "praca unica, bela vista do maranhao, ma, brasil": null,
 "praca unica, betim, mg, brasil": null,
@@ -25569,6 +25646,7 @@
 "praca unica, caninde, ce, brasil": null,
 "praca unica, canoas, rs, brasil": null,
 "praca unica, carambei, pr, brasil": null,
+"praca unica, carapicuiba, sp, brasil": null,
 "praca unica, castanhal, pa, brasil": null,
 "praca unica, catalao, go, brasil": null,
 "praca unica, caxambu, mg, brasil": null,
@@ -25591,26 +25669,33 @@
 "praca unica, encantado, rs, brasil": null,
 "praca unica, estrela do norte, sp, brasil": null,
 "praca unica, floriano, pi, brasil": null,
+"praca unica, florianopolis, sc, brasil": null,
 "praca unica, fortaleza dos valos, rs, brasil": null,
 "praca unica, fortaleza, ce, brasil": null,
 "praca unica, general salgado, sp, brasil": null,
 "praca unica, goiania, go, brasil": null,
 "praca unica, governador celso ramos, sc, brasil": null,
+"praca unica, gramado, rs, brasil": null,
 "praca unica, gravata, pe, brasil": null,
+"praca unica, guaranta do norte, mt, brasil": null,
 "praca unica, guarapuava, pr, brasil": null,
 "praca unica, guaratingueta, sp, brasil": null,
 "praca unica, guaruja, sp, brasil": null,
 "praca unica, gurupi, to, brasil": null,
+"praca unica, horizonte, ce, brasil": null,
 "praca unica, hortolandia, sp, brasil": null,
 "praca unica, iguatu, ce, brasil": null,
 "praca unica, ilha de itamaraca, pe, brasil": null,
+"praca unica, ipanguacu, rn, brasil": null,
 "praca unica, ipiau, ba, brasil": null,
 "praca unica, ipu, ce, brasil": null,
 "praca unica, itabaiana, pb, brasil": null,
 "praca unica, itabuna, ba, brasil": null,
 "praca unica, itanhaem, sp, brasil": null,
+"praca unica, itapema, sc, brasil": null,
 "praca unica, itapolis, sp, brasil": null,
 "praca unica, itariri, sp, brasil": null,
+"praca unica, itatiba, sp, brasil": null,
 "praca unica, itu, sp, brasil": null,
 "praca unica, ituiutaba, mg, brasil": null,
 "praca unica, jaguapita, pr, brasil": null,
@@ -25618,10 +25703,12 @@
 "praca unica, jandira, sp, brasil": null,
 "praca unica, jardim, ms, brasil": null,
 "praca unica, jarinu, sp, brasil": null,
+"praca unica, jatai, go, brasil": null,
 "praca unica, jau, sp, brasil": null,
 "praca unica, joao pessoa, pb, brasil": null,
 "praca unica, joinville, sc, brasil": null,
 "praca unica, juazeiro do norte, ce, brasil": null,
+"praca unica, juina, mt, brasil": null,
 "praca unica, junqueiropolis, sp, brasil": null,
 "praca unica, juscimeira, mt, brasil": null,
 "praca unica, lajeado, rs, brasil": null,
@@ -25648,6 +25735,7 @@
 "praca unica, mogi das cruzes, sp, brasil": null,
 "praca unica, moreira sales, pr, brasil": null,
 "praca unica, mossoro, rn, brasil": null,
+"praca unica, nanuque, mg, brasil": null,
 "praca unica, nilopolis, rj, brasil": null,
 "praca unica, nisia floresta, rn, brasil": null,
 "praca unica, niteroi, rj, brasil": null,
@@ -25667,6 +25755,7 @@
 "praca unica, pelotas, rs, brasil": null,
 "praca unica, perola, pr, brasil": null,
 "praca unica, peruibe, sp, brasil": null,
+"praca unica, pesqueira, pe, brasil": null,
 "praca unica, petrolina, pe, brasil": null,
 "praca unica, petropolis, rj, brasil": null,
 "praca unica, piracicaba, sp, brasil": null,
@@ -25729,10 +25818,12 @@
 "praca unica, trindade, go, brasil": null,
 "praca unica, ubata, ba, brasil": null,
 "praca unica, umuarama, pr, brasil": null,
+"praca unica, unai, mg, brasil": null,
 "praca unica, uniao paulista, sp, brasil": null,
 "praca unica, vacaria, rs, brasil": null,
 "praca unica, vargem grande paulista, sp, brasil": null,
 "praca unica, venancio aires, rs, brasil": null,
+"praca unica, viamao, rs, brasil": null,
 "praca unica, xinguara, pa, brasil": null,
 "pracas do ipiranga, ribeirao preto, sp, brasil": null,
 "prado ferreira, pr, brasil": {
@@ -26527,6 +26618,12 @@
 "lng": -34.8848193,
 "nome": "Recife, Pernambuco, Região Nordeste, Brasil",
 "tipo": "city"
+},
+"recife, recife, pe, brasil": {
+"lat": -8.0691737,
+"lng": -34.8853656,
+"nome": "Recife, Escada rolante, São José, Recife, Pernambuco, Região Nordeste, 50020-068, Brasil",
+"tipo": "railway"
 },
 "recreio aeroporto, porto ferreira, sp, brasil": null,
 "recreio alvorada, santa barbara d'oeste, sp, brasil": {
@@ -28153,6 +28250,7 @@
 },
 "rua 07, jardim lago azul, novo gama, go, brasil": null,
 "rua 07, parque napolis a, cidade ocidental, go, brasil": null,
+"rua 07, res gabriel, cidade ocidental, go, brasil": null,
 "rua 08 de janeiro, complexo jardim, nossa senhora do socorro, se, brasil": null,
 "rua 08, 02, conselheiro alberto silva, parnaiba, pi, brasil": null,
 "rua 08, 22-a, qr 041, itapua i, planaltina, go, brasil": null,
@@ -28516,6 +28614,7 @@
 "nome": "Rua A, Castanheiras, Governador Valadares, Minas Gerais, Região Sudeste, 35054-752, Brasil",
 "tipo": "residential"
 },
+"rua a, 31, jardim carolina, duque de caxias, rj, brasil": null,
 "rua a, 656, jardim da paz (guia de pacobaiba), mage, rj, brasil": null,
 "rua a, 78, carlos silva andarai, itabuna, ba, brasil": null,
 "rua a, 784, complexo jardim, nossa senhora do socorro, se, brasil": null,
@@ -28722,6 +28821,7 @@
 },
 "rua alto da boa vista, 429, bairro novo, gravata, pe, brasil": null,
 "rua alto lindo, 05, monte dourado, santa luzia do parua, ma, brasil": null,
+"rua aluisio azevedo, jardim brasilandia, dracena, sp, brasil": null,
 "rua aluisio de azevedo, 170, j nossa senhora auxi, sao goncalo, rj, brasil": null,
 "rua aluisio ribeiro, 1168, manguinha, floriano, pi, brasil": null,
 "rua alvaro jacinto da cruz, 471, recreio dos bandeirantes, uberaba, mg, brasil": {
@@ -29901,6 +30001,12 @@
 "rua do areal, parque das dunas (abrantes), camacari, ba, brasil": null,
 "rua do barrocao, piacava i, demerval lobao, pi, brasil": null,
 "rua do bosque, 128, lot cond mirante de, caucaia, ce, brasil": null,
+"rua do carmo, 11, centro, rio de janeiro, rj, brasil": {
+"lat": -22.9044321,
+"lng": -43.1756121,
+"nome": "11, Rua do Carmo, Castelo, Centro, Rio de Janeiro, Região Sudeste, 20010-020, Brasil",
+"tipo": "place"
+},
 "rua do contorno, fazenda capoeirinha, santo antonio do descoberto, go, brasil": null,
 "rua do corredor, gameleira, aguas formosas, mg, brasil": null,
 "rua do expedicionario, 175, sn, bairro vila nova, rio do oeste, sc, brasil": null,
@@ -30483,6 +30589,7 @@
 "rua frei vicente pinilla, 141, residencial alto dos lagos, taiuva, sp, brasil": null,
 "rua futura, 30, sagrado coracao, varginha, mg, brasil": null,
 "rua g (antiga rua da10), 1685, jardim rasslem, dourados, ms, brasil": null,
+"rua g (antiga rua da10), 2695, jardim rasslem, dourados, ms, brasil": null,
 "rua g, 00, centro dist. dourado, horizonte, ce, brasil": null,
 "rua g, 130, jardim tupi, tupa, sp, brasil": null,
 "rua g, 189, lot porto feliz, alagoinhas, ba, brasil": null,
@@ -31419,6 +31526,7 @@
 "rua luiz ughini, 252, cidade nova, passo fundo, rs, brasil": null,
 "rua luiz vieira de carvalho, 62, alvorada, paraiba do sul, rj, brasil": null,
 "rua luiza carvalho antiga rua play ground, 02, centro, nova friburgo, rj, brasil": null,
+"rua luzia de tonhao, 1, varzea da palma, mg, brasil": null,
 "rua luzia maria de freitas simoes, 80, jardim regatas, ribeirao preto, sp, brasil": null,
 "rua luzia minelli capello, 550, loteamento clube v, sao jose do rio preto, sp, brasil": null,
 "rua luzia neves fleck, 150, b. gavea sul, uberlandia, mg, brasil": null,
@@ -32221,6 +32329,7 @@
 "rua paulo buschiero, 560, jardim maria luiza i, tabatinga, sp, brasil": null,
 "rua paulo de frontim, 2005, jardim maria goretti, ribeirao preto, sp, brasil": null,
 "rua paulo de miranda carneiro, 25, campos dos goytacaze, campos dos goytacazes, rj, brasil": null,
+"rua paulo fernandes biazi (antiga rua da10), 2485, jardim deoclecio artuzzi, dourados, ms, brasil": null,
 "rua paulo raimondi, 32, jardim monjolo, sao paulo, sp, brasil": null,
 "rua paulo roberto, 6, praia do imperador, mage, rj, brasil": null,
 "rua paulo tobias da silva, residencial portal da serra, antonio joao, ms, brasil": null,
@@ -32729,6 +32838,12 @@
 "rua quatro, loteamento lunabel 3, novo gama, go, brasil": null,
 "rua quatro, parque nova friburgo b, cidade ocidental, go, brasil": null,
 "rua quinze de novembro, 1077, jardim europa, itaquaquecetuba, sp, brasil": null,
+"rua quinze de novembro, 409, tabajaras, uberlandia, mg, brasil": {
+"lat": -18.9242851,
+"lng": -48.2862621,
+"nome": "Rua Quinze de Novembro, Tabajaras, Setor Central, Uberlândia, Minas Gerais, Região Sudeste, 38400-228, Brasil",
+"tipo": "residential"
+},
 "rua quinze, 85, residencial jardim pauliceia, cuiaba, mt, brasil": null,
 "rua quinze, parque napolis a, cidade ocidental, go, brasil": null,
 "rua quinze, santa maria, ituiutaba, mg, brasil": null,
@@ -33229,6 +33344,7 @@
 "rua senador florencio, 00, suburbios, general camara, rs, brasil": null,
 "rua senador joao faustino, 1144, lot res ruy guerra, ceara-mirim, rn, brasil": null,
 "rua senador nelson carneiro, 525, conjunto habitacional santa etelvina ii, sao paulo, sp, brasil": null,
+"rua senhor do bomfim, 204, olho dagua, sao goncalo do amarante, rn, brasil": null,
 "rua senhora do porto, 1330, belo horizonte, mg, brasil": {
 "lat": -19.9784669,
 "lng": -43.982991,
@@ -37530,6 +37646,7 @@
 "nome": "Terras do Engenho, Piracicaba, São Paulo, Região Sudeste, Brasil",
 "tipo": "suburb"
 },
+"terras em guriri, sao mateus, es, brasil": null,
 "terreiros, sao bento do una, pe, brasil": {
 "lat": -8.517611,
 "lng": -36.4422107,
@@ -37783,6 +37900,7 @@
 "travessa alfredo ferro, centro, garrafao do norte, pa, brasil": null,
 "travessa ambrosio, 115, neves (neves), sao goncalo, rj, brasil": null,
 "travessa artur bernardes, paraenses, garrafao do norte, pa, brasil": null,
+"travessa assembleia, 10, centro, rio de janeiro, rj, brasil": null,
 "travessa avelino faria lopes, parque industrial manchester, bauru, sp, brasil": null,
 "travessa azaleia, 30, cidade nova, demerval lobao, pi, brasil": null,
 "travessa azaleia, 36, cidade nova, demerval lobao, pi, brasil": null,
@@ -39061,6 +39179,12 @@
 "nome": "Vila da Penha, Rio de Janeiro, Região Sudeste, Brasil",
 "tipo": "suburb"
 },
+"vila da serra, nova lima, mg, brasil": {
+"lat": -19.980007,
+"lng": -43.9412343,
+"nome": "Vila da Serra, Village Terrasse, Nova Lima, Minas Gerais, Região Sudeste, 34006-042, Brasil",
+"tipo": "neighbourhood"
+},
 "vila dagmar, belford roxo, rj, brasil": null,
 "vila das flores, betim, mg, brasil": {
 "lat": -19.9308922,
@@ -39303,6 +39427,12 @@
 "nome": "Vila Honório, Perímetro Urbano de Cosmorama, Cosmorama, São Paulo, Região Sudeste, Brasil",
 "tipo": "neighbourhood"
 },
+"vila hortencia, sorocaba, sp, brasil": {
+"lat": -23.5063416,
+"lng": -47.4403521,
+"nome": "Vila Hortência, Sorocaba, São Paulo, Região Sudeste, 18021-271, Brasil",
+"tipo": "suburb"
+},
 "vila humaita, santo andre, sp, brasil": {
 "lat": -23.6729377,
 "lng": -46.50334,
@@ -39450,6 +39580,12 @@
 "lat": -22.8473,
 "lng": -43.0863,
 "nome": "Vila Lage, Neves, São Gonçalo, Rio de Janeiro, Região Sudeste, Brasil",
+"tipo": "suburb"
+},
+"vila laura, salvador, ba, brasil": {
+"lat": -12.9700833,
+"lng": -38.4879687,
+"nome": "Vila Laura, Salvador, Bahia, Região Nordeste, Brasil",
 "tipo": "suburb"
 },
 "vila leopoldina, duque de caxias, rj, brasil": {

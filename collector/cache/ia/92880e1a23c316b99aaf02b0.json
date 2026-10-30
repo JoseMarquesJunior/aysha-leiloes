@@ -1,0 +1,29 @@
+{
+ "hash": "92880e1a23c316b99aaf02b0",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-30T16:02:36",
+ "lote": "msgbatch_01U1XSD2CLB5VwqYkCzqoRoC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Área total de terreno de 49.056,54m² composta por cinco matrículas e área de posse sem registro.",
+   "Galpão industrial parcialmente desmontado.",
+   "Imóveis fisicamente unidos sem demarcação individualizadora.",
+   "Processo judicial nº 0034020-88.1999.4.02.5002 (3ª VFEF).",
+   "Imóvel pode ser parcelado com entrada de 25% e restante em até 30 meses."
+  ],
+  "trechos_fonte": {}
+ },
+ "uso": {
+  "entrada": 498,
+  "saida": 360,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

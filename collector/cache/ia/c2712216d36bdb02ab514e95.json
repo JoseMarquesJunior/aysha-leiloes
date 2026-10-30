@@ -1,0 +1,28 @@
+{
+ "hash": "c2712216d36bdb02ab514e95",
+ "modelo": "claude-haiku-5-5",
+ "processado_em": "2026-10-30T16:02:36",
+ "lote": "msgbatch_01U1XSD2CLB5VwqYkCzqoRoC",
+ "resultado": {
+  "ocupado": null,
+  "debitos_iptu_por_conta_de": null,
+  "debitos_condominio_por_conta_de": null,
+  "aceita_financiamento": null,
+  "aceita_fgts": null,
+  "comissao_leiloeiro_pct": null,
+  "onus_na_matricula": [],
+  "alertas": [
+   "Lance mínimo de R$ 47.500,00 para terreno sem benfeitorias, com vegetação alta e lotes não demarcados individualmente.",
+   "Cota-parte/meação de R$ 23.750,00 deve ser quitada integralmente à vista, sem parcelamento.",
+   "Parcelamento do restante possível com 25% de entrada e saldo em até 30 meses.",
+   "Terreno sem benfeitorias, com vegetação desordenada e falta de manutenção."
+  ],
+  "trechos_fonte": {}
+ },
+ "uso": {
+  "entrada": 492,
+  "saida": 372,
+  "cache_lido": 1425,
+  "cache_criado": 0
+ }
+}

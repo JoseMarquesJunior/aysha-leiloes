@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-10-29T16:11:36",
+ "gerado_em": "2026-10-30T15:53:56",
  "editais": [
   {
    "fonte": "jfes",
@@ -206,45 +206,45 @@
   },
   {
    "fonte": "bandes",
-   "titulo": "aqui",
-   "url": "https://www.bandes.com.br/Site/Download/Download?id=NocJwvSOpUyZK5slYMH7dw",
-   "tipo": "venda direta",
-   "lotes": 0
-  },
-  {
-   "fonte": "bandes",
-   "titulo": "Alegre-ES",
+   "titulo": "bandes-0253ba485980391301e2.txt",
    "url": "https://www.bandes.com.br/Site/Download/Download?id=bsB98cHAjkKOOC5ha0dHjQ",
    "tipo": "venda direta",
    "lotes": 1
   },
   {
    "fonte": "bandes",
-   "titulo": "Colatina-ES",
-   "url": "https://www.bandes.com.br/Site/Download/Download?id=JbwbummDDEi08oWUn1PEvQ",
+   "titulo": "bandes-24b78c406bddf31988cd.txt",
+   "url": "https://www.bandes.com.br/Site/Download/Download?id=RXcpzB9JxEu0LJGvGHrWzA",
    "tipo": "venda direta",
-   "lotes": 5
+   "lotes": 1
   },
   {
    "fonte": "bandes",
-   "titulo": "Joao Neiva-ES",
+   "titulo": "bandes-4b520e32dced94587852.txt",
    "url": "https://www.bandes.com.br/Site/Download/Download?id=3il9iWqL506xbqWKJsdzTw",
    "tipo": "venda direta",
    "lotes": 1
   },
   {
    "fonte": "bandes",
-   "titulo": "Rio de Janeiro-RJ",
+   "titulo": "bandes-bef28a16d38204e5af36.txt",
    "url": "https://www.bandes.com.br/Site/Download/Download?id=saU0VpP3ukSDk1nDTHEEgg",
    "tipo": "venda direta",
    "lotes": 1
   },
   {
    "fonte": "bandes",
-   "titulo": "Vila Velha-ES",
-   "url": "https://www.bandes.com.br/Site/Download/Download?id=RXcpzB9JxEu0LJGvGHrWzA",
+   "titulo": "bandes-c33f0313cdd9f409a2a7.txt",
+   "url": "https://www.bandes.com.br/Site/Download/Download?id=NocJwvSOpUyZK5slYMH7dw",
    "tipo": "venda direta",
-   "lotes": 1
+   "lotes": 0
+  },
+  {
+   "fonte": "bandes",
+   "titulo": "bandes-fd9bac5f7e208f160c6a.txt",
+   "url": "https://www.bandes.com.br/Site/Download/Download?id=JbwbummDDEi08oWUn1PEvQ",
+   "tipo": "venda direta",
+   "lotes": 5
   },
   {
    "fonte": "jfes",
