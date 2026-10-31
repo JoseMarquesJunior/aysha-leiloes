@@ -1,0 +1,39 @@
+{
+ "id": "vix-18257",
+ "gerado_em": "2026-10-31T13:55:49",
+ "modelo": "claude-opus-5",
+ "documentos_lidos": 1,
+ "documentos": [
+  {
+   "url": "https://static.suporteleiloes.com.br/vixleiloescombr/leiloes/378/documentos/sl-doc-378-6ac78a3c9b4e4-6ac78a3c9bd50.pdf",
+   "paginas": 4,
+   "modo": "texto"
+  }
+ ],
+ "uso": {
+  "entrada": 35997,
+  "saida": 2515,
+  "buscas": 3,
+  "campos": {
+   "entrada": 8177,
+   "saida": 341
+  }
+ },
+ "custo_usd": 0.2739,
+ "fontes": [],
+ "campos": {
+  "tipo": "apartamento",
+  "quartos": 2,
+  "comissao_leiloeiro_pct": 5.0,
+  "valor_avaliacao": 751740.0,
+  "endereco": "Avenida Lourival Nunes, nº 27, Lote 36, Quadra XII, Condomínio Mônica, Bloco B",
+  "bairro": "Jardim Limoeiro",
+  "cidade": "Serra",
+  "matricula": "53270",
+  "numero_processo": "0012052-79.2008.8.08.0024",
+  "comitente": "9ª Vara Cível de Vitória (TJES)",
+  "uf": "ES",
+  "data_leilao": "2026-11-04",
+  "data_segunda_praca": "2026-11-18"
+ }
+}

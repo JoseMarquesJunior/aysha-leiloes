@@ -159,11 +159,26 @@
     }
    },
    "custo_usd": 0.3909
+  },
+  {
+   "id": "vix-18257",
+   "gerado_em": "2026-10-31T13:55:49",
+   "modelo": "claude-opus-5",
+   "uso": {
+    "entrada": 35997,
+    "saida": 2515,
+    "buscas": 3,
+    "campos": {
+     "entrada": 8177,
+     "saida": 341
+    }
+   },
+   "custo_usd": 0.2739
   }
  ],
- "total_usd": 4.1348,
+ "total_usd": 4.4087,
  "hoje": {
-  "data": "2026-10-29",
-  "n": 2
+  "data": "2026-10-31",
+  "n": 1
  }
 }
