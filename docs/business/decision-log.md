@@ -47,6 +47,14 @@ As entradas abaixo foram reconstruídas em 2026-10-29 a partir da documentação
 
 ## Decisões da equipe
 
+## 2026-10-31 — Todas as 8 correções de SEO on-page implementadas e aprovadas para deploy
+- **Contexto**: a auditoria ([auditoria-seo-onpage-ciclo-01.md](auditoria-seo-onpage-ciclo-01.md)) listou 8 correções priorizadas. O mantenedor aprovou **todas** ("pode prosseguir com todas as sugestões") e dispensou a linha de base do GSC por estar ≈ zero.
+- **Decisão**: builder-qa implementou as 8 (robots liberando `imoveis_*/og_*/meta.json`; resumo servidor-side no lugar do "carregando…"; links de cidades na home; listagens paginadas a 100 + `outras-cidades` + vizinhos na ficha → **0 fichas órfãs** de 24.591 no sitemap, antes 54% órfãs; 404 real com `X-Robots-Tag: noindex` e sitemap sem encerradas; "leilão"+fonte no title/description; H1 correto em todas as páginas indexáveis; comparação preço/m² e desconto por regra, sem IA; `lastmod` honesto e `availability` coerente). Commit e deploy aprovados pelo mantenedor nesta data.
+- **Evidência**: 84 testes pytest + 8 testes Node passando; geração validada com os dados reais (24.827 ativos) em diretório temporário; Worker medido localmente em 24–45 ms/ficha com o og de RJ (1,8 MB).
+- **Efeito**: parte vale no deploy (Worker, robots, home, HTML estático); listagens paginadas, sitemap limpo e lastmod só na **próxima coleta**.
+- **Acompanhamento (mantenedor)**: após deploy + coleta, reenviar sitemaps no GSC, inspecionar 3–5 fichas (HTML renderizado) e ler aos 14 e 28 dias: indexadas, Soft 404, "Descoberta/Rastreada, não indexada". Observar CPU do Worker.
+- **Reverteria se**: erro no site após deploy (`git revert` + novo deploy; mudanças separáveis), CPU do Worker estourar, ou as ~250 páginas novas de listagem ficarem "Rastreada, não indexada" (reavaliar paginação).
+
 ## 2026-10-31 — Publicação antecipada pelo mantenedor; GSC ≈ zero; auditoria SEO on-page antecipada para D3
 - **Contexto**: D3. O cronograma proposto (posts em 02/04/06-11) existia só pela atribuição por janela de horário (≥ 48 h entre posts, seção e dos rascunhos), não por exigência externa.
 - **Decisões** (mantenedor, 2026-10-31):

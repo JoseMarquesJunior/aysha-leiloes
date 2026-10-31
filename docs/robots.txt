@@ -3,7 +3,12 @@ Allow: /
 Disallow: /conta.html
 Disallow: /admin.html
 Disallow: /agenda.html
+# /data/ fica bloqueado, exceto o que a ficha e as listagens precisam para renderizar (o Googlebot executa
+# o JavaScript da ficha, que lê imoveis_<UF>.json; og_<UF>.json é o mapa compacto lido pelo Worker)
 Disallow: /data/
+Allow: /data/imoveis_*.json
+Allow: /data/og_*.json
+Allow: /data/meta.json
 
 Sitemap: https://ayshaleiloes.com.br/sitemap.xml
 Sitemap: https://ayshaleiloes.com.br/sitemap-imoveis.xml

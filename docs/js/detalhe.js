@@ -219,7 +219,7 @@
   function areaRef(r) { return r.tipo === "terreno" ? (r.area_terreno_m2 ?? r.area_privativa_m2) : (r.area_privativa_m2 ?? r.area_terreno_m2); }
   function tipoDe(r) { return cap(r.tipo) === TRACO ? "Imóvel" : cap(r.tipo); }
   function cabecalhoHtml(r) {
-    return `<h2>${escapar(tipoDe(r))} em ${escapar([r.bairro, r.cidade].filter(Boolean).join(", ") || TRACO)}${r.uf ? "/" + escapar(r.uf) : ""}</h2>
+    return `<h1>${escapar(tipoDe(r))} em ${escapar([r.bairro, r.cidade].filter(Boolean).join(", ") || TRACO)}${r.uf ? "/" + escapar(r.uf) : ""}</h1>
       <div class="sub">${escapar(r.endereco || "endereço não informado")} · ${escapar(nomeFonte(r.fonte))}${r.leiloeiro ? " · " + escapar(r.leiloeiro) : ""}${r.ativo === false ? ' · <b class="v-nao">não aparece mais na fonte</b>' : ""}</div>`;
   }
   function kpisHtml(r) {

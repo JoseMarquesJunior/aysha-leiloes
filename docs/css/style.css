@@ -41,9 +41,9 @@ button { cursor: pointer; }
 /* ---------- cabeçalho ---------- */
 header.topo { background: var(--panel); border-bottom: 1px solid var(--border); }
 .topo .linha1 { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "marca resumo nav" "tag tag tag"; align-items: center; column-gap: 18px; row-gap: 2px; padding: 10px 16px 8px; }
-.topo h1 { grid-area: marca; font-size: 1.2rem; margin: 0; white-space: nowrap; letter-spacing: -.02em; font-weight: 800; }
-.topo h1 a { color: var(--text); display: inline-flex; align-items: center; gap: 9px; }
-.topo h1 .logo { width: 28px; height: 28px; border-radius: 7px; flex: none; }
+.topo h1, .topo .marca { grid-area: marca; font-size: 1.2rem; margin: 0; white-space: nowrap; letter-spacing: -.02em; font-weight: 800; }
+.topo h1 a, .topo .marca a { color: var(--text); display: inline-flex; align-items: center; gap: 9px; }
+.topo h1 .logo, .topo .marca .logo { width: 28px; height: 28px; border-radius: 7px; flex: none; }
 .topo .tagline { grid-area: tag; margin: 2px 0 0; color: var(--muted); font-size: .85rem; }
 .topo .resumo { grid-area: resumo; color: var(--muted); font-size: .85rem; display: flex; gap: 12px; align-items: center; justify-content: flex-end; min-width: 0; }
 .topo nav { grid-area: nav; display: flex; gap: 14px; align-items: center; font-size: .9rem; font-weight: 500; }
@@ -183,7 +183,7 @@ table.comparacao { width: 100%; border-collapse: collapse; font-size: .84rem; }
 
 /* ---------- detalhe ---------- */
 .detalhe { max-width: 1100px; margin: 0 auto; }
-.detalhe h2 { margin: 12px 0 2px; font-size: 1.35rem; letter-spacing: -.01em; }
+.detalhe h1, .detalhe h2 { margin: 12px 0 2px; font-size: 1.35rem; letter-spacing: -.01em; }
 .detalhe .sub { color: var(--muted); margin-bottom: 8px; }
 .detalhe .links-principais { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0 12px; }
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin: 0 0 12px; }
@@ -254,10 +254,10 @@ table.simples th, table.simples td { border-bottom: 1px solid var(--border); pad
 
 /* ---------- página "como funciona e preços" ---------- */
 .vendas section { margin: 0 0 28px; }
-.vendas h2 { font-size: 1.45rem; margin: 0 0 10px; letter-spacing: -.01em; }
+.vendas h1, .vendas h2 { font-size: 1.45rem; margin: 0 0 10px; letter-spacing: -.01em; }
 .vendas h3 { margin: 6px 0 4px; font-size: 1rem; }
 .vendas .hero { padding: 22px 0 8px; }
-.vendas .hero h2 { font-size: 1.9rem; line-height: 1.15; max-width: 760px; }
+.vendas .hero h1, .vendas .hero h2 { font-size: 1.9rem; line-height: 1.15; max-width: 760px; }
 .vendas .hero > p { font-size: 1.08rem; max-width: 680px; color: var(--muted); }
 .vendas .cta { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
 .vendas .cta .btn { padding: 10px 18px; font-size: 1rem; }
@@ -290,7 +290,7 @@ table.simples th, table.simples td { border-bottom: 1px solid var(--border); pad
 @media (max-width: 760px) {
   .numeros, .grade3, .grade2 { grid-template-columns: 1fr 1fr; }
   .grade2 { grid-template-columns: 1fr; }
-  .vendas .hero h2 { font-size: 1.45rem; }
+  .vendas .hero h1, .vendas .hero h2 { font-size: 1.45rem; }
 }
 @media (prefers-color-scheme: dark) { .passo .num, .preco .selo { color: #0f1419; } }
 
@@ -359,7 +359,13 @@ table.simples th, table.simples td { border-bottom: 1px solid var(--border); pad
 /* ---------- páginas estáticas por UF/cidade ---------- */
 .seo ul.cidades { columns: 3; column-gap: 24px; padding-left: 18px; }
 .seo .tabela-wrap { max-height: none; }
-.seo h3 { margin: 18px 0 6px; }
+.seo h1 { font-size: 1.5rem; margin: 10px 0 6px; letter-spacing: -.01em; }
+.seo h2, .seo h3 { margin: 18px 0 6px; }
+.seo h2 { font-size: 1.2rem; }
+.seo .trilha { margin: 0 0 4px; font-size: .8rem; }
+.seo .paginacao { margin: 12px 0; }
+.seo .paginacao strong { margin: 0 2px; }
+.seo .paginacao a { margin: 0 2px; }
 .exemplo .chamada { margin: 16px 0; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 
 /* ---------- modo escuro ---------- */
@@ -409,6 +415,6 @@ table.simples th, table.simples td { border-bottom: 1px solid var(--border); pad
   .painel-comparar { width: 100%; }
   .cards { grid-template-columns: 1fr; }
   .kpis { grid-template-columns: repeat(2, 1fr); }
-  .detalhe h2 { font-size: 1.15rem; }
+  .detalhe h1, .detalhe h2 { font-size: 1.15rem; }
   .seo ul.cidades { columns: 2; }
 }

@@ -85,6 +85,11 @@ Worker `aysha` no painel da Cloudflare e configurar SPF/DKIM/DMARC do Brevo no D
 `docs/leiloes/<UF>/<cidade>.html` (cidades com 5 ou mais imóveis ativos; as outras ficam listadas na página
 da UF com link para a tabela filtrada), com título e descrição próprios, tabela dos maiores descontos e links
 para as fichas, mais `docs/sitemap.xml`. Páginas de cidades que caíram abaixo do mínimo são apagadas.
+As listagens são paginadas (100 por página: `vila-velha.html`, `vila-velha-p2.html`…) e os imóveis de cidades
+sem página própria vão para `<UF>/outras-cidades.html`, de modo que toda ficha com leilão aberto recebe um link
+interno. O sitemap de fichas omite leilões encerrados e usa como `lastmod` a data da última mudança real
+(primeira vez visto ou último evento do histórico). O Worker (`site/index.js`) responde 404 para ficha que não
+está em `og_<UF>.json`; `node --test site/index.test.mjs` roda os testes dele.
 
 ## Rodar localmente
 
