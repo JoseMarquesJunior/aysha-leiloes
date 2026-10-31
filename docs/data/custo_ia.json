@@ -453,12 +453,37 @@
    "custo_previsto": true,
    "lote_id": "msgbatch_01U1XSD2CLB5VwqYkCzqoRoC",
    "lotes_pendentes": []
+  },
+  {
+   "tipo": "lote_concluido",
+   "data": "2026-10-31",
+   "lote_id": "msgbatch_01PQpE7d4tABZtejMKnsFdbX",
+   "chamadas": 2,
+   "erros": 0,
+   "tokens_entrada": 8669,
+   "tokens_saida": 1100,
+   "cache_hits": 0,
+   "custo_usd": 0.000708
+  },
+  {
+   "tipo": "execucao",
+   "data": "2026-10-31",
+   "chamadas": 2,
+   "cache_hits": 163,
+   "tokens_entrada": 0,
+   "tokens_saida": 0,
+   "custo_usd": 0.00067,
+   "pendentes": 0,
+   "sem_documento": 24813,
+   "custo_previsto": true,
+   "lote_id": "msgbatch_01PQpE7d4tABZtejMKnsFdbX",
+   "lotes_pendentes": []
   }
  ],
  "estimativa_atual": {
-  "gerado_em": "2026-10-30T15:54:57",
+  "gerado_em": "2026-10-31T15:27:29",
   "modelo": "claude-haiku-5-5",
-  "candidatos_hoje": 24827,
+  "candidatos_hoje": 24978,
   "chamadas_por_execucao_max": 1000,
   "tokens_sistema_cacheados": 420,
   "tokens_entrada_por_imovel": 2385,

@@ -1,40 +1,40 @@
 {
  "caixa": {
-  "ultima_coleta_ok": "2026-10-30",
-  "registros": 23455,
+  "ultima_coleta_ok": "2026-10-31",
+  "registros": 23667,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://venda-imoveis.caixa.gov.br/",
-  "duracao_s": 65.2,
+  "duracao_s": 58.4,
   "info": {
-   "data_geracao": "2026-10-29",
+   "data_geracao": "2026-10-30",
    "por_uf": {
-    "ES": 42,
-    "MG": 833,
-    "RJ": 8733,
-    "SP": 2728,
-    "GO": 3474,
-    "PE": 1102,
-    "RS": 887,
-    "PI": 764,
-    "BA": 749,
-    "PB": 707,
-    "RN": 622,
-    "CE": 584,
-    "PR": 441,
-    "SE": 403,
-    "PA": 228,
-    "MA": 201,
-    "AM": 201,
-    "MS": 200,
-    "MT": 156,
-    "SC": 159,
-    "AL": 92,
-    "DF": 74,
-    "RO": 26,
-    "TO": 24,
+    "ES": 43,
+    "MG": 832,
+    "RJ": 8775,
+    "SP": 2938,
+    "GO": 3472,
+    "PE": 1063,
+    "RS": 921,
+    "PI": 767,
+    "BA": 727,
+    "PB": 640,
+    "RN": 646,
+    "CE": 609,
+    "PR": 448,
+    "SE": 404,
+    "PA": 244,
+    "MA": 186,
+    "AM": 164,
+    "MS": 216,
+    "MT": 158,
+    "SC": 160,
+    "AL": 99,
+    "DF": 75,
+    "RO": 28,
+    "TO": 26,
     "AC": 20,
-    "AP": 3,
+    "AP": 4,
     "RR": 2
    }
   }
@@ -47,45 +47,45 @@
   "site": "https://www.resale.com.br/"
  },
  "_geral": {
-  "ultima_execucao": "2026-10-30T16:02:37",
-  "data_coleta": "2026-10-30"
+  "ultima_execucao": "2026-10-31T15:33:35",
+  "data_coleta": "2026-10-31"
  },
  "banestes": {
-  "ultima_coleta_ok": "2026-10-30",
+  "ultima_coleta_ok": "2026-10-31",
   "registros": 0,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.banestes.com.br/publicacoes_legais/leilao-bem-imovel.html",
-  "duracao_s": 3.9,
+  "duracao_s": 3.2,
   "info": {
    "total_editais_imoveis": 9
   }
  },
  "bandes": {
-  "ultima_coleta_ok": "2026-10-30",
+  "ultima_coleta_ok": "2026-10-31",
   "registros": 8,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.bandes.com.br/Site/Dinamico/Show/978/Leilao-de-Imoveis",
-  "duracao_s": 68.7,
+  "duracao_s": 68.9,
   "info": {
    "arquivos_com_texto": 6
   }
  },
  "spu": {
-  "ultima_coleta_ok": "2026-10-30",
+  "ultima_coleta_ok": "2026-10-31",
   "registros": 4,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://imoveis.vendasgov.serpro.gov.br/",
-  "duracao_s": 12.4,
+  "duracao_s": 11.9,
   "info": {
    "venda": 1,
    "leilao": 3
   }
  },
  "jfes": {
-  "ultima_coleta_ok": "2026-10-30",
+  "ultima_coleta_ok": "2026-10-31",
   "registros": 44,
   "ultimo_erro": null,
   "ativa": true,
@@ -97,12 +97,12 @@
   "ultima_tentativa": "2026-10-21"
  },
  "suporteleiloes": {
-  "ultima_coleta_ok": "2026-10-30",
+  "ultima_coleta_ok": "2026-10-31",
   "registros": 17,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.emleilao.com.br/",
-  "duracao_s": 258.8,
+  "duracao_s": 254.7,
   "info": {
    "emleilao": 0,
    "buaiz": 0,
@@ -111,12 +111,12 @@
   }
  },
  "vixleiloes": {
-  "ultima_coleta_ok": "2026-10-30",
+  "ultima_coleta_ok": "2026-10-31",
   "registros": 1,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.vixleiloes.com.br/",
-  "duracao_s": 84.7,
+  "duracao_s": 84.5,
   "info": {
    "leiloes_abertos": 35,
    "lotes_vistos": 1
@@ -137,14 +137,14 @@
   "bloqueado_no_ci": true
  },
  "hdleiloes": {
-  "ultima_coleta_ok": "2026-10-30",
+  "ultima_coleta_ok": "2026-10-31",
   "registros": 157,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.hdleiloes.com.br/",
   "duracao_s": 60.1,
   "info": {
-   "leiloes": 30,
+   "leiloes": 31,
    "ES": 141,
    "MG": 0,
    "RJ": 6,
@@ -175,52 +175,52 @@
   }
  },
  "megaleiloes": {
-  "ultima_coleta_ok": "2026-10-30",
-  "registros": 954,
+  "ultima_coleta_ok": "2026-10-31",
+  "registros": 887,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.megaleiloes.com.br/",
-  "duracao_s": 100.4,
+  "duracao_s": 98.7,
   "info": {
-   "paginas": 20,
-   "cards_vistos": 954,
+   "paginas": 19,
+   "cards_vistos": 887,
    "detalhes_buscados": 30,
-   "SP": 467,
-   "RS": 61,
-   "SC": 23,
-   "PR": 70,
-   "RJ": 110,
+   "RS": 51,
+   "PR": 65,
+   "RJ": 90,
+   "PB": 3,
+   "MA": 11,
+   "SP": 447,
+   "MG": 28,
+   "AL": 3,
+   "GO": 38,
    "PE": 16,
-   "GO": 39,
-   "PB": 4,
-   "BA": 20,
-   "MG": 29,
-   "PI": 4,
-   "MA": 14,
-   "MS": 11,
-   "CE": 22,
-   "AL": 5,
-   "TO": 9,
-   "RN": 7,
-   "MT": 19,
-   "PA": 11,
+   "CE": 21,
+   "RN": 6,
+   "BA": 19,
    "SE": 2,
+   "MS": 11,
+   "MT": 18,
+   "PA": 13,
    "AM": 6,
+   "TO": 7,
+   "SC": 24,
    "DF": 4,
-   "ES": 1
+   "PI": 2,
+   "ES": 2
   }
  },
  "frazao": {
-  "ultima_coleta_ok": "2026-10-30",
-  "registros": 194,
+  "ultima_coleta_ok": "2026-10-31",
+  "registros": 199,
   "ultimo_erro": null,
   "ativa": true,
   "site": "https://www.frazaoleiloes.com.br/",
-  "duracao_s": 915.8,
+  "duracao_s": 914.4,
   "info": {
    "lotes_no_sitemap": 456,
-   "imoveis": 194,
-   "pulados": 262,
+   "imoveis": 199,
+   "pulados": 257,
    "erros": 0
   }
  }
