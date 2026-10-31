@@ -204,11 +204,26 @@
     }
    },
    "custo_usd": 0.2622
+  },
+  {
+   "id": "mega-J130214",
+   "gerado_em": "2026-10-31T19:51:46",
+   "modelo": "claude-opus-5",
+   "uso": {
+    "entrada": 24215,
+    "saida": 2256,
+    "buscas": 2,
+    "campos": {
+     "entrada": 3714,
+     "saida": 259
+    }
+   },
+   "custo_usd": 0.198
   }
  ],
- "total_usd": 5.0021,
+ "total_usd": 5.2001,
  "hoje": {
   "data": "2026-10-31",
-  "n": 3
+  "n": 4
  }
 }

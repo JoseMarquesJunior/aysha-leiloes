@@ -1,0 +1,28 @@
+{
+ "id": "mega-J130214",
+ "gerado_em": "2026-10-31T19:51:46",
+ "modelo": "claude-opus-5",
+ "documentos_lidos": 0,
+ "documentos": [],
+ "uso": {
+  "entrada": 24215,
+  "saida": 2256,
+  "buscas": 2,
+  "campos": {
+   "entrada": 3714,
+   "saida": 259
+  }
+ },
+ "custo_usd": 0.198,
+ "fontes": [],
+ "campos": {
+  "tipo": "terreno",
+  "area_terreno_m2": 39715.0,
+  "area_total_m2": 39715.0,
+  "valor_avaliacao": 72078604.12,
+  "cidade": "Itaquaquecetuba",
+  "uf": "SP",
+  "data_leilao": "2026-11-05",
+  "data_segunda_praca": "2026-11-26"
+ }
+}
