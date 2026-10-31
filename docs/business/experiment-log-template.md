@@ -111,3 +111,33 @@ Registrar a decisão também em decision-log.md.
 - O que aconteceu de inesperado: ___
 
 **Decisão final**: 0 compras pagas em 3 parceiros → canal "criador" sai da fila; ≥ 3 compras num parceiro → avaliar formalizar. Registrar também em decision-log.md.
+
+### EXP-2026-03 — UF do visitante no desktop + ordenação padrão por relevância na tabela
+
+- **Status**: proposto (implementado no branch local `exp/relevancia-uf`; aguardando aprovação do mantenedor para merge e deploy)
+- **Responsável (agente)**: sessão principal (implementação); leitura no Umami
+- **Data de início / fim previsto**: no deploy / 4 semanas após o deploy (ou antes, pelo critério de parada)
+- **Pontuação de priorização**: I=2 C=2 V=3 E=5 R=5 → **2,70 / 5** — abaixo da linha de "fazer"; executado por decisão direta do mantenedor (2026-10-31), que vale como priorização.
+
+**Hipótese** (falseável, com número): "Acreditamos que mostrar primeiro os imóveis do estado do visitante e ordenar por relevância (análise pronta, documento disponível, leilão próximo, desconto) aumenta `analise-credito` por visitante único e a proporção de análises pedidas em imóveis com documento, porque o topo da tabela passa a conter imóveis analisáveis e próximos da pessoa, em vez dos maiores valores de avaliação. Saberemos pela comparação de `analise-credito`/visitantes únicos entre a semana fechada anterior e as semanas posteriores ao deploy, e pela distribuição do evento novo `linha-ia` (posição × doc)."
+
+- **Segmento**: todos os visitantes da tabela (desktop ganha a UF automática; a relevância vale para todos).
+- **Oferta**: nenhuma mudança de preço, crédito ou cobrança — só ordenação, filtro inicial e badge.
+- **Canal**: o próprio site (index.html).
+- **Custo máximo**: R$ 0 de mídia e R$ 0 de IA (o badge usa pareceres já gerados). Esforço: ~3 h de implementação da sessão principal (registrar as horas do mantenedor na revisão, se houver).
+- **Prazo**: 4 semanas após o deploy.
+- **Métricas** (definições em metrics.md):
+  - Principal: `analise-credito` / visitantes únicos (semana fechada).
+  - Secundárias: `linha-ia` por faixa de posição ("1-5", "6-20", "21+") e por `doc`/`pronta`; proporção de `linha-ia` com `doc: "sim"`; `compra-paga` / contas que usaram o crédito grátis.
+  - Proteção: visitantes únicos e pageviews da tabela (a UF automática não pode derrubar o uso); `compra-paga`/`compra-iniciada` estável.
+- **Baseline**: a última semana fechada antes da publicação (Umami), registrada no dia do deploy junto com a leitura L0/L1 vigente. Atenção: `linha-ia` não tem baseline (evento novo); na primeira semana ele só descreve, não compara.
+- **Critério de sucesso**: `analise-credito`/visitantes únicos acima do baseline em 2 das 4 semanas, com proteção estável; e maioria dos `linha-ia` em imóveis com `doc: "sim"` (observação: hoje ~95 % da base tem url de matrícula, então `doc` discrimina pouco — ler junto com `pronta` e posição).
+- **Critério de parada**: 200 visitantes únicos acumulados ou 4 semanas, o que vier primeiro; com menos de 30 cliques em `linha-ia`, reportar números absolutos, sem porcentagem (regra 4 de metrics.md). Reverter antes se a proteção cair (queda clara de visitantes ou do checkout).
+
+**Resultado observado** (preencher ao final, só com dados medidos):
+- Métrica principal: ___ (fonte: Umami)
+- Métrica de proteção: ___
+- Custo real: R$ 0 + ___ horas
+- O que aconteceu de inesperado: ___
+
+**Decisão final**: a preencher; registrar também em decision-log.md.

@@ -132,6 +132,12 @@ mantêm o site leve e o coletor dentro das políticas das fontes:
 
 O filtro da etapa de IA segue restrito à Grande Vitória (`ia.filtro`), por custo e por foco.
 
+Na tabela principal (EXP-2026-03, em `docs/js/app.js`): a UF do visitante detectada por `/api/uf` vira filtro
+inicial também no desktop (chip "Mostrando UF · ver Brasil", removível; só com ≥ 30 imóveis ativos na UF, e a
+escolha manual ou a URL sempre têm precedência), e a ordenação padrão é "Relevância" — análise já gerada
+(`data/custo_relatorios.json`), documento disponível, leilão em 7–45 dias e desconto como desempate; os pesos
+são constantes no topo do módulo.
+
 ## Fontes
 
 Inspeção feita em 2026-10-21 (robots.txt, termos de uso e estrutura real de cada site). Nenhuma URL foi inventada:
