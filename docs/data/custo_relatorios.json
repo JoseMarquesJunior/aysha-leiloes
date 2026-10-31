@@ -174,11 +174,26 @@
     }
    },
    "custo_usd": 0.2739
+  },
+  {
+   "id": "suedpeter-3506",
+   "gerado_em": "2026-10-31T14:01:26",
+   "modelo": "claude-opus-5",
+   "uso": {
+    "entrada": 44795,
+    "saida": 3056,
+    "buscas": 3,
+    "campos": {
+     "entrada": 6454,
+     "saida": 314
+    }
+   },
+   "custo_usd": 0.3312
   }
  ],
- "total_usd": 4.4087,
+ "total_usd": 4.7399,
  "hoje": {
   "data": "2026-10-31",
-  "n": 1
+  "n": 2
  }
 }

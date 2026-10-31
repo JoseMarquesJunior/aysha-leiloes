@@ -1,0 +1,41 @@
+{
+ "id": "suedpeter-3506",
+ "gerado_em": "2026-10-31T14:01:26",
+ "modelo": "claude-opus-5",
+ "documentos_lidos": 1,
+ "documentos": [
+  {
+   "url": "https://static.suporteleiloes.com.br/suedpeterleiloescombr/bens/2652/arquivos/sl-bem-2652-6adfb678668c8-6adfb678670a9.pdf",
+   "paginas": 3,
+   "modo": "texto"
+  }
+ ],
+ "uso": {
+  "entrada": 44795,
+  "saida": 3056,
+  "buscas": 3,
+  "campos": {
+   "entrada": 6454,
+   "saida": 314
+  }
+ },
+ "custo_usd": 0.3312,
+ "fontes": [],
+ "campos": {
+  "tipo": "casa",
+  "area_privativa_m2": 416.13,
+  "area_total_m2": 388.75,
+  "quartos": 2,
+  "vagas": 1,
+  "comissao_leiloeiro_pct": 5.0,
+  "valor_avaliacao": 2500000.0,
+  "endereco": "Rua Desembargador Mario da Silva Nunes, 132",
+  "cidade": "Vitória",
+  "matricula": "13572",
+  "numero_processo": "0000777-58.2015.5.17.0002",
+  "comitente": "2ª Vara do Trabalho de Vitória/ES",
+  "uf": "ES",
+  "aceita_parcelamento": false,
+  "data_leilao": "2027-01-18"
+ }
+}
