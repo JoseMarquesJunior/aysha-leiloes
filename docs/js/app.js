@@ -502,10 +502,10 @@
     for (const r of estado.filtrados) {
       if (nulo(r.lat) || nulo(r.lng)) continue;
       const aprox = r.geo_precisao && r.geo_precisao !== "endereco";
-      // Âmbar tracejado = localização aproximada (rua/bairro/cidade); azul cheio = endereço exato.
+      // Uma cor só: azul cheio = endereço exato; azul tracejado e mais claro = localização aproximada.
       const m = L.circleMarker([r.lat, r.lng], {
-        radius: aprox ? 6 : 7, color: aprox ? "#a06e0a" : "#0b5fff", fillColor: aprox ? "#f2b134" : "#0b5fff",
-        fillOpacity: aprox ? .75 : .85, weight: aprox ? 1.5 : 2, dashArray: aprox ? "2,2" : null,
+        radius: aprox ? 6 : 7, color: "#0b5fff", fillColor: aprox ? "#8fb3ff" : "#0b5fff",
+        fillOpacity: aprox ? .6 : .85, weight: aprox ? 1.5 : 2, dashArray: aprox ? "2,2" : null,
       });
       m.bindPopup(`<b>${escapar(tituloCurto(r))}</b><br><b>${moeda(r.valor_minimo)}</b> ${descontoHtml(r.desconto_pct)} · aval. ${moeda(r.valor_avaliacao)}<br>
         ${escapar(r.endereco || TRACO)}<br>
