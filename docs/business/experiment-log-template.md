@@ -68,10 +68,11 @@ Registrar a decisão também em decision-log.md.
 - **Critério de sucesso**: ≥ 2 clientes pagantes independentes (contas distintas) até 2026-11-09, com exposição ≤ 25 créditos grátis e nenhuma remoção/denúncia grave.
 - **Critério de interrupção**: (1) 15 créditos grátis consumidos com 0 `compra-paga` independente → pausar a publicação em novas comunidades e reavaliar; (2) exposição (consumidos + grátis ainda não usados de contas novas do período) ≥ 25 → parar de divulgar, retomando só com aprovação do mantenedor e ≥ 1 `compra-paga` real; (3) qualquer remoção ou advertência de admin → parar naquela comunidade; (4) custo médio por análise do período > US$ 0,60 ou algum registro > US$ 0,73 → avisar o mantenedor antes de seguir; (5) risco legal ou de reputação identificado → parar.
 
-**Registro de execução** (leitura parcial de 2026-10-31 11:06, detalhes e desvios em [leituras/leitura-posts-facebook-2026-10-31-1106.md](leituras/leitura-posts-facebook-2026-10-31-1106.md)):
-- Início real: 2026-10-29 17:08 (antecipado; pela regra da linha de datas, fim em 2026-11-06, leitura final mantida em D13, 2026-11-10).
-- 5 posts no Facebook em 2 ondas (29/10 ~17:10 e 30/10 ~16:10), 3 grupos: C1 (2 posts), C2 (1) e um grupo fora da triagem, "VENDA DE IMÓVEIS DE LEILÃO" (2). C3 ainda sem post. LinkedIn usado como canal extra, ainda sem registro.
-- Criativos "caso Vitória" e "vídeo demonstração" no lugar do V1/V2; melhor alcance: caso Vitória no C1 (563 visualizações, 402 pessoas, 8 engajamentos, 0 comentários). Posts de vídeo no C1 e C2 zerados até a coleta (verificar aprovação de admin).
+**Registro de execução** (leituras parciais de 2026-10-31: [Facebook 11:06](leituras/leitura-posts-facebook-2026-10-31-1106.md) e [LinkedIn 12:33](leituras/leitura-posts-linkedin-2026-10-31-1233.md)):
+- Início real: **2026-10-28 (LinkedIn)**, um dia antes do Facebook (29/10 17:08); pela regra da linha de datas, fim em **2026-11-05**, leitura final mantida em D13 (2026-11-10).
+- Facebook: 5 posts em 2 ondas (29/10 ~17:10 e 30/10 ~16:10), 3 grupos: C1 (2 posts), C2 (1) e um grupo fora da triagem, "VENDA DE IMÓVEIS DE LEILÃO" (2). C3 ainda sem post. Melhor alcance: caso Vitória no C1 (563 visualizações, 402 pessoas, 8 engajamentos, 0 comentários). Posts de vídeo no C1 e C2 zerados até a coleta (verificar aprovação de admin).
+- LinkedIn (canal extra, fora do plano): 5 posts em 28–30/10, ~100 pessoas únicas no total e engajamento zero; posts 4 e 5 quase duplicados. **Posts de 28/10 ofertam "5 análises grátis para os 30 primeiros" — oferta fora do EXP aprovado, exposição potencial de 150 créditos contra teto de 25; exposição efetiva até 31/10: 0. Decisão do mantenedor pendente** (editar posts ou emendar o EXP).
+- Criativos "caso Vitória" e "vídeo demonstração" no lugar do V1/V2 aprovado.
 - Proteção: nenhuma remoção/advertência conhecida até 31/10.
 
 **Resultado observado** (preencher ao final, só com dados medidos):

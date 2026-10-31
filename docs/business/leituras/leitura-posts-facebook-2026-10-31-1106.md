@@ -2,7 +2,7 @@
 
 Coletada pelo mantenedor em 2026-10-31 11:06 (Brasília), no Painel profissional do Facebook (Biblioteca de Conteúdo → Publicados, últimos 28 dias). Dados crus no `.json` ao lado. **Leitura parcial de distribuição**: nada aqui é prova de disposição a pagar (README, "nunca contam": visualizações); a decisão do EXP-2026-01 continua sendo `compra-paga`.
 
-Esta leitura também **quita a pendência** da entrada 2026-10-31 do decision-log ("anotar data, hora e grupo/canal de cada post"), para o Facebook. **LinkedIn segue sem registro** — se houve posts lá, anotar data e hora para fechar as janelas de atribuição.
+Esta leitura também **quita a pendência** da entrada 2026-10-31 do decision-log ("anotar data, hora e grupo/canal de cada post"), para o Facebook. **LinkedIn registrado em seguida**: [leitura-posts-linkedin-2026-10-31-1233.md](leitura-posts-linkedin-2026-10-31-1233.md) (o 1º post do EXP foi lá, em 28/10).
 
 ## Posts publicados (29–30/10)
 
