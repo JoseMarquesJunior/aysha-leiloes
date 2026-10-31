@@ -108,7 +108,7 @@ Ressalvas do texto, todas verificadas: a análise exige conta com e-mail (link m
 >
 > [corpo comum]
 >
-> **Transparência:** sou o criador do Aysha Leilões (ayshaleiloes.com.br), um site que reúne imóveis em leilão numa tabela e tem uma análise por IA que lê edital e matrícula do imóvel e monta essa conta e os sinais vermelhos. Fiz uma análise de exemplo aberta, de um apartamento em Vitória/ES, para quem quiser ver o que ela entrega antes de criar conta: [https://ayshaleiloes.com.br/exemplo-analise.html]. A primeira análise é grátis (precisa só de e-mail); as seguintes custam R$ 14,90 cada. É parecer de IA: pode errar e não substitui advogado. Se preferirem, posso não deixar o link aqui e mandar só para quem pedir. Críticas ao texto e ao produto são bem-vindas.
+> **Transparência:** sou o criador do Aysha Leilões (ayshaleiloes.com.br), um site que reúne imóveis em leilão numa tabela e tem uma análise por IA que lê o edital e a matrícula do imóvel, monta essa conta e os sinais vermelhos, e ainda pesquisa na web o preço do m² no bairro — quando encontra, cita até anúncio na mesma rua ou no mesmo prédio — para comparar com o lance mínimo. Fiz uma análise de exemplo aberta, de um apartamento em Vitória/ES, para quem quiser ver o que ela entrega antes de criar conta: [https://ayshaleiloes.com.br/exemplo-analise.html]. A primeira análise é grátis (precisa só de e-mail); as seguintes custam R$ 14,90 cada. É parecer de IA: pode errar e não substitui advogado. Se preferirem, posso não deixar o link aqui e mandar só para quem pedir. Críticas ao texto e ao produto são bem-vindas.
 
 ### V2 — abertura "pergunta à comunidade"
 
@@ -116,14 +116,14 @@ Ressalvas do texto, todas verificadas: a análise exige conta com e-mail (link m
 >
 > [corpo comum]
 >
-> **Transparência:** sou o criador do Aysha Leilões (ayshaleiloes.com.br). O site reúne imóveis em leilão e tem uma análise por IA do edital e da matrícula. Se quiser ver como ela fica numa ficha real (apartamento em Vitória/ES, parecer aberto): [https://ayshaleiloes.com.br/exemplo-analise.html]. A primeira análise é grátis, com e-mail; as seguintes custam R$ 14,90. É apoio, não assessoria jurídica. Aceito comentário, crítica e correção.
+> **Transparência:** sou o criador do Aysha Leilões (ayshaleiloes.com.br). O site reúne imóveis em leilão e tem uma análise por IA que lê o edital e a matrícula e pesquisa na web o preço do m² no bairro (quando encontra, cita anúncio na mesma rua ou no mesmo prédio) para comparar com o lance mínimo. Se quiser ver como ela fica numa ficha real (apartamento em Vitória/ES, parecer aberto): [https://ayshaleiloes.com.br/exemplo-analise.html]. A primeira análise é grátis, com e-mail; as seguintes custam R$ 14,90. É apoio, não assessoria jurídica. Aceito comentário, crítica e correção.
 
 ### Regras de uso dos textos
 
 - **V1 e V2 em comunidades diferentes** (nunca as duas no mesmo grupo). Com 2–3 comunidades e poucas compras, a comparação V1 x V2 é **qualitativa** (o que gerou mais resposta/ visita no horário), não estatística, e mistura efeito da variação com efeito da comunidade. Não concluir "V1 é melhor" a partir de menos de ~30 eventos por etapa (metrics.md, regra 4).
 - Antes de postar: verifique se o link abre e se o exemplo continua publicado (`docs/exemplo-analise.html`).
 - Se o grupo exigir "sem link", poste o checklist sem link e deixe a menção a "o site está no meu perfil/ posso mandar por mensagem a quem pedir" (só se a regra permitir).
-- Os números de preço e de grátis acima são os vigentes. **Nenhum preço, crédito extra ou cupom muda neste experimento** (exige aprovação de preço, após as entrevistas).
+- Os números de preço e de grátis acima são os vigentes. **Nenhum preço, crédito extra ou cupom muda neste experimento** (exige aprovação de preço; benchmark em D10, com os dados do experimento — as entrevistas foram canceladas pelo mantenedor em 2026-10-30).
 - Não afirme "melhor", "mais barato", "o único" ou "a IA não erra".
 
 ---
@@ -151,7 +151,7 @@ O que pode ser oferecido ao grupo **sem custo novo**: o checklist em texto livre
 | Item | Fonte |
 |---|---|
 | Tabela com cerca de 23 mil imóveis de leilão de 27 estados, atualizada diariamente, filtros e mapa gratuitos, sem cadastro | `docs/sobre.html` (hero, passos); `README.md` |
-| Análise por IA que lê edital, matrícula e laudo **do imóvel já na base** (sem o usuário subir documento) e pesquisa preço de mercado na web (até 3 buscas) | `collector/relatorio.py` linhas 3–4; `README.md` seção "Análise detalhada com IA" |
+| Análise por IA que lê edital, matrícula e laudo **do imóvel já na base** (sem o usuário subir documento) e pesquisa preço de mercado na web (até 3 buscas): preço do m² no bairro e, quando encontra, anúncio na mesma rua ou no mesmo prédio, com link | `collector/relatorio.py` linhas 3–4 e 63; `README.md` seção "Análise detalhada com IA" |
 | Parecer curto (máx. 500 palavras): resumo, conta no lance mínimo, referência de mercado, sinais vermelhos, veredito e diligências | `collector/relatorio.py` (prompt `SISTEMA`); `docs/exemplo-analise.html` |
 | Exemplo real **público**, com parecer completo aberto, sem criar conta | `docs/exemplo-analise.html` |
 | Créditos que não expiram, sem assinatura; crédito devolvido se a análise falhar (24 h); reembolso de créditos não usados em 7 dias | `docs/sobre.html` (termos, FAQ) |
@@ -250,7 +250,34 @@ Avaliação: custo baixo (poucas linhas), mas depende da fila (item 5 do plano).
 
 ### Aprovações necessárias antes de D5
 
-1. Teto do experimento (25 créditos grátis, ~R$ 100; ciclo R$ 112 no total) — pendente (baseline).
-2. As 2–3 comunidades finais, com a classificação e a regra anotada.
+1. Teto do experimento (25 créditos grátis, ~R$ 100; ciclo R$ 112 no total) — **APROVADO em 2026-10-29** (decision-log).
+2. As 2–3 comunidades finais, com a classificação e a regra anotada — triagem na seção g; **aguarda confirmação dos 3 grupos**.
 3. Textos V1/V2 e a mensagem ao admin (e o envio de cada mensagem, que é seu).
 4. (Opcional) a mudança de código da seção e: aprovação, fila e deploy.
+
+---
+
+## g. Triagem do mantenedor (2026-10-30) e comunidades finais propostas
+
+Dados informados pelo mantenedor em 2026-10-30: 8 grupos **públicos** de Facebook de que ele já participa, **todos permitem postar** (classificação dele na triagem). Atividade (posts nos últimos 7 dias) ainda **não verificada** — conferir rapidamente antes de cada post.
+
+| Comunidade | Plataforma | Membros | Classificação | Observação (critérios da seção a) |
+|---|---|---|---|---|
+| Leilão de imóveis e automóveis da Caixa | Facebook (público) | 118,3 mil | permite | maior alcance; público misto Caixa — **C1 proposto** |
+| Leilão de Imóveis CAIXA | Facebook (público) | 16,9 mil | permite | **C3 proposto** |
+| LEILÃO DE IMÓVEIS CAIXA - ASSESSORIA, TROCA DE EXPERIÊNCIAS E PARCERIAS | Facebook (público) | 12,7 mil | permite | nome indica público de assessorias/parcerias = segmento B → **fora** (critério 2) |
+| Leilões Judiciais e Extrajudiciais de Imóveis - São Paulo | Facebook (público) | 12,4 mil | permite | perfil judicial + regional SP, diverso dos grupos Caixa — **C2 proposto** |
+| VENDA DE IMÓVEIS DE LEILÃO | Facebook (público) | 7,1 mil | permite | nome indica grupo de anúncios de venda (ofertas de terceiros) → fora (critério 2) |
+| LEILAO DE IMOVEIS CAIXA | Facebook (público) | 3,6 mil | permite | pequeno; provável sobreposição com os grupos Caixa maiores (critério 6) |
+| Imóveis de leilão | Facebook (público) | 2,7 mil | permite | pequeno; reserva |
+| Leilão de imóveis | Facebook (público) | 1,9 mil | permite | pequeno; reserva |
+
+**Proposta das 3 finais (aguarda confirmação do mantenedor)** — maiores entre os elegíveis + diversidade de perfil (dois Caixa gerais + um judicial regional):
+
+| Código | Comunidade | Variação | Data proposta (≥ 48 h entre posts) |
+|---|---|---|---|
+| C1 | Leilão de imóveis e automóveis da Caixa (118,3 mil) | V1 | D5 — 2026-11-02 |
+| C2 | Leilões Judiciais e Extrajudiciais de Imóveis - São Paulo (12,4 mil) | V2 | D7 — 2026-11-04 |
+| C3 | Leilão de Imóveis CAIXA (16,9 mil) | V1 | D9 — 2026-11-06 |
+
+Como todos os grupos são públicos e permitem postar, a mensagem ao admin (seção c) não é necessária para os 3 propostos. Participação orgânica (responder perguntas de membros, com transparência e, se fizer sentido, link) é permitida fora do protocolo — anotar data/hora quando levar link, para não contaminar a atribuição por janela de tempo (seção e).

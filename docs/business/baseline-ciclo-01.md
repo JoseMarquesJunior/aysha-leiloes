@@ -1,6 +1,6 @@
 # Baseline do ciclo 01 e teto de gasto (Plano de 14 dias nº 1, item 1)
 
-Autor: unit-economics-analyst · data: 2026-10-29 (D1) · status: **proposta aguardando aprovação do mantenedor** (teto de gasto e metas dependem dele, conforme decision-log).
+Autor: unit-economics-analyst · data: 2026-10-29 (D1) · status: **teto de gasto (seção 4) e metas (seção 5) APROVADOS pelo mantenedor em 2026-10-29** (ver decision-log).
 Definições de métricas: [metrics.md](metrics.md). Seção 1 e 2 são **observado/pendente**; seção 3 em diante é **PROJEÇÃO** (cada número é "premissa" ou conta sobre premissa).
 
 Calendário do ciclo (D1 = 2026-10-29): D5 = 2026-11-02 (início do EXP-2026-01), D12 = 2026-11-09, D13–14 = 2026-11-10/11.
@@ -74,7 +74,7 @@ Regra: copiar número absoluto, com o período e a data/hora da leitura. Não ar
 | Créditos grátis ainda não usados (contas novas com `creditos` = 1 e sem compra) | 0 | PENDENTE | exposição de custo em aberto |
 | Compras `pago` sem teste/cortesia: nº, valor bruto, pacote de cada uma | **0 / R$ 0,00** — a única compra `pago` (pacote 1, R$ 14,90, 29/10 12:55) é teste do mantenedor (`EMAILS_TESTE`) | PENDENTE | coleta automática (D1/Worker) |
 | Custo real das análises do período no servidor (`relatorios.custo_usd`) | US$ 0,3909 = R$ 1,95 (1 relatório) | PENDENTE | câmbio fixo R$ 5,00 |
-| Pagamentos aprovados no Mercado Pago (nº e valor bruto) e taxa real cobrada por transação (R$ e meio: Pix/cartão) | 1 aprovado (o teste do mantenedor, R$ 14,90); **taxa real PENDENTE** — rodar a coleta com `INTERNO_SECRET` ou copiar a "Tarifa" do painel do MP | PENDENTE | confirmar a taxa de ~1 % Pix e ~5 % cartão; não registrar dados de cartão nem do pagador |
+| Pagamentos aprovados no Mercado Pago (nº e valor bruto) e taxa real cobrada por transação (R$ e meio: Pix/cartão) | 1 aprovado (o teste do mantenedor, R$ 14,90); taxa: **5 % fixa em qualquer meio (informado pelo mantenedor, 2026-10-30)** | PENDENTE | confirmar a taxa de ~1 % Pix e ~5 % cartão; não registrar dados de cartão nem do pagador |
 | Impressões e cliques no Google Search Console (propriedade ayshaleiloes.com.br, desde 28/10) | PENDENTE — **único campo manual**: copiar do Google Search Console (Desempenho → Resultados da pesquisa → período personalizado; cliques totais e impressões totais) | PENDENTE | domínio verificado em 2026-10-29 |
 | Alertas criados (`alertas`) e agendas salvas | 0 / 0 | PENDENTE | secundárias |
 
@@ -82,7 +82,7 @@ Regra: copiar número absoluto, com o período e a data/hora da leitura. Não ar
 
 ## 3. PROJEÇÃO — Margem de contribuição por crédito
 
-Fórmula (metrics.md): preço por crédito − taxa MP proporcional − custo variável por análise. Câmbio R$ 5,40 (premissa). Custo variável em três níveis, todos **observados** em US$ (seção 1) e convertidos pela premissa de câmbio: mediana US$ 0,3478 = R$ 1,88; máximo observado US$ 0,5146 = R$ 2,78; teto do README US$ 0,73 = R$ 3,94. Taxa MP: premissa 1 % Pix / 5 % cartão (a confirmar no extrato). A extração Haiku é desprezível por análise (< US$ 0,01, README) e não foi somada.
+Fórmula (metrics.md): preço por crédito − taxa MP proporcional − custo variável por análise. Câmbio R$ 5,40 (premissa). Custo variável em três níveis, todos **observados** em US$ (seção 1) e convertidos pela premissa de câmbio: mediana US$ 0,3478 = R$ 1,88; máximo observado US$ 0,5146 = R$ 2,78; teto do README US$ 0,73 = R$ 3,94. Taxa MP: premissa 1 % Pix / 5 % cartão — **superada em 2026-10-30: o mantenedor informou taxa fixa de 5 % em qualquer meio**; as linhas "Pix" abaixo e na seção 5 serão recalculadas na tarefa 1b. A extração Haiku é desprezível por análise (< US$ 0,01, README) e não foi somada.
 
 | Item | Custo R$ 1,88 (mediana) | Custo R$ 2,78 (máx. observado) | Custo R$ 3,94 (teto README) |
 |---|---|---|---|
@@ -99,7 +99,7 @@ Ressalva: o custo observado vem de testes do mantenedor (seção 1), não de cli
 
 ## 4. PROJEÇÃO — Teto de gasto global do ciclo (14 dias, D1–D14)
 
-Todas as linhas são premissas/propostas; câmbio R$ 5,40 (premissa). Precisa de aprovação do mantenedor.
+Todas as linhas são premissas/propostas; câmbio R$ 5,40 (premissa). **APROVADO pelo mantenedor em 2026-10-29** (total R$ 112 e regras de parada).
 
 | Linha | Teto proposto | Conta |
 |---|---|---|
@@ -153,7 +153,7 @@ Observações:
 
 ### Meta mínima recomendada para o critério "perseverar" (D13–14)
 
-Recomendo **o cenário base como mínimo para "perseverar": ≥ 2 clientes pagantes, de 2 contas distintas, ambas independentes do mantenedor (`pedidos.status = 'pago'`, `compra-paga` e pagamento aprovado no MP concordando)**, dentro do teto de 25 créditos grátis.
+**APROVADA pelo mantenedor em 2026-10-29** (decision-log). Recomendo **o cenário base como mínimo para "perseverar": ≥ 2 clientes pagantes, de 2 contas distintas, ambas independentes do mantenedor (`pedidos.status = 'pago'`, `compra-paga` e pagamento aprovado no MP concordando)**, dentro do teto de 25 créditos grátis.
 - 1 cliente pagante (conservador) = sinal fraco: **ajustar** (preço, segmento ou texto) e repetir, não perseverar; um comprador só pode ser conhecido/indicado.
 - 0 clientes pagantes com ≥ 15 créditos grátis consumidos = **mudar canal ou segmento** (coerente com o gatilho 1).
 - 0 clientes com poucas contas (< 5) = o experimento não testou a oferta (alcance insuficiente); estender o canal, não concluir sobre preço.

@@ -36,7 +36,7 @@ Taxas de conversão derivadas (medir por período, ex.: semana):
 ## Receita
 
 - **Receita bruta** — soma dos pagamentos aprovados no MP no período (R$). Observada, nunca estimada.
-- **Receita líquida** — bruta − taxa do MP (medida por transação: Pix ≈ 1 %, cartão ≈ 5 %; usar a taxa real do extrato).
+- **Receita líquida** — bruta − taxa do MP: **5 % fixa por transação, em qualquer meio** (informado pelo mantenedor em 2026-10-30; antes se usava a premissa Pix ≈ 1 % / cartão ≈ 5 %).
 - **Cliente pagante** — conta com ≥ 1 `compra-paga`. Cadastro grátis, visita, elogio ou análise grátis **não** contam.
 - **Ticket médio** — receita bruta / nº de compras.
 - **MRR / ARR** — só se aplicam quando existir cobrança recorrente (assinatura). Hoje o modelo é avulso (créditos); não usar MRR para receita de pacotes. Se assinatura for lançada: MRR = soma das mensalidades ativas; ARR = MRR × 12.

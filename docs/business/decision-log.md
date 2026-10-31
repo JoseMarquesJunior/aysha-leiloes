@@ -47,7 +47,34 @@ As entradas abaixo foram reconstruídas em 2026-10-29 a partir da documentação
 
 ## Decisões da equipe
 
-## 2026-10-29 — Câmbio fixado em R$ 5,00/US$ e coleta da leitura L0/L1 automatizada
+## 2026-10-31 — Publicação antecipada pelo mantenedor; GSC ≈ zero; auditoria SEO on-page antecipada para D3
+- **Contexto**: D3. O cronograma proposto (posts em 02/04/06-11) existia só pela atribuição por janela de horário (≥ 48 h entre posts, seção e dos rascunhos), não por exigência externa.
+- **Decisões** (mantenedor, 2026-10-31):
+  1. **Publicação do EXP-2026-01 antecipada**: o mantenedor já começou a postar em grupos de Facebook e também no **LinkedIn** (canal adicional, fora do plano original). Pendente: ele anotar **data, hora e grupo/canal de cada post** já feito e dos próximos — sem isso a atribuição por janela de tempo não funciona. Recomendação mantida: ≥ 48 h entre posts em grupos *diferentes* quando possível.
+  2. **Leitura manual do GSC (31/10)**: 1 clique acumulado, provavelmente o próprio mantenedor testando. Tráfego de busca ≈ zero — esperado para domínio registrado em 28/10; a autoexclusão `#nao-contar` vale só para o Umami, não para o GSC.
+  3. **Auditoria de SEO on-page antecipada de D5 para D3** (conversion-optimizer): só diagnóstico e proposta, sem deploy; relatório em `auditoria-seo-onpage-ciclo-01.md`.
+- **Evidência**: posts iniciados (informado pelo mantenedor); GSC lido por ele em 31/10.
+- **Reverteria se**: reclamação de spam ou remoção de post (mitigação da seção f dos rascunhos) → pausar publicações e voltar ao protocolo espaçado.
+
+## 2026-10-30 — Entrevistas canceladas; taxa MP fixa de 5 %; triagem concluída (8 grupos, todos permitem)
+- **Contexto**: D2 do ciclo. O mantenedor fez a triagem das comunidades e passou três decisões nesta sessão.
+- **Decisões** (mantenedor, 2026-10-30):
+  1. **Item 3 do plano (5 entrevistas) CANCELADO.** Consequência: a evidência de disposição a pagar deste ciclo vem só do EXP-2026-01 (`compra-paga`); o benchmark de preço/grátis de D10 (tarefa F1) usa os dados do experimento, não entrevistas; a contingência "sem comunidade elegível → sinal vem das entrevistas" perde o objeto (todas as comunidades permitem postar).
+  2. **Taxa do Mercado Pago: fixa de 5 % por transação, em qualquer meio** (informado pelo mantenedor). `metrics.md` atualizado; as linhas com "Pix 1 %" do baseline (seções 3 e 5) serão recalculadas na tarefa 1b (D5).
+  3. **Triagem concluída**: 8 grupos públicos de Facebook, todos permitem postar — tabela e proposta das 3 comunidades finais (C1 118,3 mil · C2 12,4 mil SP judicial · C3 16,9 mil) na seção g de [rascunhos-exp-2026-01.md](rascunhos-exp-2026-01.md), aguardando confirmação do mantenedor e verificação de atividade dos grupos.
+  4. **Textos V1/V2 revisados** a pedido do mantenedor para valorizar a comparação de preço da IA (preço do m² no bairro; anúncio na mesma rua/prédio quando encontra — `collector/relatorio.py:63`).
+- **Evidência**: triagem feita pelo mantenedor nos grupos; taxa informada por ele (confirmável no extrato do MP); capacidade da IA conferida no código.
+- **Reverteria se**: o EXP terminar sem compra e sem aprendizado acionável — reavaliar conversas diretas com clientes (entrevistas) no ciclo 2.
+
+## 2026-10-29 — Teto de gasto e meta do ciclo 01 APROVADOS; leitura L0/L1 fica por conta da coleta automática
+- **Contexto**: a rodada D1–2 deixou propostas aguardando aprovação (baseline, seções 4–5) e a tarefa 1 (leitura L0 até 2026-11-01) atribuída ao mantenedor.
+- **Decisão** (mantenedor, 2026-10-29, nesta sessão):
+  1. **Teto de gasto do ciclo APROVADO: R$ 112** (R$ 100 de IA dos créditos grátis = 25 créditos no pior caso, R$ 10 de Haiku, R$ 2 de fixos, R$ 0 de mídia), com as regras de parada do baseline (15 grátis consumidos sem `compra-paga` → pausar novas comunidades; exposição ≥ 25 créditos → parar).
+  2. **Meta de tração APROVADA**: ≥ 2 clientes pagantes independentes até 2026-11-09 → perseverar; 1 → ajustar; 0 com ≥ 15 grátis consumidos → mudar canal ou segmento.
+  3. **Leituras L0 e L1 pela coleta automática** (`scripts/coleta_metricas.py`), não à mão: L0 em 2026-11-01 (fim do dia) e L1 em 2026-11-10.
+- **Evidência**: proposta fundamentada em [baseline-ciclo-01.md](baseline-ciclo-01.md), seções 4–6.
+- **Operacional**: com autorização expressa do mantenedor (2026-10-29), as duas leituras foram registradas no Agendador de Tarefas do Windows: "aysha leitura L0" (2026-11-01 23:50) e "aysha leitura L1" (2026-11-10 23:50), com `StartWhenAvailable` (se o computador estiver desligado no horário, roda ao ligar). Elas geram os arquivos em `docs/business/leituras/`; transferir os números para a tabela do baseline é parte da tarefa 1b (recálculo, D5). Continuam manuais: taxa real do MP (definir `INTERNO_SECRET` nas variáveis de ambiente do usuário para automatizar) e Google Search Console.
+- **Reverteria se**: regra de parada acionada, custo por análise acima de US$ 0,73, ou câmbio real fora de ±10 % dos R$ 5,00 fixados.
 - **Contexto**: a tarefa 1 do plano (preencher os PENDENTES do baseline) era manual: copiar números de 4 painéis (Umami, admin, Mercado Pago, GSC) e informar o câmbio do dia.
 - **Decisão** (mantenedor, 2026-10-29): (a) **câmbio fixo de R$ 5,00 por US$ 1,00 em todas as contas e coletas** — sem consulta a PTAX ou fatura; (b) automatizar a coleta: novo `GET /interno/metricas` no Worker (header `X-Interno`, só agregados, sem e-mail de ninguém; a taxa real por compra vem da API do Mercado Pago, consultada pelo próprio Worker com o token que já é segredo dele) + `scripts/coleta_metricas.py`, que junta Umami e Worker numa leitura em `docs/business/leituras/` (rotulada L0/L1). O Umami é lido pelo **link de compartilhamento** (Settings → Share): o plano grátis do Umami Cloud não emite chave de API ("API access requires a Pro plan", constatado pelo mantenedor em 2026-10-29), e o script troca o link pelo token somente-leitura da própria página pública. Sem `INTERNO_SECRET` no ambiente, o script consulta o D1 direto pelo wrangler autenticado (mesmos números, sem a taxa real do MP). Nenhum segredo novo no repositório.
 - **Alternativas consideradas**: consultar PTAX automaticamente (descartado: o mantenedor preferiu valor fixo, mais simples e estável no ciclo); automatizar também o Google Search Console (descartado neste ciclo: exigiria OAuth/projeto no Google Cloud para 2 números — continua cópia manual do painel).
@@ -85,16 +112,16 @@ As entradas abaixo foram reconstruídas em 2026-10-29 a partir da documentação
 
   | # | Tarefa | Responsável | Prazo | Status |
   |---|---|---|---|---|
-  | 1 | Baseline: preencher os PENDENTES (câmbio, Umami, admin, MP, GSC), leitura L0 | **mantenedor** | até 2026-11-01 | aguardando |
+  | 1 | Baseline: preencher os PENDENTES (câmbio, Umami, admin, MP, GSC), leitura L0 | coleta automática (`coleta_metricas.py`); GSC e taxa MP com o mantenedor | até 2026-11-01 | automatizada (ver entrada de aprovações de 29/10) |
   | 1b | Recalcular o baseline com os dados L0 e o câmbio real | unit-economics-analyst | D5 (após L0) | aguardando dado |
   | 2 | Pesquisa de mercado | market-researcher | — | **concluído** |
-  | 3 | 5 entrevistas (E1–E4 segmento A, E5 segmento B) com o roteiro da seção 3 da pesquisa | **mantenedor** | D3–9 (até 2026-11-06) | aguardando aprovação da abordagem |
+  | 3 | 5 entrevistas (E1–E4 segmento A, E5 segmento B) com o roteiro da seção 3 da pesquisa | — | — | **cancelada pelo mantenedor em 2026-10-30** |
   | 4a | Rascunhos + registro EXP-2026-01 | growth-marketer | — | **concluído** |
-  | 4b | Triagem das comunidades de que já participa (seção a dos rascunhos) | **mantenedor** | até 2026-11-01 | aguardando |
-  | 4c | Publicação, 1 por comunidade, ≥ 48 h entre posts | **mantenedor** | 2026-11-02 a 09 | depende de 4b + aprovação |
+  | 4b | Triagem das comunidades de que já participa (seção a dos rascunhos) | **mantenedor** | até 2026-11-01 | **concluída em 2026-10-30** (8 grupos, todos permitem; seção g dos rascunhos) |
+  | 4c | Publicação, 1 por comunidade, ≥ 48 h entre posts | **mantenedor** | 2026-11-02 a 09 | aguardando confirmação dos 3 grupos e dos textos (seção g) |
   | 5 | Auditoria de conversão ficha → análise → compra (incluir: o que a análise entrega sem PDF de edital/Caixa) | conversion-optimizer | D5–10 | não iniciado (próxima rodada) |
   | 6 | Leitura final e decisão do EXP-2026-01 | orquestrador + unit-economics-analyst | D13–14 | não iniciado |
-  | F1 | Benchmark de preço e grátis + custo de 3 grátis | product-pricing + unit-economics-analyst | D10, após as entrevistas | fila |
+  | F1 | Benchmark de preço e grátis + custo de 3 grátis | product-pricing + unit-economics-analyst | D10, com os dados do EXP (entrevistas canceladas) | fila |
   | F2 | Rastreamento `?ref=`/`usuarios.origem`; `acessos.origem='gratis'` | builder-qa | ciclo 2 | fila (score 3,25) |
 
 - **Reverteria se**:
