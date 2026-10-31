@@ -81,10 +81,6 @@
     if (typeof r.desconto_pct === "number" && r.desconto_pct >= 30) p += PESO_DESCONTO_30;
     return p;
   }
-  function badgePronta(r) {
-    return estado.analisesProntas.has(r.id)
-      ? ' <span class="tag pronta" title="Parecer já gerado: entrega imediata">✦ Análise pronta</span>' : "";
-  }
   function marcadores(r) {
     let s = "";
     if (estado.mostrarNovo && ehNovo(r)) s += '<span class="tag novo" title="Visto pela primeira vez nos últimos 7 dias">novo</span>';
@@ -381,7 +377,7 @@
       th.innerHTML = escapar(c.rotulo) + (estado.ordem.coluna === c.id ? `<span class="seta">${estado.ordem.desc ? "▼" : "▲"}</span>` : "");
       if (c.id === "ia") {
         // a coluna "Análise" ordena por relevância (pontuação dos PESO_* acima) e é a ordenação padrão
-        th.title = "Ordenar por relevância (análise pronta, documento, leilão próximo, desconto)";
+        th.title = "Ordenar por relevância (documentação, data do leilão e desconto)";
         th.innerHTML = escapar(c.rotulo) + (estado.ordem.coluna === "relevancia" ? '<span class="seta">▼</span>' : "");
         th.setAttribute("aria-sort", estado.ordem.coluna === "relevancia" ? "descending" : "none");
         th.addEventListener("click", () => { estado.ordem = { coluna: "relevancia", desc: true }; ordenar(); render(); escreverUrl(lerFiltros()); });
@@ -405,7 +401,7 @@
       const sel = estado.selecionados.has(r.id);
       let tr = `<tr data-id="${escapar(r.id)}" id="linha-${escapar(r.id)}" class="${sel ? "selecionado" : ""}${r.ativo === false ? " inativo" : ""}" title="Abrir a ficha do imóvel">`;
       for (const c of cols) {
-        if (c.id === "ia") { tr += `<td class="cel-ia"><a class="btn-ia" href="${urlDetalhe(r)}#analise" data-pos="${i + 1}" data-doc="${temDocumento(r) ? "sim" : "nao"}" data-pronta="${estado.analisesProntas.has(r.id) ? "sim" : "nao"}" title="Parecer detalhado gerado por IA: edital, matrícula, mercado, riscos e veredito">IA ✦</a>${badgePronta(r)}</td>`; continue; }
+        if (c.id === "ia") { tr += `<td class="cel-ia"><a class="btn-ia" href="${urlDetalhe(r)}#analise" data-pos="${i + 1}" data-doc="${temDocumento(r) ? "sim" : "nao"}" data-pronta="${estado.analisesProntas.has(r.id) ? "sim" : "nao"}" title="Parecer detalhado gerado por IA: edital, matrícula, mercado, riscos e veredito">IA ✦</a></td>`; continue; }
         if (c.id === "sel") { tr += `<td><input type="checkbox" class="sel" data-id="${escapar(r.id)}" ${sel ? "checked" : ""} title="Selecionar para comparar (até 3)" aria-label="Selecionar para comparar"></td>`; continue; }
         if (c.id === "link") { tr += `<td class="cel-links"><a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener" title="Abrir o anúncio no site de origem">anúncio ↗</a></td>`; continue; }
         if (c.id === "cidade") { tr += `<td class="cel-cidade"><a href="${urlDetalhe(r)}">${escapar(r.cidade || TRACO)}</a>${r.uf ? `<span class="muted">/${escapar(r.uf)}</span>` : ""}${marcadores(r)}</td>`; continue; }
@@ -464,7 +460,7 @@
         <div class="topo-card">
           <div class="icone" aria-hidden="true">${iconeTipo(r.tipo)}</div>
           <div>
-            <div class="titulo"><a href="${urlDetalhe(r)}">${escapar(tituloCurto(r))}</a>${marcadores(r)}${badgePronta(r)}</div>
+            <div class="titulo"><a href="${urlDetalhe(r)}">${escapar(tituloCurto(r))}</a>${marcadores(r)}</div>
             <div class="local">${escapar(r.endereco || "endereço não informado")}</div>
           </div>
         </div>
@@ -506,9 +502,10 @@
     for (const r of estado.filtrados) {
       if (nulo(r.lat) || nulo(r.lng)) continue;
       const aprox = r.geo_precisao && r.geo_precisao !== "endereco";
+      // Âmbar tracejado = localização aproximada (rua/bairro/cidade); azul cheio = endereço exato.
       const m = L.circleMarker([r.lat, r.lng], {
-        radius: aprox ? 6 : 7, color: aprox ? "#777" : "#0b5fff", fillColor: aprox ? "#bbb" : "#0b5fff",
-        fillOpacity: aprox ? .5 : .85, weight: aprox ? 1 : 2, dashArray: aprox ? "2,2" : null,
+        radius: aprox ? 6 : 7, color: aprox ? "#a06e0a" : "#0b5fff", fillColor: aprox ? "#f2b134" : "#0b5fff",
+        fillOpacity: aprox ? .75 : .85, weight: aprox ? 1.5 : 2, dashArray: aprox ? "2,2" : null,
       });
       m.bindPopup(`<b>${escapar(tituloCurto(r))}</b><br><b>${moeda(r.valor_minimo)}</b> ${descontoHtml(r.desconto_pct)} · aval. ${moeda(r.valor_avaliacao)}<br>
         ${escapar(r.endereco || TRACO)}<br>

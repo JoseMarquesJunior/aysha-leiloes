@@ -114,7 +114,7 @@ Registrar a decisão também em decision-log.md.
 
 ### EXP-2026-03 — UF do visitante no desktop + ordenação padrão por relevância na tabela
 
-- **Status**: proposto (implementado no branch local `exp/relevancia-uf`; aguardando aprovação do mantenedor para merge e deploy)
+- **Status**: em execução (deploy em 2026-10-31). Ajuste no mesmo dia, por decisão do mantenedor: o selo visível "✦ Análise pronta" foi removido da tabela e dos cards — a informação de parecer pronto passou a ser só interna (peso da relevância e dimensão `pronta` do evento `linha-ia`).
 - **Responsável (agente)**: sessão principal (implementação); leitura no Umami
 - **Data de início / fim previsto**: no deploy / 4 semanas após o deploy (ou antes, pelo critério de parada)
 - **Pontuação de priorização**: I=2 C=2 V=3 E=5 R=5 → **2,70 / 5** — abaixo da linha de "fazer"; executado por decisão direta do mantenedor (2026-10-31), que vale como priorização.
@@ -122,9 +122,9 @@ Registrar a decisão também em decision-log.md.
 **Hipótese** (falseável, com número): "Acreditamos que mostrar primeiro os imóveis do estado do visitante e ordenar por relevância (análise pronta, documento disponível, leilão próximo, desconto) aumenta `analise-credito` por visitante único e a proporção de análises pedidas em imóveis com documento, porque o topo da tabela passa a conter imóveis analisáveis e próximos da pessoa, em vez dos maiores valores de avaliação. Saberemos pela comparação de `analise-credito`/visitantes únicos entre a semana fechada anterior e as semanas posteriores ao deploy, e pela distribuição do evento novo `linha-ia` (posição × doc)."
 
 - **Segmento**: todos os visitantes da tabela (desktop ganha a UF automática; a relevância vale para todos).
-- **Oferta**: nenhuma mudança de preço, crédito ou cobrança — só ordenação, filtro inicial e badge.
+- **Oferta**: nenhuma mudança de preço, crédito ou cobrança — só ordenação e filtro inicial (o selo visível foi removido em 31/10; ver Status).
 - **Canal**: o próprio site (index.html).
-- **Custo máximo**: R$ 0 de mídia e R$ 0 de IA (o badge usa pareceres já gerados). Esforço: ~3 h de implementação da sessão principal (registrar as horas do mantenedor na revisão, se houver).
+- **Custo máximo**: R$ 0 de mídia e R$ 0 de IA (a relevância usa pareceres já gerados). Esforço: ~3 h de implementação da sessão principal (registrar as horas do mantenedor na revisão, se houver).
 - **Prazo**: 4 semanas após o deploy.
 - **Métricas** (definições em metrics.md):
   - Principal: `analise-credito` / visitantes únicos (semana fechada).

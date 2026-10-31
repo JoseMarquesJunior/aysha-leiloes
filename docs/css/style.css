@@ -138,7 +138,6 @@ table.tabela { border-collapse: separate; border-spacing: 0; width: 100%; font-s
 .tabela td.cel-links { color: var(--muted); }
 .tag { display: inline-block; font-size: .66rem; padding: 0 5px; border-radius: 3px; margin-left: 5px; vertical-align: middle; font-weight: 600; letter-spacing: .01em; }
 .tag.novo { background: #dcf5ea; color: var(--new); }
-.tag.pronta { background: var(--ambar-soft); color: var(--ambar-texto); white-space: nowrap; }
 #chip-uf a { color: inherit; text-decoration: underline; font-weight: 600; }
 .tag.queda { background: #fde8e6; color: var(--bad); }
 .tag.alta { background: #fff1dc; color: var(--warn); }
