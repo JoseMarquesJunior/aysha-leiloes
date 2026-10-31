@@ -5,6 +5,16 @@
     nomeFonte, ROTULOS, formatarCampo, carregarJson, carregarImoveis, lerQuery } = LT;
 
   const LOTE_LINHAS = 300;   // renderização incremental da tabela/cards
+
+  /* EXP-2026-03 — ordenação "Relevância" (padrão quando a URL não traz `ord`). A pontuação do imóvel
+     soma os pesos abaixo; empates são decididos pelo maior desconto, com desconto negativo (ex.: Caixa
+     SFI) valendo zero — imóvel "acima da avaliação" nunca sobe por desconto. Pesos em ordem de
+     importância e espaçados para um critério não engolir o outro; ajustar aqui se o experimento pedir. */
+  const PESO_ANALISE_PRONTA = 8;  // parecer de IA já gerado (ids em data/custo_relatorios.json)
+  const PESO_DOCUMENTO = 4;       // tem url de edital ou de matrícula
+  const PESO_LEILAO_JANELA = 2;   // leilão entre 7 e 45 dias a partir de hoje
+  const PESO_DESCONTO_30 = 1;     // desconto_pct >= 30
+  const MIN_IMOVEIS_UF_AUTO = 30; // UF detectada com menos ativos que isso não vira filtro inicial
   const COLUNAS = [
     { id: "ia", rotulo: "Análise", fixa: true },
     { id: "sel", rotulo: "", fixa: true },
@@ -32,7 +42,8 @@
 
   const estado = {
     todos: [], filtrados: [], historico: null, meta: null, status: null,
-    ordem: { coluna: "valor_avaliacao", desc: true },
+    ordem: { coluna: "relevancia", desc: true },
+    analisesProntas: new Set(),
     modo: localStorage.getItem("lt.modo") || (window.matchMedia("(max-width: 760px)").matches ? "cards" : "tabela"),
     ocultas: new Set(JSON.parse(localStorage.getItem("lt.colunasOcultas") || "null") || COLUNAS.filter(c => c.padraoOculta).map(c => c.id)),
     selecionados: new Set(),
@@ -61,6 +72,19 @@
   }
   function simNaoHtml(v) { return v === true ? '<span class="v-sim">Sim</span>' : v === false ? '<span class="v-nao">Não</span>' : TRACO; }
   function ehNovo(r) { return r.primeira_vez_visto && diasEntre(r.primeira_vez_visto, hojeIso()) <= 7; }
+  function temDocumento(r) { return !nulo(r.url_edital) || !nulo(r.url_matricula); }
+  function pontuacao(r, hoje) {
+    let p = 0;
+    if (estado.analisesProntas.has(r.id)) p += PESO_ANALISE_PRONTA;
+    if (temDocumento(r)) p += PESO_DOCUMENTO;
+    if (r.data_leilao) { const d = diasEntre(hoje, r.data_leilao); if (d >= 7 && d <= 45) p += PESO_LEILAO_JANELA; }
+    if (typeof r.desconto_pct === "number" && r.desconto_pct >= 30) p += PESO_DESCONTO_30;
+    return p;
+  }
+  function badgePronta(r) {
+    return estado.analisesProntas.has(r.id)
+      ? ' <span class="tag pronta" title="Parecer já gerado: entrega imediata">✦ Análise pronta</span>' : "";
+  }
   function marcadores(r) {
     let s = "";
     if (estado.mostrarNovo && ehNovo(r)) s += '<span class="tag novo" title="Visto pela primeira vez nos últimos 7 dias">novo</span>';
@@ -270,7 +294,7 @@
     for (const k of ["desocupados", "fgts", "financiamento", "debvendedor", "novos", "mudouPreco", "inativos"]) if (f[k]) p.set(k, "1");
     if (f.leilaoProx) p.set("leilao", f.leilaoDias);
     if (f.busca) p.set("q", f.busca);
-    if (estado.ordem.coluna !== "valor_avaliacao" || !estado.ordem.desc) p.set("ord", (estado.ordem.desc ? "-" : "") + estado.ordem.coluna);
+    if (estado.ordem.coluna !== "relevancia" || !estado.ordem.desc) p.set("ord", (estado.ordem.desc ? "-" : "") + estado.ordem.coluna);
     if (estado.modo !== "tabela") p.set("modo", estado.modo);
     const qs = p.toString();
     history.replaceState(null, "", qs ? "?" + qs : location.pathname);
@@ -303,6 +327,18 @@
 
   // ---------- ordenação ----------
   function ordenar() {
+    if (estado.ordem.coluna === "relevancia") {
+      // pontuação pré-calculada: pontuacao() dentro do sort custaria O(n log n) criações de Date
+      const hoje = hojeIso();
+      const pontos = new Map();
+      for (const r of estado.filtrados) pontos.set(r, pontuacao(r, hoje));
+      estado.filtrados.sort((a, b) => {
+        const d = pontos.get(b) - pontos.get(a);
+        if (d) return d;
+        return Math.max(0, b.desconto_pct || 0) - Math.max(0, a.desconto_pct || 0);
+      });
+      return;
+    }
     const col = COLUNAS.find(c => c.id === estado.ordem.coluna);
     if (!col || !col.chave) return;
     const dir = estado.ordem.desc ? -1 : 1;
@@ -343,6 +379,13 @@
       if (c.num) th.className = "num";
       if (c.titulo) th.title = c.titulo;
       th.innerHTML = escapar(c.rotulo) + (estado.ordem.coluna === c.id ? `<span class="seta">${estado.ordem.desc ? "▼" : "▲"}</span>` : "");
+      if (c.id === "ia") {
+        // a coluna "Análise" ordena por relevância (pontuação dos PESO_* acima) e é a ordenação padrão
+        th.title = "Ordenar por relevância (análise pronta, documento, leilão próximo, desconto)";
+        th.innerHTML = escapar(c.rotulo) + (estado.ordem.coluna === "relevancia" ? '<span class="seta">▼</span>' : "");
+        th.setAttribute("aria-sort", estado.ordem.coluna === "relevancia" ? "descending" : "none");
+        th.addEventListener("click", () => { estado.ordem = { coluna: "relevancia", desc: true }; ordenar(); render(); escreverUrl(lerFiltros()); });
+      }
       if (c.chave) {
         th.setAttribute("aria-sort", estado.ordem.coluna === c.id ? (estado.ordem.desc ? "descending" : "ascending") : "none");
         th.addEventListener("click", () => {
@@ -362,7 +405,7 @@
       const sel = estado.selecionados.has(r.id);
       let tr = `<tr data-id="${escapar(r.id)}" id="linha-${escapar(r.id)}" class="${sel ? "selecionado" : ""}${r.ativo === false ? " inativo" : ""}" title="Abrir a ficha do imóvel">`;
       for (const c of cols) {
-        if (c.id === "ia") { tr += `<td class="cel-ia"><a class="btn-ia" href="${urlDetalhe(r)}#analise" title="Parecer detalhado gerado por IA: edital, matrícula, mercado, riscos e veredito">IA ✦</a></td>`; continue; }
+        if (c.id === "ia") { tr += `<td class="cel-ia"><a class="btn-ia" href="${urlDetalhe(r)}#analise" data-pos="${i + 1}" data-doc="${temDocumento(r) ? "sim" : "nao"}" data-pronta="${estado.analisesProntas.has(r.id) ? "sim" : "nao"}" title="Parecer detalhado gerado por IA: edital, matrícula, mercado, riscos e veredito">IA ✦</a>${badgePronta(r)}</td>`; continue; }
         if (c.id === "sel") { tr += `<td><input type="checkbox" class="sel" data-id="${escapar(r.id)}" ${sel ? "checked" : ""} title="Selecionar para comparar (até 3)" aria-label="Selecionar para comparar"></td>`; continue; }
         if (c.id === "link") { tr += `<td class="cel-links"><a href="${escapar(r.url_anuncio || "#")}" target="_blank" rel="noopener" title="Abrir o anúncio no site de origem">anúncio ↗</a></td>`; continue; }
         if (c.id === "cidade") { tr += `<td class="cel-cidade"><a href="${urlDetalhe(r)}">${escapar(r.cidade || TRACO)}</a>${r.uf ? `<span class="muted">/${escapar(r.uf)}</span>` : ""}${marcadores(r)}</td>`; continue; }
@@ -421,7 +464,7 @@
         <div class="topo-card">
           <div class="icone" aria-hidden="true">${iconeTipo(r.tipo)}</div>
           <div>
-            <div class="titulo"><a href="${urlDetalhe(r)}">${escapar(tituloCurto(r))}</a>${marcadores(r)}</div>
+            <div class="titulo"><a href="${urlDetalhe(r)}">${escapar(tituloCurto(r))}</a>${marcadores(r)}${badgePronta(r)}</div>
             <div class="local">${escapar(r.endereco || "endereço não informado")}</div>
           </div>
         </div>
@@ -689,19 +732,40 @@
   /* No celular, a base inteira (todas as UFs) pesa demais: carregamos só a UF da pessoa. A UF vem da
      última escolha dela ou da geolocalização de rede (api/uf, servida pelo Worker do site; sem permissão
      e sem guardar nada). Sem resposta, começa pelo ES, origem do projeto. */
-  async function ufDoVisitante() {
-    const lembrada = lerLocal("lt.ufInicial");
-    if (UFS_BR.includes(lembrada)) return lembrada;
+  async function detectarUf(limiteMs) {
     try {
       const ctrl = new AbortController();
-      const t = setTimeout(() => ctrl.abort(), 2500);
+      const t = setTimeout(() => ctrl.abort(), limiteMs);
       const r = await fetch("api/uf", { signal: ctrl.signal, cache: "no-store" });
       clearTimeout(t);
       const d = await r.json();
       if (UFS_BR.includes(d.uf)) return d.uf;
-    } catch (e) { /* fora da Cloudflare ou sem rede */ }
-    return "ES";
+    } catch (e) { /* fora da Cloudflare, sem rede ou estourou o tempo */ }
+    return null;
   }
+  async function ufDoVisitante() {
+    const lembrada = lerLocal("lt.ufInicial");
+    if (UFS_BR.includes(lembrada)) return lembrada;
+    return (await detectarUf(2500)) || "ES";
+  }
+  /* EXP-2026-03 — chip "Mostrando ES · ver Brasil" quando a UF inicial veio de api/uf ou da escolha
+     salva (não da URL). "Ver Brasil" remove o filtro e fica salvo (lt.verBrasil); escolha manual de UF
+     desfaz o salvo. URL com ?uf= e escolhas manuais sempre têm precedência sobre a detecção. */
+  function mostrarChipUf(uf) {
+    const el = $("chip-uf");
+    if (!el) return;
+    el.innerHTML = `Mostrando ${escapar(uf)} · <a href="#" id="chip-uf-brasil" title="Remover o filtro de estado">ver Brasil</a>`;
+    el.classList.remove("hidden");
+    $("chip-uf-brasil").addEventListener("click", e => {
+      e.preventDefault();
+      gravarLocal("lt.verBrasil", "1");
+      ocultarChipUf();
+      for (const o of $("f-uf").options) o.selected = false;
+      atualizarCidadesBairros();
+      aplicarFiltros();
+    });
+  }
+  function ocultarChipUf() { const el = $("chip-uf"); if (el) el.classList.add("hidden"); }
   function boasVindas(ufInicial) {
     const painel = $("boas-vindas");
     if (!painel || location.search || lerLocal("lt.boasvindas")) return;
@@ -725,12 +789,15 @@
       await garantirUfs(); montarOpcoes();
       for (const o of $("f-cidade").options) o.selected = !!cidade && o.value === cidade;
       atualizarCidadesBairros(); aplicarFiltros(); fechar();
-      if (uf) gravarLocal("lt.ufInicial", uf);
+      if (uf) { gravarLocal("lt.ufInicial", uf); try { localStorage.removeItem("lt.verBrasil"); } catch (err) { /* sem storage */ } }
+      ocultarChipUf();
     });
     $("bv-todos").addEventListener("click", async () => {
       for (const o of $("f-uf").options) o.selected = false;
       $("bv-todos").disabled = true; $("bv-todos").textContent = "carregando o Brasil…";
       await carregarUfs(ufs); montarOpcoes(); aplicarFiltros(); fechar();
+      gravarLocal("lt.verBrasil", "1");
+      ocultarChipUf();
     });
     $("bv-fechar").addEventListener("click", fechar);
     painel.classList.remove("hidden");
@@ -748,11 +815,20 @@
     let ufsUrl = q.uf ? q.uf.split(",") : null;
     let ufInicial = null;
     if (!ufsUrl && CELULAR) { ufInicial = await ufDoVisitante(); ufsUrl = [ufInicial]; }
-    const [base, historico, status] = await Promise.all([
+    /* EXP-2026-03 — desktop: a detecção corre em paralelo com a carga dos dados (sem atrasar a tabela);
+       escolha salva (UF ou "ver Brasil") tem precedência e dispensa a chamada. */
+    let pUfDesktop = null;
+    const ufSalva = lerLocal("lt.ufInicial");
+    if (!ufsUrl && !CELULAR && !lerLocal("lt.verBrasil")) {
+      pUfDesktop = UFS_BR.includes(ufSalva) ? Promise.resolve(ufSalva) : detectarUf(1500);
+    }
+    const [base, historico, status, custoRel] = await Promise.all([
       carregarImoveis(ufsUrl),
       carregarJson("historico.json").catch(() => ({ eventos: [] })),
       carregarJson("status_fontes.json").catch(() => ({})),
+      carregarJson("custo_relatorios.json").catch(() => ({ relatorios: [] })),
     ]);
+    estado.analisesProntas = new Set(((custoRel || {}).relatorios || []).map(x => x.id).filter(Boolean));
     estado.meta = base.meta; estado.todos = base.imoveis; estado.historico = historico; estado.status = status;
     estado.dividido = !!base.meta.dividido_por_uf;
     for (const a of base.carregados) { const m = a.match(/^imoveis_(\w+)\.json$/); if (m) estado.ufsCarregadas.add(m[1]); }
@@ -772,13 +848,34 @@
       for (const o of $("f-uf").options) o.selected = o.value === ufInicial;
       atualizarCidadesBairros();
     }
+    if (pUfDesktop) {
+      const uf = await pUfDesktop;
+      if (uf) {
+        // só vira filtro inicial se a UF tem massa mínima; senão, Brasil inteiro (comportamento atual)
+        const ativosUf = estado.todos.filter(r => r.uf === uf && r.ativo !== false && !encerrado(r)).length;
+        if (ativosUf >= MIN_IMOVEIS_UF_AUTO) {
+          for (const o of $("f-uf").options) o.selected = o.value === uf;
+          atualizarCidadesBairros();
+          ufInicial = uf;
+          mostrarChipUf(uf);
+        }
+      }
+    }
     lerUrlParaFiltros();
     montarMenuColunas();
     boasVindas(ufInicial || (lerLocal("lt.ufInicial") || ""));
 
     $("filtros").addEventListener("submit", e => e.preventDefault());
     $("filtros").addEventListener("change", async e => {
-      if (e.target.id === "f-uf") { await garantirUfs(); montarOpcoes(); const sel = valoresSel("f-uf"); if (sel.length === 1) gravarLocal("lt.ufInicial", sel[0]); }
+      if (e.target.id === "f-uf") {
+        await garantirUfs(); montarOpcoes();
+        const sel = valoresSel("f-uf");
+        if (sel.length === 1) gravarLocal("lt.ufInicial", sel[0]);
+        // escolha manual de UF desfaz o "ver Brasil" salvo; limpar a UF com o chip da detecção ativo = "ver Brasil"
+        if (sel.length) { try { localStorage.removeItem("lt.verBrasil"); } catch (err) { /* sem storage */ } }
+        else if ($("chip-uf") && !$("chip-uf").classList.contains("hidden")) gravarLocal("lt.verBrasil", "1");
+        ocultarChipUf();
+      }
       if (e.target.id === "f-cidade") atualizarCidadesBairros();
       if (e.target.id === "f-inativos") montarOpcoes();  // as contagens seguem a mesma regra da tabela
       if (e.target.tagName === "SELECT" || e.target.type === "checkbox" || e.target.type === "number") aplicarFiltros();
@@ -797,6 +894,22 @@
     document.addEventListener("change", aoSelecionar);
     document.addEventListener("click", fecharMenus);
     document.addEventListener("keydown", e => { if (e.key === "Escape") { fecharMenus(); $("painel-comparar").classList.add("hidden"); } });
+    /* EXP-2026-03 — evento Umami `linha-ia` no clique em "IA ✦": posição em faixas, documento, análise
+       pronta e a ordenação ativa. Nada de id de imóvel, UF ou dado pessoal. Em localhost o Umami não
+       envia (regra do common.js); o payload vai só ao console para conferência. */
+    $("corpo").addEventListener("click", e => {
+      const a = e.target.closest("a.btn-ia");
+      if (!a) return;
+      const pos = Number(a.dataset.pos) || 0;
+      const dados = {
+        posicao: pos < 1 ? "21+" : pos <= 5 ? "1-5" : pos <= 20 ? "6-20" : "21+",
+        doc: a.dataset.doc || "nao",
+        pronta: a.dataset.pronta || "nao",
+        ordem: (estado.ordem.desc ? "-" : "") + estado.ordem.coluna,
+      };
+      if (location.hostname === "localhost" || location.hostname === "127.0.0.1") console.log("[umami linha-ia]", dados);
+      LT.evento("linha-ia", dados);
+    });
     // linha inteira abre a ficha (exceto cliques em links, checkbox e seleção de texto)
     $("corpo").addEventListener("click", e => {
       if (e.target.closest("a, input, button") || window.getSelection().toString()) return;
