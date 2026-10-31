@@ -16,11 +16,14 @@
     history.replaceState(null, "", "conta.html");
     if (!r.ok) {
       el.innerHTML = `<h2>Minha conta</h2><p class="aviso">${escapar(r.dados.erro || "link inválido")}</p><div id="login"></div>`;
-      LT.formularioLogin(document.getElementById("login"), { titulo: "Peça um novo link:" });
+      LT.formularioLogin(document.getElementById("login"), { titulo: "Peça um novo link:", cupom: true });
       return;
     }
     LT.guardarSessao(r.dados.sessao, r.dados.email);
-    LT.evento(r.dados.nova_conta ? "conta-nova" : "login-ok");
+    // conta-nova leva o cupom aplicado (código do parceiro, nunca e-mail); cupom usado sai do localStorage
+    if (r.dados.nova_conta) LT.evento("conta-nova", r.dados.cupom ? { cupom: r.dados.cupom } : undefined);
+    else LT.evento("login-ok");
+    LT.limparCupom();
     const voltar = LT.lerVoltar();
     if (voltar && voltar.startsWith(location.origin) && !/conta\.html/.test(voltar)) { location.href = voltar; return; }
     await mostrarConta();
@@ -165,7 +168,7 @@
           <li><b>Tabela, mapa e filtros continuam gratuitos</b><span>A conta só é necessária para as análises.</span></li>
         </ul>
       </div>`;
-    LT.formularioLogin(document.getElementById("login"), { voltarPara: location.origin + location.pathname });
+    LT.formularioLogin(document.getElementById("login"), { voltarPara: location.origin + location.pathname, cupom: true });
   }
 
   if (!LT.urlWorker()) { el.innerHTML = '<h2>Minha conta</h2><p class="muted">Contas indisponíveis nesta instalação.</p>'; return; }

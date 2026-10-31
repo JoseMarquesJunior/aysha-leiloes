@@ -7,16 +7,20 @@ CREATE TABLE IF NOT EXISTS usuarios (
   criado_em TEXT NOT NULL,
   ultimo_login TEXT,
   creditos INTEGER NOT NULL DEFAULT 1,     -- conta nova nasce com 1 crédito (primeira análise grátis)
-  gratis_usado INTEGER NOT NULL DEFAULT 1  -- legado: hoje a "análise grátis" é o crédito inicial
+  gratis_usado INTEGER NOT NULL DEFAULT 1, -- legado: hoje a "análise grátis" é o crédito inicial
+  cupom TEXT                               -- cupom de parceiro aplicado na criação (no máximo um; NULL = sem cupom)
 );
+CREATE INDEX IF NOT EXISTS idx_usuarios_cupom ON usuarios(cupom);
 
 -- links de login (válidos por 20 minutos, uso único)
 CREATE TABLE IF NOT EXISTS links_login (
   token TEXT PRIMARY KEY,
   email TEXT NOT NULL,
   expira_em TEXT NOT NULL,
-  usado INTEGER NOT NULL DEFAULT 0
+  usado INTEGER NOT NULL DEFAULT 0,
+  cupom TEXT  -- cupom de parceiro informado no pedido do link; aplicado só se a conta for criada
 );
+-- banco já existente: aplicar worker/migrations/2026-10-31-cupom-parceiro.sql (os CREATE IF NOT EXISTS acima não alteram tabela existente)
 
 -- sessões (token portador guardado no navegador; 90 dias)
 CREATE TABLE IF NOT EXISTS sessoes (

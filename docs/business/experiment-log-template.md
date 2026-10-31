@@ -76,3 +76,31 @@ Registrar a decisão também em decision-log.md.
 
 **Decisão final**: a preencher em D13–14.
 Registrar a decisão também em decision-log.md.
+
+### EXP-2026-02 — Cupom de parceiro: criadores de conteúdo do nicho (3 parceiros, 30 dias)
+
+- **Status**: proposto (aguardando aprovação do mantenedor: migração do D1, deploy do Worker e do site, e os 3 códigos reais de cupom)
+- **Responsável (agente)**: sessão principal (implementação); leitura pela seção "Cupons de parceiro" do admin
+- **Data de início / fim previsto**: a definir no deploy / 30 dias após o 1º post do 1º parceiro
+- **Pontuação de priorização**: I=3 C=2 V=4 E=4 R=5 → **3,20 / 5** (fórmula no README)
+
+**Hipótese** (falseável, com número): "Acreditamos que tráfego de criador de nicho (leilão de imóveis, ES/MG, 5–50 mil seguidores) gera contas e ≥ 1 compra paga em 30 dias, porque a audiência já tem a intenção de arrematar e o cupom dá 2 análises extras grátis para experimentar o parecer. Saberemos que é verdade se houver ≥ 1 `compra-paga` atribuída a cupom (conta com cupom e `pedidos.status='pago'`) em 30 dias."
+
+- **Segmento**: audiência de criadores de conteúdo do nicho de leilão de imóveis (ES/MG, 5–50 mil seguidores); o parceiro é identificado só pelo slug do canal/perfil, nunca por nome de pessoa física.
+- **Oferta**: para a audiência, cupom com 2 créditos extras na criação da conta (3 análises grátis no total, só em conta nova; teto de 30 contas por cupom, em código); para o parceiro, 20 créditos de cortesia (ajuste manual no admin). Preços e pacotes não mudam.
+- **Canal**: conteúdo do parceiro com link `?cupom=CODIGO` (captura em qualquer página; campo opcional no login de conta.html). Atribuição: `usuarios.cupom` no D1 + evento `conta-nova {cupom}` no Umami + seção "Cupons" do admin.
+- **Custo máximo**: por parceiro, 20 créditos de cortesia ≈ R$ 35 (20 × US$ 0,35 × R$ 5,00, câmbio fixo do ciclo) + até 3 análises grátis por conta ≈ R$ 5,25 (3 × US$ 0,35 × R$ 5,00); pior caso com teto de 30 contas/cupom e 3 parceiros ≈ R$ 420 de IA das contas + R$ 105 dos parceiros (se tudo for consumido). **Critério de parada por gasto: observado > R$ 450.**
+- **Prazo**: 30 dias.
+- **Métrica principal**: `compra-paga` por cupom (contas com cupom e ≥ 1 pedido pago), em números absolutos.
+- **Métricas secundárias**: contas com cupom; análises grátis consumidas por cupom — tudo absoluto, sem porcentagem (regra 4 de metrics.md).
+- **Métrica de proteção**: checkout (`compra-paga`/`compra-iniciada`) e reclamações na audiência do parceiro.
+- **Critério de sucesso**: ≥ 1 compra paga atribuída a cupom em 30 dias; ≥ 3 compras num mesmo parceiro → avaliar formalizar a parceria.
+- **Critério de interrupção**: 30 dias corridos, ou gasto observado > R$ 450, ou risco de reputação/regra de plataforma.
+
+**Resultado observado** (preencher ao final, só com dados medidos):
+- Métrica principal: ___ (fonte: admin "Cupons" + Mercado Pago)
+- Métrica de proteção: ___
+- Custo real: R$ ___
+- O que aconteceu de inesperado: ___
+
+**Decisão final**: 0 compras pagas em 3 parceiros → canal "criador" sai da fila; ≥ 3 compras num parceiro → avaliar formalizar. Registrar também em decision-log.md.

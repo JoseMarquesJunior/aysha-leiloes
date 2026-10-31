@@ -5,13 +5,13 @@
  * créditos no Mercado Pago com confirmação por webhook e recibo por e-mail.
  *
  * Rotas (JSON; CORS restrito às ORIGENS):
- *   POST /auth/pedir        {email}            -> envia o link de login por e-mail
+ *   POST /auth/pedir        {email, cupom?}    -> envia o link de login por e-mail (cupom de parceiro opcional)
  *   POST /auth/entrar       {token}            -> troca o token do link por um token de sessão
  *   POST /auth/sair                            -> encerra a sessão
  *   POST /auth/sair_todos                      -> encerra todas as sessões do usuário
  *   POST /conta/apagar                         -> apaga a conta (LGPD)
  *   POST /interno/alerta    {assunto, texto}   -> o robô avisa o mantenedor por e-mail (header X-Interno)
- *   GET  /admin/resumo|usuarios|pedidos|relatorios, POST /admin/creditos -> só para ADMIN_EMAILS (sessão normal)
+ *   GET  /admin/resumo|usuarios|pedidos|relatorios|cupons, POST /admin/creditos -> só para ADMIN_EMAILS (sessão normal)
  *   GET  /agenda | POST /agenda {id, uf, titulo, datas, hora, lembretes} | POST /agenda/remover {id}
  *   GET  /alertas | POST /alertas {uf, cidade, tipo, desconto_min, valor_max} | POST /alertas/remover {id}
  *   GET  /alertas/descadastrar?chave=...        -> remove o alerta pelo link do e-mail (sem login)
@@ -48,6 +48,31 @@ function emailDescartavel(email) {
   const dominio = email.split("@")[1] || "";
   if (DOMINIOS_DESCARTAVEIS.has(dominio)) return true;
   return [...DOMINIOS_DESCARTAVEIS].some(d => dominio.endsWith("." + d));
+}
+
+// ---------------------------------------------------------------- cupons de parceiro --
+/* Experimento "cupom de parceiro" (EXP-2026-02): lista FIXA em código — trocar os placeholders pelos
+   códigos reais exige novo deploy (aprovação do mantenedor). `parceiro` é o slug do canal/perfil do
+   criador de conteúdo, nunca nome de pessoa física. Conta NOVA criada com cupom válido ganha
+   `creditos_extra` além do 1 crédito grátis padrão; cupom inválido, vencido ou com `max_contas`
+   atingido nunca bloqueia o cadastro (a conta nasce normal, com cupom null). */
+const CUPONS = [
+  { codigo: "PARCEIRO1", parceiro: "parceiro1", creditos_extra: 2, valido_ate: "2026-11-30", max_contas: 30 },
+  { codigo: "PARCEIRO2", parceiro: "parceiro2", creditos_extra: 2, valido_ate: "2026-11-30", max_contas: 30 },
+  { codigo: "PARCEIRO3", parceiro: "parceiro3", creditos_extra: 2, valido_ate: "2026-11-30", max_contas: 30 },
+];
+const CUPOM_OK = /^[A-Z0-9][A-Z0-9_-]{1,19}$/;
+function normalizarCupom(codigo) {
+  const c = String(codigo || "").trim().toUpperCase();
+  return CUPOM_OK.test(c) ? c : null;
+}
+/* Cupom aplicável na data `hoje` (existe na lista e não venceu); o teto de contas é conferido
+   na própria gravação da conta (INSERT condicional, atômico no SQLite). */
+function cupomParaAplicar(codigo, hoje) {
+  const c = normalizarCupom(codigo);
+  if (!c) return null;
+  const cupom = CUPONS.find(x => x.codigo === c);
+  return cupom && hoje <= cupom.valido_ate ? cupom : null;
 }
 
 // ---------------------------------------------------------------- utilidades ----------
@@ -166,7 +191,7 @@ async function usuarioDaSessao(request, env) {
 }
 
 async function pedirLogin(request, env, h) {
-  const { email } = await corpo(request);
+  const { email, cupom } = await corpo(request);
   const e = String(email || "").trim().toLowerCase();
   if (!EMAIL_OK.test(e) || e.length > 120) return json({ erro: "e-mail inválido" }, 400, h);
   if (emailDescartavel(e)) return json({ erro: "e-mails temporários não são aceitos; use um e-mail permanente" }, 400, h);
@@ -174,7 +199,8 @@ async function pedirLogin(request, env, h) {
   if ((await contar(env, `login:${await hashIp(ip)}:${new Date().toISOString().slice(0, 13)}`, 3600)) > 10)
     return json({ erro: "muitos pedidos de login; tente mais tarde" }, 429, h);
   const t = token(24);
-  await env.DB.prepare("INSERT INTO links_login (token, email, expira_em) VALUES (?, ?, ?)").bind(t, e, maisMinutos(20)).run();
+  // o cupom de parceiro viaja com o token e só é aplicado se a conta for criada neste login
+  await env.DB.prepare("INSERT INTO links_login (token, email, expira_em, cupom) VALUES (?, ?, ?, ?)").bind(t, e, maisMinutos(20), normalizarCupom(cupom)).run();
   // o token vai no fragmento (#): não é enviado ao servidor do site nem fica em logs de acesso
   const link = `${env.SITE.replace(/\/$/, "")}/conta.html#token=${t}`;
   const site = env.SITE.replace(/\/$/, "");
@@ -194,15 +220,30 @@ async function pedirLogin(request, env, h) {
 async function entrar(request, env, h) {
   const { token: t } = await corpo(request);
   if (!/^[0-9a-f]{48}$/.test(String(t || ""))) return json({ erro: "link inválido" }, 400, h);
-  const l = await env.DB.prepare("SELECT email, expira_em, usado FROM links_login WHERE token = ?").bind(t).first();
+  const l = await env.DB.prepare("SELECT email, expira_em, usado, cupom FROM links_login WHERE token = ?").bind(t).first();
   if (!l || l.usado || l.expira_em < agora()) return json({ erro: "link expirado ou já usado; peça um novo" }, 400, h);
   await env.DB.prepare("UPDATE links_login SET usado = 1 WHERE token = ?").bind(t).run();
   let u = await env.DB.prepare("SELECT id FROM usuarios WHERE email = ?").bind(l.email).first();
-  let nova = false;
+  let nova = false, cupomAplicado = null;
   if (!u) {
-    // conta nova já nasce com 1 crédito: é a primeira análise grátis
-    await env.DB.prepare("INSERT INTO usuarios (email, criado_em, ultimo_login, creditos, gratis_usado) VALUES (?, ?, ?, 1, 1)").bind(l.email, agora(), agora()).run();
+    // conta nova já nasce com 1 crédito: é a primeira análise grátis.
+    // Cupom de parceiro: créditos extras SÓ em conta nova; o teto de contas do cupom é conferido dentro
+    // do próprio INSERT (um comando, atômico no SQLite), então não estoura nem com cadastros simultâneos.
+    const cupom = cupomParaAplicar(l.cupom, hojeBrasilia());
+    if (cupom) {
+      const res = await env.DB.prepare(
+        `INSERT INTO usuarios (email, criado_em, ultimo_login, creditos, gratis_usado, cupom)
+         SELECT ?, ?, ?, ?, 1, ? WHERE (SELECT COUNT(*) FROM usuarios WHERE cupom = ?) < ?`)
+        .bind(l.email, agora(), agora(), 1 + cupom.creditos_extra, cupom.codigo, cupom.codigo, cupom.max_contas).run();
+      if (res.meta && res.meta.changes > 0) cupomAplicado = cupom;
+    }
+    if (!cupomAplicado) await env.DB.prepare("INSERT INTO usuarios (email, criado_em, ultimo_login, creditos, gratis_usado) VALUES (?, ?, ?, 1, 1)").bind(l.email, agora(), agora()).run();
     u = await env.DB.prepare("SELECT id FROM usuarios WHERE email = ?").bind(l.email).first();
+    // a origem dos créditos extras entra no mesmo registro dos ajustes manuais (pedidos com status
+    // 'cortesia', como em adminCreditos): nunca conta como compra paga e fica visível no histórico
+    if (cupomAplicado) await env.DB.prepare(
+      "INSERT INTO pedidos (id, usuario_id, pacote, creditos, valor_centavos, status, criado_em, pago_em) VALUES (?, ?, ?, ?, 0, 'cortesia', ?, ?)")
+      .bind(crypto.randomUUID(), u.id, `cupom: ${cupomAplicado.codigo}`, cupomAplicado.creditos_extra, agora(), agora()).run();
     nova = true;
   } else {
     await env.DB.prepare("UPDATE usuarios SET ultimo_login = ? WHERE id = ?").bind(agora(), u.id).run();
@@ -210,7 +251,7 @@ async function entrar(request, env, h) {
   const s = token(32);
   await env.DB.prepare("INSERT INTO sessoes (token, usuario_id, criado_em, expira_em) VALUES (?, ?, ?, ?)")
     .bind(s, u.id, agora(), new Date(Date.now() + SESSAO_DIAS_INATIVIDADE * 86400000).toISOString()).run();
-  return json({ sessao: s, email: l.email, nova_conta: nova }, 200, h);
+  return json({ sessao: s, email: l.email, nova_conta: nova, cupom: cupomAplicado ? cupomAplicado.codigo : null }, 200, h);
 }
 
 async function sair(request, env, h) {
@@ -696,6 +737,43 @@ async function adminCreditos(request, admin, env, h) {
   return json({ ok: true, creditos: novo.creditos }, 200, h);
 }
 
+/* Agregados por cupom de parceiro (EXP-2026-02), em números absolutos — sem porcentagem (regra 4 de
+   qualidade do dado: amostra pequena). "Análise grátis consumida" = análises liberadas cobertas pelos
+   créditos concedidos na criação da conta (1 padrão + extras do cupom); acima disso é análise paga.
+   Contas de ADMIN_EMAILS e EMAILS_TESTE ficam fora, como em /interno/metricas. A linha "sem cupom"
+   permite comparar com o orgânico. */
+async function adminCupons(env, h) {
+  const excluidos = `${env.ADMIN_EMAILS || ""},${env.EMAILS_TESTE || ""}`.split(",").map(s => s.trim().toLowerCase()).filter(Boolean);
+  const marcas = excluidos.length ? excluidos.map(() => "?").join(", ") : "''";
+  const rows = (await env.DB.prepare(
+    `SELECT u.cupom, u.criado_em,
+            (SELECT COUNT(*) FROM acessos a WHERE a.usuario_id = u.id) analises,
+            (SELECT COUNT(*) FROM pedidos p WHERE p.usuario_id = u.id AND p.status = 'pago') compras,
+            (SELECT COALESCE(SUM(p.valor_centavos), 0) FROM pedidos p WHERE p.usuario_id = u.id AND p.status = 'pago') receita
+     FROM usuarios u WHERE LOWER(u.email) NOT IN (${marcas})`).bind(...excluidos).all()).results;
+  const vazio = () => ({ contas: 0, contas_com_gratis: 0, gratis_consumidas: 0, compras_pagas: 0, receita_centavos: 0, ultima_conta: null });
+  const porCupom = new Map(CUPONS.map(c => [c.codigo, vazio()]));
+  const semCupom = vazio();
+  for (const r of rows) {
+    if (r.cupom && !porCupom.has(r.cupom)) porCupom.set(r.cupom, vazio());  // cupom que saiu da lista
+    const alvo = r.cupom ? porCupom.get(r.cupom) : semCupom;
+    const cfg = r.cupom ? CUPONS.find(c => c.codigo === r.cupom) : null;
+    const concedidos = 1 + (cfg ? cfg.creditos_extra : 0);
+    alvo.contas++;
+    if (r.analises > 0) alvo.contas_com_gratis++;
+    alvo.gratis_consumidas += Math.min(r.analises, concedidos);
+    alvo.compras_pagas += r.compras;
+    alvo.receita_centavos += r.receita;
+    if (!alvo.ultima_conta || r.criado_em > alvo.ultima_conta) alvo.ultima_conta = r.criado_em;
+  }
+  const cupons = [...porCupom].map(([codigo, dados]) => {
+    const cfg = CUPONS.find(c => c.codigo === codigo);
+    return { codigo, parceiro: cfg ? cfg.parceiro : null, valido_ate: cfg ? cfg.valido_ate : null,
+             max_contas: cfg ? cfg.max_contas : null, creditos_extra: cfg ? cfg.creditos_extra : null, ...dados };
+  });
+  return json({ cupons, sem_cupom: semCupom }, 200, h);
+}
+
 // ---------------------------------------------------------------- métricas internas ---
 /* GET /interno/metricas?desde=ISO&ate=ISO (header X-Interno): os agregados que a leitura L0/L1 do
    baseline pede (docs/business/baseline-ciclo-01.md, seção 2), consumidos por scripts/coleta_metricas.py.
@@ -936,6 +1014,7 @@ export default {
         if (m === "GET" && rota === "/admin/usuarios") return adminUsuarios(url, env, h);
         if (m === "GET" && rota === "/admin/pedidos") return adminPedidos(env, h);
         if (m === "GET" && rota === "/admin/relatorios") return adminRelatorios(env, h);
+        if (m === "GET" && rota === "/admin/cupons") return adminCupons(env, h);
         if (m === "POST" && rota === "/admin/creditos") return adminCreditos(request, usuario, env, h);
       }
       if (m === "GET" && rota.startsWith("/pagamento/estado/")) return estadoPedido(usuario, rota.slice(18), env, h);
@@ -945,3 +1024,6 @@ export default {
     }
   },
 };
+
+// exportados só para os testes (worker/index.test.mjs)
+export { cupomParaAplicar as _cupomParaAplicar, CUPONS as _CUPONS };

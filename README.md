@@ -346,6 +346,23 @@ cache do bloco de documentos, 3 buscas e esforço médio: **US$ 0,45 a 0,73 por 
 com o Haiku soma menos de US$ 0,01). Com créditos a R$ 14,90 (1) / R$ 59 (5) / R$ 199 (20), a margem cobre
 o modelo, a taxa do Mercado Pago (~1 % Pix, ~5 % cartão) e as análises grátis.
 
+### Cupom de parceiro
+
+Experimento de aquisição (EXP-2026-02 em `docs/business/`): um criador de conteúdo do nicho divulga um
+link com `?cupom=CODIGO`. Em qualquer página, o código fica 30 dias no navegador (`aysha_cupom`), sai da
+URL sem recarregar, aparece pré-preenchido no campo opcional "Cupom" do login em `conta.html` e vai junto
+do pedido de link mágico; o Worker guarda o cupom com o token e, **só na criação da conta**, credita os
+extras além do 1 crédito grátis padrão. A lista de cupons é fixa em código (`CUPONS` em
+`worker/src/index.js`: código, slug do parceiro — nunca nome de pessoa física —, validade e teto de
+contas; o teto é conferido dentro do próprio INSERT, atômico, então vale mesmo com cadastros
+simultâneos). Cupom inválido, vencido ou esgotado não bloqueia nada: a conta nasce normal, com 1 crédito
+e cupom nulo. Os créditos extras ficam registrados como pedido `cortesia` (`cupom: CODIGO`), o mesmo
+mecanismo dos ajustes manuais — nunca contam como compra paga. O evento `conta-nova` leva `{cupom}` no
+Umami, e `admin.html` mostra, por cupom e na linha "sem cupom" (orgânico): contas, contas com ≥ 1 análise
+grátis, análises grátis consumidas, compras pagas, receita bruta e a última conta, em números absolutos.
+Colunas novas no D1 (`usuarios.cupom`, `links_login.cupom`):
+`worker/migrations/2026-10-31-cupom-parceiro.sql`. Testes: `node --test worker/index.test.mjs`.
+
 ## Secrets e GitHub Actions
 
 - O workflow `coletar.yml` roda às 09:00 UTC (06:00 em Brasília) e por disparo manual

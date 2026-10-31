@@ -42,6 +42,9 @@
         <span id="c-msg" class="muted"></span>
       </form>
       <h2>Compras</h2><div id="lista-pedidos"><p class="muted">carregando…</p></div>
+      <h2>Cupons de parceiro</h2>
+      <p class="muted">Contas e vendas atribuídas a cada cupom, em números absolutos (contas de teste do mantenedor excluídas). A linha “sem cupom” é o orgânico, para comparação.</p>
+      <div id="lista-cupons"><p class="muted">carregando…</p></div>
       <h2>Relatórios</h2><div id="lista-relatorios"><p class="muted">carregando…</p></div>
       <h2>Fontes e estado da última coleta</h2>
       <div id="fontes"><p class="muted">carregando…</p></div>
@@ -60,7 +63,7 @@
       msg.textContent = x.ok ? `ok: saldo agora ${x.dados.creditos}` : "falhou: " + (x.dados.erro || "?");
       if (x.ok) { carregarUsuarios(document.getElementById("q").value.trim()); carregarPedidos(); }
     });
-    carregarUsuarios(""); carregarPedidos(); carregarRelatorios(); carregarColeta();
+    carregarUsuarios(""); carregarPedidos(); carregarCupons(); carregarRelatorios(); carregarColeta();
   }
 
   /* Dados públicos da coleta (status_fontes.json, editais.json, meta.json), antes mostrados na página Sobre. */
@@ -112,6 +115,17 @@
     alvo.innerHTML = tabela(["Data", "E-mail", "Pacote", "Créditos", "Valor", "Situação", "Pago em", "Mercado Pago"],
       r.dados.pedidos.map(p => `<tr><td>${dataHora(p.criado_em)}</td><td>${escapar(p.email || "(conta apagada)")}</td><td>${escapar(p.pacote)}</td><td class="num">${p.creditos}</td><td class="num">${reais(p.valor_centavos)}</td><td>${STATUS[p.status] || escapar(p.status)}</td><td>${p.pago_em ? dataHora(p.pago_em) : "—"}</td><td>${escapar(p.mp_payment_id || "—")}</td></tr>`));
   }
+  /* Cupons de parceiro (EXP-2026-02): contagens absolutas por cupom + linha "sem cupom" (orgânico). */
+  async function carregarCupons() {
+    const r = await LT.api("/admin/cupons").catch(() => ({ ok: false, dados: {} }));
+    const alvo = document.getElementById("lista-cupons");
+    if (!r.ok) { alvo.innerHTML = '<p class="muted">Não foi possível listar.</p>'; return; }
+    const linha = (rotulo, detalhe, c) => `<tr><td>${rotulo}</td><td>${detalhe}</td><td class="num">${c.contas}</td><td class="num">${c.contas_com_gratis}</td><td class="num">${c.gratis_consumidas}</td><td class="num">${c.compras_pagas}</td><td class="num">${reais(c.receita_centavos)}</td><td>${c.ultima_conta ? dataHora(c.ultima_conta) : "—"}</td></tr>`;
+    alvo.innerHTML = tabela(["Cupom", "Parceiro · validade · teto", "Contas", "Contas c/ ≥1 grátis", "Grátis consumidas", "Compras pagas", "Receita bruta", "Última conta"],
+      (r.dados.cupons || []).map(c => linha(escapar(c.codigo), `${escapar(c.parceiro || "—")} · até ${data(c.valido_ate)} · máx. ${c.max_contas ?? "—"} contas`, c))
+        .concat([linha("<i>sem cupom</i>", "orgânico", r.dados.sem_cupom || { contas: 0, contas_com_gratis: 0, gratis_consumidas: 0, compras_pagas: 0, receita_centavos: 0, ultima_conta: null })]));
+  }
+
   async function carregarRelatorios() {
     const r = await LT.api("/admin/relatorios").catch(() => ({ ok: false, dados: {} }));
     const alvo = document.getElementById("lista-relatorios");

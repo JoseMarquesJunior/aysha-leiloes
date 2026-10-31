@@ -134,6 +134,31 @@
     return o;
   }
 
+  /* Cupom de parceiro (EXP-2026-02): ?cupom=CODIGO em qualquer página fica guardado por 30 dias no
+     localStorage e o parâmetro sai da URL sem recarregar (a query string continua não indo ao Umami).
+     O código só é validado no servidor; conta.html pré-preenche o campo opcional do login com ele. */
+  const CHAVE_CUPOM = "aysha_cupom";
+  const CUPOM_FORMATO = /^[A-Z0-9][A-Z0-9_-]{1,19}$/;
+  (function capturarCupom() {
+    let p;
+    try { p = new URLSearchParams(location.search); } catch (e) { return; }
+    if (!p.has("cupom")) return;
+    const c = (p.get("cupom") || "").trim().toUpperCase();
+    try { if (CUPOM_FORMATO.test(c)) localStorage.setItem(CHAVE_CUPOM, JSON.stringify({ codigo: c, expira: Date.now() + 30 * 86400000 })); } catch (e) { /* sem storage */ }
+    p.delete("cupom");
+    const resto = p.toString();
+    try { history.replaceState(null, "", location.pathname + (resto ? "?" + resto : "") + location.hash); } catch (e) { /* sem history */ }
+  })();
+  function cupomGuardado() {
+    try {
+      const d = JSON.parse(localStorage.getItem(CHAVE_CUPOM) || "null");
+      if (d && d.codigo && d.expira > Date.now() && CUPOM_FORMATO.test(d.codigo)) return d.codigo;
+      if (d) localStorage.removeItem(CHAVE_CUPOM);  // vencido ou malformado
+    } catch (e) { /* sem storage */ }
+    return "";
+  }
+  function limparCupom() { try { localStorage.removeItem(CHAVE_CUPOM); } catch (e) { /* sem storage */ } }
+
   /* Contagem de visitas (Umami), só quando configurada. O rastreio automático fica desligado e a página
      é contada manualmente com o caminho sem a query string (os filtros da busca não saem do navegador);
      a ficha do imóvel conta como /imovel/<id>, o que mostra no painel quais imóveis são mais abertos.
@@ -229,20 +254,21 @@
      por nome no painel (conta-nova, analise-credito, compra-paga...). Sem dados pessoais: só o nome do
      evento e o caminho sem a query string. O script carrega assíncrono; antes disso os eventos esperam. */
   const filaEventos = [];
-  function evento(nome) {
+  /* `dados` (opcional) vai como data do evento no Umami — só valores sem dado pessoal (ex.: {cupom}). */
+  function evento(nome, dados) {
     const cfg = global.LT_CONFIG || {};
     if (!cfg.umami) return;
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
     if (contagemDesligada()) return;
-    filaEventos.push(nome);
+    filaEventos.push({ nome, dados });
     enviarEventos();
   }
   function enviarEventos() {
     const u = global.umami;
     if (!u || typeof u.track !== "function") { if (filaEventos.length) setTimeout(enviarEventos, 1000); return; }
     while (filaEventos.length) {
-      const nome = filaEventos.shift();
-      try { u.track((p) => ({ ...p, url: caminhoContagem(), name: nome })); } catch (e) { /* bloqueador */ }
+      const { nome, dados } = filaEventos.shift();
+      try { u.track((p) => ({ ...p, url: caminhoContagem(), name: nome, ...(dados ? { data: dados } : {}) })); } catch (e) { /* bloqueador */ }
     }
   }
 
@@ -273,6 +299,7 @@
     el.innerHTML = `<form class="login" autocomplete="on">
       ${o.titulo ? `<p>${o.titulo}</p>` : ""}
       <label>Seu e-mail <input type="email" name="email" required placeholder="voce@exemplo.com" value="${escapar(emailSessao())}"></label>
+      ${o.cupom ? `<label>Cupom (opcional) <input type="text" name="cupom" maxlength="20" autocomplete="off" placeholder="cupom de parceiro" value="${escapar(cupomGuardado())}"></label>` : ""}
       <button type="submit" class="btn primario">Receber link de acesso</button>
       <p class="muted" style="font-size:.8rem;margin:6px 0 0">Sem senha: enviamos um link por e-mail que vale 20 minutos. Ao continuar você aceita os <a href="sobre.html#contas">termos de uso</a>.</p>
       <p class="login-msg" aria-live="polite"></p></form>`;
@@ -280,13 +307,17 @@
     form.addEventListener("submit", async ev => {
       ev.preventDefault();
       const email = form.email.value.trim().toLowerCase();
+      // o cupom vai junto do pedido do link: o do campo (conta.html) ou o guardado pelo ?cupom= da URL;
+      // a validação é só no servidor e nunca bloqueia o cadastro
+      const cupom = String(form.cupom ? form.cupom.value : cupomGuardado()).trim().toUpperCase();
       btn.disabled = true; msg.textContent = "Enviando…";
       guardarVoltar(o.voltarPara || location.href);
-      const r = await api("/auth/pedir", { body: { email } }).catch(() => ({ ok: false, dados: { erro: "sem conexão com o serviço" } }));
+      const r = await api("/auth/pedir", { body: cupom ? { email, cupom } : { email } }).catch(() => ({ ok: false, dados: { erro: "sem conexão com o serviço" } }));
       if (r.ok) {
         evento("login-pedido");
         msg.innerHTML = `<b>Link enviado para ${escapar(email)}.</b> Abra o e-mail e clique no link para continuar — ele vale por 20 minutos (confira o spam).`;
-        form.querySelector("label").classList.add("hidden"); btn.classList.add("hidden");
+        for (const lb of form.querySelectorAll("label")) lb.classList.add("hidden");
+        btn.classList.add("hidden");
       } else { btn.disabled = false; msg.textContent = "Não deu certo: " + (r.dados.erro || "tente de novo"); }
     });
   }
@@ -295,5 +326,6 @@
     TRACO, nulo, moeda, numero, pct, area, data, dataHora, simNao, ocupado, texto, cap, escapar, semAcentos,
     diasEntre, hojeIso, nomeFonte, SITES_FONTES, ROTULOS, formatarCampo, carregarJson, carregarImoveis, lerQuery, normalizar, CAMPOS,
     evento, urlWorker, sessao, emailSessao, guardarSessao, limparSessao, guardarVoltar, lerVoltar, api, formularioLogin, markdownParaHtml,
+    cupomGuardado, limparCupom,
   };
 })(window);
