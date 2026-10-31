@@ -32,7 +32,7 @@
 
   const estado = {
     todos: [], filtrados: [], historico: null, meta: null, status: null,
-    ordem: { coluna: "desconto_pct", desc: true },
+    ordem: { coluna: "valor_avaliacao", desc: true },
     modo: localStorage.getItem("lt.modo") || (window.matchMedia("(max-width: 760px)").matches ? "cards" : "tabela"),
     ocultas: new Set(JSON.parse(localStorage.getItem("lt.colunasOcultas") || "null") || COLUNAS.filter(c => c.padraoOculta).map(c => c.id)),
     selecionados: new Set(),
@@ -270,7 +270,7 @@
     for (const k of ["desocupados", "fgts", "financiamento", "debvendedor", "novos", "mudouPreco", "inativos"]) if (f[k]) p.set(k, "1");
     if (f.leilaoProx) p.set("leilao", f.leilaoDias);
     if (f.busca) p.set("q", f.busca);
-    if (estado.ordem.coluna !== "desconto_pct" || !estado.ordem.desc) p.set("ord", (estado.ordem.desc ? "-" : "") + estado.ordem.coluna);
+    if (estado.ordem.coluna !== "valor_avaliacao" || !estado.ordem.desc) p.set("ord", (estado.ordem.desc ? "-" : "") + estado.ordem.coluna);
     if (estado.modo !== "tabela") p.set("modo", estado.modo);
     const qs = p.toString();
     history.replaceState(null, "", qs ? "?" + qs : location.pathname);
