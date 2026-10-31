@@ -183,6 +183,11 @@ table.tabela { border-collapse: separate; border-spacing: 0; width: 100%; font-s
 .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large { background-color: rgba(21, 88, 214, .25); }
 .marker-cluster-small div, .marker-cluster-medium div, .marker-cluster-large div { background-color: rgba(21, 88, 214, .85); }
 .marker-cluster span { color: #fff; font-weight: 600; }
+/* Exemplos de marcador na legenda abaixo do mapa (mesmas cores dos pins desenhados em app.js). */
+.pin-ex { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -2px; box-sizing: border-box; }
+.pin-ex.exato { background: #0b5fff; }
+.pin-ex.aprox { background: #8fb3ff; border: 1.5px dashed #0b5fff; }
+.pin-ex.grupo { width: 18px; height: 18px; background: rgba(21, 88, 214, .85); border: 3px solid rgba(21, 88, 214, .3); color: #fff; font-size: .6rem; font-weight: 600; line-height: 12px; text-align: center; vertical-align: -4px; }
 .dica-mapa { font-size: .8rem; margin: 6px 0 0; }
 .mapa-filtros { background: var(--panel); border: 1px solid var(--border-forte); border-radius: var(--raio); box-shadow: var(--sombra); font: inherit; width: 220px; }
 .mapa-filtros .mf-titulo { display: block; width: 100%; border: 0; background: none; font: inherit; font-weight: 600; font-size: .86rem; padding: 8px 10px; text-align: left; cursor: pointer; }
