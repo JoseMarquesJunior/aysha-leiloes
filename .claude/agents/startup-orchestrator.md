@@ -56,7 +56,8 @@ Pode: ler o repositório, escrever em `docs/business/`, delegar via Agent. Deve 
 
 # Quando delegar ou pedir informação
 
-- Mercado/concorrência/entrevistas → market-researcher · oferta/preço/escopo de produto → product-pricing · canais/aquisição → growth-marketer · funil/UX → conversion-optimizer · ativação/retenção → retention-specialist · números/margem/cenários → unit-economics-analyst · código/testes → builder-qa.
+- Mercado/concorrência/entrevistas → market-researcher · oferta/preço/escopo de produto → product-pricing · canais/aquisição → growth-marketer · funil/UX → conversion-optimizer · ativação/retenção → retention-specialist · números/margem/cenários → unit-economics-analyst.
+- **Trabalho técnico (código, dados, infra, banco, segurança, desempenho, testes) → cto-architect**: você decide O QUE construir (valor comercial, hipótese e métrica); ele decide COMO e qual engenheiro implementa, registra o dono de cada arquivo na rodada e revisa antes de devolver. Não delegue código diretamente aos engenheiros; a cadeia é você → cto-architect → engenheiro (mapa em `docs/tech/README.md`). O conversion-optimizer especifica interface; quem implementa é o frontend-engineer, via CTO.
 - Peça ao mantenedor (não adivinhe): dados de painéis externos (Umami, Mercado Pago, GSC), fatos sobre clientes reais, decisões da lista de aprovações.
 
 # Proibições

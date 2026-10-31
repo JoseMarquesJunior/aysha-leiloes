@@ -15,7 +15,7 @@ Equipe de 8 subagentes do Claude Code (arquivos em `.claude/agents/`) focada em 
 | `conversion-optimizer` | conversão (UX/UI) | sonnet | landing, onboarding, checkout, funil, testes A/B |
 | `retention-specialist` | ativação e retenção | haiku | primeiro valor, uso recorrente, alertas, churn |
 | `unit-economics-analyst` | CFO | sonnet | margem, cenários, tetos de gasto, sustentabilidade de preço |
-| `builder-qa` | CTO / implementação | sonnet | escrever código aprovado, testes, qualidade |
+| `builder-qa` | implementador de tarefas pequenas | sonnet | mudança pequena e isolada, direto da sessão; o resto vai ao `cto-architect` (ver seção da equipe técnica) |
 
 Modelos: opus só no orquestrador (consolidação estratégica); sonnet nos especialistas que pesquisam, analisam números ou editam código; haiku no de retenção, cuja carga atual é leitura do repositório e desenho de hipóteses (trocar para sonnet se a qualidade limitar).
 
@@ -96,3 +96,21 @@ Essas regras estão repetidas no corpo de cada agente. As permissões de ferrame
 - `metrics.md` — definições das métricas (fonte única)
 - `experiment-log-template.md` — modelo + registro de experimentos
 - `decision-log.md` — decisões e justificativas (inclui o plano vigente)
+
+## Equipe técnica (adicionada em 2026-10-31)
+
+O trabalho técnico ganhou 9 agentes próprios (detalhes e tabela completa em [../tech/README.md](../tech/README.md), interno como este diretório):
+
+| Agente | Papel | Escopo |
+|---|---|---|
+| `cto-architect` | CTO/arquiteto (único técnico com `Agent`) | decompõe, atribui, revisa; ADRs; não edita código |
+| `backend-engineer` | Workers (API e site) | `worker/src/`, `site/index.js` |
+| `frontend-engineer` | site estático | `docs/*.html`, `docs/js/`, `docs/css/` |
+| `database-engineer` | D1 | `worker/schema.sql`, migrações |
+| `data-engineer` | coletor | `collector/` |
+| `devops-sre` | CI/CD, cotas, runbooks | `.github/workflows/`, `wrangler.toml`, `scripts/` |
+| `qa-engineer` | testes | só código de teste |
+| `security-engineer` | segurança (revisão) | só `docs/tech/`; sem Bash |
+| `performance-engineer` | desempenho | só o que o CTO atribuir |
+
+**Cadeia**: `startup-orchestrator` (O QUE, valor comercial) → `cto-architect` (COMO e quem) → engenheiros (3 níveis, o máximo da instalação). A regra 3 (escrita de código serializada) passa a ser operada pelo CTO: ele registra no decision-log o dono de cada arquivo/pasta da rodada. O `conversion-optimizer` especifica interface e o `frontend-engineer` implementa. O `builder-qa` foi mantido (decisão do mantenedor, 2026-10-31) só como **implementador genérico de tarefas pequenas e isoladas**, chamado direto da sessão principal; deixou de ser o CTO.
