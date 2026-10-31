@@ -1,0 +1,131 @@
+{
+  "fonte": "Facebook - Painel profissional > Biblioteca de Conteudo > Publicados",
+  "url_fonte": "https://www.facebook.com/professional_dashboard/content/content_library/",
+  "periodo": "Ultimos 28 dias: 3 de out - 31 de out de 2026",
+  "coletado_em": "2026-10-31T11:06:00-03:00",
+  "fuso": "America/Sao_Paulo",
+  "total_posts": 5,
+  "glossario": {
+    "destino": "Pagina ou grupo onde o post foi publicado.",
+    "data": "Data/hora da publicacao em ISO 8601, horario de Sao Paulo.",
+    "visualizacoes": "Numero de vezes que o conteudo foi visto.",
+    "visualizadores": "Pessoas unicas que viram o conteudo.",
+    "engajamento": "Reacoes, comentarios e compartilhamentos somados.",
+    "seguidores_liquidos": "Seguidores ganhos menos perdidos atribuidos ao post.",
+    "impressoes": "Vezes que o post foi entregue na tela de alguem.",
+    "comentarios": "Comentarios no post.",
+    "distribuicao": "Comparacao do alcance com a media da conta (ex.: +0,5x). null = sem dado.",
+    "tempo_visualizacao": "Tempo total assistido (video). null = nao se aplica.",
+    "tempo_medio_visualizacao": "Tempo medio por visualizacao (video). null = nao se aplica.",
+    "visualizacoes_3s": "Visualizacoes de 3 segundos ou mais (video).",
+    "visualizacoes_1min": "Visualizacoes de 1 minuto ou mais (video).",
+    "null": "Metrica exibida como '--' na interface: indisponivel ou nao aplicavel. Nao confundir com zero."
+  },
+  "posts": [
+    {
+      "id": 1,
+      "destino": "VENDA DE IMÓVEIS DE LEILÃO",
+      "data": "2026-10-30T16:14",
+      "data_label": "Ontem às 16:14",
+      "texto": "Montei um site gratuito que junta os leilões de imóveis do Brasil inteiro numa tabela só — Caixa, bancos e leiloeiros, judiciais e extrajudiciais. Só em São Paulo são **3.304 imóveis ativos agora**; dá pra filtrar por cidade, ordenar pelo maior desconto e ver no mapa: [https://ayshaleiloes.com.br](https://ayshaleiloes.com.br/) O vídeo mostra como funciona. A busca e os alertas por e-mail são grátis, sem cadastro pra buscar. E antes de dar lance tem uma **análise por IA** que lê o edital e a matrícula do imóvel, aponta os riscos (ocupação, dívidas, ônus), monta a conta do custo total e pesquisa o preço do m² no bairro pra dizer se o lance compensa — a primeira análise é grátis. Transparência: o site é meu. A análise é de IA: pode errar e não substitui advogado.",
+      "caracteres_texto": 770,
+      "metricas": {
+        "visualizacoes": 6,
+        "visualizadores": 6,
+        "engajamento": 0,
+        "seguidores_liquidos": 0,
+        "impressoes": 7,
+        "comentarios": 0,
+        "distribuicao": "+0,5x",
+        "tempo_visualizacao": "51 s",
+        "tempo_medio_visualizacao": "8 s",
+        "visualizacoes_3s": 1,
+        "visualizacoes_1min": 0
+      }
+    },
+    {
+      "id": 2,
+      "destino": "Leilão de imóveis e automóveis da Caixa",
+      "data": "2026-10-30T16:12",
+      "data_label": "Ontem às 16:12",
+      "texto": "Montei um site gratuito que junta os leilões de imóveis do Brasil inteiro numa tabela só — Caixa, bancos e leiloeiros, judiciais e extrajudiciais. Só em São Paulo são **3.304 imóveis ativos agora**; dá pra filtrar por cidade, ordenar pelo maior desconto e ver no mapa: [https://ayshaleiloes.com.br](https://ayshaleiloes.com.br/) O vídeo mostra como funciona. A busca e os alertas por e-mail são grátis, sem cadastro pra buscar. E antes de dar lance tem uma **análise por IA** que lê o edital e a matrícula do imóvel, aponta os riscos (ocupação, dívidas, ônus), monta a conta do custo total e pesquisa o preço do m² no bairro pra dizer se o lance compensa — a primeira análise é grátis. Transparência: o site é meu. A análise é de IA: pode errar e não substitui advogado.",
+      "caracteres_texto": 770,
+      "metricas": {
+        "visualizacoes": 0,
+        "visualizadores": 0,
+        "engajamento": 0,
+        "seguidores_liquidos": 0,
+        "impressoes": 0,
+        "comentarios": 0,
+        "distribuicao": null,
+        "tempo_visualizacao": "0 s",
+        "tempo_medio_visualizacao": "0 s",
+        "visualizacoes_3s": 0,
+        "visualizacoes_1min": 0
+      }
+    },
+    {
+      "id": 3,
+      "destino": "Leilões Judiciais e Extrajudiciais de Imóveis - São Paulo",
+      "data": "2026-10-30T16:09",
+      "data_label": "Ontem às 16:09",
+      "texto": "Montei um site gratuito que junta os leilões de imóveis do Brasil inteiro numa tabela só — Caixa, bancos e leiloeiros, judiciais e extrajudiciais. Só em São Paulo são **3.304 imóveis ativos agora**; dá pra filtrar por cidade, ordenar pelo maior desconto e ver no mapa: [https://ayshaleiloes.com.br](https://ayshaleiloes.com.br/) O vídeo mostra em 50 segundos como funciona. A busca e os alertas por e-mail são grátis, sem cadastro pra buscar. E antes de dar lance tem uma **análise por IA** que lê o edital e a matrícula do imóvel, aponta os riscos (ocupação, dívidas, ônus), monta a conta do custo total e pesquisa o preço do m² no bairro pra dizer se o lance compensa — a primeira análise é grátis. Transparência: o site é meu. A análise é de IA: pode errar e não substitui advogado.",
+      "caracteres_texto": 785,
+      "metricas": {
+        "visualizacoes": 0,
+        "visualizadores": 0,
+        "engajamento": 0,
+        "seguidores_liquidos": 0,
+        "impressoes": 0,
+        "comentarios": 0,
+        "distribuicao": null,
+        "tempo_visualizacao": "0 s",
+        "tempo_medio_visualizacao": "0 s",
+        "visualizacoes_3s": 0,
+        "visualizacoes_1min": 0
+      }
+    },
+    {
+      "id": 4,
+      "destino": "VENDA DE IMÓVEIS DE LEILÃO",
+      "data": "2026-10-29T17:10",
+      "data_label": "29 de out às 17:10",
+      "texto": "O anúncio diz R$ 312 mil com 40% de desconto. A IA calculou R$ 487 mil. É um apartamento de 3 quartos em Vitória, em leilão judicial. Quando a análise leu o edital e a matrícula, somou comissão, ITBI, registro e reforma, e ainda achou 4 sinais vermelhos: o processo é de outro bloco, a dívida corre em Juizado Especial (um acordo cancela o leilão), há ônus sem detalhar e a vaga de garagem não aparece. Veredito: vale entrar, mas só no lance mínimo e depois de 4 diligências. Você pode pedir essa mesma análise para o imóvel da Caixa que está de olho. A primeira é grátis, só com o e-mail: ayshaleiloes.com.br Parecer completo desse imóvel: ayshaleiloes.com.br/exemplo-analise.html A análise apoia a leitura do edital e não substitui advogado. Não é recomendação de investimento.",
+      "caracteres_texto": 779,
+      "metricas": {
+        "visualizacoes": 22,
+        "visualizadores": 12,
+        "engajamento": 0,
+        "seguidores_liquidos": 0,
+        "impressoes": 12,
+        "comentarios": 0,
+        "distribuicao": null,
+        "tempo_visualizacao": null,
+        "tempo_medio_visualizacao": null,
+        "visualizacoes_3s": 0,
+        "visualizacoes_1min": 0
+      }
+    },
+    {
+      "id": 5,
+      "destino": "Leilão de imóveis e automóveis da Caixa",
+      "data": "2026-10-29T17:08",
+      "data_label": "29 de out às 17:08",
+      "texto": "40% de desconto. Lance mínimo de R$ 312 mil. Parece negócio. Mas quando a IA leu o edital e a matrícula desse apartamento de 3 quartos em Vitória, apareceu o que o anúncio não mostra. Passa as fotos: 📷 2 — A conta real: com comissão, ITBI, registro e reforma, o lance vira R$ 487 mil 📷 3 — 4 sinais vermelhos: o processo é do \"Bloco D\" e o imóvel é do \"Bloco C-6\"; a dívida corre em Juizado Especial e um acordo cancela o leilão; ônus sem detalhar; vaga de garagem não informada 📷 4 — Veredito: entrar, mas só no lance mínimo, com teto de R$ 330 mil e 4 diligências antes Isso é a análise com IA do Aysha Leilões. Ela lê o edital e a matrícula do imóvel que você escolher (Caixa, leiloeiros e Justiça Federal, nos 27 estados) e devolve custos, sinais vermelhos e um veredito em minutos. 👉 A primeira análise é grátis. Crie a conta só com o e-mail: ayshaleiloes.com.br A tabela com os 23 mil imóveis da Caixa, os filtros por desconto e R$/m² e o mapa são gratuitos e não pedem cadastro. Se quiser ver o parecer completo desse imóvel: ayshaleiloes.com.br/exemplo-analise.html A análise apoia a leitura do edital e não substitui advogado nem a sua própria diligência. Não é recomendação de investimento.",
+      "caracteres_texto": 1200,
+      "metricas": {
+        "visualizacoes": 563,
+        "visualizadores": 402,
+        "engajamento": 8,
+        "seguidores_liquidos": 0,
+        "impressoes": 409,
+        "comentarios": 0,
+        "distribuicao": null,
+        "tempo_visualizacao": null,
+        "tempo_medio_visualizacao": null,
+        "visualizacoes_3s": 0,
+        "visualizacoes_1min": 0
+      }
+    }
+  ]
+}

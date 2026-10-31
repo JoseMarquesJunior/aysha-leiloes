@@ -45,7 +45,7 @@ Registrar a decisão também em decision-log.md.
 
 ### EXP-2026-01 — Oferta direta (conteúdo de ajuda + 1ª análise grátis) em 2–3 comunidades do nicho
 
-- **Status**: proposto (aguardando aprovação do mantenedor: teto, comunidades e textos)
+- **Status**: em execução (publicação antecipada pelo mantenedor: 1º post em 2026-10-29; registro dos posts em [leituras/leitura-posts-facebook-2026-10-31-1106.md](leituras/leitura-posts-facebook-2026-10-31-1106.md))
 - **Responsável (agente)**: growth-marketer
 - **Data de início / fim previsto**: 2026-11-02 / 2026-11-09 (D5–D12 do plano; início só após a triagem das comunidades e a aprovação dos textos: se a aprovação atrasar, o início desliza e o fim fica em 8 dias corridos após o 1º post, com leitura final em D13, 2026-11-10; justificativa: o prazo máximo de 14 dias do ciclo e o plano de D13–14 para a decisão)
 - **Pontuação de priorização**: I=3 C=2 V=4 E=4 R=3 → **3,10 / 5** (fórmula no README)
@@ -67,6 +67,12 @@ Registrar a decisão também em decision-log.md.
 - **Métrica de proteção**: (1) denúncias, remoções, advertências de admin ou reclamações de spam; (2) checkout: `compra-paga` / `compra-iniciada` (queda indica problema técnico ou de confiança).
 - **Critério de sucesso**: ≥ 2 clientes pagantes independentes (contas distintas) até 2026-11-09, com exposição ≤ 25 créditos grátis e nenhuma remoção/denúncia grave.
 - **Critério de interrupção**: (1) 15 créditos grátis consumidos com 0 `compra-paga` independente → pausar a publicação em novas comunidades e reavaliar; (2) exposição (consumidos + grátis ainda não usados de contas novas do período) ≥ 25 → parar de divulgar, retomando só com aprovação do mantenedor e ≥ 1 `compra-paga` real; (3) qualquer remoção ou advertência de admin → parar naquela comunidade; (4) custo médio por análise do período > US$ 0,60 ou algum registro > US$ 0,73 → avisar o mantenedor antes de seguir; (5) risco legal ou de reputação identificado → parar.
+
+**Registro de execução** (leitura parcial de 2026-10-31 11:06, detalhes e desvios em [leituras/leitura-posts-facebook-2026-10-31-1106.md](leituras/leitura-posts-facebook-2026-10-31-1106.md)):
+- Início real: 2026-10-29 17:08 (antecipado; pela regra da linha de datas, fim em 2026-11-06, leitura final mantida em D13, 2026-11-10).
+- 5 posts no Facebook em 2 ondas (29/10 ~17:10 e 30/10 ~16:10), 3 grupos: C1 (2 posts), C2 (1) e um grupo fora da triagem, "VENDA DE IMÓVEIS DE LEILÃO" (2). C3 ainda sem post. LinkedIn usado como canal extra, ainda sem registro.
+- Criativos "caso Vitória" e "vídeo demonstração" no lugar do V1/V2; melhor alcance: caso Vitória no C1 (563 visualizações, 402 pessoas, 8 engajamentos, 0 comentários). Posts de vídeo no C1 e C2 zerados até a coleta (verificar aprovação de admin).
+- Proteção: nenhuma remoção/advertência conhecida até 31/10.
 
 **Resultado observado** (preencher ao final, só com dados medidos):
 - Métrica principal: a preencher em D13–14
