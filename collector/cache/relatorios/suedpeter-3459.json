@@ -1,0 +1,40 @@
+{
+ "id": "suedpeter-3459",
+ "gerado_em": "2026-10-31T20:02:36",
+ "modelo": "claude-opus-5",
+ "documentos_lidos": 1,
+ "documentos": [
+  {
+   "url": "https://static.suporteleiloes.com.br/suedpeterleiloescombr/bens/2795/arquivos/sl-bem-2795-6ae09fed9420e-6ae09fed94b79.pdf",
+   "paginas": 4,
+   "modo": "texto"
+  }
+ ],
+ "uso": {
+  "entrada": 57240,
+  "saida": 2636,
+  "buscas": 2,
+  "campos": {
+   "entrada": 14616,
+   "saida": 293
+  }
+ },
+ "custo_usd": 0.3737,
+ "fontes": [],
+ "campos": {
+  "tipo": "apartamento",
+  "area_privativa_m2": 165.0,
+  "area_total_m2": 165.0,
+  "quartos": 3,
+  "comissao_leiloeiro_pct": 5.0,
+  "valor_avaliacao": 290000.0,
+  "endereco": "Rua Professor Baltazar, Edifício Vega, apartamento 1002",
+  "bairro": "Centro",
+  "cidade": "Vitória",
+  "matricula": "5711",
+  "comitente": "5ª Vara Cível de Vitória/ES",
+  "uf": "ES",
+  "aceita_parcelamento": true,
+  "data_leilao": "2026-11-24"
+ }
+}
